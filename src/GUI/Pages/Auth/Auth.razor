@@ -1,0 +1,50 @@
+﻿@using System.Net.Http
+@using System.Text;
+@using Microsoft.AspNetCore.Components.Authorization;
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
+@using System.Threading.Tasks;
+@using Newtonsoft.Json;
+
+@page "/login"
+
+<div class="auth-container">
+    <div class="auth-content">
+        <input @bind-value="authData.LoginData" type="text" class="form-control" placeholder="Login or Email or Number" />
+        <input @bind-value="authData.Password" type="password" class="form-control" placeholder="Password" />
+        <a>Forgot your password?</a>
+        <button class="btn btn-primary" @onclick="@Post">Login</button>
+    </div>
+</div>
+
+@code {
+    private AuthData authData = new AuthData();
+
+    private async Task Post()
+    {
+        HttpClient client = new HttpClient();
+
+        try
+        {
+            var request = await client.PostAsync(
+                "https://auth.ltdo.xyz/auth/login",
+                new StringContent(JsonConvert.SerializeObject(authData), Encoding.UTF8, "application/json"));
+
+            string result = request.Content.ReadAsStringAsync().Result;
+            /*ClaimsIdentity identity = await IsAuthenticated(token)
+                ? new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "mrfibuli"), "Fake authentication type") // true, auth
+                : new ClaimsIdentity(); // false, no auth
+            return new AuthenticationState(new ClaimsPrincipal(identity));*/
+        }
+        catch (Exception ex)
+        {
+        }
+        //return await Task.FromResult(new AuthenticationState(new ClaimsPrincipal()));
+    }
+
+    public class AuthData
+    {
+        public string LoginData { get; set; }
+        public string Password { get; set; }
+    }
+}
