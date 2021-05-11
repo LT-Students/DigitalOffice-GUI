@@ -1,36 +1,10 @@
 ﻿.header {
     width: 100%;
-    height: 75px;
+    height: 11vh;
 
     background-color: #7AC7FF;
     display: flex;
     align-items: center;
-}
-
-.header input {
-    width: 23%;
-    height: 50%;
-
-    background: #FFFFFF;
-    border: 1px solid #FFFFFF;
-    box-sizing: border-box;
-    border-radius: 5px;
-
-    margin-left: 9%;
-}
-
-.header img {
-    width: 60px;
-    height: 58px;
-
-    border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -o-border-radius: 50%;
-
-    background-color: #FFFFFF;
-
-    margin-left: 24%;
 }
 
 .header p {
