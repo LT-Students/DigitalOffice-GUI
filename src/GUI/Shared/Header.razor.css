@@ -7,6 +7,27 @@
     align-items: center;
 }
 
+.header input {
+    width: 23%;
+    height: 50%;
+
+    margin-left: 9%;
+}
+
+.header img {
+    width: 60px;
+    height: 58px;
+
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    background-color: #FFFFFF;
+
+    margin-left: 24%;
+}
+
 .header p {
     margin-top: revert;
     margin-left: 2%;
