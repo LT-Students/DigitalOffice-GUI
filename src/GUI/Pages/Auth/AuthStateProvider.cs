@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using LT.DigitalOffice.AuthService;
+using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -6,10 +7,25 @@ namespace GUI.Pages.Auth
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {
-        public async override Task<AuthenticationState> GetAuthenticationStateAsync()
+        private ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var anonymous = new ClaimsIdentity();
-            return await Task.FromResult(new AuthenticationState(new ClaimsPrincipal(anonymous)));
+            await Task.FromResult(0);
+
+            return new AuthenticationState(claimsPrincipal);
+        }
+
+        public void LoginNotify(AuthenticationResponse response)
+        {
+            var identity = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, response.UserId.ToString()),
+                },
+                "Real Authentication");
+
+            claimsPrincipal = new ClaimsPrincipal(identity);
+
+            NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
     }
 }
