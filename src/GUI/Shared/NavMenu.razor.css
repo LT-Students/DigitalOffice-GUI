@@ -1,5 +1,4 @@
 .nav-menu {
-    width: 21%;
     height: 90vh;
 
     background-color: #F4F4F4;
@@ -20,5 +19,9 @@ a {
 }
 
 li:hover {
+    background-color: #7AC7FF;
+}
+
+li:active {
     background-color: #7AC7FF;
 }

@@ -1,151 +1,92 @@
 ﻿@page "/projects"
+@using LT.DigitalOffice.ProjectService.API
 
+<div class="projects">
 
-    <div data-mdb-perfect-scrollbar='true'>
-        <ul>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-            <li>fdbdbdb</li>
-        </ul>
+	<div class="projects-tools">
+
+		<button type="button" class="btn btn-primary">create</button>
+		<input type="text" class="form-control" placeholder="search projects" @onchange="SearchProjects"/>
+		<p>filters:</p>
+		<button type="button" id="plus"></button>
+
+	</div>
+
+	<div class="overflow-auto">
+
+		@if (_projectsInfo is not null)
+		{
+			@foreach (var project in _projectsInfo)
+			{
+				<div class="project">
+
+					<div style="padding: 2%">
+						<h1>@project.Name</h1>
+						<p>@project.ShortDescription</p>
+
+						<div class="project-addition-info">
+
+							<p>@project.Department:</p>
+							<p style="position:absolute; right:0">Creation:20-04-2021</p>
+
+						</div>
+
+					</div>
+
+				</div>
+			}
+		}
+
+	</div>
+
+	@if (_projectsInfo is not null && _projectsInfo.Count > 4 && _projectsInfo.Count != _totalCount)
+	{
+		<button type="button" class="btn btn-primary" id="showMore" @onchange="ChangeProjectsCount">show more</button>
+	}
+
 </div>
+
+@code {
+	private const int TakeCount = 5;
+
+	private string _searchValue;
+	private int _totalCount;
+	private int _skipCount;
+	private ICollection<ProjectInfo> _projectsInfo { get; set; }
+
+	private async Task ChangeProjectsCount()
+	{
+		_skipCount += TakeCount;
+
+		await GetProjects();
+	}
+
+	private async Task SearchProjects(ChangeEventArgs args)
+	{
+		_searchValue = args.Value.ToString();
+
+		await GetProjects();
+	}
+
+	private async Task GetProjects()
+	{
+		HttpClient httpClient = new();
+		ProjectService projectService = new(httpClient);
+
+		var response = await projectService.FindProjectsAsync("", _searchValue, null, null, _skipCount, TakeCount);
+
+		if (_projectsInfo is not null)
+		{
+			foreach (var project in response.Body)
+			{
+				_projectsInfo.Add(project);
+			}
+		}
+		else
+		{
+			_projectsInfo = response.Body;
+		}
+
+		_totalCount = response.TotalCount;
+	}
+}

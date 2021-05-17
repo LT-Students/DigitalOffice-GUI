@@ -1,0 +1,75 @@
+.projects {
+    margin: 3% 4% 0% 4%;
+}
+
+.projects-tools {
+    display: flex;
+    margin-bottom: 30px;
+
+    align-items: baseline;
+
+    box-sizing: border-box
+}
+
+button.btn.btn-primary {
+    width: 10%;
+
+    margin-right: 10%;
+    margin-right: 5%;
+
+    background-color: #7ac7ff;
+    border: none;
+}
+
+button[id="plus"] {
+    background-image: url(/icons/plus.png);
+    width: 20px;
+    background-size: 20px;
+    background-origin: border-box;
+    height: 20px;
+    border-radius: 100px;
+    margin-left: 5px;
+}
+
+.projects input {
+    width: 32%;
+    height: 50%;
+    margin-right: 3%;
+    border: 2px solid #7AC7FF
+}
+
+.project {
+    background-color: #FAFBFC;
+    border-radius: 5px;
+
+    margin-bottom: 2%;
+}
+
+.overflow-auto {
+    height: 70vh;
+    width: 100%;
+}
+
+.project-addition-info {
+    position: relative;
+    display: flex;
+}
+
+.project h1 {
+    font-size: 1.3rem;
+}
+
+.project-addition-info p {
+    margin-bottom: 0;
+}
+
+.overflow-auto::-webkit-scrollbar  
+{
+	width: 5px;
+	background-color: #76c5ff;
+}
+
+button[id="showMore"] {
+    position: absolute;
+    left: 55%;
+}
