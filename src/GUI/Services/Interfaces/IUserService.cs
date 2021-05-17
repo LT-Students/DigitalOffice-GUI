@@ -5,7 +5,7 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public interface IUserService
     {
-        Task<bool> LoginAsync(AuthenticationRequest request);
+        Task<string> Login(AuthenticationRequest request);
 
         bool Logout();
     }
