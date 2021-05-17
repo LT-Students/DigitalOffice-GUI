@@ -1,0 +1,24 @@
+.nav-menu {
+    width: 21%;
+    height: 90vh;
+
+    background-color: #F4F4F4;
+    box-sizing: border-box;
+    border-top-style: none;
+}
+
+li {
+    padding: 12px;
+
+    margin: 5px;
+
+    font-size: 18px;
+}
+
+a {
+    color: #383838;
+}
+
+li:hover {
+    background-color: #7AC7FF;
+}
