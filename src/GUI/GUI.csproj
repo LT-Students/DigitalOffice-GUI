@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <OpenApiReference Include="..\..\..\Specifications\AuthService.json" CodeGenerator="NSwagCSharp" Namespace="LT.DigitalOffice.AuthService.API" ClassName="AuthService" Link="OpenAPIs\AuthService.json" />
     <OpenApiReference Include="..\..\..\Specifications\ProjectService.json" Namespace="LT.DigitalOffice.ProjectService.API" ClassName="ProjectService">
       <CodeGenerator>NSwagCSharp</CodeGenerator>
       <Link>OpenAPIs\ProjectService.json</Link>

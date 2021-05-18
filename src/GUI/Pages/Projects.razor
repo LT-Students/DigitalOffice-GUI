@@ -1,5 +1,6 @@
 ﻿@page "/projects"
 @using LT.DigitalOffice.ProjectService.API
+@using LT.DigitalOffice.AuthService.API
 
 <div class="projects">
 
@@ -8,7 +9,51 @@
 		<button type="button" class="btn btn-primary">create</button>
 		<input type="text" class="form-control" placeholder="search projects" @onchange="SearchProjects"/>
 		<p>filters:</p>
-		<button type="button" id="plus"></button>
+
+		<div class="dropdown">
+			
+			<button 
+				type="button" 
+				id="plus" 
+				data-toggle="dropdown" 
+				aria-haspopup="true" 
+				aria-expanded="false"
+				@onclick="ShowDropdownMenu"
+				>
+			</button>
+				
+			<div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
+				<a @ref=_projectNameRef class="@GetStyleDropdownItem(_projectNameRef)" href="javascript: void(0);" @onclick="() => SetFilter(_projectNameRef)">project name</a>
+				<a @ref=_creationRef class="@GetStyleDropdownItem(_creationRef)" href="javascript: void(0);" @onclick="() => SetFilter(_creationRef)">creation</a>
+				<a @ref=_departmentRef class="@GetStyleDropdownItem(_departmentRef)" href="javascript: void(0);" @onclick="() => SetFilter(_departmentRef)">department</a>
+			</div>
+
+		</div>
+
+		
+		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_projectNameRef.Id])
+		{
+			<div style="margin-left: 2%;">
+				@_filterNames.ElementAt(0)
+				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_projectNameRef.Id] = true"></button>
+			</div>
+		}
+		
+		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_creationRef.Id])
+		{
+			<div style="margin-left: 2%;">
+				@_filterNames.ElementAt(1)
+				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_creationRef.Id] = true"></button>
+			</div>
+		}
+
+		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_departmentRef.Id])
+		{
+			<div style="margin-left: 2%;">
+				@_filterNames.ElementAt(0)
+				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_departmentRef.Id] = true"></button>
+			</div>
+		}
 
 	</div>
 
@@ -21,12 +66,13 @@
 				<div class="project">
 
 					<div style="padding: 2%">
+
 						<h1>@project.Name</h1>
-						<p>@project.ShortDescription</p>
+						<p>@project.Description</p>
 
 						<div class="project-addition-info">
 
-							<p>@project.Department:</p>
+							<p>@project.DepartmentId:</p>
 							<p style="position:absolute; right:0">Creation:20-04-2021</p>
 
 						</div>
@@ -49,10 +95,85 @@
 @code {
 	private const int TakeCount = 5;
 
+	private ElementReference _projectNameRef;
+	private ElementReference _creationRef;
+	private ElementReference _departmentRef;
 	private string _searchValue;
+	private bool _removeProjectFilter;
+	private bool _removeCreationFilter;
+	private bool _isShowDropdownMenu;
+	private IEnumerable<string> _filterNames;
+	private Dictionary<string, bool> _showStateOfMenuItems;
+
 	private int _totalCount;
 	private int _skipCount;
-	private ICollection<ProjectInfo> _projectsInfo { get; set; }
+	private ICollection<Project> _projectsInfo { get; set; }
+	
+	protected override void OnInitialized()
+	{
+		_filterNames = new List<string>();
+		_isShowDropdownMenu = true;
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			_showStateOfMenuItems = new Dictionary<string, bool>
+			{
+				{_projectNameRef.Id, true},
+				{_creationRef.Id, true},
+				{_departmentRef.Id, true}
+			};
+		}
+    }  
+
+	protected override void OnParametersSet()
+	{
+        _isShowDropdownMenu = false;
+    }
+
+	private string GetStyleDropdownItem(ElementReference elementRef)
+	{
+		if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[elementRef.Id])
+		{
+			return "dropdown-menu-item-hide";
+		}
+
+		return "dropdown-item";
+	}
+
+	private void SetFilter(ElementReference elementRef)
+	{
+		string nameFilter;
+
+		if (elementRef.Id == _projectNameRef.Id)
+		{
+			nameFilter = "project";
+		}
+		else if(elementRef.Id == _creationRef.Id)
+		{
+			nameFilter = "creation";
+		}
+		else
+		{
+			nameFilter = "department";
+		}
+
+		_showStateOfMenuItems[elementRef.Id] = false;
+
+		_filterNames = _filterNames.Append(nameFilter);
+
+		_isShowDropdownMenu = false;
+	}
+
+	private void ShowDropdownMenu()
+	{
+		if (_showStateOfMenuItems.Any())
+		{
+			_isShowDropdownMenu = true;
+		}
+	}
 
 	private async Task ChangeProjectsCount()
 	{
@@ -73,20 +194,25 @@
 		HttpClient httpClient = new();
 		ProjectService projectService = new(httpClient);
 
-		var response = await projectService.FindProjectsAsync("", _searchValue, null, null, _skipCount, TakeCount);
+		//var request = new AuthenticationRequest
+		//{
+		//	LoginData = "admin",
+		//	Password = ""
+		//};
 
-		if (_projectsInfo is not null)
+		//var authService = new AuthService(httpClient);
+       // var authResponse = await authService.LoginAsync(request);
+
+		ICollection<Project> responseProjects = null;
+		try
 		{
-			foreach (var project in response.Body)
-			{
-				_projectsInfo.Add(project);
-			}
+			responseProjects = await projectService.GetProjectsAsync("");
 		}
-		else
+		catch
 		{
-			_projectsInfo = response.Body;
+
 		}
 
-		_totalCount = response.TotalCount;
+		_projectsInfo = responseProjects;
 	}
 }
