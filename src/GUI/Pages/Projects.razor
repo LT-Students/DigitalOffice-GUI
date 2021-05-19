@@ -23,34 +23,34 @@
 			</button>
 
 			<div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
-				<a @ref=_projectNameRef class="@GetStyleDropdownItem(_projectNameRef)" href="javascript: void(0);" @onclick="() => SetFilter(_projectNameRef)">project name</a>
 				<a @ref=_creationRef class="@GetStyleDropdownItem(_creationRef)" href="javascript: void(0);" @onclick="() => SetFilter(_creationRef)">creation</a>
 				<a @ref=_departmentRef class="@GetStyleDropdownItem(_departmentRef)" href="javascript: void(0);" @onclick="() => SetFilter(_departmentRef)">department</a>
+				<a @ref=_projectNameRef class="@GetStyleDropdownItem(_projectNameRef)" href="javascript: void(0);" @onclick="() => SetFilter(_projectNameRef)">project name</a>
 			</div>
 
 		</div>
 
 
-		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_projectNameRef.Id])
+		@if (stateCheck(_projectNameRef, _showStateOfMenuItems))
 		{
 			<div style="margin-left: 2%;">
-				@_filterNames.ElementAt(0)
+				project
 				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_projectNameRef.Id] = true"></button>
 			</div>
 		}
 
-		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_creationRef.Id])
+		@if (stateCheck(_creationRef, _showStateOfMenuItems))
 		{
 			<div style="margin-left: 2%;">
-				@_filterNames.ElementAt(1)
+				creation
 				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_creationRef.Id] = true"></button>
 			</div>
 		}
 
-		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_departmentRef.Id])
+		@if (stateCheck(_departmentRef, _showStateOfMenuItems))
 		{
 			<div style="margin-left: 2%;">
-				@_filterNames.ElementAt(0)
+				department
 				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_departmentRef.Id] = true"></button>
 			</div>
 		}
@@ -73,7 +73,7 @@
 						<div class="project-addition-info">
 
 							<p>@project.DepartmentId:</p>
-							<p style="position:absolute; right:0">Creation:20-04-2021</p>
+							<p style="position:absolute; right:0">Creation: @project.CreatedAt</p>
 
 						</div>
 
@@ -95,15 +95,15 @@
 @code {
 	private const int TakeCount = 5;
 
-	private ElementReference _projectNameRef;
-	private ElementReference _creationRef;
-	private ElementReference _departmentRef;
 	private string _searchValue;
 	private bool _removeProjectFilter;
 	private bool _removeCreationFilter;
 	private bool _isShowDropdownMenu;
-	private IEnumerable<string> _filterNames;
+	private ElementReference _projectNameRef;
+	private ElementReference _creationRef;
+	private ElementReference _departmentRef;
 	private Dictionary<string, bool> _showStateOfMenuItems;
+	private Func<ElementReference, Dictionary<string, bool>, bool> stateCheck = (elementRef, states) => states is not null && !states[elementRef.Id];
 
 	private int _totalCount;
 	private int _skipCount;
@@ -111,7 +111,6 @@
 
 	protected override void OnInitialized()
 	{
-		_filterNames = new List<string>();
 		_isShowDropdownMenu = true;
 	}
 
@@ -145,24 +144,7 @@
 
 	private void SetFilter(ElementReference elementRef)
 	{
-		string nameFilter;
-
-		if (elementRef.Id == _projectNameRef.Id)
-		{
-			nameFilter = "project";
-		}
-		else if(elementRef.Id == _creationRef.Id)
-		{
-			nameFilter = "creation";
-		}
-		else
-		{
-			nameFilter = "department";
-		}
-
 		_showStateOfMenuItems[elementRef.Id] = false;
-
-		_filterNames = _filterNames.Append(nameFilter);
 
 		_isShowDropdownMenu = false;
 	}
@@ -201,16 +183,17 @@
 		//};
 
 		//var authService = new AuthService(httpClient);
-       // var authResponse = await authService.LoginAsync(request);
+        //var authResponse = await authService.LoginAsync(request);
 
 		ICollection<Project> responseProjects = null;
 		try
 		{
 			responseProjects = await projectService.GetProjectsAsync("");
 		}
-		catch
+		catch (Exception ex)
 		{
-
+			// TODO add modal window
+			throw;
 		}
 
 		_projectsInfo = responseProjects;
