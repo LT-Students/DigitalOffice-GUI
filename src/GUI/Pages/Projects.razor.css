@@ -85,7 +85,7 @@ button[id="plus"] {
     margin-bottom: 0;
 }
 
-.overflow-auto::-webkit-scrollbar  
+.overflow-auto::-webkit-scrollbar
 {
 	width: 5px;
 	background-color: #76c5ff;

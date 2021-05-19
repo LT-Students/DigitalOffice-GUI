@@ -11,17 +11,17 @@
 		<p>filters:</p>
 
 		<div class="dropdown">
-			
-			<button 
-				type="button" 
-				id="plus" 
-				data-toggle="dropdown" 
-				aria-haspopup="true" 
+
+			<button
+				type="button"
+				id="plus"
+				data-toggle="dropdown"
+				aria-haspopup="true"
 				aria-expanded="false"
 				@onclick="ShowDropdownMenu"
 				>
 			</button>
-				
+
 			<div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
 				<a @ref=_projectNameRef class="@GetStyleDropdownItem(_projectNameRef)" href="javascript: void(0);" @onclick="() => SetFilter(_projectNameRef)">project name</a>
 				<a @ref=_creationRef class="@GetStyleDropdownItem(_creationRef)" href="javascript: void(0);" @onclick="() => SetFilter(_creationRef)">creation</a>
@@ -30,7 +30,7 @@
 
 		</div>
 
-		
+
 		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_projectNameRef.Id])
 		{
 			<div style="margin-left: 2%;">
@@ -38,7 +38,7 @@
 				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_projectNameRef.Id] = true"></button>
 			</div>
 		}
-		
+
 		@if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[_creationRef.Id])
 		{
 			<div style="margin-left: 2%;">
@@ -108,7 +108,7 @@
 	private int _totalCount;
 	private int _skipCount;
 	private ICollection<Project> _projectsInfo { get; set; }
-	
+
 	protected override void OnInitialized()
 	{
 		_filterNames = new List<string>();
@@ -126,7 +126,7 @@
 				{_departmentRef.Id, true}
 			};
 		}
-    }  
+    }
 
 	protected override void OnParametersSet()
 	{
