@@ -9,7 +9,7 @@
         <input @bind-value="authData.LoginData" type="text" class="form-control" placeholder="Login or Email or Number" />
         <input @bind-value="authData.Password" type="password" class="form-control" placeholder="Password" />
         <a>Forgot your password?</a>
-        <a>@message</a>
+        <p class="error_text">@message</p>
         <button class="btn btn-primary" @onclick="@Post">Login</button>
     </div>
 </div>

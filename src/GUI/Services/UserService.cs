@@ -30,9 +30,9 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Authorized";
             }
-            catch(Exception ex)
+            catch(ApiException<ErrorResponse> ex)
             {
-                return ex.Message;
+                return ex.Result.Message;
             }
         }
 
