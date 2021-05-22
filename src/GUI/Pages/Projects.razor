@@ -3,199 +3,198 @@
 @using LT.DigitalOffice.AuthService.API
 
 <div class="projects">
+    <div class="projects-tools">
 
-	<div class="projects-tools">
+        <button type="button" class="btn btn-primary">create</button>
+        <input type="text" class="form-control" placeholder="search projects" @onchange="SearchProjects"/>
+        <p>filters:</p>
 
-		<button type="button" class="btn btn-primary">create</button>
-		<input type="text" class="form-control" placeholder="search projects" @onchange="SearchProjects"/>
-		<p>filters:</p>
+        <div class="dropdown">
 
-		<div class="dropdown">
+            <button
+                type="button"
+                id="plus"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                @onclick="ShowDropdownMenu"
+                >
+            </button>
 
-			<button
-				type="button"
-				id="plus"
-				data-toggle="dropdown"
-				aria-haspopup="true"
-				aria-expanded="false"
-				@onclick="ShowDropdownMenu"
-				>
-			</button>
+            <div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
+                <a @ref=_creationRef class="@GetStyleDropdownItem(_creationRef)" href="javascript: void(0);" @onclick="() => SetFilter(_creationRef)">creation</a>
+                <a @ref=_departmentRef class="@GetStyleDropdownItem(_departmentRef)" href="javascript: void(0);" @onclick="() => SetFilter(_departmentRef)">department</a>
+                <a @ref=_projectNameRef class="@GetStyleDropdownItem(_projectNameRef)" href="javascript: void(0);" @onclick="() => SetFilter(_projectNameRef)">project name</a>
+            </div>
 
-			<div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
-				<a @ref=_creationRef class="@GetStyleDropdownItem(_creationRef)" href="javascript: void(0);" @onclick="() => SetFilter(_creationRef)">creation</a>
-				<a @ref=_departmentRef class="@GetStyleDropdownItem(_departmentRef)" href="javascript: void(0);" @onclick="() => SetFilter(_departmentRef)">department</a>
-				<a @ref=_projectNameRef class="@GetStyleDropdownItem(_projectNameRef)" href="javascript: void(0);" @onclick="() => SetFilter(_projectNameRef)">project name</a>
-			</div>
-
-		</div>
+        </div>
 
 
-		@if (stateCheck(_projectNameRef, _showStateOfMenuItems))
-		{
-			<div style="margin-left: 2%;">
-				project
-				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_projectNameRef.Id] = true"></button>
-			</div>
-		}
+        @if (stateCheck(_projectNameRef, _showStateOfMenuItems))
+        {
+            <div style="margin-left: 2%;">
+                project
+                <button class="remove-button" @onclick="() => _showStateOfMenuItems[_projectNameRef.Id] = true"></button>
+            </div>
+        }
 
-		@if (stateCheck(_creationRef, _showStateOfMenuItems))
-		{
-			<div style="margin-left: 2%;">
-				creation
-				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_creationRef.Id] = true"></button>
-			</div>
-		}
+        @if (stateCheck(_creationRef, _showStateOfMenuItems))
+        {
+            <div style="margin-left: 2%;">
+                creation
+                <button class="remove-button" @onclick="() => _showStateOfMenuItems[_creationRef.Id] = true"></button>
+            </div>
+        }
 
-		@if (stateCheck(_departmentRef, _showStateOfMenuItems))
-		{
-			<div style="margin-left: 2%;">
-				department
-				<button class="remove-button" @onclick="() => _showStateOfMenuItems[_departmentRef.Id] = true"></button>
-			</div>
-		}
+        @if (stateCheck(_departmentRef, _showStateOfMenuItems))
+        {
+            <div style="margin-left: 2%;">
+                department
+                <button class="remove-button" @onclick="() => _showStateOfMenuItems[_departmentRef.Id] = true"></button>
+            </div>
+        }
 
-	</div>
+    </div>
 
-	<div class="overflow-auto">
+    <div class="overflow-auto">
 
-		@if (_projectsInfo is not null)
-		{
-			@foreach (var project in _projectsInfo)
-			{
-				<div class="project">
+        @if (_projectsInfo is not null)
+        {
+            @foreach (var project in _projectsInfo)
+            {
+                <div class="project">
 
-					<div style="padding: 2%">
+                    <div style="padding: 2%">
 
-						<h1>@project.Name</h1>
-						<p>@project.Description</p>
+                        <h1>@project.Name</h1>
+                        <p>@project.Description</p>
 
-						<div class="project-addition-info">
+                        <div class="project-addition-info">
 
-							<p>@project.DepartmentId:</p>
-							<p style="position:absolute; right:0">Creation: @project.CreatedAt</p>
+                            <p>@project.DepartmentId:</p>
+                            <p style="position:absolute; right:0">Creation: @project.CreatedAt</p>
 
-						</div>
+                        </div>
 
-					</div>
+                    </div>
 
-				</div>
-			}
-		}
+                </div>
+            }
+        }
 
-	</div>
+    </div>
 
-	@if (_projectsInfo is not null && _projectsInfo.Count > 4 && _projectsInfo.Count != _totalCount)
-	{
-		<button type="button" class="btn btn-primary" id="showMore" @onchange="ChangeProjectsCount">show more</button>
-	}
+    @if (_projectsInfo is not null && _projectsInfo.Count > 4 && _projectsInfo.Count != _totalCount)
+    {
+        <button type="button" class="btn btn-primary" id="showMore" @onchange="ChangeProjectsCount">show more</button>
+    }
 
 </div>
 
 @code {
-	private const int TakeCount = 5;
+    private const int TakeCount = 5;
 
-	private string _searchValue;
-	private bool _removeProjectFilter;
-	private bool _removeCreationFilter;
-	private bool _isShowDropdownMenu;
-	private ElementReference _projectNameRef;
-	private ElementReference _creationRef;
-	private ElementReference _departmentRef;
-	private Dictionary<string, bool> _showStateOfMenuItems;
-	private Func<ElementReference, Dictionary<string, bool>, bool> stateCheck = (elementRef, states) => states is not null && !states[elementRef.Id];
+    private string _searchValue;
+    private bool _removeProjectFilter;
+    private bool _removeCreationFilter;
+    private bool _isShowDropdownMenu;
+    private ElementReference _projectNameRef;
+    private ElementReference _creationRef;
+    private ElementReference _departmentRef;
+    private Dictionary<string, bool> _showStateOfMenuItems;
+    private Func<ElementReference, Dictionary<string, bool>, bool> stateCheck = (elementRef, states) => states is not null && !states[elementRef.Id];
 
-	private int _totalCount;
-	private int _skipCount;
-	private ICollection<Project> _projectsInfo { get; set; }
+    private int _totalCount;
+    private int _skipCount;
+    private ICollection<Project> _projectsInfo { get; set; }
 
-	protected override void OnInitialized()
-	{
-		_isShowDropdownMenu = true;
-	}
-
-	protected override void OnAfterRender(bool firstRender)
-	{
-		if (firstRender)
-		{
-			_showStateOfMenuItems = new Dictionary<string, bool>
-			{
-				{_projectNameRef.Id, true},
-				{_creationRef.Id, true},
-				{_departmentRef.Id, true}
-			};
-		}
+    protected override void OnInitialized()
+    {
+        _isShowDropdownMenu = true;
     }
 
-	protected override void OnParametersSet()
-	{
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _showStateOfMenuItems = new Dictionary<string, bool>
+            {
+                {_projectNameRef.Id, true},
+                {_creationRef.Id, true},
+                {_departmentRef.Id, true}
+            };
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
         _isShowDropdownMenu = false;
     }
 
-	private string GetStyleDropdownItem(ElementReference elementRef)
-	{
-		if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[elementRef.Id])
-		{
-			return "dropdown-menu-item-hide";
-		}
+    private string GetStyleDropdownItem(ElementReference elementRef)
+    {
+        if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[elementRef.Id])
+        {
+            return "dropdown-menu-item-hide";
+        }
 
-		return "dropdown-item";
-	}
+        return "dropdown-item";
+    }
 
-	private void SetFilter(ElementReference elementRef)
-	{
-		_showStateOfMenuItems[elementRef.Id] = false;
+    private void SetFilter(ElementReference elementRef)
+    {
+        _showStateOfMenuItems[elementRef.Id] = false;
 
-		_isShowDropdownMenu = false;
-	}
+        _isShowDropdownMenu = false;
+    }
 
-	private void ShowDropdownMenu()
-	{
-		if (_showStateOfMenuItems.Any())
-		{
-			_isShowDropdownMenu = true;
-		}
-	}
+    private void ShowDropdownMenu()
+    {
+        if (_showStateOfMenuItems.Any())
+        {
+            _isShowDropdownMenu = true;
+        }
+    }
 
-	private async Task ChangeProjectsCount()
-	{
-		_skipCount += TakeCount;
+    private async Task ChangeProjectsCount()
+    {
+        _skipCount += TakeCount;
 
-		await GetProjects();
-	}
+        await GetProjects();
+    }
 
-	private async Task SearchProjects(ChangeEventArgs args)
-	{
-		_searchValue = args.Value.ToString();
+    private async Task SearchProjects(ChangeEventArgs args)
+    {
+        _searchValue = args.Value.ToString();
 
-		await GetProjects();
-	}
+        await GetProjects();
+    }
 
-	private async Task GetProjects()
-	{
-		HttpClient httpClient = new();
-		ProjectService projectService = new(httpClient);
+    private async Task GetProjects()
+    {
+        HttpClient httpClient = new();
+        ProjectService projectService = new(httpClient);
 
-		//var request = new AuthenticationRequest
-		//{
-		//	LoginData = "admin",
-		//	Password = ""
-		//};
+        //var request = new AuthenticationRequest
+        //{
+        //	LoginData = "admin",
+        //	Password = ""
+        //};
 
-		//var authService = new AuthService(httpClient);
+        //var authService = new AuthService(httpClient);
         //var authResponse = await authService.LoginAsync(request);
 
-		ICollection<Project> responseProjects = null;
-		try
-		{
-			responseProjects = await projectService.GetProjectsAsync("");
-		}
-		catch (Exception ex)
-		{
-			// TODO add modal window
-			throw;
-		}
+        ICollection<Project> responseProjects = null;
+        try
+        {
+            responseProjects = await projectService.GetProjectsAsync("");
+        }
+        catch (Exception ex)
+        {
+            // TODO add modal window
+            throw;
+        }
 
-		_projectsInfo = responseProjects;
-	}
+        _projectsInfo = responseProjects;
+    }
 }
