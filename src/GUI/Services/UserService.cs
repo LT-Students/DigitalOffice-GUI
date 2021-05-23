@@ -1,9 +1,9 @@
-﻿using GUI.Pages.Auth;
+﻿using Blazored.SessionStorage;
+using GUI.Pages.Auth;
 using LT.DigitalOffice.AuthService;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Threading.Tasks;
-using Blazored.SessionStorage;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -22,7 +22,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var authService = new AuthService.AuthService(new System.Net.Http.HttpClient());
+                var authService = new AuthServiceClient(new System.Net.Http.HttpClient());
                 var response = await authService.LoginAsync(request);
 
                 _provider.LoginNotify(response);
@@ -30,9 +30,17 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Authorized";
             }
-            catch(ApiException<ErrorResponse> ex)
+            catch (ApiException<ErrorResponse> ex)
             {
                 return ex.Result.Message;
+            }
+            catch (ApiException exc)
+            {
+                return string.Empty;
+            }
+            catch (Exception exc)
+            {
+                return string.Empty;
             }
         }
 
