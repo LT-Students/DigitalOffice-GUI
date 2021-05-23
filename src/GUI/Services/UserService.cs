@@ -34,14 +34,6 @@ namespace LT.DigitalOffice.GUI.Services
             {
                 return ex.Result.Message;
             }
-            catch (ApiException exc)
-            {
-                return string.Empty;
-            }
-            catch (Exception exc)
-            {
-                return string.Empty;
-            }
         }
 
         public bool Logout()
