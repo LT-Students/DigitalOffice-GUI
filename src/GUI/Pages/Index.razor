@@ -2,7 +2,12 @@
 
 <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
     <Authorized>
-        <LT.DigitalOffice.GUI.Shared.MainLayout></LT.DigitalOffice.GUI.Shared.MainLayout>
+        <div>
+            <Header />
+        </div>
+        <div class="sidebar">
+            <NavMenu />
+        </div>
     </Authorized>
     <NotAuthorized>
         <LT.DigitalOffice.GUI.Pages.Auth.Auth></LT.DigitalOffice.GUI.Pages.Auth.Auth>
