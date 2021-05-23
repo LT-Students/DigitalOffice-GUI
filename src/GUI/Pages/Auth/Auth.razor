@@ -6,8 +6,18 @@
 
 <div class="auth-container">
     <div class="auth-content">
-        <input @bind-value="authData.LoginData" type="text" class="form-control" placeholder="Login or Email or Number" />
-        <input @bind-value="authData.Password" type="password" class="form-control" placeholder="Password" />
+        <input
+               @bind-value="authData.LoginData"
+               type="text"
+               class="form-control"
+               placeholder="Login or Email or Number"
+               @onkeydown="KeyboardEventHandler"/>
+        <input
+               @bind-value="authData.Password"
+               type="password"
+               class="form-control"
+               placeholder="Password"
+               @onkeydown="KeyboardEventHandler"/>
         <a>Forgot your password?</a>
         <p class="error_text">@message</p>
         <button class="btn btn-primary" @onclick="@Post">Login</button>
@@ -17,6 +27,14 @@
 @code {
     private AuthenticationRequest authData = new();
     public string message;
+
+    private void KeyboardEventHandler(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" && authData.LoginData.Length > 0 && authData.Password.Length > 0)
+        {
+            Post();
+        }
+    }
 
     private async Task Post()
     {
