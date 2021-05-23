@@ -1,33 +1,38 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <AssemblyName>LT.DIgitalOffice.GUI</AssemblyName>
     <RootNamespace>LT.DigitalOffice.GUI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="..\..\..\Specifications\AuthService.json" CodeGenerator="NSwagCSharp" Namespace="LT.DigitalOffice.AuthService.API" ClassName="AuthService" Link="OpenAPIs\AuthService.json" />
-    <OpenApiReference Include="..\..\..\Specifications\ProjectService.json" Namespace="LT.DigitalOffice.ProjectService.API" ClassName="ProjectService">
-      <CodeGenerator>NSwagCSharp</CodeGenerator>
-      <Link>OpenAPIs\ProjectService.json</Link>
-    </OpenApiReference>
+    <Content Remove="Specifications\Auth.json" />
+    <Content Remove="Specifications\Project.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.3.21201.13" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.3.21201.13" PrivateAssets="all" />
+    <OpenApiReference Include="Specifications\Auth.json" CodeGenerator="NSwagCSharp" Namespace="LT.DigitalOffice.Api.AuthService" ClassName="AuthService" />
+    <OpenApiReference Include="Specifications\Project.json" CodeGenerator="NSwagCSharp" Namespace="LT.DigitalOffice.Api.ProjectService" ClassName="ProjectService" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.SessionStorage" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.5" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NSwag.ApiDescription.Client" Version="13.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0-preview.3.21201.4" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

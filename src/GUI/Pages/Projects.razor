@@ -1,6 +1,6 @@
 ﻿@page "/projects"
-@using LT.DigitalOffice.ProjectService.API
-@using LT.DigitalOffice.AuthService.API
+@using LT.DigitalOffice.Api.ProjectService
+@using LT.DigitalOffice.Api.AuthService
 
 <div class="projects">
     <div class="projects-tools">
@@ -175,19 +175,19 @@
         HttpClient httpClient = new();
         ProjectService projectService = new(httpClient);
 
-        //var request = new AuthenticationRequest
-        //{
-        //	LoginData = "admin",
-        //	Password = ""
-        //};
+        var request = new AuthenticationRequest
+        {
+            LoginData = "admin",
+            Password = "%4fgT1_3ioR"
+        };
 
-        //var authService = new AuthService(httpClient);
-        //var authResponse = await authService.LoginAsync(request);
+        var authService = new AuthService(httpClient);
+        var authResponse = await authService.LoginAsync(request);
 
         ICollection<Project> responseProjects = null;
         try
         {
-            responseProjects = await projectService.GetProjectsAsync("");
+            responseProjects = await projectService.GetProjectsAsync(authResponse.Token);
         }
         catch (Exception ex)
         {
