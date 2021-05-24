@@ -2,5 +2,15 @@
 @attribute [Authorize]
 
 <div class="page">
-    @Body
+    <div>
+        <Header />
+    </div>
+
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div>
+        @Body
+    </div>
 </div>

@@ -1,13 +1,11 @@
 ﻿@page "/"
 
+@using Microsoft.AspNetCore.Components.Authorization
+
 <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
     <Authorized>
-        <div>
-            <Header />
-        </div>
-        <div class="sidebar">
-            <NavMenu />
-        </div>
+        <LayoutView Layout="@typeof(MainLayout)">
+        </LayoutView>
     </Authorized>
     <NotAuthorized>
         <LT.DigitalOffice.GUI.Pages.Auth.Auth></LT.DigitalOffice.GUI.Pages.Auth.Auth>
