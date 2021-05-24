@@ -172,18 +172,6 @@
 
     private async Task GetProjects()
     {
-        HttpClient httpClient = new();
-        ProjectService projectService = new(httpClient);
-
-        var request = new AuthenticationRequest
-        {
-            LoginData = "admin",
-            Password = "%4fgT1_3ioR"
-        };
-
-        var authService = new AuthService(httpClient);
-        var authResponse = await authService.LoginAsync(request);
-
         ICollection<Project> responseProjects = null;
         try
         {
