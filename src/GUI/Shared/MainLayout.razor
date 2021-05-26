@@ -2,8 +2,24 @@
 
 @inherits LayoutComponentBase
 
-
-        
-        <div class="body">
-            @Body
+<Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+    <Authorized>
+    <div class="page">
+        <div>
+            <Header />
         </div>
+        <div style="display:flex">
+            <div class="sidebar">
+                <NavMenu />
+            </div>
+
+            <div class="body">
+                @Body
+            </div>
+        </div>
+    </div>
+    </Authorized>
+    <NotAuthorized>
+        <LT.DigitalOffice.GUI.Pages.Auth.Auth></LT.DigitalOffice.GUI.Pages.Auth.Auth>
+    </NotAuthorized>
+</Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
