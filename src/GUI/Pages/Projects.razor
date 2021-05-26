@@ -1,13 +1,11 @@
-@attribute [Authorize]
 ﻿@page "/projects"
-@using LT.DigitalOffice.Api.ProjectService
-@using LT.DigitalOffice.Api.AuthService
+@attribute [Authorize]
 
 <div class="projects">
     <div class="projects-tools">
 
         <button type="button" class="btn btn-primary">create</button>
-        <input type="text" class="form-control" placeholder="search projects" @onchange="SearchProjects"/>
+        <input type="text" class="form-control" placeholder="search projects" @bind-value="_searchValue" @bind-value:event="oninput" @onkeypress="SearchProjectsAsync"/>
         <p>filters:</p>
 
         <div class="dropdown">
@@ -18,40 +16,55 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                @onclick="ShowDropdownMenu"
-                >
+                @onclick="ShowDropdownMenu">
             </button>
 
             <div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
-                <a @ref=_creationRef class="@GetStyleDropdownItem(_creationRef)" href="javascript: void(0);" @onclick="() => SetFilter(_creationRef)">creation</a>
-                <a @ref=_departmentRef class="@GetStyleDropdownItem(_departmentRef)" href="javascript: void(0);" @onclick="() => SetFilter(_departmentRef)">department</a>
-                <a @ref=_projectNameRef class="@GetStyleDropdownItem(_projectNameRef)" href="javascript: void(0);" @onclick="() => SetFilter(_projectNameRef)">project name</a>
+                <a 
+                    @ref=_projectNameRef 
+                    class="@GetStyleFiltersOfDropdown(_projectNameRef)" 
+                    href="javascript: void(0);" 
+                    @onclick="() => SetFilter(_projectNameRef)">
+                    name
+                </a>
+                <a 
+                    @ref=_shortNameRef 
+                    class="@GetStyleFiltersOfDropdown(_shortNameRef)" 
+                    href="javascript: void(0);" @onclick="() => SetFilter(_shortNameRef)">
+                    short name
+                </a>
+                <a 
+                    @ref=_departmentRef 
+                    class="@GetStyleFiltersOfDropdown(_departmentRef)" 
+                    href="javascript: void(0);" 
+                    @onclick="() => SetFilter(_departmentRef)">
+                    department
+                </a>
             </div>
 
         </div>
 
-
-        @if (stateCheck(_projectNameRef, _showStateOfMenuItems))
+        @if (stateCheck(_projectNameRef, _showStateOfFiltersDropdown))
         {
-            <div style="margin-left: 2%;">
-                project
-                <button class="remove-button" @onclick="() => _showStateOfMenuItems[_projectNameRef.Id] = true"></button>
+            <div class=@(GetStyleFilter(_projectNameRef.Id)) @onclick="() => _useFilterId = _projectNameRef.Id">
+                name: @_projectsFilter.Name
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _projectNameRef.Id)"></button>
             </div>
         }
 
-        @if (stateCheck(_creationRef, _showStateOfMenuItems))
+        @if (stateCheck(_shortNameRef, _showStateOfFiltersDropdown))
         {
-            <div style="margin-left: 2%;">
-                creation
-                <button class="remove-button" @onclick="() => _showStateOfMenuItems[_creationRef.Id] = true"></button>
+            <div class=@(GetStyleFilter(_shortNameRef.Id)) @onclick="() => _useFilterId = _shortNameRef.Id">
+                short name: @_projectsFilter.ShortName
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _shortNameRef.Id)"></button>
             </div>
         }
 
-        @if (stateCheck(_departmentRef, _showStateOfMenuItems))
+        @if (stateCheck(_departmentRef, _showStateOfFiltersDropdown))
         {
-            <div style="margin-left: 2%;">
-                department
-                <button class="remove-button" @onclick="() => _showStateOfMenuItems[_departmentRef.Id] = true"></button>
+            <div class=@(GetStyleFilter(_departmentRef.Id)) @onclick="() => _useFilterId = _departmentRef.Id">
+                department: @_projectsFilter.Department
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _departmentRef.Id)"></button>
             </div>
         }
 
@@ -72,8 +85,8 @@
 
                         <div class="project-addition-info">
 
-                            <p>@project.DepartmentId:</p>
-                            <p style="position:absolute; right:0">Creation: @project.CreatedAt</p>
+                            <p>@project.Department.Name:</p>
+                            <p style="position:absolute; right:0">Creation: @(((DateTime)project.CreatedAt).Date)</p>
 
                         </div>
 
@@ -85,105 +98,9 @@
 
     </div>
 
-    @if (_projectsInfo is not null && _projectsInfo.Count > 4 && _projectsInfo.Count != _totalCount)
+    @if (_projectsInfo is not null && _projectsInfo.Count >= TakeCount && _projectsInfo.Count != _totalCount)
     {
-        <button type="button" class="btn btn-primary" id="showMore" @onchange="ChangeProjectsCount">show more</button>
+        <button type="button" class="btn btn-primary" id="showMore" @onclick="ChangeProjectsCountAsync">show more</button>
     }
 
 </div>
-
-@code {
-    private const int TakeCount = 5;
-
-    private string _searchValue;
-    private bool _removeProjectFilter;
-    private bool _removeCreationFilter;
-    private bool _isShowDropdownMenu;
-    private ElementReference _projectNameRef;
-    private ElementReference _creationRef;
-    private ElementReference _departmentRef;
-    private Dictionary<string, bool> _showStateOfMenuItems;
-    private Func<ElementReference, Dictionary<string, bool>, bool> stateCheck = (elementRef, states) => states is not null && !states[elementRef.Id];
-
-    private int _totalCount;
-    private int _skipCount;
-    private ICollection<Project> _projectsInfo { get; set; }
-
-    protected override void OnInitialized()
-    {
-        _isShowDropdownMenu = true;
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _showStateOfMenuItems = new Dictionary<string, bool>
-            {
-                {_projectNameRef.Id, true},
-                {_creationRef.Id, true},
-                {_departmentRef.Id, true}
-            };
-        }
-    }
-
-    protected override void OnParametersSet()
-    {
-        _isShowDropdownMenu = false;
-    }
-
-    private string GetStyleDropdownItem(ElementReference elementRef)
-    {
-        if (_showStateOfMenuItems is not null && !_showStateOfMenuItems[elementRef.Id])
-        {
-            return "dropdown-menu-item-hide";
-        }
-
-        return "dropdown-item";
-    }
-
-    private void SetFilter(ElementReference elementRef)
-    {
-        _showStateOfMenuItems[elementRef.Id] = false;
-
-        _isShowDropdownMenu = false;
-    }
-
-    private void ShowDropdownMenu()
-    {
-        if (_showStateOfMenuItems.Any())
-        {
-            _isShowDropdownMenu = true;
-        }
-    }
-
-    private async Task ChangeProjectsCount()
-    {
-        _skipCount += TakeCount;
-
-        await GetProjects();
-    }
-
-    private async Task SearchProjects(ChangeEventArgs args)
-    {
-        _searchValue = args.Value.ToString();
-
-        await GetProjects();
-    }
-
-    private async Task GetProjects()
-    {
-        ICollection<Project> responseProjects = null;
-        try
-        {
-            responseProjects = await projectService.GetProjectsAsync(authResponse.Token);
-        }
-        catch (Exception ex)
-        {
-            // TODO add modal window
-            throw;
-        }
-
-        _projectsInfo = responseProjects;
-    }
-}

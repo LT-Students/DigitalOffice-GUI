@@ -1,6 +1,6 @@
 ﻿using Blazored.SessionStorage;
 using GUI.Pages.Auth;
-using LT.DigitalOffice.AuthService;
+using LT.DigitalOffice.GUI.Services.Client.AuthService;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Threading.Tasks;
@@ -26,7 +26,8 @@ namespace LT.DigitalOffice.GUI.Services
                 var response = await authService.LoginAsync(request);
 
                 _provider.LoginNotify(response);
-                await _storage.SetItemAsync("Token", response.Token);
+                await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
+                await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
 
                 return "Authorized";
             }

@@ -31,6 +31,10 @@ button[id="plus"] {
     margin-left: 5px;
 }
 
+button[id="plus"]:focus {
+    outline: none;
+}
+
 .dropdown-menu-show {
     display: unset;
 }
@@ -46,11 +50,16 @@ button[id="plus"] {
     background-origin: border-box;
     background-color: white;
     border-radius: 28px;
-    border: 1px solid #1da1f2;
+    border: 1px solid #7ac7ff;
     float: right;
     cursor: pointer;
+    margin-left: 4px;
     width: 11px;
     height: 14px;
+}
+
+.remove-button:focus {
+    outline: none;
 }
 
 .projects input {
@@ -94,4 +103,17 @@ button[id="plus"] {
 button[id="showMore"] {
     position: absolute;
     left: 55%;
+}
+
+.filter {
+    margin-left: 2%; 
+    cursor:pointer;
+}
+
+.set-filter {
+    margin-left: 2%;
+    background-color: #7ac7ff;
+    border-radius: 7px;
+    padding: 3px;
+    color: white;
 }

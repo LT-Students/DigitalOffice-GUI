@@ -1,5 +1,6 @@
 using GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Services;
+using LT.DigitalOffice.GUI.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ namespace LT.DigitalOffice.GUI
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IProjectService, ProjectService>();
             builder.Services.AddBlazoredSessionStorage();
 
             await builder.Build().RunAsync();

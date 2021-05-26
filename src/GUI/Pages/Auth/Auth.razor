@@ -1,12 +1,12 @@
 ﻿@using System.Threading.Tasks;
 @using LT.DigitalOffice.GUI.Services;
-@using LT.DigitalOffice.AuthService;
+@using LT.DigitalOffice.GUI.Services.Client.AuthService;
 
 @inject IUserService userService
 
 <div class="auth-container">
     <div class="auth-content">
-        <h1 class="h1">Diggital Office</h1>
+        <h1 class="h1">Digital Office</h1>
         <input
                @bind-value="authData.LoginData"
                type="text"
