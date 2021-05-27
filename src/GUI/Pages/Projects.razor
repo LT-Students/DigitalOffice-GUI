@@ -20,23 +20,23 @@
             </button>
 
             <div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
-                <a 
-                    @ref=_projectNameRef 
-                    class="@GetStyleFiltersOfDropdown(_projectNameRef)" 
-                    href="javascript: void(0);" 
+                <a
+                    @ref=_projectNameRef
+                    class="@GetStyleFiltersOfDropdown(_projectNameRef)"
+                    href="javascript: void(0);"
                     @onclick="() => SetFilter(_projectNameRef)">
                     name
                 </a>
-                <a 
-                    @ref=_shortNameRef 
-                    class="@GetStyleFiltersOfDropdown(_shortNameRef)" 
+                <a
+                    @ref=_shortNameRef
+                    class="@GetStyleFiltersOfDropdown(_shortNameRef)"
                     href="javascript: void(0);" @onclick="() => SetFilter(_shortNameRef)">
                     short name
                 </a>
-                <a 
-                    @ref=_departmentRef 
-                    class="@GetStyleFiltersOfDropdown(_departmentRef)" 
-                    href="javascript: void(0);" 
+                <a
+                    @ref=_departmentRef
+                    class="@GetStyleFiltersOfDropdown(_departmentRef)"
+                    href="javascript: void(0);"
                     @onclick="() => SetFilter(_departmentRef)">
                     department
                 </a>

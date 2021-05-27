@@ -16,16 +16,13 @@ namespace LT.DigitalOffice.GUI.Pages
 
         private string _searchValue;
         private string _useFilterId;
-        private bool _isSetFilter;
-        private bool _removeProjectFilter;
-        private bool _removeCreationFilter;
         private bool _isShowDropdownMenu;
         private ProjectsFilter _projectsFilter;
         private ElementReference _projectNameRef;
         private ElementReference _shortNameRef;
         private ElementReference _departmentRef;
         private Dictionary<string, bool> _showStateOfFiltersDropdown;
-        private Func<ElementReference, Dictionary<string, bool>, bool> stateCheck = 
+        private Func<ElementReference, Dictionary<string, bool>, bool> stateCheck =
             (elementRef, states) => states is not null && !states[elementRef.Id];
 
         private int _totalCount;
@@ -126,7 +123,7 @@ namespace LT.DigitalOffice.GUI.Pages
             if (string.Equals(elementId, _projectNameRef.Id))
             {
                 _projectsFilter.Name = isRemoveFilter ? null : _searchValue;
-            } 
+            }
             else if (string.Equals(elementId, _departmentRef.Id))
             {
                 _projectsFilter.Department = isRemoveFilter ? null : _searchValue;
@@ -139,27 +136,15 @@ namespace LT.DigitalOffice.GUI.Pages
             _showStateOfFiltersDropdown[elementId] = isRemoveFilter;
         }
 
-        private void RemoveFilter(string elementId)
-        {
-            if (string.Equals(elementId, _projectNameRef.Id))
-            {
-                _projectsFilter.Name = null;
-            }
-            else if (string.Equals(elementId, _departmentRef.Id))
-            {
-                _projectsFilter.Department = null;
-            }
-            else
-            {
-                _projectsFilter.ShortName = null;
-            }
-
-            _showStateOfFiltersDropdown[elementId] = true;
-        }
-
         private async Task GetProjectsAsync()
         {
-            var responseProjects = await _projectService.FindProjects(_skipCount, TakeCount, _projectsFilter.ShortName, _projectsFilter.Name, _projectsFilter.Department);
+            var responseProjects = await _projectService.FindProjects(
+                _skipCount,
+                TakeCount,
+                _projectsFilter.ShortName,
+                _projectsFilter.Name,
+                _projectsFilter.Department);
+
             if (_projectsInfo.Count > 0)
             {
                 foreach (var project in responseProjects.Body)
@@ -167,7 +152,7 @@ namespace LT.DigitalOffice.GUI.Pages
                     _projectsInfo.Add(project);
                 }
             }
-            else 
+            else
             {
                 _projectsInfo = responseProjects.Body;
                 _totalCount = responseProjects.TotalCount;

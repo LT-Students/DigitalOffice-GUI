@@ -20,8 +20,8 @@ namespace LT.DigitalOffice.GUI.Services
         public async Task<FindResponseProjectInfo> FindProjects(
             int skipCount,
             int takeCount,
-            string shortName = null, 
-            string projectName = null, 
+            string shortName = null,
+            string projectName = null,
             string departmentName = null)
         {
             var httpClient = new HttpClient();
