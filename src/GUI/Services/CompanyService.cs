@@ -1,5 +1,5 @@
 ﻿using Blazored.SessionStorage;
-using LT.DigitalOffice.Client.Company;
+using LT.DigitalOffice.GUI.Services.Client.Company;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using System.Threading.Tasks;
 
