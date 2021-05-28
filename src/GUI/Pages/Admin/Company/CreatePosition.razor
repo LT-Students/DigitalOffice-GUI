@@ -1,0 +1,45 @@
+﻿@using System.Threading.Tasks;
+@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Services.Client.Company;
+
+@inject ICompanyService companyService
+
+@page "/admin/createposition"
+@attribute [Authorize]
+
+<div class="create-position_container">
+    <label for="create-department_name">
+        Position name*
+        <input @bind-value="positionData.Name"
+               type="text"
+               id="create-position_name"
+               class="form-control"
+               placeholder="Enter position name"
+               @onkeyup="@((k) => {
+                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                   descriptionInput.FocusAsync();})" />
+    </label>
+    <label for="create-position_description">
+        Position description*
+        <textarea @bind="positionData.Description"
+                  @ref="descriptionInput"
+                  type="text"
+                  id="create-position_description"
+                  class="form-control"
+                  placeholder="Enter position description"
+                  @onkeyup="@(async(k) => { if (k.Code == "Enter") await Post(); })" />
+    </label>
+    <p>@message</p>
+    <button class="btn btn-primary" @onclick="@Post">Create position</button>
+</div>
+
+@code {
+    private CreatePositionRequest positionData = new();
+    public string message;
+    private ElementReference descriptionInput;
+
+    private async Task Post()
+    {
+        message = await companyService.CreatePosition(positionData);
+    }
+}
