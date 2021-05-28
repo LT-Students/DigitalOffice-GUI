@@ -1,5 +1,5 @@
-﻿using LT.DigitalOffice.AuthService;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using LT.DigitalOffice.GUI.Services.Client.AuthService;
 
 namespace LT.DigitalOffice.GUI.Services
 {

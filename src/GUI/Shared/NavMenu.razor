@@ -1,6 +1,6 @@
 ﻿@attribute [Authorize]
 
-<div class="nav-menu">
+<div class="nav-menu" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li>
             <NavLink class="nav-link" href="news">
@@ -26,4 +26,12 @@
 </div>
 
 @code {
+
+    [Parameter]
+    public bool IsPageActive { get; set; }
+
+    private void ToggleNavMenu()
+    {
+        IsPageActive = true;
+    } 
 }

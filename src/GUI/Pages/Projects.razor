@@ -1,4 +1,113 @@
 ﻿@page "/projects"
 @attribute [Authorize]
 
-<div></div>
+<div class="projects">
+    <div class="projects-tools">
+
+        <button type="button" class="btn btn-primary">create</button>
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="search projects" 
+            @bind-value="_searchValue" 
+            @bind-value:event="oninput" 
+            @onkeypress="SearchProjectsAsync"/>
+        <p>filters:</p>
+
+        <div class="dropdown">
+
+            <button
+                type="button"
+                id="plus"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                @onclick="ShowDropdownMenu">
+            </button>
+
+            <div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
+                <a
+                    @ref=_projectNameRef
+                    class="@GetStyleFiltersOfDropdown(_projectNameRef)"
+                    href="javascript: void(0);"
+                    @onclick="() => SetFilter(_projectNameRef)">
+                    name
+                </a>
+                <a
+                    @ref=_shortNameRef
+                    class="@GetStyleFiltersOfDropdown(_shortNameRef)"
+                    href="javascript: void(0);" @onclick="() => SetFilter(_shortNameRef)">
+                    short name
+                </a>
+                <a
+                    @ref=_departmentRef
+                    class="@GetStyleFiltersOfDropdown(_departmentRef)"
+                    href="javascript: void(0);"
+                    @onclick="() => SetFilter(_departmentRef)">
+                    department
+                </a>
+            </div>
+
+        </div>
+
+        @if (stateCheck(_projectNameRef, _showStateOfFiltersDropdown))
+        {
+            <div class=@(GetStyleFilter(_projectNameRef.Id)) @onclick="() => _useFilterId = _projectNameRef.Id">
+                name: @_projectsFilter.Name
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _projectNameRef.Id)"></button>
+            </div>
+        }
+
+        @if (stateCheck(_shortNameRef, _showStateOfFiltersDropdown))
+        {
+            <div class=@(GetStyleFilter(_shortNameRef.Id)) @onclick="() => _useFilterId = _shortNameRef.Id">
+                short name: @_projectsFilter.ShortName
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _shortNameRef.Id)"></button>
+            </div>
+        }
+
+        @if (stateCheck(_departmentRef, _showStateOfFiltersDropdown))
+        {
+            <div class=@(GetStyleFilter(_departmentRef.Id)) @onclick="() => _useFilterId = _departmentRef.Id">
+                department: @_projectsFilter.Department
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _departmentRef.Id)"></button>
+            </div>
+        }
+
+    </div>
+
+    <div class="overflow-auto">
+
+        @if (_projectsInfo is not null)
+        {
+            @foreach (var project in _projectsInfo)
+            {
+                <div class="project">
+
+                    <div style="padding: 2%">
+
+                        <h1>@project.Name</h1>
+                        <h2>@project.ShortName</h2>
+                        <p>@project.Description</p>
+
+                        <div class="project-addition-info">
+
+                            <p>@project.Department.Name:</p>
+                            <p style="position:absolute; right:0">Creation: @(((DateTime)project.CreatedAt).Date)</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+
+    </div>
+
+    @if (_projectsInfo is not null && _projectsInfo.Count >= TakeCount && _projectsInfo.Count != _totalCount)
+    {
+        <button type="button" class="btn btn-primary" id="showMore" @onclick="ChangeProjectsCountAsync">show more</button>
+    }
+
+</div>
