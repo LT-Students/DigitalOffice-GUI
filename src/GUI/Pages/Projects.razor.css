@@ -92,7 +92,7 @@ button[id="plus"]:focus {
     display: flex;
 }
 
-.project h1 {
+.project h1, h2 {
     font-size: 1.3rem;
 }
 

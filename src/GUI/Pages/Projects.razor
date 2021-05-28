@@ -5,7 +5,13 @@
     <div class="projects-tools">
 
         <button type="button" class="btn btn-primary">create</button>
-        <input type="text" class="form-control" placeholder="search projects" @bind-value="_searchValue" @bind-value:event="oninput" @onkeypress="SearchProjectsAsync"/>
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="search projects" 
+            @bind-value="_searchValue" 
+            @bind-value:event="oninput" 
+            @onkeypress="SearchProjectsAsync"/>
         <p>filters:</p>
 
         <div class="dropdown">
@@ -81,6 +87,7 @@
                     <div style="padding: 2%">
 
                         <h1>@project.Name</h1>
+                        <h2>@project.ShortName</h2>
                         <p>@project.Description</p>
 
                         <div class="project-addition-info">
