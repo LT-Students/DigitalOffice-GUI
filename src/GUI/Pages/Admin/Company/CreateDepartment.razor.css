@@ -1,0 +1,26 @@
+﻿.create-department_container,
+.info_container,
+.users_container {
+    display: flex;
+}
+
+.create-department_container {
+    margin: 0 auto;
+
+    flex-direction: column;
+
+    max-width: 300px;
+}
+
+.info_container,
+.users_container {
+    margin: 20px 0;
+}
+
+.info_container {
+    flex-direction: column;
+}
+
+.info_container label {
+    margin: 10px 0;
+}
