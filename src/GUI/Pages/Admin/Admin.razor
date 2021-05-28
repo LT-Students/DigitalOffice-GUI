@@ -1,0 +1,14 @@
+﻿@page "/admin"
+@attribute [Authorize]
+
+<div class="admin-page_container">
+    <div class="company-actions_container">
+        <h4>Company</h4>
+        <NavLink href="admin/createdepartment">Add department</NavLink>
+        <NavLink href="admin/createposition">Add position</NavLink>
+    </div>
+    <div class="user-actions_container">
+        <h4>Users</h4>
+        <NavLink href="admin/createuser">Add user</NavLink>
+    </div>
+</div>
