@@ -17,6 +17,7 @@ namespace LT.DigitalOffice.GUI
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProjectService, ProjectService>();
             builder.Services.AddScoped<ICompanyService, CompanyService>();

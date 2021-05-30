@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-using LT.DigitalOffice.GUI.Services.Client.AuthService;
+﻿using System;
+using System.Threading.Tasks;
 
-namespace LT.DigitalOffice.GUI.Services
+namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<string> Login(AuthenticationRequest request);
-
-        bool Logout();
+        Task<string> GetUserName();
     }
 }
