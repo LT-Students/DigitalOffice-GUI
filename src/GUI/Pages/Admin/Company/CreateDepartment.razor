@@ -11,7 +11,7 @@
     <div class="info_container">
         <label for="create-department_name">
             Department name*
-            <input @bind-value="departmentData.Info.Name"
+            <input @bind-value="departmentInfo.Name"
                    type="text"
                    id="create-department_name"
                    class="form-control"
@@ -22,7 +22,7 @@
         </label>
         <label for="create-department_description">
             Department description*
-            <textarea @bind="departmentData.Info.Description"
+            <textarea @bind="departmentInfo.Description"
                       @ref="descriptionInput"
                       type="text"
                       id="create-department_description"
@@ -34,7 +34,7 @@
         </label>
         <label for="create-department_director">
             Department director
-            <select @bind="departmentData.Info.DirectorUserId"
+            <select @bind="departmentInfo.DirectorUserId"
                     @ref="directorSelect"
                     id="create-department_director"
                     class="custom-select">
@@ -52,13 +52,15 @@
 
 @code {
     private NewDepartmentRequest departmentData = new();
+    private BaseDepartmentInfo departmentInfo = new();
     public string message;
     private ElementReference descriptionInput;
     private ElementReference directorSelect;
 
     private async Task Post()
     {
-        departmentData.Users = new DepartmentUserInfo[] { };
+        departmentData.Info = departmentInfo;
+
         message = await companyService.CreateDepartment(departmentData);
     }
 }

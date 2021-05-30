@@ -12,13 +12,16 @@
                type="text"
                class="form-control"
                placeholder="Login or Email or Number"
-               @onkeyup="KeyboardEventHandler"/>
+               @onkeyup="@((k) => {
+                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                   passwordInput.FocusAsync();})"/>
         <input
                @bind-value="authData.Password"
+               @ref="passwordInput"
                type="password"
                class="form-control"
                placeholder="Password"
-               @onkeyup="KeyboardEventHandler"/>
+               @onkeyup="@(async (k) => { if (k.Code == "Enter") await Post(); })"/>
         <a>Forgot your password?</a>
         <p class="error_text">@message</p>
         <button class="btn btn-primary" @onclick="@Post">Login</button>
@@ -28,14 +31,7 @@
 @code {
     private AuthenticationRequest authData = new();
     public string message;
-
-    private void KeyboardEventHandler(KeyboardEventArgs args)
-    {
-        if (args.Code == "Enter")
-        {
-            Post();
-        }
-    }
+    private ElementReference passwordInput;
 
     private async Task Post()
     {

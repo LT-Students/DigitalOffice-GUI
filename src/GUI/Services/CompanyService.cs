@@ -20,9 +20,7 @@ namespace LT.DigitalOffice.GUI.Services
             try
             {
                 _token = await _storage.GetItemAsync<string>("Token");
-                var companyService = new CompanyServiceClient(new System.Net.Http.HttpClient());
-                var response = await companyService.AddDepartmentAsync(request, _token);
-                //var response = await _client.AddDepartmentAsync(request, _token);
+                var response = await _client.AddDepartmentAsync(request, _token);
 
                 return "Successfully created";
             }
@@ -37,9 +35,7 @@ namespace LT.DigitalOffice.GUI.Services
             try
             {
                 _token = await _storage.GetItemAsync<string>("Token");
-                var companyService = new CompanyServiceClient(new System.Net.Http.HttpClient());
-                var response = await companyService.AddPositionAsync(request, _token);
-                //var response = await _client.AddDepartmentAsync(request, _token);
+                var response = await _client.AddPositionAsync(request, _token);
 
                 return "Successfully created";
             }

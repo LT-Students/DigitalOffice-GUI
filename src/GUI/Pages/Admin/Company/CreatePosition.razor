@@ -26,8 +26,7 @@
                   type="text"
                   id="create-position_description"
                   class="form-control"
-                  placeholder="Enter position description"
-                  @onkeyup="@(async(k) => { if (k.Code == "Enter") await Post(); })" />
+                  placeholder="Enter position description" />
     </label>
     <p>@message</p>
     <button class="btn btn-primary" @onclick="@Post">Create position</button>
