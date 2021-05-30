@@ -1,7 +1,6 @@
 ﻿using Blazored.SessionStorage;
-using GUI.Pages.Auth;
-using LT.DigitalOffice.GUI.Services.Client.AuthService;
-using Microsoft.AspNetCore.Components.Authorization;
+using LT.DigitalOffice.GUI.Services.Client.UserService;
+using LT.DigitalOffice.GUI.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -9,37 +8,41 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class UserService : IUserService
     {
-        private readonly AuthStateProvider _provider;
-        private readonly ISessionStorageService _storage;
+        private readonly ISessionStorageService _sessionStorage;
 
-        public UserService(AuthenticationStateProvider provider, ISessionStorageService storage)
+        public UserService(ISessionStorageService sessionStorage)
         {
-            _provider = provider as AuthStateProvider;
-            _storage = storage;
+            _sessionStorage = sessionStorage;
         }
 
-        public async Task<string> Login(AuthenticationRequest request)
+        public async Task<string> GetUserName()
         {
+            if (await _sessionStorage.ContainKeyAsync("UserName"))
+            {
+                return await _sessionStorage.GetItemAsync<string>("UserName");
+            }
+
             try
             {
-                var authService = new AuthServiceClient(new System.Net.Http.HttpClient());
-                var response = await authService.LoginAsync(request);
+                var userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
 
-                _provider.LoginNotify(response);
-                await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
-                await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
+                var token = await _sessionStorage.GetItemAsync<string>("Token");
+                var userId = await _sessionStorage.GetItemAsync<Guid>("UserId");
 
-                return "Authorized";
+                var userInfo = await userServiceClient.GetUserAsync(token, userId, null, null, null, null, null, null, null, null, null, null, null);
+
+                var userName = $"{userInfo.User.LastName} {userInfo.User.FirstName}";
+
+                await _sessionStorage.SetItemAsync("UserName", userName);
+
+                return userName;
             }
-            catch (ApiException<ErrorResponse> ex)
+            catch (ApiException<ErrorResponse> exc)
             {
-                return ex.Result.Message;
-            }
-        }
+                // TODO: implement catching
 
-        public bool Logout()
-        {
-            throw new NotImplementedException();
+                return string.Empty;
+            }
         }
     }
 }

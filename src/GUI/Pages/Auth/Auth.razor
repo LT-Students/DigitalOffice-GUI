@@ -2,7 +2,7 @@
 @using LT.DigitalOffice.GUI.Services;
 @using LT.DigitalOffice.GUI.Services.Client.AuthService;
 
-@inject IUserService userService
+@inject IAuthService authService
 
 <div class="auth-container">
     <div class="auth-content">
@@ -11,7 +11,7 @@
                @bind-value="authData.LoginData"
                type="text"
                class="form-control"
-               placeholder="Login or Email or Number"
+               placeholder="Login or Email or Phone number"
                @onkeyup="KeyboardEventHandler"/>
         <input
                @bind-value="authData.Password"
@@ -29,16 +29,16 @@
     private AuthenticationRequest authData = new();
     public string message;
 
-    private void KeyboardEventHandler(KeyboardEventArgs args)
+    private async void KeyboardEventHandler(KeyboardEventArgs args)
     {
         if (args.Code == "Enter")
         {
-            Post();
+            await Post();
         }
     }
 
     private async Task Post()
     {
-        message = await userService.Login(authData);
+        message = await authService.Login(authData);
     }
 }
