@@ -1,0 +1,41 @@
+input, textarea, button[id="dropdown"] {
+    background-color: #E9E9E9;
+    color: #6c757d;
+    border: none;
+}
+
+.main-content {
+    float: right;
+    width: 36%;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+.additional-content {
+    float: left;
+    width: 45%;
+}
+
+button[id="dropdown"] {
+    width: -webkit-fill-available;
+    text-align: left;
+}
+
+button[id="dropdown"]:active {
+    background-color: #7ac7ff;
+}
+
+.dropdown-menu {
+    width: -webkit-fill-available;
+}
+
+.dropdown-toggle::after {
+    margin-left: 77%;
+    float: right;
+}
+
+input[id="fullName"],  input[id="shortName"], input[id="status"]{
+    margin-bottom: 30px;
+}

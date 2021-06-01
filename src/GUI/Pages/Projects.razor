@@ -1,10 +1,13 @@
 ﻿@page "/projects"
-@attribute [Authorize]
+@using LT.DigitalOffice.GUI.Pages.CreateProject
 
 <div class="projects">
     <div class="projects-tools">
 
-        <button type="button" class="btn btn-primary">create</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">create</button>
+
+        <CreateProject />
+
         <input 
             type="text" 
             class="form-control" 

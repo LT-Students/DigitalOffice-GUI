@@ -1,0 +1,32 @@
+input, textarea, button[id="dropdown"] {
+    background-color: #E9E9E9;
+    color: #6c757d;
+    border: none;
+}
+
+@media (min-width: 576px) 
+{
+    .modal-dialog {
+        max-width: 75%;
+    }
+}
+
+.modal-header, .modal-footer {
+    border: none
+}
+
+.modal-title {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.modal-header {
+    padding: 0rem 1rem;
+    padding-top: 1.5rem;
+}
+
+button[id="close"] {
+    border: none;
+    background-color: white;
+    font-size: 26px;
+}

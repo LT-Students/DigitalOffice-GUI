@@ -1,0 +1,87 @@
+<p>General information</p>
+
+<div style="display: flow-root">
+
+    <div class="additional-content">
+
+        <label for="fullName">
+            Full name <font color="red">*</font>
+        </label>
+        <input id="fullName" type="text" class="form-control" placeholder="Insert project full name"
+            aria-label="Username" aria-describedby="basic-addon1">
+
+        <div style="display:grid">
+            <lable for="shortDescription">
+                Short description
+            </lable>
+            <textarea id="shortDescription" rows="5" placeholder="Insert project short description" class="form-control"
+                aria-label="With textarea">
+            </textarea>
+        </div>
+
+    </div>
+
+    <div class="main-content">
+        <label for="shortName">
+            Short name <font color="red">*</font>
+        </label>
+        <input id="shortName" type="text" class="form-control" placeholder="Insert project full name"
+            aria-label="Username" aria-describedby="basic-addon1">
+
+        <div style="display:grid">
+
+            <label for="department">
+                Status <font color="red">*</font>
+            </label>
+
+            <div id="department" class="btn-group">
+
+                <button id="dropdown" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                    Select project status
+                </button>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:void(0)">Active</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Closed</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Suspend</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="display:grid; margin-top: 15px;">
+
+            <label for="department">
+                Department <font color="red">*</font>
+            </label>
+
+            <div id="department" class="btn-group">
+
+                <button id="dropdown" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Select department
+                </button>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<lable for="Description">
+    Description
+</lable>
+<textarea id="Description" placeholder="Insert project description" class="form-control" aria-label="With textarea"
+    rows="4">
+</textarea>
