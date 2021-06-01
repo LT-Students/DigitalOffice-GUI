@@ -11,12 +11,14 @@
     <None Remove="Pages\Admin\Admin.razor.css" />
     <None Remove="Pages\Admin\Company\CreateDepartment.razor.css" />
     <None Remove="Pages\Admin\Company\CreatePosition.razor.css" />
+    <None Remove="Pages\Admin\User\CreateUser.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Pages\Admin\Admin.razor.css" />
     <Content Include="Pages\Admin\Company\CreateDepartment.razor.css" />
     <Content Include="Pages\Admin\Company\CreatePosition.razor.css" />
+    <Content Include="Pages\Admin\User\CreateUser.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

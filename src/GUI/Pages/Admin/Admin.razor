@@ -4,11 +4,54 @@
 <div class="admin-page_container">
     <div class="company-actions_container">
         <h4>Company</h4>
-        <NavLink href="admin/createdepartment">Add department</NavLink>
-        <NavLink href="admin/createposition">Add position</NavLink>
+        <button class="btn btn-primary"
+                @onclick='(() => {
+                              modalWindow.Open();
+                              modalTitle = "Create department";
+                          })'>
+            Create new department
+        </button>
+        <button class="btn btn-primary"
+                @onclick='(() => {
+                              modalWindow.Open();
+                              modalTitle = "Create position";
+                          })'>
+            Create new position
+        </button>
     </div>
     <div class="user-actions_container">
         <h4>Users</h4>
-        <NavLink href="admin/createuser">Add user</NavLink>
+        <button class="btn btn-primary"
+                @onclick='(() => {
+                              modalWindow.Open();
+                              modalTitle = "Create user";
+                          })'>
+            Create new user
+        </button>
     </div>
 </div>
+
+<ModalWindow @ref="modalWindow">
+    <Title>@modalTitle</Title>
+    <Body>
+        @if (modalTitle == "Create department")
+        {
+            <LT.DigitalOffice.GUI.Pages.Admin.Company.CreateDepartment />
+        }
+        @if (modalTitle == "Create position")
+        {
+            <LT.DigitalOffice.GUI.Pages.Admin.Company.CreatePosition />
+        }
+        @if (modalTitle == "Create user")
+        {
+            <LT.DigitalOffice.GUI.Pages.Admin.User.CreateUser />
+        }
+
+    </Body>
+</ModalWindow>
+
+    @code {
+        private ModalWindow modalWindow { get; set; }
+        private string modalTitle { get; set; }
+        //private LT.DigitalOffice.GUI.Pages.Admin.Company.CreateDepartment createDepartment { get; set; }
+    }

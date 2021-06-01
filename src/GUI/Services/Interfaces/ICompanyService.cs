@@ -1,4 +1,5 @@
 ﻿using LT.DigitalOffice.GUI.Services.Client.Company;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LT.DigitalOffice.GUI.Services.Interfaces
@@ -8,5 +9,9 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
         public Task<string> CreateDepartment(NewDepartmentRequest request);
 
         public Task<string> CreatePosition(CreatePositionRequest request);
+
+        //public Task<DepartmentsResponse> FindDepartment();
+
+        public Task<ICollection<PositionResponse>> FindPosition();
     }
 }

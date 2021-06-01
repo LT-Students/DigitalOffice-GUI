@@ -4,48 +4,40 @@
 
 @inject ICompanyService companyService
 
-@page "/admin/createdepartment"
-@attribute [Authorize]
-
 <div class="create-department_container">
-    <div class="info_container">
-        <label for="create-department_name">
-            Department name*
-            <input @bind-value="departmentInfo.Name"
-                   type="text"
-                   id="create-department_name"
-                   class="form-control"
-                   placeholder="Enter department name"
-                   @onkeyup="@((k) => {
-                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                       descriptionInput.FocusAsync();})" />
-        </label>
-        <label for="create-department_description">
-            Department description*
-            <textarea @bind="departmentInfo.Description"
-                      @ref="descriptionInput"
-                      type="text"
-                      id="create-department_description"
-                      class="form-control"
-                      placeholder="Enter department description"
-                      @onkeyup="@((k) => {
-                                      if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                          directorSelect.FocusAsync();})" />
-        </label>
-        <label for="create-department_director">
-            Department director
-            <select @bind="departmentInfo.DirectorUserId"
-                    @ref="directorSelect"
-                    id="create-department_director"
-                    class="custom-select">
-                <option value=null selected>Director not selected...</option>
-                <option>to do</option>
-            </select>
-        </label>
-    </div>
-    <div class="users_container">
-        <p>to do: add users popup</p>
-    </div>
+    <label for="create-department_name">
+        Department name*
+        <input @bind-value="departmentInfo.Name"
+               type="text"
+               id="create-department_name"
+               class="form-control"
+               placeholder="Enter department name"
+               @onkeyup="@((k) => {
+                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                   descriptionInput.FocusAsync();})" />
+    </label>
+    <label for="create-department_description">
+        Department description*
+        <textarea @bind="departmentInfo.Description"
+                  @ref="descriptionInput"
+                  type="text"
+                  id="create-department_description"
+                  class="form-control"
+                  placeholder="Enter department description"
+                  @onkeyup="@((k) => {
+                                  if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                      directorSelect.FocusAsync();})" />
+    </label>
+    <label for="create-department_director">
+        Department director
+        <select @bind="departmentInfo.DirectorUserId"
+                @ref="directorSelect"
+                id="create-department_director"
+                class="custom-select">
+            <option value=null selected>Director not selected...</option>
+            <option>to do</option>
+        </select>
+    </label>
     <p>@message</p>
     <button class="btn btn-primary" @onclick="@Post">Create department</button>
 </div>

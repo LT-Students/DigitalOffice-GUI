@@ -1,0 +1,34 @@
+﻿.create-user_container,
+.create-user_personal-container,
+.create-user_service-container,
+.create-user_private-container {
+    display: flex;
+}
+
+.create-user_container {
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.create-user_personal-container {
+    flex-direction: column;
+
+    width: 40%;
+}
+
+.create-user_service-container {
+    flex-direction: column;
+
+    width: 30%;
+}
+
+
+.create-user_private-container {
+    justify-content: space-between;
+
+    width: 100%;
+}
+label {
+    margin: 10px 0;
+}
+

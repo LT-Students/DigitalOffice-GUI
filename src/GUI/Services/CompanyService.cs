@@ -1,6 +1,7 @@
 ﻿using Blazored.SessionStorage;
 using LT.DigitalOffice.GUI.Services.Client.Company;
 using LT.DigitalOffice.GUI.Services.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LT.DigitalOffice.GUI.Services
@@ -42,6 +43,32 @@ namespace LT.DigitalOffice.GUI.Services
             catch (Client.Company.ApiException<Client.Company.ErrorResponse> ex)
             {
                 return ex.Result.Message;
+            }
+        }
+
+        /*public Task<DepartmentsResponse> FindDepartment()
+        {
+            try
+            {
+                _token = await _storage.GetItemAsync<string>("Token");
+                var response = await _client.G
+
+                return ;
+
+            }
+        }*/
+
+        public async Task<ICollection<PositionResponse>> FindPosition()
+        {
+            try
+            {
+                _token = await _storage.GetItemAsync<string>("Token");
+                var response = await _client.GetPositionsListAsync(_token);
+                return response;
+            }
+            catch(ApiException<ErrorResponse> ex)
+            {
+                return null;
             }
         }
     }
