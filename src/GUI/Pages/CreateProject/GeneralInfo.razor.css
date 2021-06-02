@@ -32,10 +32,31 @@ button[id="dropdown"]:active {
 }
 
 .dropdown-toggle::after {
-    margin-left: 77%;
+    margin-top: 4%;
     float: right;
 }
 
 input[id="fullName"],  input[id="shortName"], input[id="status"]{
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+}
+
+.short-description-input {
+    display: grid;
+}
+
+.short-description-input textarea {
+    margin-top: 5px;
+}
+
+.department-input {
+    display: grid;
+    margin-top: 31px;
+}
+
+textarea[id="description"] {
+    margin-top: 5px;
+}
+
+.general-info-title {
+    font-size: 1.2rem;
 }

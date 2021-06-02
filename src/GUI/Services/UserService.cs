@@ -1,5 +1,5 @@
 ﻿using Blazored.SessionStorage;
-using LT.DigitalOffice.GUI.Services.Client.UserService;
+using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -43,6 +43,11 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return string.Empty;
             }
+        }
+
+        public async Task<UsersResponse> GetUsers()
+        {
+            return new UsersResponse();
         }
     }
 }
