@@ -11,3 +11,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.info_container {
+    width: 70%;
+    color: red;
+}

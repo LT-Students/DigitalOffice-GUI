@@ -1,46 +1,46 @@
 ﻿@using System.Threading.Tasks;
 @using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
+@using LT.DigitalOffice.GUI.Properties;
 
 @inject ICompanyService companyService
 
 <div class="create-department_container">
     <label for="create-department_name">
-        Department name*
+        @Resources.DepartmentName*
         <input @bind-value="departmentInfo.Name"
                type="text"
                id="create-department_name"
                class="form-control"
-               placeholder="Enter department name"
                @onkeyup="@((k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
                                    descriptionInput.FocusAsync();})" />
     </label>
     <label for="create-department_description">
-        Department description*
+        @Resources.DepartmentDescription*
         <textarea @bind="departmentInfo.Description"
                   @ref="descriptionInput"
                   type="text"
                   id="create-department_description"
                   class="form-control"
-                  placeholder="Enter department description"
                   @onkeyup="@((k) => {
                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
                                       directorSelect.FocusAsync();})" />
     </label>
     <label for="create-department_director">
-        Department director
+        @Resources.DepartmentDirector
         <select @bind="departmentInfo.DirectorUserId"
                 @ref="directorSelect"
                 id="create-department_director"
-                class="form-select">
-            <option value=null selected>Director not selected...</option>
+                class="form-select"
+                title="uuuuu" >
+            <option value=null selected>@Resources.NotSelected...</option>
             <option>to do</option>
         </select>
     </label>
     <div class="create-department_actions-container">
-        <p>@message</p>
-        <button class="btn btn-primary" @onclick="@Post">Create department</button>
+        <p class="info_container">@message</p>
+        <button class="btn btn-primary" @onclick="@Post">@Resources.CreateDepartment</button>
     </div>
 
 </div>

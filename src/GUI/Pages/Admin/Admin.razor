@@ -1,32 +1,34 @@
-﻿@page "/admin"
+﻿@using LT.DigitalOffice.GUI.Properties;
+
+@page "/admin"
 @attribute [Authorize]
 
 <div class="admin-page_container">
     <div class="company-actions_container">
-        <h4>Company</h4>
+        <h4>@Resources.Company</h4>
         <button class="btn btn-link"
                 @onclick='(() => {
                               modalWindow.Open();
-                              modalTitle = "Create department";
+                              modalTitle = Resources.CreateDepartment;
                           })'>
-            Create new department
+            @Resources.CreateDepartment
         </button>
         <button class="btn btn-link"
                 @onclick='(() => {
                               modalWindow.Open();
-                              modalTitle = "Create position";
+                              modalTitle = Resources.CreatePosition;
                           })'>
-            Create new position
+            @Resources.CreatePosition
         </button>
     </div>
     <div class="user-actions_container">
-        <h4>Users</h4>
+        <h4>@Resources.Users</h4>
         <button class="btn btn-link"
                 @onclick='(() => {
                               modalWindow.Open();
-                              modalTitle = "Create user";
+                              modalTitle = Resources.CreateUser;
                           })'>
-            Create new user
+            @Resources.CreateUser
         </button>
     </div>
 </div>
@@ -35,15 +37,15 @@
 <ModalWindow @ref="modalWindow">
     <Title>@modalTitle</Title>
     <Body>
-        @if (modalTitle == "Create department")
+        @if (modalTitle == Resources.CreateDepartment)
         {
             <LT.DigitalOffice.GUI.Pages.Admin.Company.CreateDepartment />
         }
-        @if (modalTitle == "Create position")
+        @if (modalTitle == Resources.CreatePosition)
         {
             <LT.DigitalOffice.GUI.Pages.Admin.Company.CreatePosition />
         }
-        @if (modalTitle == "Create user")
+        @if (modalTitle == Resources.CreateUser)
         {
             <LT.DigitalOffice.GUI.Pages.Admin.User.CreateUser />
         }
@@ -54,4 +56,4 @@
 @code {
     private ModalWindow modalWindow { get; set; }
     private string modalTitle { get; set; }
-    }
+}

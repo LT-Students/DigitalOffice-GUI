@@ -2,6 +2,7 @@
 @using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 @using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
+@using LT.DigitalOffice.GUI.Properties;
 
 @inject IUserService userService
 @inject ICompanyService companyService
@@ -9,60 +10,55 @@
 <div class="create-user_container">
     <div class="create-user_personal-container">
         <label for="create-user_first-name">
-            First name*
+            @Resources.FirstName*
             <input @bind-value="userData.FirstName"
                    type="text"
                    id="create-user_first-name"
                    class="form-control"
-                   placeholder="Enter first name"
                    @onkeyup="@((k) => {
                                    if (k.Code == "Enter" || k.Code == "ArrowDown")
                                        lastNameInput.FocusAsync();})" />
         </label>
         <label for="create-user_last-name">
-            Last name*
+            @Resources.LastName*
             <input @bind-value="userData.LastName"
                    @ref="lastNameInput"
                    type="text"
                    id="create-user_last-name"
                    class="form-control"
-                   placeholder="Enter last name"
                    @onkeyup="@((k) => {
                                    if (k.Code == "Enter" || k.Code == "ArrowDown")
                                        middleNameInput.FocusAsync();})" />
         </label>
         <label for="create-user_middle-name">
-            Middle name*
+            @Resources.MiddleName*
             <input @bind-value="userData.MiddleName"
                    @ref="middleNameInput"
                    type="text"
                    id="create-user_middle-name"
                    class="form-control"
-                   placeholder="Enter middle name"
                    @onkeyup="@((k) => {
                                    if (k.Code == "Enter" || k.Code == "ArrowDown")
                                        emailInput.FocusAsync();})" />
         </label>
         <label for="create-user_email">
-            E-mail*
+            @Resources.Email*
             <input @bind-value="userCommunication.Value"
                    @ref="emailInput"
                    type="email"
                    id="create-user_email"
                    class="form-control"
-                   placeholder="Enter e-mail"
                    @onkeyup="@((k) => {
                                    if (k.Code == "Enter" || k.Code == "ArrowDown")
                                        passwordInput.FocusAsync();})" />
         </label>
         <label for="create-user_password">
-            Password*
+            @Resources.Password*
             <input @bind-value="userData.Password"
                    @ref="passwordInput"
                    type="password"
                    id="create-user_password"
                    class="form-control"
-                   placeholder="Enter password"
                    @onkeyup="@((k) => {
                                    if (k.Code == "Enter" || k.Code == "ArrowDown")
                                        startWorkingAtInput.FocusAsync();})" />
@@ -71,13 +67,13 @@
             <input @bind-value="userData.IsAdmin"
                    type="checkbox"
                    class="btn btn-outline-primary" />
-            Is admin
+            @Resources.IsAdmin
         </label>
     </div>
 
     <div class="create-user_service-container">
         <label for="create-user_start-working-at">
-            Start working at*
+            @Resources.StartWorkingAt*
             <input @bind="userData.StartWorkingAt"
                    @ref="startWorkingAtInput"
                    type="date"
@@ -88,7 +84,7 @@
                                        rateSelect.FocusAsync();})" />
         </label>
         <label for="create-user_rate">
-            Rate*
+             @Resources.Rate*
             <select @bind="userData.Rate"
                     @ref="rateSelect"
                     id="create-user_rate"
@@ -102,7 +98,7 @@
             </select>
         </label>
         <label for="create-user_department">
-            Department
+            @Resources.Department
             <select @bind="userData.DepartmentId"
                     @ref="departmentSelect"
                     id="create-user_department"
@@ -110,7 +106,7 @@
                     @onkeyup="@((k) => {
                                     if (k.Code == "ArrowDown")
                                         positionSelect.FocusAsync();})">
-                <option value="null" selected>Not selected...</option>
+                <option value="null" selected>@Resources.NotSelected...</option>
                 @if (departments != null)
                 {
                     foreach (var department in departments.Departments)
@@ -121,7 +117,7 @@
             </select>
         </label>
         <label for="create-user_position">
-            Position
+            @Resources.Position
             <select @bind="userData.PositionId"
                     @ref="positionSelect"
                     id="create-user_position"
@@ -129,7 +125,7 @@
                     @onkeyup="@((k) => {
                                     if (k.Code == "ArrowDown")
                                         statusSelect.FocusAsync();})">
-                <option value="null" selected>Not selected...</option>
+                <option value="null" selected>@Resources.NotSelected...</option>
                 @if (positions != null)
                 {
                     foreach (var position in positions)
@@ -140,7 +136,7 @@
             </select>
         </label>
         <label for="create-user_status">
-            Status
+            @Resources.Status
             <select @bind="userData.Status"
                     @ref="statusSelect"
                     id="create-user_status"
@@ -154,8 +150,8 @@
     </div>
 
     <div class="create-user_actions-container">
-        <p>@message</p>
-        <button class="btn btn-primary" @onclick="@Post">Create user</button>
+        <p class="info_container">@message</p>
+        <button class="btn btn-primary" @onclick="@Post">@Resources.CreateUser</button>
     </div>
 </div>
 
