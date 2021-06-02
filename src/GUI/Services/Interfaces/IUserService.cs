@@ -1,5 +1,4 @@
-﻿using LT.DigitalOffice.GUI.Services.Client.UserService;
-using System;
+﻿using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using System.Threading.Tasks;
 
 namespace LT.DigitalOffice.GUI.Services.Interfaces

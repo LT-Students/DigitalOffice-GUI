@@ -11,7 +11,7 @@
 #pragma warning disable 1591 // Disable "CS1591 Missing XML comment for publicly visible type or member ..."
 #pragma warning disable 8073 // Disable "CS8073 The result of the expression is always 'false' since a value of type 'T' is never equal to 'null' of type 'T?'"
 
-namespace LT.DigitalOffice.GUI.Services.Client.Company
+namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
 {
     using System = global::System;
 
@@ -658,18 +658,20 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
         }
 
         /// <param name="departmentId">Department global unique identifier.</param>
+        /// <param name="token">The JWT token.</param>
         /// <returns>Successfully returned department.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<DepartmentInfo> GetAsync(System.Guid departmentId)
+        public System.Threading.Tasks.Task<DepartmentInfo> GetDepartmentAsync(System.Guid departmentId, string token)
         {
-            return GetAsync(departmentId, System.Threading.CancellationToken.None);
+            return GetDepartmentAsync(departmentId, token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="departmentId">Department global unique identifier.</param>
+        /// <param name="token">The JWT token.</param>
         /// <returns>Successfully returned department.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<DepartmentInfo> GetAsync(System.Guid departmentId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<DepartmentInfo> GetDepartmentAsync(System.Guid departmentId, string token, System.Threading.CancellationToken cancellationToken)
         {
             if (departmentId == null)
                 throw new System.ArgumentNullException("departmentId");
@@ -685,6 +687,9 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+                    if (token == null)
+                        throw new System.ArgumentNullException("token");
+                    request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -758,17 +763,19 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
             }
         }
 
+        /// <param name="token">The JWT token.</param>
         /// <returns>Successfully returned departments.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DepartmentsResponse>> GetAllAsync()
+        public System.Threading.Tasks.Task<DepartmentsResponse> GetDepartmentsAsync(string token)
         {
-            return GetAllAsync(System.Threading.CancellationToken.None);
+            return GetDepartmentsAsync(token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="token">The JWT token.</param>
         /// <returns>Successfully returned departments.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<DepartmentsResponse>> GetAllAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<DepartmentsResponse> GetDepartmentsAsync(string token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/department/find");
@@ -779,6 +786,9 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
+                    if (token == null)
+                        throw new System.ArgumentNullException("token");
+                    request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -805,7 +815,7 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<DepartmentsResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<DepartmentsResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1022,7 +1032,7 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
         [Newtonsoft.Json.JsonProperty("Info", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public PositionInfo Info { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("UserIds", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("UserIds", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<System.Guid> UserIds { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -1082,13 +1092,12 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
         public string Name { get; set; }
 
         /// <summary>Department description.</summary>
-        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.AllowNull)]
         public string Description { get; set; }
 
         /// <summary>Specific director user id this department.</summary>
-        [Newtonsoft.Json.JsonProperty("DirectorUserId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid DirectorUserId { get; set; }
+        [Newtonsoft.Json.JsonProperty("DirectorUserId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid? DirectorUserId { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1164,10 +1173,10 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
         public string Name { get; set; }
 
         /// <summary>Department description.</summary>
-        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Director", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Director", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserInfo Director { get; set; }
 
         /// <summary>Workers of this department.</summary>
@@ -1199,7 +1208,7 @@ namespace LT.DigitalOffice.GUI.Services.Client.Company
         [Newtonsoft.Json.JsonProperty("LastName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string LastName { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string MiddleName { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();

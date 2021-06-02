@@ -17,8 +17,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
 
   [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v11.0.0.0))")]
   public partial class UserServiceClient
-  {
-    private string _baseUrl = "https://user.ltdo.xyz";
+  {/*http://localhost:9802;*/
+        private string _baseUrl = "https://user.ltdo.xyz";
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 

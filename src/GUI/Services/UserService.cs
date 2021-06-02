@@ -52,11 +52,11 @@ namespace LT.DigitalOffice.GUI.Services
             try
             {
                 var token = await _sessionStorage.GetItemAsync<string>("Token");
-                var response = _client.CreateUserAsync(request, token);
+                var response = await _client.CreateUserAsync(request, token);
 
-                return "Success";
+                return response.Status.ToString();
             }
-            catch(ApiException<ErrorResponse> ex)
+            catch(Exception ex)
             {
                 return ex.Message;
             }
