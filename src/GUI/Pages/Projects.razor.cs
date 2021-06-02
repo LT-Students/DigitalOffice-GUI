@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 using LT.DigitalOffice.GUI.Models.Filters;
 using Microsoft.AspNetCore.Components.Web;
 using LT.DigitalOffice.GUI.Services.Interfaces;
-using LT.DigitalOffice.GUI.Services.Client.ProjectService;
+using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
 namespace LT.DigitalOffice.GUI.Pages
 {
