@@ -41,99 +41,8 @@
                    placeholder="Enter middle name"
                    @onkeyup="@((k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   startWorkingAtInput.FocusAsync();})" />
+                                   emailInput.FocusAsync();})" />
         </label>
-    </div>
-
-    <div class="create-user_service-container">
-        <label for="create-user_start-working-at">
-            *Start working at
-            <select @bind="userData.StartWorkingAt"
-                    @ref="startWorkingAtInput"
-                    id="create-user_start-working-at"
-                    class="custom-select"
-                    @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   rateInput.FocusAsync();})">
-                <option value="@DateTime.UtcNow" selected>today</option>
-            </select>
-        </label>
-        <label for="create-user_rate">
-            *Rate
-            <select @bind="userData.Rate"
-                    @ref="rateInput"
-                    id="create-user_rate"
-                    class="custom-select"
-                    @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   departmentInput.FocusAsync();})">
-                <option value=0.25 selected>0.25</option>
-                <option value=0.5>0.5</option>
-                <option value=0.75>0.75</option>
-            </select>
-        </label>
-        <label for="create-user_department">
-            Department
-            <select @bind="userData.DepartmentId"
-                    @ref="departmentInput"
-                    id="create-user_department"
-                    class="custom-select"
-                    @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   positionInput.FocusAsync();})">
-                <option value=null selected>Not selected...</option>
-            </select>
-        </label>
-        <label for="create-user_position">
-            Position
-            <select @bind="userData.PositionId"
-                    @ref="positionInput"
-                    id="create-user_position"
-                    class="custom-select"
-                    @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   statusInput.FocusAsync();})">
-                <option value=null selected>Not selected...</option>
-                @if (positions != null)
-                {
-                    foreach (var position in positions)
-                    {
-                        <option value="@position.Info.Name">@position.Info.Name</option>
-                    }
-                }
-            </select>
-        </label>
-        <label for="create-user_status">
-            Status
-            <select @bind="userData.Status"
-                    @ref="statusInput"
-                    id="create-user_status"
-                    class="custom-select"
-                    @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   isAdminInput.FocusAsync();})">
-                <option value="WorkFromHome" selected>WorkFromHome</option>
-                <option value="WorkFromOffice">WorkFromOffice</option>
-                <option value="Vacation">Vacation</option>
-                <option value="Sick">Sick</option>
-            </select>
-        </label>
-        <label for="create-user_is-admin">
-            Is admin
-            <select @bind="userData.IsAdmin"
-                    @ref="isAdminInput"
-                    id="create-user_is-admin"
-                    class="custom-select"
-                    @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   emailInput.FocusAsync();})">
-                <option value="false" selected>not</option>
-                <option value="true">yes</option>
-            </select>
-        </label>
-    </div>
-
-    <div class="create-user_private-container">
         <label for="create-user_email">
             E-mail*
             <input @bind-value="userCommunication.Value"
@@ -154,12 +63,94 @@
                    id="create-user_password"
                    class="form-control"
                    placeholder="Enter password"
-                   @onkeyup="@(async(k) => { if (k.Code == "Enter") await Post();})" />
+                   @onkeyup="@((k) => {
+                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                   startWorkingAtInput.FocusAsync();})" />
+        </label>
+        <label for="create-user_is-admin">
+            <input @bind-value="userData.IsAdmin"
+                   type="checkbox"
+                   class="btn btn-outline-primary" />
+            Is admin
         </label>
     </div>
 
-    <p>@message</p>
-    <button class="btn btn-primary" @onclick="@Post">Create department</button>
+    <div class="create-user_service-container">
+        <label for="create-user_start-working-at">
+            Start working at*
+            <select @bind="userData.StartWorkingAt"
+                    @ref="startWorkingAtInput"
+                    id="create-user_start-working-at"
+                    class="form-select"
+                    @onkeyup="@((k) => {
+                               if (k.Code == "ArrowDown")
+                                   rateInput.FocusAsync();})">
+                <option value="@DateTime.UtcNow" selected>today</option>
+            </select>
+        </label>
+        <label for="create-user_rate">
+            Rate*
+            <select @bind="userData.Rate"
+                    @ref="rateInput"
+                    id="create-user_rate"
+                    class="form-select"
+                    @onkeyup="@((k) => {
+                               if (k.Code == "ArrowDown")
+                                   departmentInput.FocusAsync();})">
+                <option selected value="0.25">0.25</option>
+                <option value="0.5">0.5</option>
+                <option value="0.75">0.75</option>
+            </select>
+        </label>
+        <label for="create-user_department">
+            Department
+            <select @bind="userData.DepartmentId"
+                    @ref="departmentInput"
+                    id="create-user_department"
+                    class="form-select"
+                    @onkeyup="@((k) => {
+                               if (k.Code == "ArrowDown")
+                                   positionInput.FocusAsync();})">
+                <option value="null" selected>Not selected...</option>
+            </select>
+        </label>
+        <label for="create-user_position">
+            Position
+            <select @bind="userData.PositionId"
+                    @ref="positionInput"
+                    id="create-user_position"
+                    class="form-select"
+                    @onkeyup="@((k) => {
+                               if (k.Code == "ArrowDown")
+                                   statusInput.FocusAsync();})">
+                <option value="null" selected>Not selected...</option>
+                @if (positions != null)
+                {
+                    foreach (var position in positions)
+                    {
+                        <option value="@position.Info.Id">@position.Info.Name</option>
+                    }
+                }
+            </select>
+        </label>
+        <label for="create-user_status">
+            Status
+            <select @bind="userData.Status"
+                    @ref="statusInput"
+                    id="create-user_status"
+                    class="form-select">
+                <option value="WorkFromHome" selected>WorkFromHome</option>
+                <option value="WorkFromOffice">WorkFromOffice</option>
+                <option value="Vacation">Vacation</option>
+                <option value="Sick">Sick</option>
+            </select>
+        </label>
+    </div>
+
+    <div class="create-user_actions-container">
+        <p>@message</p>
+        <button class="btn btn-primary" @onclick="@Post">Create user</button>
+    </div>
 </div>
 
 @code {

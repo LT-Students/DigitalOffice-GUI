@@ -12,22 +12,22 @@
 
 .create-user_personal-container {
     flex-direction: column;
-
     width: 40%;
 }
 
 .create-user_service-container {
     flex-direction: column;
 
-    width: 30%;
+    width: 40%;
 }
 
-
-.create-user_private-container {
-    justify-content: space-between;
-
+.create-user_actions-container {
     width: 100%;
+
+    display: flex;
+    justify-content: space-between;
 }
+
 label {
     margin: 10px 0;
 }

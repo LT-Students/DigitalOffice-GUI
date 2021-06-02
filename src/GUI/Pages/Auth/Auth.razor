@@ -7,21 +7,19 @@
 <div class="auth-container">
     <div class="auth-content">
         <h1 class="h1">Digital Office</h1>
-        <input
-               @bind-value="authData.LoginData"
+        <input @bind-value="authData.LoginData"
                type="text"
                class="form-control"
                placeholder="Login or Email or Phone number"
                @onkeyup="@(async (k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   await passwordInput.FocusAsync(); })"/>
-        <input
-               @bind-value="authData.Password"
+                                   await passwordInput.FocusAsync(); })" />
+        <input @bind-value="authData.Password"
                @ref="passwordInput"
                type="password"
                class="form-control"
                placeholder="Password"
-               @onkeyup="@(async (k) => { if (k.Code == "Enter") await Post(); })"/>
+               @onkeyup="@(async (k) => { if (k.Code == "Enter") await Post(); })" />
         <a>Forgot your password?</a>
         <p class="error_text">@message</p>
         <button class="btn btn-primary" @onclick="@Post">Login</button>

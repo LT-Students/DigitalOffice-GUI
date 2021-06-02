@@ -4,14 +4,14 @@
 <div class="admin-page_container">
     <div class="company-actions_container">
         <h4>Company</h4>
-        <button class="btn btn-primary"
+        <button class="btn btn-link"
                 @onclick='(() => {
                               modalWindow.Open();
                               modalTitle = "Create department";
                           })'>
             Create new department
         </button>
-        <button class="btn btn-primary"
+        <button class="btn btn-link"
                 @onclick='(() => {
                               modalWindow.Open();
                               modalTitle = "Create position";
@@ -21,7 +21,7 @@
     </div>
     <div class="user-actions_container">
         <h4>Users</h4>
-        <button class="btn btn-primary"
+        <button class="btn btn-link"
                 @onclick='(() => {
                               modalWindow.Open();
                               modalTitle = "Create user";
@@ -30,6 +30,7 @@
         </button>
     </div>
 </div>
+
 
 <ModalWindow @ref="modalWindow">
     <Title>@modalTitle</Title>
@@ -50,8 +51,7 @@
     </Body>
 </ModalWindow>
 
-    @code {
-        private ModalWindow modalWindow { get; set; }
-        private string modalTitle { get; set; }
-        //private LT.DigitalOffice.GUI.Pages.Admin.Company.CreateDepartment createDepartment { get; set; }
+@code {
+    private ModalWindow modalWindow { get; set; }
+    private string modalTitle { get; set; }
     }
