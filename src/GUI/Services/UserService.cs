@@ -1,5 +1,6 @@
 ﻿using Blazored.SessionStorage;
-using LT.DigitalOffice.GUI.Services.Client.UserService;
+using LT.DigitalOffice.GUI.Helpers;
+using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -18,21 +19,23 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<string> GetUserName()
         {
-            if (await _sessionStorage.ContainKeyAsync("UserName"))
+            if (await _sessionStorage.ContainKeyAsync(Consts.UserName))
             {
-                return await _sessionStorage.GetItemAsync<string>("UserName");
+                return await _sessionStorage.GetItemAsync<string>(Consts.UserName);
             }
 
             try
             {
-                var token = await _sessionStorage.GetItemAsync<string>("Token");
-                var userId = await _sessionStorage.GetItemAsync<Guid>("UserId");
+                var userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
 
-                var userInfo = await _client.GetUserAsync(token, userId, null, null, null, null, null, null, null, null, null, null, null);
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
+
+                var userInfo = await userServiceClient.GetUserAsync(token, userId, null, null, null, null, null, null, null, null, null, null, null);
 
                 var userName = $"{userInfo.User.LastName} {userInfo.User.FirstName}";
 
-                await _sessionStorage.SetItemAsync("UserName", userName);
+                await _sessionStorage.SetItemAsync(Consts.UserName, userName);
 
                 return userName;
             }

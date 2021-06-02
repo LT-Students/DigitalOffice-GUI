@@ -1,10 +1,9 @@
-using System;
+using Blazored.SessionStorage;
+using LT.DigitalOffice.GUI.Helpers;
+using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
+using LT.DigitalOffice.GUI.Services.Interfaces;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Blazored.SessionStorage;
-using LT.DigitalOffice.GUI.Services.Interfaces;
-using LT.DigitalOffice.GUI.Services.Client.AuthService;
-using LT.DigitalOffice.GUI.Services.Client.ProjectService;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -31,11 +30,11 @@ namespace LT.DigitalOffice.GUI.Services
             FindResponseProjectInfo projectsResponse = null;
             try
             {
-                var token = await _storage.GetItemAsync<string>(nameof(AuthenticationResponse.Token));
+                var token = await _storage.GetItemAsync<string>(Consts.Token);
 
                 projectsResponse =  await projectService.FindProjectsAsync(token, projectName, shortName, departmentName, skipCount, takeCount);
             }
-            catch (Exception ex)
+            catch (ApiException<ErrorResponse> exc)
             {
                 // TODO add exception handler
                 throw;

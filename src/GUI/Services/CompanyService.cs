@@ -1,5 +1,5 @@
 ﻿using Blazored.SessionStorage;
-using LT.DigitalOffice.GUI.Services.Client.Company;
+using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Successfully created";
             }
-            catch (Client.Company.ApiException<Client.Company.ErrorResponse> ex)
+            catch (ApiException<ErrorResponse> ex)
             {
                 return ex.Result.Message;
             }
@@ -40,31 +40,32 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Successfully created";
             }
-            catch (Client.Company.ApiException<Client.Company.ErrorResponse> ex)
+            catch (ApiException<ErrorResponse> ex)
             {
                 return ex.Result.Message;
             }
         }
 
-        /*public Task<DepartmentsResponse> FindDepartment()
+        public async Task<DepartmentsResponse> GetDepartments()
         {
             try
             {
                 _token = await _storage.GetItemAsync<string>("Token");
-                var response = await _client.G
-
-                return ;
+                return await _client.GetDepartmentsAsync(_token);
 
             }
-        }*/
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return null;
+            }
+        }
 
-        public async Task<ICollection<PositionResponse>> FindPosition()
+        public async Task<ICollection<PositionResponse>> GetPositions()
         {
             try
             {
                 _token = await _storage.GetItemAsync<string>("Token");
-                var response = await _client.GetPositionsListAsync(_token);
-                return response;
+                return await _client.GetPositionsListAsync(_token);
             }
             catch(ApiException<ErrorResponse> ex)
             {

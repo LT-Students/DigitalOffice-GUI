@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using LT.DigitalOffice.GUI.Services.Client.AuthService;
+using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
 
-namespace LT.DigitalOffice.GUI.Services
+namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface IAuthService
     {

@@ -1,16 +1,24 @@
 ﻿@page "/projects"
 @attribute [Authorize]
 
+@using LT.DigitalOffice.GUI.Properties;
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Projects navigation">
+        <a class="nav-link">@Resources.CreateNewProject</a>
+    </nav>
+</div>
+
 <div class="projects">
     <div class="projects-tools">
 
         <button type="button" class="btn btn-primary">create</button>
-        <input 
-            type="text" 
-            class="form-control" 
-            placeholder="search projects" 
-            @bind-value="_searchValue" 
-            @bind-value:event="oninput" 
+        <input
+            type="text"
+            class="form-control"
+            placeholder="search projects"
+            @bind-value="_searchValue"
+            @bind-value:event="oninput"
             @onkeypress="SearchProjectsAsync"/>
         <p>filters:</p>
 

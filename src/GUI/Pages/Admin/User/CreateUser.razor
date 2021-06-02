@@ -1,7 +1,7 @@
 ﻿@using System.Threading.Tasks;
 @using LT.DigitalOffice.GUI.Services.Interfaces;
-@using LT.DigitalOffice.GUI.Services.Client.UserService;
-@using LT.DigitalOffice.GUI.Services.Client.Company;
+@using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
+@using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
 
 @inject IUserService userService
 @inject ICompanyService companyService
@@ -16,8 +16,8 @@
                    class="form-control"
                    placeholder="Enter first name"
                    @onkeyup="@((k) => {
-                               if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   lastNameInput.FocusAsync();})" />
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       lastNameInput.FocusAsync();})" />
         </label>
         <label for="create-user_last-name">
             Last name*
@@ -28,8 +28,8 @@
                    class="form-control"
                    placeholder="Enter last name"
                    @onkeyup="@((k) => {
-                               if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   middleNameInput.FocusAsync();})" />
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       middleNameInput.FocusAsync();})" />
         </label>
         <label for="create-user_middle-name">
             Middle name*
@@ -40,8 +40,8 @@
                    class="form-control"
                    placeholder="Enter middle name"
                    @onkeyup="@((k) => {
-                               if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   emailInput.FocusAsync();})" />
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       emailInput.FocusAsync();})" />
         </label>
         <label for="create-user_email">
             E-mail*
@@ -52,8 +52,8 @@
                    class="form-control"
                    placeholder="Enter e-mail"
                    @onkeyup="@((k) => {
-                               if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   passwordInput.FocusAsync();})" />
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       passwordInput.FocusAsync();})" />
         </label>
         <label for="create-user_password">
             Password*
@@ -64,8 +64,8 @@
                    class="form-control"
                    placeholder="Enter password"
                    @onkeyup="@((k) => {
-                               if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   startWorkingAtInput.FocusAsync();})" />
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       startWorkingAtInput.FocusAsync();})" />
         </label>
         <label for="create-user_is-admin">
             <input @bind-value="userData.IsAdmin"
@@ -78,25 +78,24 @@
     <div class="create-user_service-container">
         <label for="create-user_start-working-at">
             Start working at*
-            <select @bind="userData.StartWorkingAt"
-                    @ref="startWorkingAtInput"
-                    id="create-user_start-working-at"
-                    class="form-select"
-                    @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   rateInput.FocusAsync();})">
-                <option value="@DateTime.UtcNow" selected>today</option>
-            </select>
+            <input @bind="userData.StartWorkingAt"
+                   @ref="startWorkingAtInput"
+                   type="date"
+                   id="create-user_start-working-at"
+                   class="form-control"
+                   @onkeyup="@((k) => {
+                                   if (k.Code == "Enter")
+                                       rateSelect.FocusAsync();})" />
         </label>
         <label for="create-user_rate">
             Rate*
             <select @bind="userData.Rate"
-                    @ref="rateInput"
+                    @ref="rateSelect"
                     id="create-user_rate"
                     class="form-select"
                     @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   departmentInput.FocusAsync();})">
+                                    if (k.Code == "ArrowDown")
+                                        departmentSelect.FocusAsync();})">
                 <option selected value="0.25">0.25</option>
                 <option value="0.5">0.5</option>
                 <option value="0.75">0.75</option>
@@ -105,24 +104,31 @@
         <label for="create-user_department">
             Department
             <select @bind="userData.DepartmentId"
-                    @ref="departmentInput"
+                    @ref="departmentSelect"
                     id="create-user_department"
                     class="form-select"
                     @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   positionInput.FocusAsync();})">
+                                    if (k.Code == "ArrowDown")
+                                        positionSelect.FocusAsync();})">
                 <option value="null" selected>Not selected...</option>
+                @if (departments != null)
+                {
+                    foreach (var department in departments.Departments)
+                    {
+                        <option value="@department.Id">@department.Name</option>
+                    }
+                }
             </select>
         </label>
         <label for="create-user_position">
             Position
             <select @bind="userData.PositionId"
-                    @ref="positionInput"
+                    @ref="positionSelect"
                     id="create-user_position"
                     class="form-select"
                     @onkeyup="@((k) => {
-                               if (k.Code == "ArrowDown")
-                                   statusInput.FocusAsync();})">
+                                    if (k.Code == "ArrowDown")
+                                        statusSelect.FocusAsync();})">
                 <option value="null" selected>Not selected...</option>
                 @if (positions != null)
                 {
@@ -136,7 +142,7 @@
         <label for="create-user_status">
             Status
             <select @bind="userData.Status"
-                    @ref="statusInput"
+                    @ref="statusSelect"
                     id="create-user_status"
                     class="form-select">
                 <option value="WorkFromHome" selected>WorkFromHome</option>
@@ -156,18 +162,18 @@
 @code {
     private CreateUserRequest userData = new();
     private CommunicationInfo userCommunication = new();
+    private DepartmentsResponse departments;
     private ICollection<PositionResponse> positions;
     public string message;
     private ElementReference lastNameInput;
     private ElementReference middleNameInput;
-    private ElementReference startWorkingAtInput;
-    private ElementReference departmentInput;
-    private ElementReference statusInput;
-    private ElementReference positionInput;
-    private ElementReference rateInput;
-    private ElementReference isAdminInput;
     private ElementReference emailInput;
     private ElementReference passwordInput;
+    private ElementReference startWorkingAtInput;
+    private ElementReference rateSelect;
+    private ElementReference departmentSelect;
+    private ElementReference positionSelect;
+    private ElementReference statusSelect;
 
     private async Task Post()
     {
@@ -179,7 +185,8 @@
 
     protected async override void OnInitialized()
     {
-        positions = await companyService.FindPosition();
+        positions = await companyService.GetPositions();
+        departments = await companyService.GetDepartments();
         StateHasChanged();
     }
 }

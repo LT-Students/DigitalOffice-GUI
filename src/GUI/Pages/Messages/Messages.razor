@@ -1,0 +1,19 @@
+﻿@page "/messages"
+@attribute [Authorize]
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Messages navigation">
+        @for (int i = 0; i < 10; i++)
+        {
+            <a class="nav-link" href="/messages">Test @i</a>
+        }
+    </nav>
+</div>
+
+<div>
+    asdfjkldfjl
+</div>
+
+@code {
+
+}

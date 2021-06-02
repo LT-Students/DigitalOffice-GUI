@@ -1,10 +1,11 @@
 ﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Properties;
 
 @inject IUserService _userService
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
     <div class="container-fluid">
-        <a href="/" class="navbar-brand">Digital Office</a>
+        <a href="/" class="navbar-brand">@Resources.SiteName</a>
         <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation"
                 onclick="javascript:document.querySelector('.offcanvas-collapse').classList.toggle('open')">
             <span class="navbar-toggler-icon"></span>
@@ -14,27 +15,15 @@
                 <li class="nav-item"><a class="nav-link" href="#">News</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Department</a></li>
                 <li class="nav-item"><a class="nav-link" href="projects">Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="messages">@Resources.Messages</a></li>
             </ul>
-            <form class="d-flex">
+            <form class="d-flex" style="margin-left:10px">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            <img src="" alt="" class="rounded-circle">
             <a class="nav-link" href="#">@userName</a>
-            @*<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"></li>
-            </ul>*@
-            @*<input type="text" class="form-control" placeholder="search item" />
-
-        <img src="" alt="" class="rounded-circle">
-        <p>Ivan Ivanov</p>*@
         </div>
-        @*<header class="top-row pl-4 navbar navbar-dark">
-              <h1>
-                <a href="/" class="navbar-brand">Digital Office</a>
-              </h1>
-            </header>*@
-
-
     </div>
 </nav>
 
