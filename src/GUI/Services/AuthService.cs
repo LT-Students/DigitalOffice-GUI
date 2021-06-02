@@ -1,6 +1,7 @@
 ﻿using Blazored.SessionStorage;
 using GUI.Pages.Auth;
-using LT.DigitalOffice.GUI.Services.Client.AuthService;
+using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
+using LT.DigitalOffice.GUI.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Net.Http;

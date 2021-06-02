@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using LT.DigitalOffice.GUI.Services.Client.ProjectService;
+using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
 namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
@@ -7,7 +7,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     {
         Task<FindResponseProjectInfo> FindProjects(
             int skipCount,
-            int takeCount, 
+            int takeCount,
             string shortName = null,
             string projectName = null,
             string departmentName = null);

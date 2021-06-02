@@ -1,4 +1,4 @@
-﻿using LT.DigitalOffice.GUI.Services.Client.AuthService;
+﻿using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 using System.Threading.Tasks;
