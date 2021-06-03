@@ -54,14 +54,18 @@
         </label>
         <label for="create-user_password">
             @Resources.Password*
-            <input @bind-value="userData.Password"
-                   @ref="passwordInput"
-                   type="password"
-                   id="create-user_password"
-                   class="form-control"
-                   @onkeyup="@((k) => {
-                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                       startWorkingAtInput.FocusAsync();})" />
+            <div class="input-group">
+                <input @bind-value="userData.Password"
+                       @ref="passwordInput"
+                       id="create-user_password"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                       if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                           startWorkingAtInput.FocusAsync();})" />
+                <button class="btn btn-outline-secondary"
+                        type="button"
+                        @onclick="@GeneratePassword">Generate</button>
+            </div>
         </label>
         <label for="create-user_is-admin">
             <input @bind-value="userData.IsAdmin"
@@ -172,6 +176,10 @@
     private ElementReference positionSelect;
     private ElementReference statusSelect;
 
+    private async Task GeneratePassword()
+    {
+        userData.Password = await userService.GeneratePassword();
+    }
     private async Task Post()
     {
         userCommunication.Type = CommunicationType.Email;

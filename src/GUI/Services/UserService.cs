@@ -61,5 +61,18 @@ namespace LT.DigitalOffice.GUI.Services
                 return ex.Message;
             }
         }
+
+        public async Task<string> GeneratePassword()
+        {
+            try
+            {
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                return await _client.GeneratePasswordAsync(token);
+            }
+            catch(ApiException<ErrorResponse> ex)
+            {
+                return String.Empty;
+            }
+        }
     }
 }
