@@ -9,20 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\Admin\Admin.razor.css" />
-    <None Remove="Pages\Admin\Company\CreateDepartment.razor.css" />
-    <None Remove="Pages\Admin\Company\CreatePosition.razor.css" />
-    <None Remove="Pages\Admin\User\CreateUser.razor.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Pages\Admin\Admin.razor.css" />
-    <Content Include="Pages\Admin\Company\CreateDepartment.razor.css" />
-    <Content Include="Pages\Admin\Company\CreatePosition.razor.css" />
-    <Content Include="Pages\Admin\User\CreateUser.razor.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Blazored.SessionStorage" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.6" />

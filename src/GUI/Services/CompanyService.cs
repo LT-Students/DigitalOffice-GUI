@@ -4,6 +4,7 @@ using LT.DigitalOffice.GUI.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Helpers;
+using System;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -26,9 +27,9 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Successfully created";
             }
-            catch (ApiException<ErrorResponse> ex)
+            catch (Exception ex)
             {
-                return ex.Result.Message;
+                return ex.Message;
             }
         }
 
@@ -41,9 +42,9 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Successfully created";
             }
-            catch (ApiException<ErrorResponse> ex)
+            catch (Exception ex)
             {
-                return ex.Result.Message;
+                return ex.Message;
             }
         }
 
@@ -57,6 +58,7 @@ namespace LT.DigitalOffice.GUI.Services
             }
             catch (ApiException<ErrorResponse> ex)
             {
+                //to do when spec changed
                 return null;
             }
         }
@@ -70,6 +72,7 @@ namespace LT.DigitalOffice.GUI.Services
             }
             catch(ApiException<ErrorResponse> ex)
             {
+                //to do when spec changed
                 return null;
             }
         }

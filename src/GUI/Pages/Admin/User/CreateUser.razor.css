@@ -11,14 +11,15 @@
 }
 
 .create-user_personal-container {
-    flex-direction: column;
     width: 40%;
+
+    flex-direction: column;
 }
 
 .create-user_service-container {
-    flex-direction: column;
-
     width: 40%;
+
+    flex-direction: column; 
 }
 
 .create-user_actions-container {
@@ -36,6 +37,7 @@ label {
 
 .info_container {
     width: 70%;
+
     color: red;
 }
 
