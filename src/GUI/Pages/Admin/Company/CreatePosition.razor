@@ -5,37 +5,42 @@
 
 @inject ICompanyService companyService
 
-<div class="create-position_container">
-    <label for="create-department_name">
-        @Resources.PositionName*
-        <input @bind-value="positionData.Name"
-               type="text"
-               id="create-position_name"
-               class="form-control"
-               @onkeyup="@((k) => {
+<EditForm Model=@positionData OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="create-position_container">
+        <div class="item-groop">
+            <label for="create-department_name">@Resources.PositionName*</label>
+            <input @bind-value="positionData.Name"
+                   type="text"
+                   id="create-position_name"
+                   class="form-control"
+                   @onkeyup="@((k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
                                    descriptionInput.FocusAsync();})" />
-    </label>
-    <label for="create-position_description">
-        Position description*
-        <textarea @bind="positionData.Description"
-                  @ref="descriptionInput"
-                  type="text"
-                  id="create-position_description"
-                  class="form-control" />
-    </label>
-    <div class="create-position_actions-container">
-        <p class="info_container">@message</p>
-        <button class="btn btn-primary" @onclick="@Post">@Resources.CreatePosition</button>
+            <ValidationMessage style="font-size: 0.7em;" For="() => positionData.Name" />
+        </div>
+        <div class="item-groop">
+            <label for="create-position_description">Position description*</label>
+            <textarea @bind="positionData.Description"
+                      @ref="descriptionInput"
+                      type="text"
+                      id="create-position_description"
+                      class="form-control" />
+            <ValidationMessage style="font-size: 0.7em;" For="() => positionData.Description" />
+        </div>
+        <div class="create-position_actions-container">
+            <p class="info_container">@message</p>
+            <button class="btn btn-primary" type="submit">@Resources.CreatePosition</button>
+        </div>
     </div>
-</div>
+</EditForm>
 
 @code {
     private CreatePositionRequest positionData = new();
     public string message;
     private ElementReference descriptionInput;
 
-    private async Task Post()
+    private async Task HandleValidSubmit()
     {
         message = await companyService.CreatePosition(positionData);
     }

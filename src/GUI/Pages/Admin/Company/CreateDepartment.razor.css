@@ -3,8 +3,9 @@
     flex-direction: column;
 }
 
-.create-department_container label {
-    margin: 10px 0;
+.item-groop {
+    min-height: 80px;
+    margin: 5px;
 }
 
 .create-department_actions-container {

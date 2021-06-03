@@ -7,192 +7,204 @@
 @inject IUserService userService
 @inject ICompanyService companyService
 
-<div class="create-user_container">
-    <div class="create-user_personal-container">
-        <label for="create-user_first-name">
-            @Resources.FirstName*
-            <input @bind-value="userData.FirstName"
-                   type="text"
-                   id="create-user_first-name"
-                   class="form-control"
-                   @onkeyup="@((k) => {
-                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                       lastNameInput.FocusAsync();})" />
-        </label>
-        <label for="create-user_last-name">
-            @Resources.LastName*
-            <input @bind-value="userData.LastName"
-                   @ref="lastNameInput"
-                   type="text"
-                   id="create-user_last-name"
-                   class="form-control"
-                   @onkeyup="@((k) => {
-                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                       middleNameInput.FocusAsync();})" />
-        </label>
-        <label for="create-user_middle-name">
-            @Resources.MiddleName*
-            <input @bind-value="userData.MiddleName"
-                   @ref="middleNameInput"
-                   type="text"
-                   id="create-user_middle-name"
-                   class="form-control"
-                   @onkeyup="@((k) => {
-                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                       emailInput.FocusAsync();})" />
-        </label>
-        <label for="create-user_email">
-            @Resources.Email*
-            <input @bind-value="userCommunication.Value"
-                   @ref="emailInput"
-                   type="email"
-                   id="create-user_email"
-                   class="form-control"
-                   @onkeyup="@((k) => {
-                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                       passwordInput.FocusAsync();})" />
-        </label>
-        <label for="create-user_password">
-            @Resources.Password*
-            <div class="input-group">
-                <input @bind-value="userData.Password"
-                       @ref="passwordInput"
-                       id="create-user_password"
+<EditForm Model=@userData OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="create-user_container">
+        <div class="create-user_personal-container">
+            <div class="item-groop">
+                <label for="create-user_first-name">@Resources.FirstName*</label>
+                <input @bind-value="userData.FirstName"
+                       type="text"
+                       id="create-user_first-name"
                        class="form-control"
                        @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       lastNameInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => userData.FirstName" />
+            </div>
+            <div class="item-groop">
+                <label for="create-user_last-name">@Resources.LastName*</label>
+                <input @bind-value="userData.LastName"
+                       @ref="lastNameInput"
+                       type="text"
+                       id="create-user_last-name"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       middleNameInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => userData.LastName" />
+            </div>
+            <div class="item-groop">
+                <label for="create-user_middle-name">@Resources.MiddleName*</label>
+                <input @bind-value="userData.MiddleName"
+                       @ref="middleNameInput"
+                       type="text"
+                       id="create-user_middle-name"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       emailInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => userData.MiddleName" />
+            </div>
+            <div class="item-groop">
+                <label for="create-user_email">@Resources.Email*</label>
+                <input @bind-value="userCommunication.Value"
+                       @ref="emailInput"
+                       type="email"
+                       id="create-user_email"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       passwordInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => userCommunication.Value" />
+            </div>
+            <div class="item-groop">
+                <label for="create-user_password">@Resources.Password*</label>
+                <div class="input-group">
+                    <input @bind-value="userData.Password"
+                           @ref="passwordInput"
+                           id="create-user_password"
+                           class="form-control"
+                           @onkeyup="@((k) => {
                                        if (k.Code == "Enter" || k.Code == "ArrowDown")
                                            startWorkingAtInput.FocusAsync();})" />
-                <button class="btn btn-outline-secondary"
-                        type="button"
-                        @onclick="@GeneratePassword">Generate</button>
+                    <button class="btn btn-outline-secondary"
+                            type="button"
+                            @onclick="@GeneratePassword">
+                        @Resources.Generate
+                    </button>
+                </div>
+                <ValidationMessage style="font-size: 0.7em;" For="() => userData.Password" />
             </div>
-        </label>
-        <label for="create-user_is-admin">
-            <input @bind-value="userData.IsAdmin"
-                   type="checkbox"
-                   class="btn btn-outline-primary" />
-            @Resources.IsAdmin
-        </label>
-    </div>
+            <div>
+                <input @bind-value="userData.IsAdmin"
+                       type="checkbox"
+                       class="btn btn-outline-primary" />
+                <label for="create-user_is-admin">@Resources.IsAdmin</label>
+            </div>
+        </div>
 
-    <div class="create-user_service-container">
-        <label for="create-user_start-working-at">
-            @Resources.StartWorkingAt*
-            <input @bind="userData.StartWorkingAt"
-                   @ref="startWorkingAtInput"
-                   type="date"
-                   id="create-user_start-working-at"
-                   class="form-control"
-                   @onkeyup="@((k) => {
+        <div class="create-user_service-container">
+            <div class="item-groop">
+                <label for="create-user_start-working-at">@Resources.StartWorkingAt*</label>
+                <input @bind="userData.StartWorkingAt"
+                       @ref="startWorkingAtInput"
+                       type="date"
+                       id="create-user_start-working-at"
+                       class="form-control"
+                       @onkeyup="@((k) => {
                                    if (k.Code == "Enter")
                                        rateSelect.FocusAsync();})" />
-        </label>
-        <label for="create-user_rate">
-             @Resources.Rate*
-            <select @bind="userData.Rate"
-                    @ref="rateSelect"
-                    id="create-user_rate"
-                    class="form-select"
-                    @onkeyup="@((k) => {
+            </div>
+            <div class="item-groop">
+                <label for="create-user_rate">@Resources.Rate*</label>
+                <select @bind="userData.Rate"
+                        @ref="rateSelect"
+                        id="create-user_rate"
+                        class="form-select"
+                        @onkeyup="@((k) => {
                                     if (k.Code == "ArrowDown")
                                         departmentSelect.FocusAsync();})">
-                <option selected value="0.25">0.25</option>
-                <option value="0.5">0.5</option>
-                <option value="0.75">0.75</option>
-                <option value="1">1</option>
-            </select>
-        </label>
-        <label for="create-user_department">
-            @Resources.Department
-            <select @bind="userData.DepartmentId"
-                    @ref="departmentSelect"
-                    id="create-user_department"
-                    class="form-select"
-                    @onkeyup="@((k) => {
+                    <option selected value="0.25">0.25</option>
+                    <option value="0.5">0.5</option>
+                    <option value="0.75">0.75</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
+            <div class="item-groop">
+                <label for="create-user_department">@Resources.Department</label>
+                <select @bind="userData.DepartmentId"
+                        @ref="departmentSelect"
+                        id="create-user_department"
+                        class="form-select"
+                        @onkeyup="@((k) => {
                                     if (k.Code == "ArrowDown")
                                         positionSelect.FocusAsync();})">
-                <option value="null" selected>@Resources.NotSelected...</option>
-                @if (departments != null)
-                {
-                    foreach (var department in departments.Departments)
+                    <option value="null" selected>@Resources.NotSelected...</option>
+                    @if (departments != null)
                     {
-                        <option value="@department.Id">@department.Name</option>
+                        foreach (var department in departments.Departments)
+                        {
+                            <option value="@department.Id">@department.Name</option>
+                        }
                     }
-                }
-            </select>
-        </label>
-        <label for="create-user_position">
-            @Resources.Position
-            <select @bind="userData.PositionId"
-                    @ref="positionSelect"
-                    id="create-user_position"
-                    class="form-select"
-                    @onkeyup="@((k) => {
+                </select>
+            </div>
+            <div class="item-groop">
+                <label for="create-user_position">@Resources.Position</label>
+                <select @bind="userData.PositionId"
+                        @ref="positionSelect"
+                        id="create-user_position"
+                        class="form-select"
+                        @onkeyup="@((k) => {
                                     if (k.Code == "ArrowDown")
                                         statusSelect.FocusAsync();})">
-                <option value="null" selected>@Resources.NotSelected...</option>
-                @if (positions != null)
-                {
-                    foreach (var position in positions)
+                    <option value="null" selected>@Resources.NotSelected...</option>
+                    @if (positions != null)
                     {
-                        <option value="@position.Info.Id">@position.Info.Name</option>
+                        foreach (var position in positions)
+                        {
+                            <option value="@position.Info.Id">@position.Info.Name</option>
+                        }
                     }
-                }
-            </select>
-        </label>
-        <label for="create-user_status">
-            @Resources.Status
-            <select @bind="userData.Status"
-                    @ref="statusSelect"
-                    id="create-user_status"
-                    class="form-select">
-                <option value="WorkFromHome" selected>Work from home</option>
-                <option value="WorkFromOffice">Work from office</option>
-                <option value="Vacation">Vacation</option>
-                <option value="Sick">Sick</option>
-            </select>
-        </label>
+                </select>
+            </div>
+            <div class="item-groop">
+                <label for="create-user_status">@Resources.Status</label>
+                <select @bind="userData.Status"
+                        @ref="statusSelect"
+                        id="create-user_status"
+                        class="form-select">
+                    <option value="WorkFromHome" selected>Work from home</option>
+                    <option value="WorkFromOffice">Work from office</option>
+                    <option value="Vacation">Vacation</option>
+                    <option value="Sick">Sick</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="create-user_actions-container">
+            <p class="info_container">@message</p>
+            <button class="btn btn-primary" type="submit">@Resources.CreateUser</button>
+        </div>
     </div>
+</EditForm>
 
-    <div class="create-user_actions-container">
-        <p class="info_container">@message</p>
-        <button class="btn btn-primary" @onclick="@Post">@Resources.CreateUser</button>
-    </div>
-</div>
+    @code {
+        private CreateUserRequest userData = new();
+        private CommunicationInfo userCommunication = new();
+        private DepartmentsResponse departments;
+        private ICollection<PositionResponse> positions;
+        public string message;
+        private ElementReference lastNameInput;
+        private ElementReference middleNameInput;
+        private ElementReference emailInput;
+        private ElementReference passwordInput;
+        private ElementReference startWorkingAtInput;
+        private ElementReference rateSelect;
+        private ElementReference departmentSelect;
+        private ElementReference positionSelect;
+        private ElementReference statusSelect;
 
-@code {
-    private CreateUserRequest userData = new();
-    private CommunicationInfo userCommunication = new();
-    private DepartmentsResponse departments;
-    private ICollection<PositionResponse> positions;
-    public string message;
-    private ElementReference lastNameInput;
-    private ElementReference middleNameInput;
-    private ElementReference emailInput;
-    private ElementReference passwordInput;
-    private ElementReference startWorkingAtInput;
-    private ElementReference rateSelect;
-    private ElementReference departmentSelect;
-    private ElementReference positionSelect;
-    private ElementReference statusSelect;
+        private async Task GeneratePassword()
+        {
+            userData.Password = await userService.GeneratePassword();
+        }
 
-    private async Task GeneratePassword()
-    {
-        userData.Password = await userService.GeneratePassword();
+        private async Task HandleValidSubmit()
+        {
+            userCommunication.Type = CommunicationType.Email;
+            userData.Communications = new List<CommunicationInfo>();
+            userData.Communications.Add(userCommunication);
+            message = await userService.CreateUser(userData);
+            StateHasChanged();
+        }
+
+        protected async override void OnInitialized()
+        {
+            positions = await companyService.GetPositions();
+            departments = await companyService.GetDepartments();
+            userData.StartWorkingAt = DateTime.UtcNow;
+            StateHasChanged();
+        }
     }
-    private async Task Post()
-    {
-        userCommunication.Type = CommunicationType.Email;
-        userData.Communications = new List<CommunicationInfo>();
-        userData.Communications.Add(userCommunication);
-        message = await userService.CreateUser(userData);
-    }
-
-    protected async override void OnInitialized()
-    {
-        positions = await companyService.GetPositions();
-        departments = await companyService.GetDepartments();
-        userData.StartWorkingAt = DateTime.UtcNow;
-        StateHasChanged();
-    }
-}

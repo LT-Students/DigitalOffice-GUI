@@ -160,6 +160,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate.
+        /// </summary>
+        internal static string Generate {
+            get {
+                return ResourceManager.GetString("Generate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is admin.
         /// </summary>
         internal static string IsAdmin {
@@ -192,15 +201,6 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string MiddleName {
             get {
                 return ResourceManager.GetString("MiddleName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string n {
-            get {
-                return ResourceManager.GetString("n", resourceCulture);
             }
         }
         

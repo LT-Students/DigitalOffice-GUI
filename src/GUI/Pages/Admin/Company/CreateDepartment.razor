@@ -5,55 +5,60 @@
 
 @inject ICompanyService companyService
 
-<div class="create-department_container">
-    <label for="create-department_name">
-        @Resources.DepartmentName*
-        <input @bind-value="departmentInfo.Name"
-               type="text"
-               id="create-department_name"
-               class="form-control"
-               @onkeyup="@((k) => {
+<EditForm Model=@departmentInfo OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="create-department_container">
+        <div class="item-groop">
+            <label for="create-department_name">@Resources.DepartmentName*</label>
+            <input @bind-value="departmentInfo.Name"
+                   type="text"
+                   id="create-department_name"
+                   class="form-control"
+                   @onkeyup="@((k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
                                    descriptionInput.FocusAsync();})" />
-    </label>
-    <label for="create-department_description">
-        @Resources.DepartmentDescription*
-        <textarea @bind="departmentInfo.Description"
-                  @ref="descriptionInput"
-                  type="text"
-                  id="create-department_description"
-                  class="form-control"
-                  @onkeyup="@((k) => {
+            <ValidationMessage style="font-size: 0.7em;" For="() => departmentInfo.Name" />
+        </div>
+        <div class="item-groop">
+            <label for="create-department_description">@Resources.DepartmentDescription*</label>
+            <textarea @bind="departmentInfo.Description"
+                      @ref="descriptionInput"
+                      type="text"
+                      id="create-department_description"
+                      class="form-control"
+                      @onkeyup="@((k) => {
                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
                                       directorSelect.FocusAsync();})" />
-    </label>
-    <label for="create-department_director">
-        @Resources.DepartmentDirector
-        <select @bind="departmentInfo.DirectorUserId"
-                @ref="directorSelect"
-                id="create-department_director"
-                class="form-select">
-            <option value=null selected>@Resources.NotSelected...</option>
-            <option>to do</option>
-        </select>
-    </label>
-    <div class="create-department_actions-container">
-        <p class="info_container">@message</p>
-        <button class="btn btn-primary" @onclick="@Post">@Resources.CreateDepartment</button>
+            <ValidationMessage style="font-size: 0.7em;" For="() => departmentInfo.Description" />
+        </div>
+        <div class="item-groop">
+            <label for="create-department_director">@Resources.DepartmentDirector</label>
+            <select @bind="departmentInfo.DirectorUserId"
+                    @ref="directorSelect"
+                    id="create-department_director"
+                    class="form-select">
+                <option value=null selected>@Resources.NotSelected...</option>
+                <option>to do</option>
+            </select>
+        </div>
+        <div class="create-department_actions-container">
+            <p class="info_container">@message</p>
+            <button class="btn btn-primary" type="submit">@Resources.CreateDepartment</button>
+        </div>
     </div>
-</div>
+</EditForm>
 
-@code {
-    private NewDepartmentRequest departmentData = new();
-    private BaseDepartmentInfo departmentInfo = new();
-    public string message;
-    private ElementReference descriptionInput;
-    private ElementReference directorSelect;
+    @code {
+        private NewDepartmentRequest departmentData = new();
+        private BaseDepartmentInfo departmentInfo = new();
+        public string message;
+        private ElementReference descriptionInput;
+        private ElementReference directorSelect;
 
-    private async Task Post()
-    {
-        departmentData.Info = departmentInfo;
+        private async Task HandleValidSubmit()
+        {
+            departmentData.Info = departmentInfo;
 
-        message = await companyService.CreateDepartment(departmentData);
+            message = await companyService.CreateDepartment(departmentData);
+        }
     }
-}

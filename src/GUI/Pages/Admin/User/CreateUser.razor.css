@@ -19,7 +19,7 @@
 .create-user_service-container {
     width: 40%;
 
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 .create-user_actions-container {
@@ -31,12 +31,13 @@
     align-items: center;
 }
 
-label {
-    margin: 10px 0;
+.item-groop {
+    min-height: 80px;
+
+    margin: 5px;
 }
 
 .info_container {
     width: 70%;
-
     color: red;
 }

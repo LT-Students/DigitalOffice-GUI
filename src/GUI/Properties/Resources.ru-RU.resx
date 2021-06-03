@@ -150,6 +150,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>Имя</value>
   </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Сгенерировать</value>
+  </data>
   <data name="IsAdmin" xml:space="preserve">
     <value>Администратор системы</value>
   </data>
@@ -191,8 +194,5 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Сотрудники</value>
-  </data>
-  <data name="WorkFromHome" xml:space="preserve">
-    <value />
   </data>
 </root>
