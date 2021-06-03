@@ -38,13 +38,13 @@
 
                 <button id="dropdown" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="true">
-                    Select project status
+                    @(_departmentValue ?? "Select project status")
                 </button>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:void(0)">Active</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Closed</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Suspend</a>
+                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => _departmentValue = "Active")">Active</a>
+                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => _departmentValue = "Closed")">Closed</a>
+                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => _departmentValue = "Suspend")">Suspend</a>
                 </div>
 
             </div>
@@ -85,3 +85,7 @@
 <textarea id="description" placeholder="Insert project description" class="form-control" aria-label="With textarea"
     rows="4">
 </textarea>
+
+@code {
+    private string _departmentValue;
+}

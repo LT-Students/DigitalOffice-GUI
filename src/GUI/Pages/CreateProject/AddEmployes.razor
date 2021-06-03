@@ -9,9 +9,12 @@
         <div class="overflow-auto">
             @foreach (var user in @_foundEmployees)
             {
-                <div class=@( statesFoundEmployeesSelected[user.Index] ? "employee-content select-employee-content" : "employee-content") @onclick="() => {statesFoundEmployeesSelected[user.Index] = !statesFoundEmployeesSelected[user.Index]; _indexSelectEmployee = user.Index;}"> 
-                    <p><img src=""/> @user.UserName <font style="margin-left: 18%;"> @user.Position </font> </p> 
-                </div>
+                @if (!statesFoundEmployeesSelected[user.Index].isHiden)
+                {
+                    <div class=@( statesFoundEmployeesSelected[user.Index].isClickEmployee ? "employee-content select-employee-content" : "employee-content") @onclick="() => {var pair = statesFoundEmployeesSelected[user.Index]; pair.isClickEmployee = !pair.isClickEmployee; statesFoundEmployeesSelected[user.Index] = pair; _indexSelectEmployee.Add(user.Index);}"> 
+                        <p><img src=""/> @user.UserName <font style="margin-left: 18%;"> @user.Position </font> </p> 
+                    </div>
+                }
             }
         </div>
     </div>
@@ -41,48 +44,49 @@
         public int Index { get; set; }
     }
 
-    private int _indexSelectEmployee;
+    private List<int> _indexSelectEmployee;
     private int _countEmployees = 1;
 
     private List<User> _foundEmployees;
     private List<User> _selectedEmployees;
 
-    private Dictionary<int, bool> statesFoundEmployeesSelected;
+    private Dictionary<int, (bool isHiden, bool isClickEmployee)> statesFoundEmployeesSelected;
     private Dictionary<int, bool> statesSelectedEmployees;
     
     protected override void OnInitialized()
     {
         _foundEmployees = new();
         _selectedEmployees = new();
+        _indexSelectEmployee = new();
 
         _foundEmployees.Add(new User{
             UserName = "Ivan Ivanov",
-            Position = "Backend",
+            Position = "Backend0",
             Index = 0
         });
         _foundEmployees.Add(new User{
             UserName = "Ivan Ivanov",
-            Position = "Backend",
+            Position = "Backend1",
             Index = 1
         });
         _foundEmployees.Add(new User{
             UserName = "Ivan Ivanov",
-            Position = "Backend",
+            Position = "Backend2",
             Index = 2
         });
         _foundEmployees.Add(new User{
             UserName = "Ivan Ivanov",
-            Position = "Backend",
+            Position = "Backend3",
             Index = 3
         });
         _foundEmployees.Add(new User{
             UserName = "Ivan Ivanov",
-            Position = "Backend",
+            Position = "Backend4",
             Index = 4
         });
         _foundEmployees.Add(new User{
             UserName = "Ivan Ivanov",
-            Position = "Backend",
+            Position = "Backend5",
             Index = 5
         });
 
@@ -91,37 +95,36 @@
             Position = "Backend",
             Index = 0
         });
-        _selectedEmployees.Add(new User{
-            UserName = "Ivan Ivanov",
-            Position = "Backend",
-            Index = 1
-        });
-        _selectedEmployees.Add(new User{
-            UserName = "Ivan Ivanov",
-            Position = "Backend",
-            Index = 2
-        });
        
         statesFoundEmployeesSelected = new();
         statesSelectedEmployees = new();
 
         for (int i = 0; i < 8; i++)
         {
-            statesFoundEmployeesSelected.Add(i, false);
+            statesFoundEmployeesSelected.Add(i, (false, false));
             statesSelectedEmployees.Add(i, false);
         }
     }
 
     private void AddFoundEmployees()
     {
-        var user = _foundEmployees[_indexSelectEmployee];
+        foreach (int index in _indexSelectEmployee)
+        {
+            var user = _foundEmployees[index];
 
-        statesFoundEmployeesSelected[user.Index - 1] = false;
-        
-        _foundEmployees.Remove(_foundEmployees[_indexSelectEmployee]);
-        user.Index = _selectedEmployees.Last().Index++;
+            var pair = statesFoundEmployeesSelected[user.Index];
+            pair.isHiden = true;
+            pair.isClickEmployee = false;
+            statesFoundEmployeesSelected[user.Index] = pair;
 
-        _selectedEmployees.Add(user);
+            user.Index = _selectedEmployees.Last().Index++;
+
+            _selectedEmployees.Add(user);
+
+            user.Index = index;
+        }
+
+        _indexSelectEmployee.Clear();
     }
 }
 

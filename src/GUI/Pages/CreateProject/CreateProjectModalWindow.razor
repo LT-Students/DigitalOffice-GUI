@@ -15,21 +15,21 @@
 
         @if (_isShowNextContent)
         {
-                    <AddEmployes />
+                              <GeneralInfo />
         }
         else
         {
-                    <GeneralInfo />
+                              <AddEmployes />
         }
 
       </div>
 
       <div class="modal-footer">
 
-        @* @if (_isShowNextContent)
-        { *@
+        @if (_isShowNextContent)
+        {
           <button type="button" class="btn btn-primary" @onclick="() => _isShowNextContent = !_isShowNextContent">Back</button>
-        @* } *@
+        }
 
         <button type="button" class="btn btn-primary" @onclick="() => _isShowNextContent = !_isShowNextContent">@(_isShowNextContent ? "Finish" : "Next")</button>
       </div>
