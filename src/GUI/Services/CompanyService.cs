@@ -3,6 +3,7 @@ using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LT.DigitalOffice.GUI.Helpers;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -20,7 +21,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                _token = await _storage.GetItemAsync<string>("Token");
+                _token = await _storage.GetItemAsync<string>(Consts.Token);
                 var response = await _client.AddDepartmentAsync(request, _token);
 
                 return "Successfully created";
@@ -35,7 +36,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                _token = await _storage.GetItemAsync<string>("Token");
+                _token = await _storage.GetItemAsync<string>(Consts.Token);
                 var response = await _client.AddPositionAsync(request, _token);
 
                 return "Successfully created";
@@ -50,7 +51,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                _token = await _storage.GetItemAsync<string>("Token");
+                _token = await _storage.GetItemAsync<string>(Consts.Token);
                 return await _client.GetDepartmentsAsync(_token);
 
             }
@@ -64,7 +65,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                _token = await _storage.GetItemAsync<string>("Token");
+                _token = await _storage.GetItemAsync<string>(Consts.Token);
                 return await _client.GetPositionsListAsync(_token);
             }
             catch(ApiException<ErrorResponse> ex)

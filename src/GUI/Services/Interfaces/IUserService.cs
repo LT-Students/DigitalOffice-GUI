@@ -7,7 +7,6 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     {
         Task<string> GetUserName();
 
-        public Task<string> CreateUser(CreateUserRequest request);
+        Task<string> CreateUser(CreateUserRequest request);
     }
-
 }

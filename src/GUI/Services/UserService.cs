@@ -51,7 +51,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var token = await _sessionStorage.GetItemAsync<string>("Token");
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
                 var response = await _client.CreateUserAsync(request, token);
 
                 return response.Status.ToString();
