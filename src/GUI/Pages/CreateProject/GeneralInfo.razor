@@ -1,3 +1,10 @@
+@using Company = LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
+@using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
+@using LT.DigitalOffice.GUI.Services.Interfaces
+
+@inject ICompanyService companyService
+@inject IProjectService projectService
+
 <p class="general-info-title" >General information</p>
 
 <div style="display: flow-root; margin-bottom: 25px;">
@@ -7,15 +14,18 @@
         <label for="fullName">
             Full name <font color="red">*</font>
         </label>
-        <input id="fullName" type="text" class="form-control" placeholder="Insert project full name"
-            aria-label="Username" aria-describedby="basic-addon1">
+        <div id="fullName">
+            <input type="text" class="form-control" placeholder="Insert project full name"
+            aria-label="Username" aria-describedby="basic-addon1" @oninput="FullNameFieldValidation">
+            <p>@_fullNameValidationMessage</p>
+        </div>
 
         <div class="short-description-input">
             <lable for="shortDescription">
                 Short description
             </lable>
             <textarea id="shortDescription" rows="5" placeholder="Insert project short description" class="form-control"
-                aria-label="With textarea">
+                aria-label="With textarea" @bind="ProjectRequest.ShortDescription">
             </textarea>
         </div>
 
@@ -25,27 +35,30 @@
         <label for="shortName">
             Short name <font color="red">*</font>
         </label>
-        <input id="shortName" type="text" class="form-control" placeholder="Insert project full name"
-            aria-label="Username" aria-describedby="basic-addon1">
+        <div id="shortName">
+            <input type="text" class="form-control" placeholder="Insert project full name"
+            aria-label="Username" aria-describedby="basic-addon1" @oninput="ShortNameFieldValidation">
+            <p>@_shortNameValidationMessage</p>
+        </div>
 
         <div style="display:grid">
 
-            <label for="department">
+            <label for="status">
                 Status <font color="red">*</font>
             </label>
 
-            <div id="department" class="btn-group">
+            <div id="status" class="btn-group">
 
                 <button id="dropdown" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="true">
-                    @(_departmentValue ?? "Select project status")
+                    aria-haspopup="true" aria-expanded="true" @onclick="() => SetMessage(isDepartment: false)">
+                    @(ProjectRequest.Status.ToString() ?? "Select project status")
                 </button>
-
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => _departmentValue = "Active")">Active</a>
-                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => _departmentValue = "Closed")">Closed</a>
-                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => _departmentValue = "Suspend")">Suspend</a>
+                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => ProjectRequest.Status = ProjectStatusType.Active)">@ProjectStatusType.Active</a>
+                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => ProjectRequest.Status = ProjectStatusType.Closed)">@ProjectStatusType.Closed</a>
+                    <a class="dropdown-item" href="javascript:void(0)" @onclick="@(() => ProjectRequest.Status = ProjectStatusType.Suspend)">@ProjectStatusType.Suspend</a>
                 </div>
+                <p>@(ProjectRequest.Status.ToString() is null ? _statusValidationMessage : null)</p>
 
             </div>
 
@@ -60,16 +73,25 @@
             <div id="department" class="btn-group">
 
                 <button id="dropdown" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Select department
+                    aria-haspopup="true" aria-expanded="false" @onclick="() => SetMessage(isDepartment: true)">
+                    @(_departmentValue ?? "Select department")
                 </button>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Department name</a>
+                   @if (@_departments is not null)
+                   {
+                        @foreach (var department in @_departments)
+                        {
+                            <a 
+                                class="dropdown-item" 
+                                href="javascript:void(0)" 
+                                @onclick="@(() => {_departmentValue = department.Name; ProjectRequest.DepartmentId = department.Id; })">
+                                    @department.Name
+                                </a>
+                        }
+                   }
                 </div>
+                <p>@(_departmentValue is null ? _departmentValidationMessage : null)</p>
 
             </div>
 
@@ -83,9 +105,84 @@
     Description
 </lable>
 <textarea id="description" placeholder="Insert project description" class="form-control" aria-label="With textarea"
-    rows="4">
+    rows="4" @bind="ProjectRequest.Description">
 </textarea>
 
 @code {
     private string _departmentValue;
+    private string _validationMessage;
+    private string _fullNameValidationMessage;
+    private string _shortNameValidationMessage;
+    private string _statusValidationMessage;
+    private string _departmentValidationMessage;
+
+    private List<Company.DepartmentInfo> _departments;
+    
+    public ProjectRequest ProjectRequest;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ProjectRequest = new ProjectRequest();
+        _departments = await companyService.GetDepartments() ?? new List<Company.DepartmentInfo>();
+    }
+
+    public void FullNameFieldValidation(ChangeEventArgs e)
+    {
+        _validationMessage = null;
+        _fullNameValidationMessage = null;
+
+        string fullName = e.Value.ToString();
+        if (fullName.Length > 150)
+        { 
+            _fullNameValidationMessage = "Projec full name must not be more than 150 characters";
+        }
+        else 
+        {
+            _fullNameValidationMessage = EmptyFieldValidation(fullName);
+        }
+
+        ProjectRequest.Name = _fullNameValidationMessage ?? fullName;
+    }
+
+    public void ShortNameFieldValidation(ChangeEventArgs e)
+    {
+        _validationMessage = null;
+        _shortNameValidationMessage = null;
+
+        string shortName = e.Value.ToString();
+        if (shortName.Length > 30)
+        { 
+            _shortNameValidationMessage = "Projec short name must not be more than 30 characters";
+        }
+        else 
+        {
+            _shortNameValidationMessage = EmptyFieldValidation(shortName);
+        }
+
+        ProjectRequest.ShortName = _fullNameValidationMessage ?? shortName;
+    }
+
+    private string EmptyFieldValidation(string value)
+    {
+        _validationMessage = null;
+
+        if (value.Length == 0)
+        {
+            _validationMessage = "The field is required";
+        }
+
+        return _validationMessage;
+    }
+
+    private void SetMessage(bool isDepartment)
+    {
+        if (isDepartment)
+        {
+            _departmentValidationMessage = "Project department value must be selected";
+        }
+        else
+        {
+            _statusValidationMessage = "Project status value must be selected";
+        }
+    }
 }

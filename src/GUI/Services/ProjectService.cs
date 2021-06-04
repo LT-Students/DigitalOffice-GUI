@@ -10,10 +10,12 @@ namespace LT.DigitalOffice.GUI.Services
     public class ProjectService : IProjectService
     {
         private readonly ISessionStorageService _storage;
+        private readonly ProjectServiceClient _projectServiceClient;
 
         public ProjectService(ISessionStorageService storage)
         {
             _storage = storage;
+            _projectServiceClient = new ProjectServiceClient(new HttpClient());
         }
 
         public async Task<FindResponseProjectInfo> FindProjects(
@@ -23,16 +25,12 @@ namespace LT.DigitalOffice.GUI.Services
             string projectName = null,
             string departmentName = null)
         {
-            var httpClient = new HttpClient();
-
-            var projectService = new ProjectServiceClient(httpClient);
-
             FindResponseProjectInfo projectsResponse = null;
             try
             {
                 var token = await _storage.GetItemAsync<string>(Consts.Token);
 
-                projectsResponse =  await projectService.FindProjectsAsync(token, projectName, shortName, departmentName, skipCount, takeCount);
+                projectsResponse =  await _projectServiceClient.FindProjectsAsync(token, projectName, shortName, departmentName, skipCount, takeCount);
             }
             catch (ApiException<ErrorResponse> exc)
             {
@@ -41,6 +39,24 @@ namespace LT.DigitalOffice.GUI.Services
             }
 
             return projectsResponse;
+        }
+
+        public async Task<ProjectInfo> CreateProject(ProjectRequest request)
+        {
+            OperationResultResponseProjectInfo response = null;
+            try
+            {
+                var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+                response =  await _projectServiceClient.CreateProjectAsync(request, token);
+            }
+            catch (ApiException<ErrorResponse> exc)
+            {
+                // TODO add exception handler
+                throw;
+            }
+
+            return response.Body;
         }
     }
 }

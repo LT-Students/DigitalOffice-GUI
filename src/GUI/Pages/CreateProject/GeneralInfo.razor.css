@@ -1,5 +1,5 @@
 input, textarea, button[id="dropdown"] {
-    background-color: #E9E9E9;
+    background-color: #f1f1f1;
     color: #6c757d;
     border: none;
 }
@@ -36,8 +36,27 @@ button[id="dropdown"]:active {
     float: right;
 }
 
-input[id="fullName"],  input[id="shortName"], input[id="status"]{
+div[id="fullName"], div[id="shortName"]{
     margin-bottom: 25px;
+}
+
+div[id="fullName"] p, 
+div[id="shortName"] p,
+div[id="status"] p , 
+div[id="department"] p {
+    margin: 0;
+    margin-top: 2px;
+    font-size: 13px;
+    color: #c0535d;
+}
+
+div[id="status"] button, 
+div[id="department"] button {
+    color: #757e85
+}
+
+.btn-group {
+    display: unset;
 }
 
 .short-description-input {
