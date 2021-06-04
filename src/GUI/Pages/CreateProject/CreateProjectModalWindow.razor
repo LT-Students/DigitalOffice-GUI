@@ -1,7 +1,4 @@
-@using LT.DigitalOffice.GUI.Services.Interfaces
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
-
-@inject IProjectService projectService
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -18,28 +15,18 @@
 
       <div class="modal-body">
 
-        @if (_isShowNextContent)
+        @if (_isShowEmployeesForm)
         {
-            <AddEmployes />
+            <AddEmployes @bind-IsShowEmployeesForm="@_isShowEmployeesForm" @bind-ProjectRequest="@request" />
         }
         else
         {
-            <GeneralInfo />
+            <GeneralInfo @bind-IsShowEmployeesForm="@_isShowEmployeesForm" @bind-ProjectRequest="@request"/>
         }
 
       </div>
 
       <div class="modal-footer">
-
-        @if (_isShowNextContent)
-        {
-          <button type="button" class="btn btn-primary" @onclick="() => _isShowNextContent = !_isShowNextContent">Back</button>
-          <button type="button" class="btn btn-primary" @onclick="CreateProject">Finish</button>
-        }
-        else
-        {
-          <button type="button" class="btn btn-primary" @onclick="() => _isShowNextContent = !_isShowNextContent">Next</button>
-        }
         
       </div>
 
@@ -48,12 +35,6 @@
 </div>
 
 @code{
-  private bool _isShowNextContent;
-
-  private ProjectRequest _projectRequest { get; set; }
-
-  public void CreateProject()
-  {
-
-  }
+  private bool _isShowEmployeesForm;
+  private ProjectRequest request;
 }

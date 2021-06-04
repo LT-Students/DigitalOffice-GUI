@@ -1,39 +1,53 @@
-<p>Adding employees</p>
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
 
-<input type="text" class="form-control" placeholder="Search employee by keywords"
-            aria-label="Username" aria-describedby="basic-addon1">
+@inject IProjectService projectService
 
-<div style="display: flow-root">
-    <div class="found-employes-content">
-        <p>Found employees</p>
-        <div class="overflow-auto">
-            @foreach (var user in @_foundEmployees)
-            {
-                @if (!statesFoundEmployeesSelected[user.Index].isHiden)
+<EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
+    
+    <DataAnnotationsValidator />
+
+    <p>Adding employees</p>
+
+    <input type="text" class="form-control" placeholder="Search employee by keywords"
+                aria-label="Username" aria-describedby="basic-addon1">
+
+    <div style="display: flow-root">
+        <div class="found-employes-content">
+            <p>Found employees</p>
+            <div class="overflow-auto">
+                @foreach (var user in @_foundEmployees)
                 {
-                    <div class=@( statesFoundEmployeesSelected[user.Index].isClickEmployee ? "employee-content select-employee-content" : "employee-content") @onclick="() => {var pair = statesFoundEmployeesSelected[user.Index]; pair.isClickEmployee = !pair.isClickEmployee; statesFoundEmployeesSelected[user.Index] = pair; _indexSelectEmployee.Add(user.Index);}"> 
+                    @if (!statesFoundEmployeesSelected[user.Index].isHiden)
+                    {
+                        <div class=@( statesFoundEmployeesSelected[user.Index].isClickEmployee ? "employee-content select-employee-content" : "employee-content") @onclick="() => {var pair = statesFoundEmployeesSelected[user.Index]; pair.isClickEmployee = !pair.isClickEmployee; statesFoundEmployeesSelected[user.Index] = pair; _indexSelectEmployee.Add(user.Index);}"> 
+                            <p><img src=""/> @user.UserName <font style="margin-left: 18%;"> @user.Position </font> </p> 
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="managed-employes">
+            <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="AddFoundEmployees">Add</button>
+            <button type="button"  class="btn btn-primary" data-toggle="modal">Remove</button>
+        </div>
+        <div class="selected-employes-content">
+            <p>Selected employees</p>
+            <div class="overflow-auto">
+                @foreach (var user in @_selectedEmployees)
+                {
+                    <div class=@( statesSelectedEmployees[user.Index] ? "employee-content select-employee-content" : "employee-content") @onclick="() => statesSelectedEmployees[user.Index] = !statesSelectedEmployees[user.Index]"> 
                         <p><img src=""/> @user.UserName <font style="margin-left: 18%;"> @user.Position </font> </p> 
                     </div>
                 }
-            }
+            </div>
         </div>
     </div>
-    <div class="managed-employes">
-        <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="AddFoundEmployees">Add</button>
-        <button type="button"  class="btn btn-primary" data-toggle="modal">Remove</button>
+    <div id="action-buttons">
+        <button type="button" class="btn btn-primary" @onclick="@(() => IsShowEmployeesFormChanged.InvokeAsync(false))">Back</button>
+        <button type="submit" class="btn btn-primary">Finish</button>
     </div>
-    <div class="selected-employes-content">
-        <p>Selected employees</p>
-        <div class="overflow-auto">
-            @foreach (var user in @_selectedEmployees)
-            {
-                <div class=@( statesSelectedEmployees[user.Index] ? "employee-content select-employee-content" : "employee-content") @onclick="() => statesSelectedEmployees[user.Index] = !statesSelectedEmployees[user.Index]"> 
-                    <p><img src=""/> @user.UserName <font style="margin-left: 18%;"> @user.Position </font> </p> 
-                </div>
-            }
-        </div>
-    </div>
-</div>
+</EditForm>
 
 @code {
 
@@ -47,14 +61,29 @@
     private List<int> _indexSelectEmployee;
     private int _countEmployees = 1;
 
+    private EditContext _editContext;
     private List<User> _foundEmployees;
     private List<User> _selectedEmployees;
 
     private Dictionary<int, (bool isHiden, bool isClickEmployee)> statesFoundEmployeesSelected;
     private Dictionary<int, bool> statesSelectedEmployees;
     
+    [Parameter]
+    public ProjectRequest ProjectRequest { get; set; }
+
+    [Parameter]
+    public bool IsShowEmployeesForm { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsShowEmployeesFormChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<ProjectRequest> ProjectRequestChanged { get; set; }
+    
     protected override void OnInitialized()
     {
+        _editContext = new(ProjectRequest);
+        
         _foundEmployees = new();
         _selectedEmployees = new();
         _indexSelectEmployee = new();
@@ -125,6 +154,11 @@
         }
 
         _indexSelectEmployee.Clear();
+    }
+
+    private void HandleSubmit()
+    {
+        projectService.CreateProject(ProjectRequest);
     }
 }
 

@@ -79,3 +79,9 @@ textarea[id="description"] {
 .general-info-title {
     font-size: 1.2rem;
 }
+
+ button[type="submit"]{
+    width: 12%;
+    margin-top: 28px;
+    float: right
+}

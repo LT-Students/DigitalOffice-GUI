@@ -73,3 +73,13 @@ input {
     background-color: #7171ff;
     border-bottom: 2px solid white;
 }
+
+div[id="action-buttons"] {
+    margin-top: 28px;
+    float: right;
+    width: 34%;
+}
+
+div[id="action-buttons"] button{
+    width: 48%;
+}
