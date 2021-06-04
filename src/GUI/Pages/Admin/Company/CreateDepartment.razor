@@ -19,7 +19,7 @@
                                    descriptionInput.FocusAsync();})" />
             <ValidationMessage style="font-size: 0.7em;" For="() => departmentInfo.Name" />
         </div>
-        <div class="item-groop">
+        <div class="item-groop_textarea">
             <label for="create-department_description">@Resources.DepartmentDescription*</label>
             <textarea @bind="departmentInfo.Description"
                       @ref="descriptionInput"
