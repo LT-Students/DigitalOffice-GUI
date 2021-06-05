@@ -7,14 +7,18 @@
 
 <div class="nav-scroller bg-body shadow-sm">
     <nav class="nav nav-underline" aria-label="Projects navigation">
-        <a class="nav-link" >@Resources.CreateNewProject</a>
+        <a 
+            href="javascript:void(0)"  
+            class="nav-link"
+            data-toggle="modal"
+            data-target="#exampleModalCenter">
+            @Resources.CreateNewProject
+        </a>
     </nav>
 </div>
 
 <div class="projects">
     <div class="projects-tools">
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">create</button>
 
         <CreateProjectModalWindow />
 
