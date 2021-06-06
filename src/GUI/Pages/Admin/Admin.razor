@@ -8,15 +8,15 @@
         <h4>@Resources.Company</h4>
         <button class="btn btn-link"
                 @onclick='(() => {
-                              modalWindow.Open();
-                              modalTitle = Resources.CreateDepartment;
+                              _modalWindow.Open();
+                              _modalTitle = Resources.CreateDepartment;
                           })'>
             @Resources.CreateDepartment
         </button>
         <button class="btn btn-link"
                 @onclick='(() => {
-                              modalWindow.Open();
-                              modalTitle = Resources.CreatePosition;
+                              _modalWindow.Open();
+                              _modalTitle = Resources.CreatePosition;
                           })'>
             @Resources.CreatePosition
         </button>
@@ -25,26 +25,26 @@
         <h4>@Resources.Users</h4>
         <button class="btn btn-link"
                 @onclick='(() => {
-                              modalWindow.Open();
-                              modalTitle = Resources.CreateUser;
+                              _modalWindow.Open();
+                              _modalTitle = Resources.CreateUser;
                           })'>
             @Resources.CreateUser
         </button>
     </div>
 </div>
 
-<ModalWindow @ref="modalWindow">
-    <Title>@modalTitle</Title>
+<ModalWindow @ref="_modalWindow">
+    <Title>@_modalTitle</Title>
     <Body>
-        @if (modalTitle == Resources.CreateDepartment)
+        @if (_modalTitle == Resources.CreateDepartment)
         {
             <LT.DigitalOffice.GUI.Pages.Admin.Company.CreateDepartment />
         }
-        @if (modalTitle == Resources.CreatePosition)
+        @if (_modalTitle == Resources.CreatePosition)
         {
             <LT.DigitalOffice.GUI.Pages.Admin.Company.CreatePosition />
         }
-        @if (modalTitle == Resources.CreateUser)
+        @if (_modalTitle == Resources.CreateUser)
         {
             <LT.DigitalOffice.GUI.Pages.Admin.User.CreateUser />
         }
@@ -52,6 +52,6 @@
 </ModalWindow>
 
 @code {
-    private ModalWindow modalWindow { get; set; }
-    private string modalTitle { get; set; }
+    private ModalWindow _modalWindow { get; set; }
+    private string _modalTitle { get; set; }
 }

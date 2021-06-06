@@ -6,12 +6,12 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface ICompanyService
     {
-        public Task<string> CreateDepartment(NewDepartmentRequest request);
+        Task<string> CreateDepartment(NewDepartmentRequest request);
 
-        public Task<string> CreatePosition(CreatePositionRequest request);
+        Task<string> CreatePosition(CreatePositionRequest request);
 
-        public Task<DepartmentsResponse> GetDepartments();
+        Task<DepartmentsResponse> GetDepartments();
 
-        public Task<ICollection<PositionResponse>> GetPositions();
+        Task<ICollection<PositionResponse>> GetPositions();
     }
 }

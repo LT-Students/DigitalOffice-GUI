@@ -5,36 +5,36 @@
 
 @inject ICompanyService companyService
 
-<EditForm Model=@departmentInfo OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@_departmentInfo" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <div class="create-department_container">
         <div class="item-groop">
             <label for="create-department_name">@Resources.DepartmentName*</label>
-            <input @bind-value="departmentInfo.Name"
+            <input @bind-value="_departmentInfo.Name"
                    type="text"
                    id="create-department_name"
                    class="form-control"
                    @onkeyup="@((k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   descriptionInput.FocusAsync();})" />
-            <ValidationMessage style="font-size: 0.7em;" For="() => departmentInfo.Name" />
+                                   _descriptionInput.FocusAsync();})" />
+            <ValidationMessage style="font-size: 0.7em;" For="() => _departmentInfo.Name" />
         </div>
         <div class="item-groop_textarea">
             <label for="create-department_description">@Resources.DepartmentDescription*</label>
-            <textarea @bind="departmentInfo.Description"
-                      @ref="descriptionInput"
+            <textarea @bind="_departmentInfo.Description"
+                      @ref="_descriptionInput"
                       type="text"
                       id="create-department_description"
                       class="form-control"
                       @onkeyup="@((k) => {
                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                      directorSelect.FocusAsync();})" />
-            <ValidationMessage style="font-size: 0.7em;" For="() => departmentInfo.Description" />
+                                      _directorSelect.FocusAsync();})" />
+            <ValidationMessage style="font-size: 0.7em;" For="() => _departmentInfo.Description" />
         </div>
         <div class="item-groop">
             <label for="create-department_director">@Resources.DepartmentDirector</label>
-            <select @bind="departmentInfo.DirectorUserId"
-                    @ref="directorSelect"
+            <select @bind="_departmentInfo.DirectorUserId"
+                    @ref="_directorSelect"
                     id="create-department_director"
                     class="form-select">
                 <option value=null selected>@Resources.NotSelected...</option>
@@ -42,23 +42,23 @@
             </select>
         </div>
         <div class="create-department_actions-container">
-            <p class="info_container">@message</p>
+            <p class="info_container">@_message</p>
             <button class="btn btn-primary" type="submit">@Resources.CreateDepartment</button>
         </div>
     </div>
 </EditForm>
 
     @code {
-        private NewDepartmentRequest departmentData = new();
-        private BaseDepartmentInfo departmentInfo = new();
-        public string message;
-        private ElementReference descriptionInput;
-        private ElementReference directorSelect;
+        private NewDepartmentRequest _departmentData = new();
+        private BaseDepartmentInfo _departmentInfo = new();
+        private string _message;
+        private ElementReference _descriptionInput;
+        private ElementReference _directorSelect;
 
         private async Task HandleValidSubmit()
         {
-            departmentData.Info = departmentInfo;
+            _departmentData.Info = _departmentInfo;
 
-            message = await companyService.CreateDepartment(departmentData);
+            _message = await companyService.CreateDepartment(_departmentData);
         }
     }
