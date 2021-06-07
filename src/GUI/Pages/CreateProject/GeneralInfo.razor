@@ -2,17 +2,20 @@
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
 @using LT.DigitalOffice.GUI.Services.Interfaces
 @using System.Collections.Generic
+@using LT.DigitalOffice.GUI.Properties;
 
 @inject ICompanyService companyService
 @inject IProjectService projectService
 
-<EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
+<EditForm Model="@ProjectRequest" OnValidSubmit="@HandleSubmit">
     <DataAnnotationsValidator />
-    <p class="general-info-title" >General information</p>
+    <ValidationSummary/>
+
+    <p class="general-info-title" >@Resources.ProjectGeneralInfo</p>
     <div style="display: flow-root; margin-bottom: 25px;">
         <div class="additional-content">
             <label for="fullName">
-                Full name <font color="red">*</font>
+                @Resources.ProjectFullNameInput <font color="red">*</font>
             </label>
             <div id="fullName">
                 <input 
@@ -21,13 +24,11 @@
                     placeholder="Insert project full name"
                     aria-label="Username" 
                     aria-describedby="basic-addon1" 
-                    @bind="ProjectRequest.Name" 
-                    @oninput="FullNameFieldValidation">
-                <p>@_fullNameValidationMessage</p>
+                    @bind="ProjectRequest.Name">
             </div>
             <div class="short-description-input">
                 <lable for="shortDescription">
-                    Short description
+                    @Resources.ProjectShortDescription
                 </lable>
                 <textarea 
                     id="shortDescription" 
@@ -41,7 +42,7 @@
         </div>
         <div class="main-content">
             <label for="shortName">
-                Short name <font color="red">*</font>
+                @Resources.ProjectShortName <font color="red">*</font>
             </label>
             <div id="shortName">
                 <input 
@@ -49,20 +50,22 @@
                     class="form-control" 
                     aria-label="Username" 
                     aria-describedby="basic-addon1" 
-                    @bind="ProjectRequest.ShortName" 
-                    @oninput="ShortNameFieldValidation"
+                    @bind="ProjectRequest.ShortName"
                     placeholder="Insert project full name">
-                <p>@_shortNameValidationMessage</p>
             </div>
             <div style="display:grid">
-
                 <label for="status">
-                    Status <font color="red">*</font>
+                    @Resources.ProjectStatus <font color="red">*</font>
                 </label>
                 <div id="status" class="btn-group">
-                    <button id="dropdown" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true" @onclick="() => SetMessage(isDepartment: false)">
-                        @(ProjectRequest.Status.ToString() ?? "Select project status")
+                    <button 
+                        id="dropdown" 
+                        type="button" 
+                        class="btn btn-primary dropdown-toggle" 
+                        data-toggle="dropdown"
+                        aria-haspopup="true" 
+                        aria-expanded="true">
+                        @ProjectRequest.Status.ToString()
                     </button>
                     <div class="dropdown-menu">
                         <a 
@@ -84,12 +87,11 @@
                             @ProjectStatusType.Suspend
                         </a>
                     </div>
-                    <p>@(ProjectRequest.Status.ToString() is null ? _statusValidationMessage : null)</p>
                 </div>
             </div>
             <div class="department-input">
                 <label for="department">
-                    Department <font color="red">*</font>
+                    @Resources.ProjectDepartment <font color="red">*</font>
                 </label>
                 <div id="department" class="btn-group">
                     <button 
@@ -98,8 +100,7 @@
                         class="btn btn-primary dropdown-toggle" 
                         data-toggle="dropdown"
                         aria-haspopup="true" 
-                        aria-expanded="false" 
-                        @onclick="() => SetMessage(isDepartment: true)">
+                        aria-expanded="false">
                         @(_departmentValue ?? "Select department")
                     </button>
                     <div class="dropdown-menu">
@@ -118,13 +119,12 @@
                     }
                     
                     </div>
-                    <p>@(_departmentValue is null ? _departmentValidationMessage : null)</p>
                 </div>
             </div>
         </div>
     </div>
     <lable for="description">
-        Description
+        @Resources.ProjectDescription
     </lable>
     <textarea 
         id="description" 
@@ -134,7 +134,7 @@
         rows="4" 
         @bind="ProjectRequest.Description">
     </textarea>
-    <button type="submit" class="btn btn-primary">Next</button>
+    <button type="submit" class="btn btn-primary">@Resources.ProjectModalNextButton</button>
 </EditForm>
 
 @code {
@@ -144,7 +144,6 @@
     private string _shortNameValidationMessage;
     private string _statusValidationMessage;
     private string _departmentValidationMessage;
-    private EditContext _editContext;
 
     private List<Company.DepartmentInfo> _departments;
     
@@ -166,78 +165,13 @@
         {
             ProjectRequest = new();
         }
-        
-        _editContext = new(ProjectRequest);
 
         _departments = await companyService.GetDepartments() ?? new List<Company.DepartmentInfo>();
     }
 
-    public void FullNameFieldValidation(ChangeEventArgs e)
-    {
-        _validationMessage = null;
-        _fullNameValidationMessage = null;
-
-        string fullName = e.Value.ToString();
-        if (fullName.Length > 150)
-        { 
-            _fullNameValidationMessage = "Projec full name must not be more than 150 characters";
-        }
-        else 
-        {
-            _fullNameValidationMessage = EmptyFieldValidation(fullName);
-        }
-
-        ProjectRequest.Name = _fullNameValidationMessage is null ? fullName : null;
-    }
-
-    public void ShortNameFieldValidation(ChangeEventArgs e)
-    {
-        _validationMessage = null;
-        _shortNameValidationMessage = null;
-
-        string shortName = e.Value.ToString();
-        if (shortName.Length > 30)
-        { 
-            _shortNameValidationMessage = "Projec short name must not be more than 30 characters";
-        }
-        else 
-        {
-            _shortNameValidationMessage = EmptyFieldValidation(shortName);
-        }
-
-        ProjectRequest.ShortName = _shortNameValidationMessage is null ? shortName : null;
-    }
-
-    private string EmptyFieldValidation(string value)
-    {
-        _validationMessage = null;
-
-        if (value.Length == 0)
-        {
-            _validationMessage = "The field is required";
-        }
-
-        return _validationMessage;
-    }
-
-    private void SetMessage(bool isDepartment)
-    {
-        if (isDepartment)
-        {
-            _departmentValidationMessage = "Project department value must be selected";
-        }
-        else
-        {
-            _statusValidationMessage = "Project status value must be selected";
-        }
-    }
-
     public void HandleSubmit()
     {
-        if (_editContext.Validate())
-        {
-            IsShowEmployeesFormChanged.InvokeAsync(true);
-            ProjectRequestChanged.InvokeAsync(ProjectRequest);
-        }
+        IsShowEmployeesFormChanged.InvokeAsync(true);
+        ProjectRequestChanged.InvokeAsync(ProjectRequest);
     }
 }

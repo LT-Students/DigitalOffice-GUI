@@ -1,3 +1,4 @@
+@using LT.DigitalOffice.GUI.Properties;
 @using LT.DigitalOffice.GUI.Services.Interfaces
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
 
@@ -7,20 +8,24 @@
     
     <DataAnnotationsValidator />
 
-    <p>Adding employees</p>
+    <p>@Resources.AddingProjectEmployees</p>
 
     <input type="text" class="form-control" placeholder="Search employee by keywords"
                 aria-label="Username" aria-describedby="basic-addon1">
 
     <div style="display: flow-root">
         <div class="found-employes-content">
-            <p>Found employees</p>
+            <p>@Resources.FoundProjectEmployees</p>
             <div class="overflow-auto">
                 @foreach (var user in @_foundEmployees)
                 {
                     @if (!statesFoundEmployeesSelected[user.Index].isHiden)
                     {
-                        <div class=@( statesFoundEmployeesSelected[user.Index].isClickEmployee ? "employee-content select-employee-content" : "employee-content") @onclick="() => {var pair = statesFoundEmployeesSelected[user.Index]; pair.isClickEmployee = !pair.isClickEmployee; statesFoundEmployeesSelected[user.Index] = pair; _indexSelectEmployee.Add(user.Index);}"> 
+                        <div 
+                            class=@( statesFoundEmployeesSelected[user.Index].isClickEmployee 
+                                ? "employee-content select-employee-content" 
+                                : "employee-content") 
+                            @onclick="() => {var pair = statesFoundEmployeesSelected[user.Index]; pair.isClickEmployee = !pair.isClickEmployee; statesFoundEmployeesSelected[user.Index] = pair; _indexSelectEmployee.Add(user.Index);}"> 
                             <p><img src=""/> @user.UserName <font style="margin-left: 18%;"> @user.Position </font> </p> 
                         </div>
                     }
@@ -28,11 +33,11 @@
             </div>
         </div>
         <div class="managed-employes">
-            <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="AddFoundEmployees">Add</button>
-            <button type="button"  class="btn btn-primary" data-toggle="modal">Remove</button>
+            <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="AddFoundEmployees">@Resources.ProjectEmployeeAddButton</button>
+            <button type="button"  class="btn btn-primary" data-toggle="modal">@Resources.ProjectEmployeeRemoveButton</button>
         </div>
         <div class="selected-employes-content">
-            <p>Selected employees</p>
+            <p>@Resources.SelectedProjectEmployees</p>
             <div class="overflow-auto">
                 @foreach (var user in @_selectedEmployees)
                 {
@@ -44,8 +49,8 @@
         </div>
     </div>
     <div id="action-buttons">
-        <button type="button" class="btn btn-primary" @onclick="@(() => IsShowEmployeesFormChanged.InvokeAsync(false))">Back</button>
-        <button type="submit" class="btn btn-primary">Finish</button>
+        <button type="button" class="btn btn-primary" @onclick="@(() => IsShowEmployeesFormChanged.InvokeAsync(false))">@Resources.ProjectModalBackButton</button>
+        <button type="submit" class="btn btn-primary">@Resources.ProjectModalFinishButton</button>
     </div>
 </EditForm>
 

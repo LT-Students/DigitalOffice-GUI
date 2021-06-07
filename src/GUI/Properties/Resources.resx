@@ -117,11 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddingProjectEmployees" xml:space="preserve">
+    <value>Search employee by keywords</value>
+  </data>
   <data name="CreateNewProject" xml:space="preserve">
     <value>Create new project</value>
   </data>
+  <data name="CreateProjectModal" xml:space="preserve">
+    <value>Creation project</value>
+  </data>
+  <data name="FoundProjectEmployees" xml:space="preserve">
+    <value>Found employees</value>
+  </data>
   <data name="Messages" xml:space="preserve">
     <value>Messages</value>
+  </data>
+  <data name="ProjectDepartment" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ProjectDescriptionInput" xml:space="preserve">
+    <value>Insert project description</value>
+  </data>
+  <data name="ProjectEmployeeAddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ProjectEmployeeRemoveButton" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ProjectFullNameInput" xml:space="preserve">
+    <value>Insert project full name</value>
+  </data>
+  <data name="ProjectGeneralInfo" xml:space="preserve">
+    <value>General information</value>
+  </data>
+  <data name="ProjectModalBackButton" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="ProjectModalFinishButton" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="ProjectModalNextButton" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="ProjectShortDescription" xml:space="preserve">
+    <value>Short description</value>
+  </data>
+  <data name="ProjectShortDescriptionInput" xml:space="preserve">
+    <value>Insert project short description</value>
+  </data>
+  <data name="ProjectShortName" xml:space="preserve">
+    <value>Short name</value>
+  </data>
+  <data name="ProjectShortNameInput" xml:space="preserve">
+    <value>Insert project short name</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SelectedProjectEmployees" xml:space="preserve">
+    <value>Selected employees</value>
   </data>
   <data name="SiteName" xml:space="preserve">
     <value>Digital Office</value>
