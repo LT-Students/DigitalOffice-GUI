@@ -12,7 +12,7 @@
     <div class="create-user_container">
         <div class="create-user_personal-container">
             <div class="item-groop">
-                <label for="create-user_first-name">@Resources.FirstName*</label>
+                <label for="create-user_first-name">@Resources.FirstName<font color="red">*</font></label>
                 <input @bind-value="_userData.FirstName"
                        type="text"
                        id="create-user_first-name"
@@ -23,7 +23,7 @@
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userData.FirstName" />
             </div>
             <div class="item-groop">
-                <label for="create-user_last-name">@Resources.LastName*</label>
+                <label for="create-user_last-name">@Resources.LastName<font color="red">*</font></label>
                 <input @bind-value="_userData.LastName"
                        @ref="_lastNameInput"
                        type="text"
@@ -35,7 +35,7 @@
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userData.LastName" />
             </div>
             <div class="item-groop">
-                <label for="create-user_middle-name">@Resources.MiddleName*</label>
+                <label for="create-user_middle-name">@Resources.MiddleName<font color="red">*</font></label>
                 <input @bind-value="_userData.MiddleName"
                        @ref="_middleNameInput"
                        type="text"
@@ -47,7 +47,7 @@
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userData.MiddleName" />
             </div>
             <div class="item-groop">
-                <label for="create-user_email">@Resources.Email*</label>
+                <label for="create-user_email">@Resources.Email<font color="red">*</font></label>
                 <input @bind-value="_userCommunication.Value"
                        @ref="_emailInput"
                        type="email"
@@ -59,7 +59,7 @@
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userCommunication.Value" />
             </div>
             <div class="item-groop">
-                <label for="create-user_password">@Resources.Password*</label>
+                <label for="create-user_password">@Resources.Password<font color="red">*</font></label>
                 <div class="input-group">
                     <input @bind-value="_userData.Password"
                            @ref="_passwordInput"
@@ -86,7 +86,7 @@
 
         <div class="create-user_service-container">
             <div class="item-groop">
-                <label for="create-user_start-working-at">@Resources.StartWorkingAt*</label>
+                <label for="create-user_start-working-at">@Resources.StartWorkingAt<font color="red">*</font></label>
                 <input @bind="_userData.StartWorkingAt"
                        @ref="_startWorkingAtInput"
                        type="date"
@@ -97,7 +97,7 @@
                                        _rateSelect.FocusAsync();})" />
             </div>
             <div class="item-groop">
-                <label for="create-user_rate">@Resources.Rate*</label>
+                <label for="create-user_rate">@Resources.Rate<font color="red">*</font></label>
                 <select @bind="_userData.Rate"
                         @ref="_rateSelect"
                         id="create-user_rate"

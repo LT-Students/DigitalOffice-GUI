@@ -9,7 +9,7 @@
     <DataAnnotationsValidator />
     <div class="create-position_container">
         <div class="item-groop">
-            <label for="create-department_name">@Resources.PositionName*</label>
+            <label for="create-department_name">@Resources.PositionName<font color="red">*</font></label>
             <input @bind-value="_positionData.Name"
                    type="text"
                    id="create-position_name"
@@ -20,7 +20,7 @@
             <ValidationMessage style="font-size: 0.7em;" For="() => _positionData.Name" />
         </div>
         <div class="item-groop">
-            <label for="create-position_description">Position description*</label>
+            <label for="create-position_description">@Resources.PositionDescription<font color="red">*</font></label>
             <textarea @bind="_positionData.Description"
                       @ref="_descriptionInput"
                       type="text"
