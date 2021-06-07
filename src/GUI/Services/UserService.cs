@@ -57,8 +57,13 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return response.Status.ToString();
             }
-            catch(Exception ex)
+            catch (ApiException<ErrorResponse> ex)
             {
+                return ex.Result.Message;
+            }
+            catch (Exception ex)
+            {
+                //remove when spec reworked
                 return ex.Message;
             }
         }

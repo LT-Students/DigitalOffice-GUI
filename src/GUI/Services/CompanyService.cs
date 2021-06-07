@@ -29,8 +29,13 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Successfully created";
             }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return ex.Result.Message;
+            }
             catch (Exception ex)
             {
+                //remove when spec reworked
                 return ex.Message;
             }
         }
@@ -44,8 +49,13 @@ namespace LT.DigitalOffice.GUI.Services
 
                 return "Successfully created";
             }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return ex.Result.Message;
+            }
             catch (Exception ex)
             {
+                //remove when spec reworked
                 return ex.Message;
             }
         }
