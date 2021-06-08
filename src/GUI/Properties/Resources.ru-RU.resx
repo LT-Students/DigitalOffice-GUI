@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Admin" xml:space="preserve">
+    <value>Администрирование</value>
+  </data>
   <data name="Company" xml:space="preserve">
     <value>Компания</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="CreatePosition" xml:space="preserve">
     <value>Создать позицию</value>
+  </data>
+  <data name="Creation" xml:space="preserve">
+    <value>Создан</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Департамент</value>
@@ -147,8 +153,14 @@
   <data name="E-mail" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Забыли ваш пароль</value>
   </data>
   <data name="Generate" xml:space="preserve">
     <value>Сгенерировать</value>
@@ -159,11 +171,23 @@
   <data name="LastName" xml:space="preserve">
     <value>Фамилия</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="LoginOrEmailOrPhoneNumber" xml:space="preserve">
+    <value>Логин или электронная почта или номер телефона</value>
+  </data>
   <data name="Messages" xml:space="preserve">
     <value>Общение</value>
   </data>
   <data name="MiddleName" xml:space="preserve">
     <value>Отчество</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
   </data>
   <data name="NotSelected" xml:space="preserve">
     <value>Не выбрано</value>
@@ -180,8 +204,23 @@
   <data name="PositionName" xml:space="preserve">
     <value>Наименование позиции</value>
   </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Проекты</value>
+  </data>
   <data name="Rate" xml:space="preserve">
     <value>Ставка</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="SearchProjects" xml:space="preserve">
+    <value>Искать проекты</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Сокращенное название</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Показать больше</value>
   </data>
   <data name="SiteName" xml:space="preserve">
     <value>Цифровой Офис</value>
