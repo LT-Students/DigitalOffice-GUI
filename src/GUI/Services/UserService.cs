@@ -9,11 +9,13 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class UserService : IUserService
     {
+        private readonly UserServiceClient _userServiceClient;
         private readonly ISessionStorageService _sessionStorage;
 
         public UserService(ISessionStorageService sessionStorage)
         {
             _sessionStorage = sessionStorage;
+            _userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
         }
 
         public async Task<string> GetUserName()
@@ -25,12 +27,10 @@ namespace LT.DigitalOffice.GUI.Services
 
             try
             {
-                var userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
-
                 var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
                 var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
 
-                var userInfo = await userServiceClient.GetUserAsync(token, userId, null, null, null, null, null, null, null, null, null, null, null);
+                var userInfo = await _userServiceClient.GetUserAsync(token, userId, null, null, null, null, null, null, null, null, null, null, null);
 
                 var userName = $"{userInfo.User.LastName} {userInfo.User.FirstName}";
 
@@ -46,9 +46,20 @@ namespace LT.DigitalOffice.GUI.Services
             }
         }
 
-        public async Task<UsersResponse> GetUsers()
+        public async Task<UsersResponse> GetUsers(Guid departmentId, int skipCount, int takeCount)
         {
-            return new UsersResponse();
+            try
+            {
+                string token = await _sessionStorage.GetItemAsStringAsync(Consts.Token);
+
+                var usersResponse = await _userServiceClient.FindUsersAsync(token, skipCount, takeCount);
+
+                return usersResponse;
+            }
+            catch (ApiException<ErrorResponse> exc)
+            {
+                return null;
+            }
         }
     }
 }

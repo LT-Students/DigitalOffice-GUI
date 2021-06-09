@@ -8,6 +8,6 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     {
         Task<string> GetUserName();
 
-        Task<UsersResponse> GetUsers();
+        Task<UsersResponse> GetUsers(Guid departmentId, int skipCount, int takeCount);
     }
 }
