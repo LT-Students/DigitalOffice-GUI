@@ -1,6 +1,6 @@
 ﻿using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using System.Threading.Tasks;
-using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
+using System;
 
 namespace LT.DigitalOffice.GUI.Services.Interfaces
 {

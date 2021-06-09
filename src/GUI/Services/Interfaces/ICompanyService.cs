@@ -15,8 +15,3 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
         Task<ICollection<PositionResponse>> GetPositions();
     }
 }
-
-    public interface ICompanyService
-    {
-        Task<List<DepartmentInfo>> GetDepartments();
-    }

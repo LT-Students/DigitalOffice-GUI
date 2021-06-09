@@ -166,7 +166,8 @@
             ProjectRequest = new();
         }
 
-        _departments = await companyService.GetDepartments() ?? new List<Company.DepartmentInfo>();
+        _departments = (await companyService.GetDepartments()).Departments.ToList() 
+            ?? new List<Company.DepartmentInfo>();
     }
 
     public void HandleSubmit()
