@@ -11,6 +11,7 @@ namespace LT.DigitalOffice.GUI.Services
     {
         private readonly UserServiceClient _userServiceClient;
         private readonly ISessionStorageService _sessionStorage;
+        private readonly UserServiceClient _client;
 
         public UserService(ISessionStorageService sessionStorage)
         {
@@ -59,6 +60,39 @@ namespace LT.DigitalOffice.GUI.Services
             catch (ApiException<ErrorResponse> exc)
             {
                 return null;
+            }
+        }
+
+        public async Task<string> CreateUser(CreateUserRequest request)
+        {
+            try
+            {
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                var response = await _client.CreateUserAsync(request, token);
+
+                return response.Status.ToString();
+            }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return ex.Result.Message;
+            }
+            catch (Exception ex)
+            {
+                //remove when spec reworked
+                return ex.Message;
+            }
+        }
+
+        public async Task<string> GeneratePassword()
+        {
+            try
+            {
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                return await _client.GeneratePasswordAsync(token);
+            }
+            catch(ApiException<ErrorResponse> ex)
+            {
+                return String.Empty;
             }
         }
     }

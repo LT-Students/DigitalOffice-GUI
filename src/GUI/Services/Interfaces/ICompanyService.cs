@@ -1,11 +1,22 @@
-using System.Threading.Tasks;
+﻿using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
 using System.Collections.Generic;
-using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
+using System.Threading.Tasks;
 
 namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface ICompanyService
     {
-        Task<List<DepartmentInfo>> GetDepartments();
+        Task<string> CreateDepartment(NewDepartmentRequest request);
+
+        Task<string> CreatePosition(CreatePositionRequest request);
+
+        Task<DepartmentsResponse> GetDepartments();
+
+        Task<ICollection<PositionResponse>> GetPositions();
     }
 }
+
+    public interface ICompanyService
+    {
+        Task<List<DepartmentInfo>> GetDepartments();
+    }
