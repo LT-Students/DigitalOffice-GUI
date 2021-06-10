@@ -51,8 +51,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                string token = await _sessionStorage.GetItemAsStringAsync(Consts.Token);
-
+                string token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
                 var usersResponse = await _userServiceClient.FindUsersAsync(token, skipCount, takeCount);
 
                 return usersResponse;

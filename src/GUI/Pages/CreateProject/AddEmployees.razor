@@ -17,38 +17,22 @@
     <div style="display: flow-root">
         <div class="found-employes-content">
             <p>@Resources.FoundProjectEmployees</p>
-            <div class="overflow-auto">
-                @if (_foundEmployees is not null)
-                {
-                    @for (int i = 0; i < _foundEmployees.Count; i++)
-                    {
-                        @if (!statesFoundEmployeesSelected[i].isHiden)
-                        {
-                            <div 
-                                class=@( statesFoundEmployeesSelected[i].isClickEmployee 
-                                    ? "employee-content select-employee-content" 
-                                    : "employee-content") 
-                                @onclick="() => {var pair = statesFoundEmployeesSelected[i]; pair.isClickEmployee = !pair.isClickEmployee; statesFoundEmployeesSelected[i] = pair; _indexSelectEmployee.Add(i);}"> 
-                                <p><img src=""/> @($"{_foundEmployees[i].FirstName} {_foundEmployees[i].LastName}") <font style="margin-left: 18%;"> @_foundEmployees[i].Rate </font> </p> 
-                            </div>
-                        }
-                    }   
-                }
-            </div>
+               <Employees @ref="_foundEmployeesComponent" 
+                Users="_foundEmployees" 
+                HideEmployees="_hideFoundEmployees" 
+                StatesSelectedEmployees="statesSelectedFoundEmployees"/>
         </div>
         <div class="managed-employes">
             <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="AddFoundEmployees">@Resources.ProjectEmployeeAddButton</button>
-            <button type="button"  class="btn btn-primary" data-toggle="modal">@Resources.ProjectEmployeeRemoveButton</button>
+            <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="RemoveSelectedEmployees">@Resources.ProjectEmployeeRemoveButton</button>
         </div>
         <div class="selected-employes-content">
             <p>@Resources.SelectedProjectEmployees</p>
             <div class="overflow-auto">
-                @* @foreach (var user in @_selectedEmployees)
-                {
-                    <div class=@( statesSelectedEmployees[user.Index] ? "employee-content select-employee-content" : "employee-content") @onclick="() => statesSelectedEmployees[user.Index] = !statesSelectedEmployees[user.Index]"> 
-                        <p><img src=""/> @user.UserName <font style="margin-left: 18%;"> @user.Position </font> </p> 
-                    </div>
-                } *@
+                <Employees @ref="_selectedEmployeesComponent" 
+                Users="_selectedEmployees" 
+                HideEmployees="_hideSelectedEmployees" 
+                StatesSelectedEmployees="_statesSelectedAddedEmployees"/>
             </div>
         </div>
     </div>
@@ -59,15 +43,17 @@
 </EditForm>
 
 @code {
-    private List<int> _indexSelectEmployee;
-    private int _countEmployees = 1;
-
+    private Dictionary<int, bool> _hideFoundEmployees;
+    private Dictionary<int, bool> _hideSelectedEmployees;
     private EditContext _editContext;
     private List<UserInfo> _foundEmployees;
     private List<UserInfo> _selectedEmployees;
 
-    private Dictionary<int, (bool isHiden, bool isClickEmployee)> statesFoundEmployeesSelected;
-    private Dictionary<int, bool> statesSelectedEmployees;
+    private Employees _foundEmployeesComponent;
+    private Employees _selectedEmployeesComponent;
+
+    private Dictionary<int, bool> statesSelectedFoundEmployees;
+    private Dictionary<int, bool> _statesSelectedAddedEmployees;
     
     [Parameter]
     public ProjectRequest ProjectRequest { get; set; }
@@ -81,43 +67,64 @@
     [Parameter]
     public EventCallback<ProjectRequest> ProjectRequestChanged { get; set; }
     
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         _editContext = new(ProjectRequest);
         
-        _foundEmployees = new();
-        _selectedEmployees = new();
-        _indexSelectEmployee = new();
-       
-        statesFoundEmployeesSelected = new();
-        statesSelectedEmployees = new();
+        var response = await userService.GetUsers(ProjectRequest.DepartmentId, 0, 15);
 
-        for (int i = 0; i < 8; i++)
+        _foundEmployees = response.Users.ToList();
+        _selectedEmployees = new();
+        _hideFoundEmployees = new();
+        _hideSelectedEmployees = new();
+       
+        statesSelectedFoundEmployees = new();
+        _statesSelectedAddedEmployees = new();
+        
+
+        for (int i = 0; i < _foundEmployees.Count; i++)
         {
-            statesFoundEmployeesSelected.Add(i, (false, false));
-            statesSelectedEmployees.Add(i, false);
+            _hideSelectedEmployees.Add(i, false);
+            _hideFoundEmployees.Add(i, false);
+            statesSelectedFoundEmployees.Add(i, false);
         }
     }
 
     private void AddFoundEmployees()
     {
-        @* foreach (int index in _indexSelectEmployee)
+        _selectedEmployees.AddRange(_foundEmployeesComponent.AddFoundEmployees());
+
+        ProjectRequest.Users = _selectedEmployees
+            .Select(x => 
+                new ProjectUserRequest() 
+                {
+                    UserId = x.Id
+                })
+            .ToList();
+
+        _statesSelectedAddedEmployees.Clear();
+        for (int i = 0; i < _selectedEmployees.Count; i++)
         {
-            var user = _foundEmployees[index];
+            _statesSelectedAddedEmployees.Add(i, false);
+        }
+    }
 
-            var pair = statesFoundEmployeesSelected[user.Index];
-            pair.isHiden = true;
-            pair.isClickEmployee = false;
-            statesFoundEmployeesSelected[user.Index] = pair;
+    private void RemoveSelectedEmployees()
+    {
+        var userIds = _selectedEmployeesComponent.RemoveSelectedEmployees();
 
-            user.Index = _selectedEmployees.Last().Index++;
+        foreach (var id in userIds)
+        {
+            var index = _foundEmployees.FindIndex(x => x.Id == id);
+            _hideFoundEmployees[index] = false;
+        }
 
-            _selectedEmployees.Add(user);
-
-            user.Index = index;
-        } *@
-
-        _indexSelectEmployee.Clear();
+        
+        _statesSelectedAddedEmployees.Clear();
+        for (int i = 0; i < _selectedEmployees.Count; i++)
+        {
+            _statesSelectedAddedEmployees.Add(i, false);
+        }
     }
 
     private void HandleSubmit()
