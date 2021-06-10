@@ -9,7 +9,6 @@
 
 <EditForm Model="@ProjectRequest" OnValidSubmit="@HandleSubmit">
     <DataAnnotationsValidator />
-    <ValidationSummary/>
 
     <p class="general-info-title" >@Resources.ProjectGeneralInfo</p>
     <div style="display: flow-root; margin-bottom: 25px;">
@@ -25,6 +24,7 @@
                     aria-label="Username" 
                     aria-describedby="basic-addon1" 
                     @bind="ProjectRequest.Name">
+                <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.Name" />
             </div>
             <div class="short-description-input">
                 <lable for="shortDescription">
@@ -38,6 +38,7 @@
                     @bind="ProjectRequest.ShortDescription"
                     placeholder="Insert project short description" >
                 </textarea>
+                <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.ShortDescription" />
             </div>
         </div>
         <div class="main-content">
@@ -52,6 +53,7 @@
                     aria-describedby="basic-addon1" 
                     @bind="ProjectRequest.ShortName"
                     placeholder="Insert project full name">
+                <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.ShortName" />
             </div>
             <div style="display:grid">
                 <label for="status">
@@ -117,7 +119,7 @@
                                     </a>
                             }
                     }
-                    
+
                     </div>
                 </div>
             </div>
@@ -134,6 +136,7 @@
         rows="4" 
         @bind="ProjectRequest.Description">
     </textarea>
+    <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.Description" />
     <button type="submit" class="btn btn-primary">@Resources.ProjectModalNextButton</button>
 </EditForm>
 

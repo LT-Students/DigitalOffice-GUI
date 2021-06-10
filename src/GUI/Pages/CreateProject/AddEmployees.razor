@@ -4,48 +4,42 @@
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
 
 @inject IUserService userService
+@inject IProjectService projectService
 
-<EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
-    
-    <DataAnnotationsValidator />
+<p>@Resources.AddingProjectEmployees</p>
 
-    <p>@Resources.AddingProjectEmployees</p>
+<input type="text" class="form-control" placeholder="Search employee by keywords" aria-label="Username"
+    aria-describedby="basic-addon1">
 
-    <input type="text" class="form-control" placeholder="Search employee by keywords"
-                aria-label="Username" aria-describedby="basic-addon1">
-
-    <div style="display: flow-root">
-        <div class="found-employes-content">
-            <p>@Resources.FoundProjectEmployees</p>
-               <Employees @ref="_foundEmployeesComponent" 
-                Users="_foundEmployees" 
-                HideEmployees="_hideFoundEmployees" 
-                StatesSelectedEmployees="statesSelectedFoundEmployees"/>
-        </div>
-        <div class="managed-employes">
-            <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="AddFoundEmployees">@Resources.ProjectEmployeeAddButton</button>
-            <button type="button"  class="btn btn-primary" data-toggle="modal" @onclick="RemoveSelectedEmployees">@Resources.ProjectEmployeeRemoveButton</button>
-        </div>
-        <div class="selected-employes-content">
-            <p>@Resources.SelectedProjectEmployees</p>
-            <div class="overflow-auto">
-                <Employees @ref="_selectedEmployeesComponent" 
-                Users="_selectedEmployees" 
-                HideEmployees="_hideSelectedEmployees" 
-                StatesSelectedEmployees="_statesSelectedAddedEmployees"/>
-            </div>
+<div style="display: flow-root">
+    <div class="found-employes-content">
+        <p>@Resources.FoundProjectEmployees</p>
+        <Employees @ref="_foundEmployeesComponent" Users="_foundEmployees" HideEmployees="_hideFoundEmployees"
+            StatesSelectedEmployees="statesSelectedFoundEmployees" />
+    </div>
+    <div class="managed-employes">
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+            @onclick="AddFoundEmployees">@Resources.ProjectEmployeeAddButton</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+            @onclick="RemoveSelectedEmployees">@Resources.ProjectEmployeeRemoveButton</button>
+    </div>
+    <div class="selected-employes-content">
+        <p>@Resources.SelectedProjectEmployees</p>
+        <div class="overflow-auto">
+            <Employees @ref="_selectedEmployeesComponent" Users="_selectedEmployees"
+                HideEmployees="_hideSelectedEmployees" StatesSelectedEmployees="_statesSelectedAddedEmployees" />
         </div>
     </div>
-    <div id="action-buttons">
-        <button type="button" class="btn btn-primary" @onclick="@(() => IsShowEmployeesFormChanged.InvokeAsync(false))">@Resources.ProjectModalBackButton</button>
-        <button type="submit" class="btn btn-primary">@Resources.ProjectModalFinishButton</button>
-    </div>
-</EditForm>
+</div>
+<div id="action-buttons">
+    <button type="button" class="btn btn-primary"
+        @onclick="@(() => IsShowEmployeesFormChanged.InvokeAsync(false))">@Resources.ProjectModalBackButton</button>
+    <button type="submit" class="btn btn-primary" @onclick="() => projectService.CreateProject(ProjectRequest)">@Resources.ProjectModalFinishButton</button>
+</div>
 
 @code {
     private Dictionary<int, bool> _hideFoundEmployees;
     private Dictionary<int, bool> _hideSelectedEmployees;
-    private EditContext _editContext;
     private List<UserInfo> _foundEmployees;
     private List<UserInfo> _selectedEmployees;
 
@@ -69,18 +63,24 @@
     
     protected override async Task OnInitializedAsync()
     {
-        _editContext = new(ProjectRequest);
-        
         var response = await userService.GetUsers(ProjectRequest.DepartmentId, 0, 15);
 
         _foundEmployees = response.Users.ToList();
         _selectedEmployees = new();
+
         _hideFoundEmployees = new();
         _hideSelectedEmployees = new();
        
         statesSelectedFoundEmployees = new();
         _statesSelectedAddedEmployees = new();
         
+        @* if (ProjectRequest.Users is not null)
+        {
+            _selectedEmployees = _foundEmployees.Where(fe => 
+                ProjectRequest.Users.Any(u => u.UserId == fe.Id)).ToList();
+
+            ResetStatesSelectedAddedEmployees();
+        } *@
 
         for (int i = 0; i < _foundEmployees.Count; i++)
         {
@@ -102,11 +102,8 @@
                 })
             .ToList();
 
-        _statesSelectedAddedEmployees.Clear();
-        for (int i = 0; i < _selectedEmployees.Count; i++)
-        {
-            _statesSelectedAddedEmployees.Add(i, false);
-        }
+       ResetStatesSelectedAddedEmployees();
+       ProjectRequestChanged.InvokeAsync(ProjectRequest);
     }
 
     private void RemoveSelectedEmployees()
@@ -119,17 +116,16 @@
             _hideFoundEmployees[index] = false;
         }
 
-        
+        ResetStatesSelectedAddedEmployees();
+    }
+
+    private void ResetStatesSelectedAddedEmployees()
+    {
         _statesSelectedAddedEmployees.Clear();
         for (int i = 0; i < _selectedEmployees.Count; i++)
         {
             _statesSelectedAddedEmployees.Add(i, false);
         }
-    }
-
-    private void HandleSubmit()
-    {
-       // projectService.CreateProject(ProjectRequest);
     }
 }
 
