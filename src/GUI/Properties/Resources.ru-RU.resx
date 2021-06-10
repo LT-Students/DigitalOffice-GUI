@@ -175,7 +175,7 @@
     <value>Войти</value>
   </data>
   <data name="LoginOrEmailOrPhoneNumber" xml:space="preserve">
-    <value>Логин или электронная почта или номер телефона</value>
+    <value>Логин или почта или номер телефона</value>
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Общение</value>
