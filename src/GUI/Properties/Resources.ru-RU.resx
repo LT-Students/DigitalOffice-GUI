@@ -123,9 +123,6 @@
   <data name="Company" xml:space="preserve">
     <value>Компания</value>
   </data>
-  <data name="Create user" xml:space="preserve">
-    <value>Создать сотрудника</value>
-  </data>
   <data name="CreateDepartment" xml:space="preserve">
     <value>Создать департамент</value>
   </data>
@@ -135,17 +132,20 @@
   <data name="CreatePosition" xml:space="preserve">
     <value>Создать позицию</value>
   </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Создать сотрудника</value>
+  </data>
   <data name="Creation" xml:space="preserve">
     <value>Создан</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Департамент</value>
   </data>
-  <data name="Department director" xml:space="preserve">
-    <value>Директор департамента</value>
-  </data>
   <data name="DepartmentDescription" xml:space="preserve">
     <value>Описание департамента</value>
+  </data>
+  <data name="DepartmentDirector" xml:space="preserve">
+    <value>Директор департамента</value>
   </data>
   <data name="DepartmentName" xml:space="preserve">
     <value>Название департамента</value>
