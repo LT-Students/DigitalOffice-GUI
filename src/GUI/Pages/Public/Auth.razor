@@ -4,12 +4,13 @@
 @using LT.DigitalOffice.GUI.Properties;
 
 @inject IAuthService authService
+@inject NavigationManager UriHelper
+@page "/login"
 
 <div class="auth-container">
     <div class="auth-content">
         <h1 class="h1">@Resources.SiteName</h1>
-        <input
-               @bind-value="authData.LoginData"
+        <input @bind-value="authData.LoginData"
                type="text"
                class="form-control"
                placeholder="Login or Email or Phone number"
@@ -31,10 +32,15 @@
 @code {
     private AuthenticationRequest authData = new();
     private ElementReference passwordInput;
-    public string message;
+    public string message = "";
+    public bool isSuccess = false;
 
     private async Task Post()
     {
         message = await authService.Login(authData);
+        if(String.IsNullOrEmpty(message))
+        {
+            UriHelper.NavigateTo("");
+        }
     }
 }

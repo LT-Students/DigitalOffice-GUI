@@ -1,7 +1,9 @@
 ﻿using Blazored.SessionStorage;
+using GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Threading.Tasks;
 
@@ -11,11 +13,15 @@ namespace LT.DigitalOffice.GUI.Services
     {
         private readonly ISessionStorageService _sessionStorage;
         private readonly UserServiceClient _client;
+        private readonly AuthStateProvider _provider;
 
-        public UserService(ISessionStorageService sessionStorage)
+        public UserService(
+            ISessionStorageService sessionStorage,
+            AuthenticationStateProvider provider)
         {
             _sessionStorage = sessionStorage;
             _client = new UserServiceClient(new System.Net.Http.HttpClient());
+            _provider = provider as AuthStateProvider;
         }
 
         public async Task<string> GetUserName()
@@ -55,7 +61,31 @@ namespace LT.DigitalOffice.GUI.Services
                 var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
                 var response = await _client.CreateUserAsync(request, token);
 
-                return response.Status.ToString();
+                return "Success";
+            }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return ex.Result.Message;
+            }
+            catch (Exception ex)
+            {
+                //remove when spec reworked
+                return ex.Message;
+            }
+        }
+
+        public async Task<string> CreateCredentials(CreateCredentialsRequest request)
+        {
+            try
+            {
+                var response = await _client.CreateCredentialsAsync(request);
+
+                _provider.LoginNotify(response.UserId);
+
+                await _sessionStorage.SetItemAsync(nameof(CredentialsResponse.Token), response.Token);
+                await _sessionStorage.SetItemAsync(nameof(CredentialsResponse.UserId), response.UserId);
+
+                return "Authorized";
             }
             catch (ApiException<ErrorResponse> ex)
             {

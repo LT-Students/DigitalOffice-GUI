@@ -29,12 +29,12 @@ namespace LT.DigitalOffice.GUI.Services
                 var authService = new AuthServiceClient(httpClient);
                 var response = await authService.LoginAsync(request);
 
-                _provider.LoginNotify(response);
+                _provider.LoginNotify(response.UserId);
 
                 await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
                 await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
 
-                return "Authorized";
+                return string.Empty;
             }
             catch (ApiException<ErrorResponse> ex)
             {

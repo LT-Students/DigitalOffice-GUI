@@ -9,6 +9,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task<string> CreateUser(CreateUserRequest request);
 
+        Task<string> CreateCredentials(CreateCredentialsRequest request);
+
         Task<string> GeneratePassword();
     }
 }
