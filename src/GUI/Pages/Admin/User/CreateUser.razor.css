@@ -31,13 +31,14 @@
     align-items: center;
 }
 
-.item-groop {
+.item-group {
     min-height: 80px;
 
-    margin: 5px;
+    margin: 5px 0;
 }
 
 .info_container {
     width: 70%;
+
     color: red;
 }
