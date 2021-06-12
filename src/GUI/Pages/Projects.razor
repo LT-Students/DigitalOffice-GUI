@@ -12,15 +12,14 @@
 <div class="projects">
     <div class="projects-tools">
 
-        <button type="button" class="btn btn-primary">create</button>
         <input
             type="text"
             class="form-control"
-            placeholder="search projects"
+            placeholder="@Resources.SearchProjects"
             @bind-value="_searchValue"
             @bind-value:event="oninput"
             @onkeypress="SearchProjectsAsync"/>
-        <p>filters:</p>
+        <p>@Resources.Filters:</p>
 
         <div class="dropdown">
 
@@ -30,8 +29,7 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                @onclick="ShowDropdownMenu">
-            </button>
+                @onclick="ShowDropdownMenu" />
 
             <div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
                 <a
@@ -39,20 +37,20 @@
                     class="@GetStyleFiltersOfDropdown(_projectNameRef)"
                     href="javascript: void(0);"
                     @onclick="() => SetFilter(_projectNameRef)">
-                    name
+                    @Resources.Name
                 </a>
                 <a
                     @ref=_shortNameRef
                     class="@GetStyleFiltersOfDropdown(_shortNameRef)"
                     href="javascript: void(0);" @onclick="() => SetFilter(_shortNameRef)">
-                    short name
+                    @Resources.ShortName
                 </a>
                 <a
                     @ref=_departmentRef
                     class="@GetStyleFiltersOfDropdown(_departmentRef)"
                     href="javascript: void(0);"
                     @onclick="() => SetFilter(_departmentRef)">
-                    department
+                    @Resources.Department
                 </a>
             </div>
 
@@ -61,24 +59,24 @@
         @if (stateCheck(_projectNameRef, _showStateOfFiltersDropdown))
         {
             <div class=@(GetStyleFilter(_projectNameRef.Id)) @onclick="() => _useFilterId = _projectNameRef.Id">
-                name: @_projectsFilter.Name
-                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _projectNameRef.Id)"></button>
+                @Resources.Name: @_projectsFilter.Name
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _projectNameRef.Id)" />
             </div>
         }
 
         @if (stateCheck(_shortNameRef, _showStateOfFiltersDropdown))
         {
             <div class=@(GetStyleFilter(_shortNameRef.Id)) @onclick="() => _useFilterId = _shortNameRef.Id">
-                short name: @_projectsFilter.ShortName
-                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _shortNameRef.Id)"></button>
+                @Resources.ShortName: @_projectsFilter.ShortName
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _shortNameRef.Id)" />
             </div>
         }
 
         @if (stateCheck(_departmentRef, _showStateOfFiltersDropdown))
         {
             <div class=@(GetStyleFilter(_departmentRef.Id)) @onclick="() => _useFilterId = _departmentRef.Id">
-                department: @_projectsFilter.Department
-                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _departmentRef.Id)"></button>
+                @Resources.Department: @_projectsFilter.Department
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _departmentRef.Id)" />
             </div>
         }
 
@@ -100,8 +98,8 @@
 
                         <div class="project-addition-info">
 
-                            <p>@project.Department.Name:</p>
-                            <p style="position:absolute; right:0">Creation: @(((DateTime)project.CreatedAt).Date)</p>
+                            <p>@project.Department.Name</p>
+                            <p style="position:absolute; right:0">@Resources.Creation: @(((DateTime)project.CreatedAt).Date)</p>
 
                         </div>
 
@@ -115,7 +113,7 @@
 
     @if (_projectsInfo is not null && _projectsInfo.Count >= TakeCount && _projectsInfo.Count != _totalCount)
     {
-        <button type="button" class="btn btn-primary" id="showMore" @onclick="ChangeProjectsCountAsync">show more</button>
+        <button type="button" class="btn btn-primary" id="showMore" @onclick="ChangeProjectsCountAsync">@Resources.ShowMore</button>
     }
 
 </div>
