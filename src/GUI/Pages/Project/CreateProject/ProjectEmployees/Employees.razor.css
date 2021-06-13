@@ -10,7 +10,6 @@
 
 .overflow-auto::-webkit-scrollbar-thumb {
     background-color: #1b6ec2;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255, .2)), color-stop(.5, transparent), to(transparent));
 }
 
 img {
@@ -29,12 +28,20 @@ img {
     
     border-radius: 5px;
     border-bottom: 2px solid white;
+
+    cursor: pointer;
 }
 
 .employee-content p {
     margin: 0;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.position-employee {
+    float: right;
+    margin-right: 5%;
+    margin-top: 2%;
 }
 
 .select-employee-content {

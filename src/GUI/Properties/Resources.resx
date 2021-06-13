@@ -177,7 +177,7 @@
   <data name="ProjectDescription" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="ProjectDescriptionInput" xml:space="preserve">
+  <data name="ProjectDescriptionInputPlaceholder" xml:space="preserve">
     <value>Insert project description</value>
   </data>
   <data name="ProjectEmployeeAddButton" xml:space="preserve">
@@ -185,9 +185,6 @@
   </data>
   <data name="ProjectEmployeeRemoveButton" xml:space="preserve">
     <value>Remove</value>
-  </data>
-  <data name="ProjectFullNameInput" xml:space="preserve">
-    <value>Insert project full name</value>
   </data>
   <data name="ProjectGeneralInfo" xml:space="preserve">
     <value>General information</value>
@@ -272,5 +269,8 @@
   </data>
   <data name="ProjectShortNameInputPlaceholder" xml:space="preserve">
     <value>Insert project full name</value>
+  </data>
+  <data name="SearchEmployeePlaceholder" xml:space="preserve">
+    <value>Search employee</value>
   </data>
 </root>

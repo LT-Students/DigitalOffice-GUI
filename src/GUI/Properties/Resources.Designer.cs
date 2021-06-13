@@ -315,7 +315,7 @@ namespace LT.DigitalOffice.GUI.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Insert project description.
         /// </summary>
-        internal static string ProjectDescriptionInput {
+        internal static string ProjectDescriptionInputPlaceholder {
             get {
                 return ResourceManager.GetString("ProjectDescriptionInput", resourceCulture);
             }
@@ -336,15 +336,6 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string ProjectEmployeeRemoveButton {
             get {
                 return ResourceManager.GetString("ProjectEmployeeRemoveButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert project full name.
-        /// </summary>
-        internal static string ProjectFullNameInput {
-            get {
-                return ResourceManager.GetString("ProjectFullNameInput", resourceCulture);
             }
         }
         
@@ -480,6 +471,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string Rate {
             get {
                 return ResourceManager.GetString("Rate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search employee.
+        /// </summary>
+        internal static string SearchEmployeePlaceholder {
+            get {
+                return ResourceManager.GetString("SearchEmployeePlaceholder", resourceCulture);
             }
         }
         

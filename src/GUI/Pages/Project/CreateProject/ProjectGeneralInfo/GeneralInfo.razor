@@ -1,11 +1,5 @@
-@using System.Collections.Generic
 @using LT.DigitalOffice.GUI.Properties
-@using LT.DigitalOffice.GUI.Services.Interfaces
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
-@using Company = LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
-
-@inject ICompanyService companyService
-@inject IProjectService projectService
 
 <EditForm Model="@ProjectRequest" OnValidSubmit="@HandleSubmit">
     <DataAnnotationsValidator />
@@ -14,7 +8,7 @@
     <div style="display: flow-root; margin-bottom: 25px;">
         <div class="additional-content">
             <label for="full-name">
-                @Resources.ProjectFullNameInput <font color="red">*</font>
+                @Resources.ProjectName <font color="red">*</font>
             </label>
             <div id="full-name">
                 <input 
@@ -61,7 +55,7 @@
                 </label>
                 <div id="status" class="btn-group">
                     <button 
-                        id="dropdown" 
+                        id="dropdown-status" 
                         type="button" 
                         class="btn btn-primary dropdown-toggle" 
                         data-toggle="dropdown"
@@ -97,7 +91,7 @@
                 </label>
                 <div id="department" class="btn-group">
                     <button 
-                        id="dropdown" 
+                        id="dropdown-department" 
                         type="button" 
                         class=@(_departmentValue == null ? 
                                 "btn btn-primary dropdown-toggle not-selected-department"  :  
@@ -109,18 +103,18 @@
                     </button>
                     <div class="dropdown-menu">
 
-                    @if (@_departments is not null)
-                    {
+                        @if (@_departments is not null)
+                        {
                             @foreach (var department in @_departments)
                             {
                                 <a 
-                                        class="dropdown-item" 
-                                        href="javascript:void(0)" 
-                                        @onclick="@(() => {_departmentValue = department.Name; ProjectRequest.DepartmentId = department.Id; })">
-                                            @department.Name
-                                    </a>
+                                    class="dropdown-item" 
+                                    href="javascript:void(0)" 
+                                    @onclick="@(() => {_departmentValue = department.Name; ProjectRequest.DepartmentId = department.Id; })">
+                                    @department.Name
+                                </a>
                             }
-                    }
+                        }
 
                     </div>
                 </div>
@@ -132,7 +126,7 @@
     </label>
     <textarea 
         id="description" 
-        placeholder="@Resources.ProjectDepartmentDropdownPlaceholder" 
+        placeholder="@Resources.ProjectDescriptionInputPlaceholder" 
         class="form-control" 
         aria-label="With textarea"
         rows="4" 
@@ -141,43 +135,3 @@
     <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.Description" />
     <button type="submit" class="btn btn-primary">@Resources.ProjectModalNextButton</button>
 </EditForm>
-
-@code {
-    private string _departmentValue;
-    private string _validationMessage;
-    private string _fullNameValidationMessage;
-    private string _shortNameValidationMessage;
-    private string _statusValidationMessage;
-    private string _departmentValidationMessage;
-
-    private List<Company.DepartmentInfo> _departments;
-    
-    [Parameter]
-    public ProjectRequest ProjectRequest { get; set; }
-
-    [Parameter]
-    public bool IsShowEmployeesForm { get; set; }
-
-    [Parameter]
-    public EventCallback<bool> IsShowEmployeesFormChanged { get; set; }
-
-    [Parameter]
-    public EventCallback<ProjectRequest> ProjectRequestChanged { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (ProjectRequest is null)
-        {
-            ProjectRequest = new();
-        }
-
-        _departments = (await companyService.GetDepartments()).Departments.ToList() 
-            ?? new List<Company.DepartmentInfo>();
-    }
-
-    public void HandleSubmit()
-    {
-        IsShowEmployeesFormChanged.InvokeAsync(true);
-        ProjectRequestChanged.InvokeAsync(ProjectRequest);
-    }
-}

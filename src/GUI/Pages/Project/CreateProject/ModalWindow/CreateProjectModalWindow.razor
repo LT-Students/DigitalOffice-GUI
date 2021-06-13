@@ -1,5 +1,8 @@
-@using LT.DigitalOffice.GUI.Properties;
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Services.ApiClients.UserService
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
+@using LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectEmployees
+@using LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectGeneralInfo
 
 <div class="modal fade" id="сreate-project-modal-center" tabindex="-1" 
   role="dialog" aria-labelledby="create-project-modal-center-title" aria-hidden="true">
@@ -19,11 +22,16 @@
 
         @if (_isShowEmployeesForm)
         {
-            <AddEmployees @bind-IsShowEmployeesForm="@_isShowEmployeesForm" @bind-ProjectRequest="@request" />
+            <AddEmployees 
+              @bind-ProjectRequest="_request"
+              @bind-FoundEmployees="_foundEmployees"
+              @bind-IsShowEmployeesForm="_isShowEmployeesForm"/>
         }
         else
         {
-            <GeneralInfo @bind-IsShowEmployeesForm="@_isShowEmployeesForm" @bind-ProjectRequest="@request"/>
+            <GeneralInfo 
+              @bind-ProjectRequest="_request"
+              @bind-IsShowEmployeesForm="_isShowEmployeesForm"/>
         }
 
       </div>
@@ -37,6 +45,8 @@
 </div>
 
 @code{
+  private ProjectRequest _request;
+  private List<UserInfo> _foundEmployees;
+
   private bool _isShowEmployeesForm;
-  private ProjectRequest request;
 }

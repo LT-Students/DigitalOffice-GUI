@@ -22,13 +22,15 @@ label {
     width: 50%;
 }
 
-button[id="dropdown"] {
+button[id="dropdown-status"], 
+button[id="dropdown-department"] {
     width: -webkit-fill-available;
 
     text-align: left;
 }
 
-button[id="dropdown"]:active {
+button[id="dropdown-status"]:active, 
+button[id="dropdown-department"]:active {
     background-color: #7ac7ff;
 }
 
@@ -37,11 +39,14 @@ button[id="dropdown"]:active {
 }
 
 .dropdown-toggle::after {
-    margin-top: 4%;
+    margin-top: 3%;
     float: right;
+
+    color: black;
 }
 
-div[id="full-name"], div[id="short-name"]{
+div[id="full-name"], 
+div[id="short-name"]{
     margin-bottom: 25px;
 }
 
@@ -58,6 +63,10 @@ div[id="department"] p {
 
 .not-selected-department {
     color: #7b838b !important;
+}
+
+.not-selected-department:active {
+    color: white;
 }
 
 .btn-group {
@@ -84,6 +93,7 @@ textarea[id="description"] {
 
  button[type="submit"]{
     width: 14%;
+
     margin-top: 28px;
     float: right
 }

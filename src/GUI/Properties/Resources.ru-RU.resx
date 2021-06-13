@@ -177,9 +177,6 @@
   <data name="ProjectDescription" xml:space="preserve">
     <value>Описание</value>
   </data>
-  <data name="ProjectDescriptionInput" xml:space="preserve">
-    <value>Введите описание проекта</value>
-  </data>
   <data name="ProjectEmployeeAddButton" xml:space="preserve">
     <value>Добавить</value>
   </data>
@@ -272,5 +269,8 @@
   </data>
   <data name="ProjectShortNameProjectInputPlaceholder" xml:space="preserve">
     <value>Введите короткое имя проекта</value>
+  </data>
+  <data name="SearchEmployeePlaceholder" xml:space="preserve">
+    <value>Поиск сотрудника</value>
   </data>
 </root>
