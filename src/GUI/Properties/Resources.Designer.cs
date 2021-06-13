@@ -317,7 +317,7 @@ namespace LT.DigitalOffice.GUI.Properties {
         /// </summary>
         internal static string ProjectDescriptionInputPlaceholder {
             get {
-                return ResourceManager.GetString("ProjectDescriptionInput", resourceCulture);
+                return ResourceManager.GetString("ProjectDescriptionInputPlaceholder", resourceCulture);
             }
         }
         
@@ -394,29 +394,11 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert project description.
-        /// </summary>
-        internal static string ProjectProjectDescriptionInputPlaceholder {
-            get {
-                return ResourceManager.GetString("ProjectProjectDescriptionInputPlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Short description.
         /// </summary>
         internal static string ProjectShortDescription {
             get {
                 return ResourceManager.GetString("ProjectShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert project short description.
-        /// </summary>
-        internal static string ProjectShortDescriptionInput {
-            get {
-                return ResourceManager.GetString("ProjectShortDescriptionInput", resourceCulture);
             }
         }
         
@@ -435,15 +417,6 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string ProjectShortName {
             get {
                 return ResourceManager.GetString("ProjectShortName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert project short name.
-        /// </summary>
-        internal static string ProjectShortNameInput {
-            get {
-                return ResourceManager.GetString("ProjectShortNameInput", resourceCulture);
             }
         }
         

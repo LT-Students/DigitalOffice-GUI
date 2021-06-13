@@ -204,14 +204,8 @@
   <data name="ProjectShortDescription" xml:space="preserve">
     <value>Short description</value>
   </data>
-  <data name="ProjectShortDescriptionInput" xml:space="preserve">
-    <value>Insert project short description</value>
-  </data>
   <data name="ProjectShortName" xml:space="preserve">
     <value>Short name</value>
-  </data>
-  <data name="ProjectShortNameInput" xml:space="preserve">
-    <value>Insert project short name</value>
   </data>
   <data name="ProjectStatus" xml:space="preserve">
     <value>Status</value>
@@ -260,9 +254,6 @@
   </data>
   <data name="ProjectFullNameInputPlaceholder" xml:space="preserve">
     <value>Insert project full name</value>
-  </data>
-  <data name="ProjectProjectDescriptionInputPlaceholder" xml:space="preserve">
-    <value>Insert project description</value>
   </data>
   <data name="ProjectShortDescriptionInputPlaceholder" xml:space="preserve">
     <value>Insert project short description</value>

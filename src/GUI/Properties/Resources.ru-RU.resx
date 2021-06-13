@@ -204,14 +204,8 @@
   <data name="ProjectShortDescription" xml:space="preserve">
     <value>Короткое описание</value>
   </data>
-  <data name="ProjectShortDescriptionInput" xml:space="preserve">
-    <value>Введите короткое описание проекта</value>
-  </data>
   <data name="ProjectShortName" xml:space="preserve">
     <value>Короткое имя</value>
-  </data>
-  <data name="ProjectShortNameInput" xml:space="preserve">
-    <value>Введите короткое имя проекта</value>
   </data>
   <data name="ProjectStatus" xml:space="preserve">
     <value>Статус</value>
