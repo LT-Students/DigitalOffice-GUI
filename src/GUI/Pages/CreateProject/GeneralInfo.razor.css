@@ -1,11 +1,14 @@
-input, textarea, button[id="dropdown"] {
-    background-color: #f1f1f1;
-    color: #6c757d;
+input, textarea, div[id="status"] button, 
+div[id="department"] button {
+    color:  black;
+    background-color: #f5f5f5;
+
     border: none;
 }
 
 .main-content {
     float: right;
+
     width: 36%;
 }
 
@@ -15,11 +18,13 @@ label {
 
 .additional-content {
     float: left;
-    width: 45%;
+
+    width: 50%;
 }
 
 button[id="dropdown"] {
     width: -webkit-fill-available;
+
     text-align: left;
 }
 
@@ -36,23 +41,23 @@ button[id="dropdown"]:active {
     float: right;
 }
 
-div[id="fullName"], div[id="shortName"]{
+div[id="full-name"], div[id="short-name"]{
     margin-bottom: 25px;
 }
 
-div[id="fullName"] p, 
-div[id="shortName"] p,
+div[id="full-name"] p, 
+div[id="short-name"] p,
 div[id="status"] p , 
 div[id="department"] p {
     margin: 0;
     margin-top: 2px;
-    font-size: 13px;
+
     color: #c0535d;
+    font-size: 13px;
 }
 
-div[id="status"] button, 
-div[id="department"] button {
-    color: #757e85
+.not-selected-department {
+    color: #7b838b !important;
 }
 
 .btn-group {
@@ -63,12 +68,9 @@ div[id="department"] button {
     display: grid;
 }
 
-.short-description-input textarea {
-    margin-top: 5px;
-}
-
 .department-input {
     display: grid;
+
     margin-top: 31px;
 }
 
@@ -81,7 +83,44 @@ textarea[id="description"] {
 }
 
  button[type="submit"]{
-    width: 12%;
+    width: 14%;
     margin-top: 28px;
     float: right
+}
+
+@media screen and (max-width: 500px) {
+    input, textarea, div[id="status"] button, div[id="department"] button{
+        font-size: 10px;
+    }
+
+    button[type="submit"] {
+        width: 25%;
+        font-size: 10px;
+    }
+
+    label, .general-info-title{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    input, 
+    textarea,
+    div[id="status"] button, 
+    div[id="department"] button{
+        font-size: 8px;
+    }
+
+    label, .general-info-title{
+        font-size: 10px;
+    }
+
+    button[type="submit"] {
+        width: 35%;
+        font-size: 10px;
+    }
+
+    .short-description-input label {
+        font-size: 10px;
+    }
 }

@@ -255,4 +255,22 @@
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="ProjectCreationModalTitle" xml:space="preserve">
+    <value>Project creation</value>
+  </data>
+  <data name="ProjectDepartmentDropdownPlaceholder" xml:space="preserve">
+    <value>Select department</value>
+  </data>
+  <data name="ProjectFullNameInputPlaceholder" xml:space="preserve">
+    <value>Insert project full name</value>
+  </data>
+  <data name="ProjectProjectDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Insert project description</value>
+  </data>
+  <data name="ProjectShortDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Insert project short description</value>
+  </data>
+  <data name="ProjectShortNameInputPlaceholder" xml:space="preserve">
+    <value>Insert project full name</value>
+  </data>
 </root>

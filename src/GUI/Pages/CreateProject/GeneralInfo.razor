@@ -1,8 +1,8 @@
-@using Company = LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
-@using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
-@using LT.DigitalOffice.GUI.Services.Interfaces
 @using System.Collections.Generic
-@using LT.DigitalOffice.GUI.Properties;
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
+@using Company = LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
 
 @inject ICompanyService companyService
 @inject IProjectService projectService
@@ -13,46 +13,46 @@
     <p class="general-info-title" >@Resources.ProjectGeneralInfo</p>
     <div style="display: flow-root; margin-bottom: 25px;">
         <div class="additional-content">
-            <label for="fullName">
+            <label for="full-name">
                 @Resources.ProjectFullNameInput <font color="red">*</font>
             </label>
-            <div id="fullName">
+            <div id="full-name">
                 <input 
                     type="text" 
                     class="form-control" 
-                    placeholder="Insert project full name"
+                    placeholder="@Resources.ProjectFullNameInputPlaceholder"
                     aria-label="Username" 
                     aria-describedby="basic-addon1" 
                     @bind="ProjectRequest.Name">
                 <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.Name" />
             </div>
             <div class="short-description-input">
-                <lable for="shortDescription">
+                <label for="short-description">
                     @Resources.ProjectShortDescription
-                </lable>
-                <textarea 
-                    id="shortDescription" 
-                    rows="5" 
+                </label>
+                <textarea  
+                    rows="5"
+                    id="short-description"
                     class="form-control"
                     aria-label="With textarea" 
                     @bind="ProjectRequest.ShortDescription"
-                    placeholder="Insert project short description" >
+                    placeholder="@Resources.ProjectShortDescriptionInputPlaceholder" >
                 </textarea>
                 <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.ShortDescription" />
             </div>
         </div>
         <div class="main-content">
-            <label for="shortName">
+            <label for="short-name">
                 @Resources.ProjectShortName <font color="red">*</font>
             </label>
-            <div id="shortName">
+            <div id="short-name">
                 <input 
                     type="text" 
                     class="form-control" 
                     aria-label="Username" 
                     aria-describedby="basic-addon1" 
                     @bind="ProjectRequest.ShortName"
-                    placeholder="Insert project full name">
+                    placeholder="@Resources.ProjectShortNameInputPlaceholder">
                 <ValidationMessage style="font-size: 0.7em;" For="() => ProjectRequest.ShortName" />
             </div>
             <div style="display:grid">
@@ -99,11 +99,13 @@
                     <button 
                         id="dropdown" 
                         type="button" 
-                        class="btn btn-primary dropdown-toggle" 
+                        class=@(_departmentValue == null ? 
+                                "btn btn-primary dropdown-toggle not-selected-department"  :  
+                                "btn btn-primary dropdown-toggle")
                         data-toggle="dropdown"
                         aria-haspopup="true" 
                         aria-expanded="false">
-                        @(_departmentValue ?? "Select department")
+                        @(_departmentValue ?? Resources.ProjectDepartmentDropdownPlaceholder)
                     </button>
                     <div class="dropdown-menu">
 
@@ -125,12 +127,12 @@
             </div>
         </div>
     </div>
-    <lable for="description">
+    <label for="description">
         @Resources.ProjectDescription
-    </lable>
+    </label>
     <textarea 
         id="description" 
-        placeholder="Insert project description" 
+        placeholder="@Resources.ProjectDepartmentDropdownPlaceholder" 
         class="form-control" 
         aria-label="With textarea"
         rows="4" 
