@@ -421,7 +421,7 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insert project full name.
+        ///   Looks up a localized string similar to Insert project short name.
         /// </summary>
         internal static string ProjectShortNameInputPlaceholder {
             get {

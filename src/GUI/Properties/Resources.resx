@@ -259,7 +259,7 @@
     <value>Insert project short description</value>
   </data>
   <data name="ProjectShortNameInputPlaceholder" xml:space="preserve">
-    <value>Insert project full name</value>
+    <value>Insert project short name</value>
   </data>
   <data name="SearchEmployeePlaceholder" xml:space="preserve">
     <value>Search employee</value>
