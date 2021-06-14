@@ -13,7 +13,7 @@
         <input @bind-value="authData.LoginData"
                type="text"
                class="form-control"
-               placeholder="Login or Email or Phone number"
+               placeholder="@Resources.LoginOrEmailOrPhoneNumber"
                @onkeyup="@(async (k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
                                    await passwordInput.FocusAsync(); })" />
@@ -21,11 +21,11 @@
                @ref="passwordInput"
                type="password"
                class="form-control"
-               placeholder="Password"
+               placeholder="@Resources.Password"
                @onkeyup="@(async (k) => { if (k.Code == "Enter") await Post(); })" />
-        <a>Forgot your password?</a>
+        <a>@Resources.ForgotYourPassword?</a>
         <p class="error_text">@message</p>
-        <button class="btn btn-primary" @onclick="@Post">Login</button>
+        <button class="btn btn-primary" @onclick="@Post">@Resources.Login</button>
     </div>
 </div>
 
