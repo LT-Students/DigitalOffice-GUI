@@ -1,9 +1,8 @@
-﻿@using System.Threading.Tasks;
-@using LT.DigitalOffice.GUI.Services.Interfaces;
-@using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Properties;
 
 @inject ICompanyService companyService
+@inject NavigationManager UriHelper
 
 <EditForm Model="@_departmentInfo" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -48,17 +47,3 @@
     </div>
 </EditForm>
 
-    @code {
-        private NewDepartmentRequest _departmentData = new();
-        private BaseDepartmentInfo _departmentInfo = new();
-        private string _message;
-        private ElementReference _descriptionInput;
-        private ElementReference _directorSelect;
-
-        private async Task HandleValidSubmit()
-        {
-            _departmentData.Info = _departmentInfo;
-
-            _message = await companyService.CreateDepartment(_departmentData);
-        }
-    }

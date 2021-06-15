@@ -1,46 +1,38 @@
-﻿@using System.Threading.Tasks;
-@using LT.DigitalOffice.GUI.Services.Interfaces;
-@using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Properties;
 
 @inject IAuthService authService
 @inject NavigationManager UriHelper
 @page "/login"
 
-<div class="auth-container">
-    <div class="auth-content">
-        <h1 class="h1">@Resources.SiteName</h1>
-        <input @bind-value="authData.LoginData"
-               type="text"
-               class="form-control"
-               placeholder="@Resources.LoginOrEmailOrPhoneNumber"
-               @onkeyup="@(async (k) => {
+<EditForm Model="@_authData" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="auth-container">
+        <div class="auth-content">
+            <h1 class="h1">@Resources.SiteName</h1>
+            <div class="item-group">
+                <input @bind-value="_authData.LoginData"
+                       type="text"
+                       class="form-control"
+                       placeholder="@Resources.LoginOrEmailOrPhoneNumber"
+                       @onkeyup="@(async (k) => {
                                if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                   await passwordInput.FocusAsync(); })" />
-        <input @bind-value="authData.Password"
-               @ref="passwordInput"
-               type="password"
-               class="form-control"
-               placeholder="@Resources.Password"
-               @onkeyup="@(async (k) => { if (k.Code == "Enter") await Post(); })" />
-        <a>@Resources.ForgotYourPassword?</a>
-        <p class="error_text">@message</p>
-        <button class="btn btn-primary" @onclick="@Post">@Resources.Login</button>
+                                   await _passwordInput.FocusAsync(); })" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _authData.LoginData" />
+            </div>
+            <div class="item-group">
+                <input @bind-value="_authData.Password"
+                       @ref="_passwordInput"
+                       type="password"
+                       class="form-control"
+                       placeholder="@Resources.Password"
+                       @onkeyup="@(async (k) => { if (k.Code == "Enter") await HandleValidSubmit(); })" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _authData.Password" />
+            </div>
+            <a>@Resources.ForgotYourPassword?</a>
+            <p class="error_text">@_message</p>
+            <button class="btn btn-primary" type="submit">@Resources.Login</button>
+        </div>
     </div>
-</div>
+</EditForm>
 
-@code {
-    private AuthenticationRequest authData = new();
-    private ElementReference passwordInput;
-    public string message = "";
-    public bool isSuccess = false;
-
-    private async Task Post()
-    {
-        message = await authService.Login(authData);
-        if(String.IsNullOrEmpty(message))
-        {
-            UriHelper.NavigateTo("");
-        }
-    }
-}

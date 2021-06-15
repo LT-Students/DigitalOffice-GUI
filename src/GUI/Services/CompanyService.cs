@@ -20,73 +20,32 @@ namespace LT.DigitalOffice.GUI.Services
             _client = new CompanyServiceClient(new System.Net.Http.HttpClient());
         }
 
-        public async Task<string> CreateDepartment(NewDepartmentRequest request)
+        public async Task CreateDepartment(NewDepartmentRequest request)
         {
-            try
-            {
-                _token = await _storage.GetItemAsync<string>(Consts.Token);
-                var response = await _client.AddDepartmentAsync(request, _token);
+            _token = await _storage.GetItemAsync<string>(Consts.Token);
 
-                return "Successfully created";
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                return ex.Result.Message;
-            }
-            catch (Exception ex)
-            {
-                //remove when spec reworked
-                return ex.Message;
-            }
+            await _client.AddDepartmentAsync(request, _token);
         }
 
-        public async Task<string> CreatePosition(CreatePositionRequest request)
+        public async Task CreatePosition(CreatePositionRequest request)
         {
-            try
-            {
-                _token = await _storage.GetItemAsync<string>(Consts.Token);
-                var response = await _client.AddPositionAsync(request, _token);
+            _token = await _storage.GetItemAsync<string>(Consts.Token);
 
-                return "Successfully created";
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                return ex.Result.Message;
-            }
-            catch (Exception ex)
-            {
-                //remove when spec reworked
-                return ex.Message;
-            }
+            await _client.AddPositionAsync(request, _token);
         }
 
         public async Task<DepartmentsResponse> GetDepartments()
         {
-            try
-            {
-                _token = await _storage.GetItemAsync<string>(Consts.Token);
-                return await _client.GetDepartmentsAsync(_token);
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                //to do when spec changed
-                return null;
-            }
+            _token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return await _client.GetDepartmentsAsync(_token);
         }
 
         public async Task<ICollection<PositionResponse>> GetPositions()
         {
-            try
-            {
-                _token = await _storage.GetItemAsync<string>(Consts.Token);
+            _token = await _storage.GetItemAsync<string>(Consts.Token);
 
-                return await _client.GetPositionsListAsync(_token);
-            }
-            catch(ApiException<ErrorResponse> ex)
-            {
-                //to do when spec changed
-                return null;
-            }
+            return await _client.GetPositionsListAsync(_token);
         }
     }
 }

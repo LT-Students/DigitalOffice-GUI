@@ -1,11 +1,9 @@
-﻿@using System.Threading.Tasks;
-@using LT.DigitalOffice.GUI.Services.Interfaces;
-@using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
-@using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Properties;
 
 @inject IUserService userService
 @inject ICompanyService companyService
+@inject NavigationManager UriHelper
 
 <EditForm Model="@_userData" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -105,7 +103,7 @@
                         @onkeyup="@((k) => {
                                     if (k.Code == "ArrowDown")
                                         _departmentSelect.FocusAsync();})">
-                    <option selected value="0.25">0.25</option>
+                    <option value="0.25">0.25</option>
                     <option value="0.5">0.5</option>
                     <option value="0.75">0.75</option>
                     <option value="1">1</option>
@@ -155,7 +153,7 @@
                         @ref="_statusSelect"
                         id="create-user_status"
                         class="form-select">
-                    <option value="WorkFromHome" selected>Work from home</option>
+                    <option value="WorkFromHome">Work from home</option>
                     <option value="WorkFromOffice">Work from office</option>
                     <option value="Vacation">Vacation</option>
                     <option value="Sick">Sick</option>
@@ -170,41 +168,3 @@
     </div>
 </EditForm>
 
-    @code {
-        private CreateUserRequest _userData = new();
-        private CommunicationInfo _userCommunication = new();
-        private DepartmentsResponse _departments;
-        private ICollection<PositionResponse> _positions;
-        private string _message;
-        private ElementReference _lastNameInput;
-        private ElementReference _middleNameInput;
-        private ElementReference _emailInput;
-        private ElementReference _passwordInput;
-        private ElementReference _startWorkingAtInput;
-        private ElementReference _rateSelect;
-        private ElementReference _departmentSelect;
-        private ElementReference _positionSelect;
-        private ElementReference _statusSelect;
-
-        private async Task GeneratePassword()
-        {
-            _userData.Password = await userService.GeneratePassword();
-        }
-
-        private async Task HandleValidSubmit()
-        {
-            _userCommunication.Type = CommunicationType.Email;
-            _userData.Communications = new List<CommunicationInfo>();
-            _userData.Communications.Add(_userCommunication);
-            _message = await userService.CreateUser(_userData);
-            StateHasChanged();
-        }
-
-        protected async override void OnInitialized()
-        {
-            _positions = await companyService.GetPositions();
-            _departments = await companyService.GetDepartments();
-            _userData.StartWorkingAt = DateTime.UtcNow;
-            StateHasChanged();
-        }
-    }

@@ -5,7 +5,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<string> Login(AuthenticationRequest request);
+        Task Login(AuthenticationRequest request);
 
         bool Logout();
     }

@@ -11,6 +11,7 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly HttpClient _client = new();
         private readonly AuthStateProvider _provider;
         private readonly ISessionStorageService _storage;
 
@@ -20,26 +21,15 @@ namespace LT.DigitalOffice.GUI.Services
             _storage = storage;
         }
 
-        public async Task<string> Login(AuthenticationRequest request)
+        public async Task Login(AuthenticationRequest request)
         {
-            try
-            {
-                var httpClient = new HttpClient();
+            var authService = new AuthServiceClient(_client);
+            var response = await authService.LoginAsync(request);
 
-                var authService = new AuthServiceClient(httpClient);
-                var response = await authService.LoginAsync(request);
+            _provider.LoginNotify(response.UserId);
 
-                _provider.LoginNotify(response.UserId);
-
-                await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
-                await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
-
-                return string.Empty;
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                return ex.Result.Message;
-            }
+            await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
+            await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
         }
 
         public bool Logout()

@@ -54,48 +54,21 @@ namespace LT.DigitalOffice.GUI.Services
             }
         }
 
-        public async Task<string> CreateUser(CreateUserRequest request)
+        public async Task CreateUser(CreateUserRequest request)
         {
-            try
-            {
-                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
-                var response = await _client.CreateUserAsync(request, token);
+            var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
 
-                return "Success";
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                return ex.Result.Message;
-            }
-            catch (Exception ex)
-            {
-                //remove when spec reworked
-                return ex.Message;
-            }
+            await _client.CreateUserAsync(request, token);
         }
 
-        public async Task<string> CreateCredentials(CreateCredentialsRequest request)
+        public async Task CreateCredentials(CreateCredentialsRequest request)
         {
-            try
-            {
-                var response = await _client.CreateCredentialsAsync(request);
+            var response = await _client.CreateCredentialsAsync(request);
 
-                _provider.LoginNotify(response.UserId);
+            _provider.LoginNotify(response.UserId);
 
-                await _sessionStorage.SetItemAsync(nameof(CredentialsResponse.Token), response.Token);
-                await _sessionStorage.SetItemAsync(nameof(CredentialsResponse.UserId), response.UserId);
-
-                return "Authorized";
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                return ex.Result.Message;
-            }
-            catch (Exception ex)
-            {
-                //remove when spec reworked
-                return ex.Message;
-            }
+            await _sessionStorage.SetItemAsync(nameof(CredentialsResponse.Token), response.Token);
+            await _sessionStorage.SetItemAsync(nameof(CredentialsResponse.UserId), response.UserId);
         }
 
         public async Task<string> GeneratePassword()
