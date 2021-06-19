@@ -8,7 +8,7 @@
 <EditForm Model="@_positionData" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <div class="create-position_container">
-        <div class="item-groop">
+        <div class="item-group">
             <label for="create-department_name">@Resources.PositionName<font color="red">*</font></label>
             <input @bind-value="_positionData.Name"
                    type="text"
@@ -19,7 +19,7 @@
                                    _descriptionInput.FocusAsync();})" />
             <ValidationMessage style="font-size: 0.7em;" For="() => _positionData.Name" />
         </div>
-        <div class="item-groop">
+        <div class="item-group">
             <label for="create-position_description">@Resources.PositionDescription<font color="red">*</font></label>
             <textarea @bind="_positionData.Description"
                       @ref="_descriptionInput"

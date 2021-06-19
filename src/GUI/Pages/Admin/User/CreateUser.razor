@@ -11,7 +11,7 @@
     <DataAnnotationsValidator />
     <div class="create-user_container">
         <div class="create-user_personal-container">
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_first-name">@Resources.FirstName<font color="red">*</font></label>
                 <input @bind-value="_userData.FirstName"
                        type="text"
@@ -22,7 +22,7 @@
                                        _lastNameInput.FocusAsync();})" />
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userData.FirstName" />
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_last-name">@Resources.LastName<font color="red">*</font></label>
                 <input @bind-value="_userData.LastName"
                        @ref="_lastNameInput"
@@ -34,7 +34,7 @@
                                        _middleNameInput.FocusAsync();})" />
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userData.LastName" />
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_middle-name">@Resources.MiddleName<font color="red">*</font></label>
                 <input @bind-value="_userData.MiddleName"
                        @ref="_middleNameInput"
@@ -46,7 +46,7 @@
                                        _emailInput.FocusAsync();})" />
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userData.MiddleName" />
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_email">@Resources.Email<font color="red">*</font></label>
                 <input @bind-value="_userCommunication.Value"
                        @ref="_emailInput"
@@ -58,7 +58,7 @@
                                        _passwordInput.FocusAsync();})" />
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userCommunication.Value" />
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_password">@Resources.Password<font color="red">*</font></label>
                 <div class="input-group">
                     <input @bind-value="_userData.Password"
@@ -85,7 +85,7 @@
         </div>
 
         <div class="create-user_service-container">
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_start-working-at">@Resources.StartWorkingAt<font color="red">*</font></label>
                 <input @bind="_userData.StartWorkingAt"
                        @ref="_startWorkingAtInput"
@@ -96,7 +96,7 @@
                                    if (k.Code == "Enter")
                                        _rateSelect.FocusAsync();})" />
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_rate">@Resources.Rate<font color="red">*</font></label>
                 <select @bind="_userData.Rate"
                         @ref="_rateSelect"
@@ -111,7 +111,7 @@
                     <option value="1">1</option>
                 </select>
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_department">@Resources.Department</label>
                 <select @bind="_userData.DepartmentId"
                         @ref="_departmentSelect"
@@ -130,7 +130,7 @@
                     }
                 </select>
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_position">@Resources.Position</label>
                 <select @bind="_userData.PositionId"
                         @ref="_positionSelect"
@@ -149,7 +149,7 @@
                     }
                 </select>
             </div>
-            <div class="item-groop">
+            <div class="item-group">
                 <label for="create-user_status">@Resources.Status</label>
                 <select @bind="_userData.Status"
                         @ref="_statusSelect"
