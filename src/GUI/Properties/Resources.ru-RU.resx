@@ -120,6 +120,9 @@
   <data name="Admin" xml:space="preserve">
     <value>Администрирование</value>
   </data>
+  <data name="AddingProjectEmployees" xml:space="preserve">
+    <value>Добавление сотрудников</value>
+  </data>
   <data name="Company" xml:space="preserve">
     <value>Компания</value>
   </data>
@@ -128,6 +131,12 @@
   </data>
   <data name="CreateNewProject" xml:space="preserve">
     <value>Создать новый проект</value>
+  </data>
+  <data name="CreateProjectModal" xml:space="preserve">
+    <value>Создание проекта</value>
+  </data>
+  <data name="FoundProjectEmployees" xml:space="preserve">
+    <value>Найденные сотрудники</value>
   </data>
   <data name="CreatePosition" xml:space="preserve">
     <value>Создать позицию</value>
@@ -179,6 +188,48 @@
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Общение</value>
+  </data>
+  <data name="ProjectDepartment" xml:space="preserve">
+    <value>Департамент</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="ProjectEmployeeAddButton" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="ProjectEmployeeRemoveButton" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ProjectFullNameInput" xml:space="preserve">
+    <value>Введите полное имя проекта</value>
+  </data>
+  <data name="ProjectGeneralInfo" xml:space="preserve">
+    <value>Основные данные</value>
+  </data>
+  <data name="ProjectModalBackButton" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="ProjectModalFinishButton" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="ProjectModalNextButton" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Полное имя</value>
+  </data>
+  <data name="ProjectShortDescription" xml:space="preserve">
+    <value>Короткое описание</value>
+  </data>
+  <data name="ProjectShortName" xml:space="preserve">
+    <value>Короткое имя</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SelectedProjectEmployees" xml:space="preserve">
+    <value>Выбранные сотрудники</value>
   </data>
   <data name="MiddleName" xml:space="preserve">
     <value>Отчество</value>
@@ -233,5 +284,26 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Сотрудники</value>
+  </data>
+  <data name="ProjectCreationModalTitle" xml:space="preserve">
+    <value>Создание проекта</value>
+  </data>
+  <data name="ProjectDepartmentDropdownPlaceholder" xml:space="preserve">
+    <value>Выберите департамент</value>
+  </data>
+  <data name="ProjectDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Введите описание проекта</value>
+  </data>
+  <data name="ProjectFullNameInputPlaceholder" xml:space="preserve">
+    <value>Введите полное имя проекта</value>
+  </data>
+  <data name="ProjectShortDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Введите короткое описание проекта</value>
+  </data>
+  <data name="ProjectShortNameProjectInputPlaceholder" xml:space="preserve">
+    <value>Введите короткое имя проекта</value>
+  </data>
+  <data name="SearchEmployeePlaceholder" xml:space="preserve">
+    <value>Поиск сотрудника</value>
   </data>
 </root>

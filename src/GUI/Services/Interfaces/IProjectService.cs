@@ -11,5 +11,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             string shortName = null,
             string projectName = null,
             string departmentName = null);
+
+        Task<ProjectInfo> CreateProject(ProjectRequest request);
     }
 }
