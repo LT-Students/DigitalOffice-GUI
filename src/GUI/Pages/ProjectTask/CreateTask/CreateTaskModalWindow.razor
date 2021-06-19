@@ -1,0 +1,124 @@
+@* <EditForm Model="@ProjectRequest" OnValidSubmit="@HandleSubmit">
+    <DataAnnotationsValidator /> *@
+
+<div class="modal fade" id="сreate-task-modal-center" tabindex="-1" role="dialog"
+	aria-labelledby="create-task-modal-center-title" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+
+				<h5 class="modal-title" id="create-task-modal-center-title">Task creation</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+			</div>
+
+			<div class="modal-body">
+				<div class="modal-body_name-parent-input">
+					<div>
+						<label for="name">Name <font color="red">*</font></label>
+						<input id="name" type="text" class="form-control" aria-label="Username"
+							aria-describedby="basic-addon1" />
+					</div>
+					
+					<div>
+						<label for="parent">Parent</label>
+						<input id="parent" type="text" class="form-control" aria-label="Username"
+							aria-describedby="basic-addon1" />
+					</div>
+				</div>
+
+				<div class="modal-body_additional-inputs">
+					<div class="modal-body_assignee-inputs">
+						<label for="project">Project <font color="red">*</font></label>
+						<select 
+                    			
+                    			id="project"
+                    			class="form-select">
+                			<option value=null selected>Not selected</option>
+
+							@foreach (var project in _projects)
+							{
+								<option value="Project name">@project.ShortName</option>
+							}
+
+            			</select>
+					
+						
+						<label for="assignee">Assignee</label>
+						<select 
+                    		disabled=@_projects.Any().ToString()
+                    		id="assignee"
+                    		class="form-select">
+							<option value=null selected>Not selected</option>
+							<option value="Employee name">Employee name</option>
+							<option value="Command name">Command name</option>
+							<option value="Employee name">Employee name</option>
+            			</select>
+					</div>
+
+					<div class="modal-body_general-properties-inputs">
+						<label for="status">Status <font color="red">*</font></label>
+						<select 
+                    			
+                    			id="status"
+                    			class="form-select">
+                			<option value=null selected>Not selected</option>
+                			<option value="Status name">Status name</option>
+							<option value="Status name">Status name</option>
+							<option value="Status name">Status name</option>
+            			</select>
+					
+					
+						<label for="status">Type <font color="red">*</font></label>
+						<select 
+                    			
+                    		id="status"
+                    		class="form-select">
+                			<option value=null selected>Not selected</option>
+                			<option value="Type name">Type name</option>
+							<option value="Type name">Type name</option>
+							<option value="Type name">Type name</option>
+            			</select>
+					</div>
+
+					<div class="modal-body_additional-properties-inputs">
+						<label for="priority">Priority <font color="red">*</font></label>
+						<select 
+                    			
+                    			id="priority"
+                    			class="form-select">
+                			<option value=null selected>Not selected</option>
+                			<option value="Priority name">Priority name</option>
+							<option value="Priority name">Priority name</option>
+							<option value="Priority name">Priority name</option>
+            			</select>
+					
+					
+						<div>
+							<label for="planned-minutes">Planned execution minutes</label>
+							<input id="name" type="text" class="form-control" aria-label="Username"
+								aria-describedby="basic-addon1" />
+						</div>
+					</div>
+				</div>
+
+				<label for="description">
+                    Description
+                </label>
+                <textarea  
+                    rows="5"
+                    id="description"
+                    class="form-control"
+                    aria-label="With textarea"
+                </textarea>
+			</div>
+
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Finish</button>
+			</div>
+		</div>
+	</div>
+</div>

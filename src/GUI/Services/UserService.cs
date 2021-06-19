@@ -47,7 +47,7 @@ namespace LT.DigitalOffice.GUI.Services
             }
         }
 
-        public async Task<UsersResponse> GetUsers(Guid departmentId, int skipCount, int takeCount)
+        public async Task<UsersResponse> GetUsers(int skipCount, int takeCount, Guid? departmentId = null)
         {
             try
             {
