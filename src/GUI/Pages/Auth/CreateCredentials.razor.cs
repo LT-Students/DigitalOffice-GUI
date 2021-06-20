@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Threading.Tasks;
 
-namespace LT.DigitalOffice.GUI.Pages.Public
+namespace LT.DigitalOffice.GUI.Pages.Auth
 {
     public partial class CreateCredentials
     {

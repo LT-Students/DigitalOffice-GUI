@@ -14,6 +14,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
         private DepartmentsResponse _departments;
         private ICollection<PositionResponse> _positions;
         private string _message;
+        private List<float> _rateValues;
 
         private ElementReference _lastNameInput;
         private ElementReference _middleNameInput;
@@ -30,6 +31,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
             _userCommunication.Type = CommunicationType.Email;
             _userData.Communications = new List<CommunicationInfo>();
             _userData.Communications.Add(_userCommunication);
+            _rateValues.AddRange(new float[] {0.2f, 0.4f, 0.6f, 0.8f, 1});
         }
 
         private async Task GeneratePassword()
