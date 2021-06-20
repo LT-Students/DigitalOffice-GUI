@@ -23,7 +23,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
         {
             try
             {
-                await companyService.CreateDepartment(_departmentData);
+                await companyService.CreateDepartmentAsync(_departmentData);
                 UriHelper.NavigateTo("/admin");
             }
             catch (ApiException<ErrorResponse> ex)

@@ -6,7 +6,7 @@
 @inject IAuthService authService;
 @inject NavigationManager UriHelper;
 
-<EditForm Model="@_authData" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@_authData" OnValidSubmit="@HandleValidSubmitAsync">
     <DataAnnotationsValidator />
     <div class="auth-container">
         <div class="auth-content">
@@ -27,7 +27,7 @@
                        type="password"
                        class="form-control"
                        placeholder="@Resources.Password"
-                       @onkeyup="@(async (k) => { if (k.Code == "Enter") await HandleValidSubmit(); })" />
+                       @onkeyup="@(async (k) => { if (k.Code == "Enter") await HandleValidSubmitAsync(); })" />
                 <ValidationMessage style="font-size: 0.7em;" For="() => _authData.Password" />
             </div>
             <a>@Resources.ForgotYourPassword?</a>

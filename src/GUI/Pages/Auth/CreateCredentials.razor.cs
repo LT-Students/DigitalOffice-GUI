@@ -21,11 +21,11 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
             StateHasChanged();
         }
 
-        private async Task HandleValidSubmit()
+        private async Task HandleValidSubmitAsync()
         {
             try
             {
-                await userService.CreateCredentials(_credentialsData);
+                await userService.CreateCredentialsAsync(_credentialsData);
                 UriHelper.NavigateTo("");
             }
             catch (ApiException<ErrorResponse> ex)

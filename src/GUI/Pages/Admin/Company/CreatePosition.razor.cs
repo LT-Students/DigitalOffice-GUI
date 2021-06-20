@@ -16,7 +16,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
         {
             try
             {
-                await companyService.CreatePosition(_positionData);
+                await companyService.CreatePositionAsync(_positionData);
                 UriHelper.NavigateTo("/admin");
             }
             catch (ApiException<ErrorResponse> ex)

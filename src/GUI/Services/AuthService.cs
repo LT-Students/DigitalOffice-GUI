@@ -21,7 +21,7 @@ namespace LT.DigitalOffice.GUI.Services
             _storage = storage;
         }
 
-        public async Task Login(AuthenticationRequest request)
+        public async Task LoginAsync(AuthenticationRequest request)
         {
             var authService = new AuthServiceClient(_client);
             var response = await authService.LoginAsync(request);

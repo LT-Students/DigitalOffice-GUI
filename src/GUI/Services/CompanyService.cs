@@ -20,28 +20,28 @@ namespace LT.DigitalOffice.GUI.Services
             _client = new CompanyServiceClient(new System.Net.Http.HttpClient());
         }
 
-        public async Task CreateDepartment(NewDepartmentRequest request)
+        public async Task CreateDepartmentAsync(NewDepartmentRequest request)
         {
             _token = await _storage.GetItemAsync<string>(Consts.Token);
 
             await _client.AddDepartmentAsync(request, _token);
         }
 
-        public async Task CreatePosition(CreatePositionRequest request)
+        public async Task CreatePositionAsync(CreatePositionRequest request)
         {
             _token = await _storage.GetItemAsync<string>(Consts.Token);
 
             await _client.AddPositionAsync(request, _token);
         }
 
-        public async Task<DepartmentsResponse> GetDepartments()
+        public async Task<DepartmentsResponse> GetDepartmentsAsync()
         {
             _token = await _storage.GetItemAsync<string>(Consts.Token);
 
             return await _client.GetDepartmentsAsync(_token);
         }
 
-        public async Task<ICollection<PositionResponse>> GetPositions()
+        public async Task<ICollection<PositionResponse>> GetPositionsAsync()
         {
             _token = await _storage.GetItemAsync<string>(Consts.Token);
 

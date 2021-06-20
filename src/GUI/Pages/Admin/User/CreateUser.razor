@@ -5,7 +5,7 @@
 @inject ICompanyService companyService
 @inject NavigationManager UriHelper
 
-<EditForm Model="@_userData" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@_userData" OnValidSubmit="@HandleValidSubmitAsync">
     <DataAnnotationsValidator />
     <div class="create-user_container">
         <div class="create-user_personal-container">
@@ -68,7 +68,7 @@
                                            _startWorkingAtInput.FocusAsync();})" />
                     <button class="btn btn-primary"
                             type="button"
-                            @onclick="@GeneratePassword">
+                            @onclick="@GeneratePasswordAsync">
                         @Resources.Generate
                     </button>
                 </div>

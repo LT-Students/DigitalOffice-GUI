@@ -5,12 +5,12 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<string> GetUserName();
+        Task<string> GetUserNameAsync();
 
-        Task CreateUser(CreateUserRequest request);
+        Task CreateUserAsync(CreateUserRequest request);
 
-        Task CreateCredentials(CreateCredentialsRequest request);
+        Task CreateCredentialsAsync(CreateCredentialsRequest request);
 
-        Task<string> GeneratePassword();
+        Task<string> GeneratePasswordAsync();
     }
 }

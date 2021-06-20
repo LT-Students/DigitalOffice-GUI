@@ -24,7 +24,7 @@ namespace LT.DigitalOffice.GUI.Services
             _provider = provider as AuthStateProvider;
         }
 
-        public async Task<string> GetUserName()
+        public async Task<string> GetUserNameAsync()
         {
             if (await _sessionStorage.ContainKeyAsync(Consts.UserName))
             {
@@ -54,14 +54,14 @@ namespace LT.DigitalOffice.GUI.Services
             }
         }
 
-        public async Task CreateUser(CreateUserRequest request)
+        public async Task CreateUserAsync(CreateUserRequest request)
         {
             var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
 
             await _client.CreateUserAsync(request, token);
         }
 
-        public async Task CreateCredentials(CreateCredentialsRequest request)
+        public async Task CreateCredentialsAsync(CreateCredentialsRequest request)
         {
             var response = await _client.CreateCredentialsAsync(request);
 
@@ -71,7 +71,7 @@ namespace LT.DigitalOffice.GUI.Services
             await _sessionStorage.SetItemAsync(nameof(CredentialsResponse.UserId), response.UserId);
         }
 
-        public async Task<string> GeneratePassword()
+        public async Task<string> GeneratePasswordAsync()
         {
             try
             {

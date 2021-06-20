@@ -6,12 +6,12 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface ICompanyService
     {
-        Task CreateDepartment(NewDepartmentRequest request);
+        Task CreateDepartmentAsync(NewDepartmentRequest request);
 
-        Task CreatePosition(CreatePositionRequest request);
+        Task CreatePositionAsync(CreatePositionRequest request);
 
-        Task<DepartmentsResponse> GetDepartments();
+        Task<DepartmentsResponse> GetDepartmentsAsync();
 
-        Task<ICollection<PositionResponse>> GetPositions();
+        Task<ICollection<PositionResponse>> GetPositionsAsync();
     }
 }

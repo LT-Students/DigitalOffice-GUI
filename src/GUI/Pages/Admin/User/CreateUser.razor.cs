@@ -14,7 +14,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
         private DepartmentsResponse _departments;
         private ICollection<PositionResponse> _positions;
         private string _message;
-        private List<float> _rateValues;
+        private List<float> _rateValues = new List<float> { 0.2f, 0.4f, 0.6f, 0.8f, 1 };
 
         private ElementReference _lastNameInput;
         private ElementReference _middleNameInput;
@@ -31,19 +31,18 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
             _userCommunication.Type = CommunicationType.Email;
             _userData.Communications = new List<CommunicationInfo>();
             _userData.Communications.Add(_userCommunication);
-            _rateValues.AddRange(new float[] {0.2f, 0.4f, 0.6f, 0.8f, 1});
         }
 
-        private async Task GeneratePassword()
+        private async Task GeneratePasswordAsync()
         {
-            _userData.Password = await userService.GeneratePassword();
+            _userData.Password = await userService.GeneratePasswordAsync();
         }
 
-        private async Task HandleValidSubmit()
+        private async Task HandleValidSubmitAsync()
         {
             try
             {
-                await userService.CreateUser(_userData);
+                await userService.CreateUserAsync(_userData);
                 UriHelper.NavigateTo("/admin");
             }
             catch(Services.ApiClients.UserService.ApiException<Services.ApiClients.UserService.ErrorResponse> ex)
@@ -59,8 +58,8 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
 
         protected async override void OnInitialized()
         {
-            _positions = await companyService.GetPositions();
-            _departments = await companyService.GetDepartments();
+            _positions = await companyService.GetPositionsAsync();
+            _departments = await companyService.GetDepartmentsAsync();
             _userData.StartWorkingAt = DateTime.UtcNow;
             StateHasChanged();
         }
