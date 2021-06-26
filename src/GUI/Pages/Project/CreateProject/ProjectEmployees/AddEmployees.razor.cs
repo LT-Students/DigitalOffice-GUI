@@ -84,6 +84,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectEmployees
                 }
 
                 _selectedEmployees.AddRange(_foundEmployeesComponent.AddFoundEmployees());
+                
                 ResetStatesSelectedAddedEmployees();
                 StateHasChanged();
             }

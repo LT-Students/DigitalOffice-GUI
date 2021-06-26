@@ -47,12 +47,12 @@ namespace LT.DigitalOffice.GUI.Services
             }
         }
 
-        public async Task<UsersResponse> GetUsers(Guid departmentId, int skipCount, int takeCount)
+        public async Task<UsersResponse> GetUsers( int skipCount, int takeCount, Guid? departmentId = default)
         {
             try
             {
                 string token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
-                var usersResponse = await _userServiceClient.FindUsersAsync(token, skipCount, takeCount);
+                var usersResponse = await _userServiceClient.FindUsersAsync(token, departmentId, skipCount, takeCount);
 
                 return usersResponse;
             }

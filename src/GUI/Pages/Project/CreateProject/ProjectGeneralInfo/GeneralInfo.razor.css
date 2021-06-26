@@ -65,8 +65,8 @@ div[id="department"] p {
     color: #7b838b !important;
 }
 
-.not-selected-department:active {
-    color: white;
+button[id="dropdown-department"]:focus {
+    color: white !important;
 }
 
 .btn-group {
