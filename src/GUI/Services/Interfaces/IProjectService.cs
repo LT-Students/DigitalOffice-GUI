@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
@@ -13,5 +14,12 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             string departmentName = null);
 
         Task<ProjectInfo> CreateProject(ProjectRequest request);
+
+        Task<FindResponseTaskInfo> FindTasksAsync(
+            int skipCount,
+            int takeCount,
+            int? number = null,
+            Guid? projectId = null,
+            Guid? assignedTo = null);
     }
 }

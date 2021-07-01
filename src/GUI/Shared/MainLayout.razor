@@ -1,17 +1,17 @@
 ﻿@attribute [Authorize]
 
 @inherits LayoutComponentBase
-
+@* 
 <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
-    <Authorized>
+    <Authorized> *@
         <Header />
         <div style="display:flex">
             <div class="body">
                 @Body
             </div>
         </div>
-    </Authorized>
+    @* </Authorized>
     <NotAuthorized>
         <LT.DigitalOffice.GUI.Pages.Auth.Auth></LT.DigitalOffice.GUI.Pages.Auth.Auth>
     </NotAuthorized>
-</Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+</Microsoft.AspNetCore.Components.Authorization.AuthorizeView> *@

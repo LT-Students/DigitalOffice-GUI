@@ -1,0 +1,54 @@
+@page "/tasks"
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Tasks navigation">
+        <a 
+            href="javascript:void(0)"
+            class="nav-link" 
+            data-toggle="modal"
+            data-target="#сreate-task-modal-center">
+                Create new task
+            </a>
+    </nav>
+</div>
+<div class="tasks">
+    <div class="overflow-auto">
+
+        @if (_tasksResponse is not null)
+        {
+            @foreach (var task in _tasksResponse.Body)
+            {
+                <div class="task">
+                    <div style="padding: 1% 2%;">
+
+                        <div class="task-content_general-info">
+                            <h2>#@task.Number</h2>
+                            <div>
+                                <h1>@task.Project.ShortName</h1>
+                                <h1>-</h1>
+                                <h1>@task.Name</h1>
+                            </div>
+                            <h2>@task.TypeName</h2>
+                        </div>
+                        <div>
+                            <div class="task-content_additional-info">
+                                <h2>Assigned: <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.AssignedTo.Id}"}>@string.Join(" ", task.AssignedTo.FirstName, task.AssignedTo.LastName)</NavLink></h2>
+                                <h2>Author: <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.Author.Id}"}>@string.Join(" ", task.Author.FirstName, task.Author.LastName)</NavLink></h2>
+                                <h2>Status: @task.StatusName</h2>
+                                <h2>Priority: @task.PriorityName</h2>
+                                <h2>Lead time: @task.PlannedMinutes</h2> 
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    @if (_tasksResponse.Body is not null && _tasksResponse.Body.Count >= TakeCount && _tasksResponse.Body.Count != _totalCount)
+    {
+        <button type="button" class="btn btn-primary" id="showMore" >Show more</button>
+    }
+
+</div>

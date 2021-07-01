@@ -991,7 +991,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
             set { _additionalProperties = value; }
         }
     
-    
+
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.0.22.0 (Newtonsoft.Json v11.0.0.0)")]
@@ -1010,8 +1010,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string TypeName { get; set; }
     
         /// <summary>The task's status name.</summary>
-        [Newtonsoft.Json.JsonProperty("StatusName ", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string StatusName_ { get; set; }
+        [Newtonsoft.Json.JsonProperty("StatusName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string StatusName { get; set; }
     
         /// <summary>The task's priority name.</summary>
         [Newtonsoft.Json.JsonProperty("PriorityName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1022,8 +1022,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string Description { get; set; }
     
         /// <summary>Specific task's number.</summary>
-        [Newtonsoft.Json.JsonProperty("Number ", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Number_ { get; set; }
+        [Newtonsoft.Json.JsonProperty("Number", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Number { get; set; }
     
         /// <summary>Planed time at completed task.</summary>
         [Newtonsoft.Json.JsonProperty("PlannedMinutes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1040,8 +1040,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserTaskInfo AssignedTo { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("Project ", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ProjectTaskInfo Project_ { get; set; }
+        [Newtonsoft.Json.JsonProperty("Project", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ProjectTaskInfo Project { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -1229,7 +1229,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
         /// <summary>Project short name.</summary>
         [Newtonsoft.Json.JsonProperty("ShortName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid ShortName { get; set; }
+        public string ShortName { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     

@@ -76,7 +76,7 @@ button[id="plus"]:focus {
 }
 
 .project {
-    background-color: #FAFBFC;
+    background-color: #f3f3f3;
     border-radius: 5px;
 
     margin-bottom: 2%;
