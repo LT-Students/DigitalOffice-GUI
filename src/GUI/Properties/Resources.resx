@@ -303,7 +303,4 @@
   <data name="SearchEmployeePlaceholder" xml:space="preserve">
     <value>Search employee</value>
   </data>
-  <data name="TaskCreationTitle" xml:space="preserve">
-    <value>Task creation</value>
-  </data>
 </root>

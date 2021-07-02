@@ -1806,6 +1806,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <summary>Project name.</summary>
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.StringLength(32, MinimumLength = 1)]
         public string Name { get; set; }
     
         /// <summary>Project short name.</summary>

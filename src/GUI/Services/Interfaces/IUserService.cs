@@ -12,6 +12,6 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task<string> GeneratePassword();
 
-        Task<UsersResponse> GetUsers(int skipCount, int takeCount, Guid? departmentId = null);
+        Task<UsersResponse> GetUsers(int skipCount, int takeCount, Guid? departmentId);
     }
 }
