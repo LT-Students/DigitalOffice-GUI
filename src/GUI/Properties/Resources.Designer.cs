@@ -61,20 +61,20 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Admin.
-        /// </summary>
-        internal static string Admin {
-            get {
-                return ResourceManager.GetString("Admin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Search employee by keywords.
         /// </summary>
         internal static string AddingProjectEmployees {
             get {
                 return ResourceManager.GetString("AddingProjectEmployees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin.
+        /// </summary>
+        internal static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
             }
         }
         
@@ -349,15 +349,6 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Projects.
-        /// </summary>
-        internal static string Projects {
-            get {
-                return ResourceManager.GetString("Projects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Project creation.
         /// </summary>
         internal static string ProjectCreationModalTitle {
@@ -475,6 +466,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Projects.
+        /// </summary>
+        internal static string Projects {
+            get {
+                return ResourceManager.GetString("Projects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Short description.
         /// </summary>
         internal static string ProjectShortDescription {
@@ -538,11 +538,29 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search employee.
+        /// </summary>
+        internal static string SearchEmployeePlaceholder {
+            get {
+                return ResourceManager.GetString("SearchEmployeePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search projects.
         /// </summary>
         internal static string SearchProjects {
             get {
                 return ResourceManager.GetString("SearchProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected employees.
+        /// </summary>
+        internal static string SelectedProjectEmployees {
+            get {
+                return ResourceManager.GetString("SelectedProjectEmployees", resourceCulture);
             }
         }
         
@@ -561,24 +579,6 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string ShowMore {
             get {
                 return ResourceManager.GetString("ShowMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search employee.
-        /// </summary>
-        internal static string SearchEmployeePlaceholder {
-            get {
-                return ResourceManager.GetString("SearchEmployeePlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selected employees.
-        /// </summary>
-        internal static string SelectedProjectEmployees {
-            get {
-                return ResourceManager.GetString("SelectedProjectEmployees", resourceCulture);
             }
         }
         
@@ -606,6 +606,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task creation.
+        /// </summary>
+        internal static string TaskCreationTitle {
+            get {
+                return ResourceManager.GetString("TaskCreationTitle", resourceCulture);
             }
         }
         

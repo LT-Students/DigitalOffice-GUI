@@ -10,17 +10,26 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
 {
     public partial class CreateTaskModalWindow
     {
+        private Guid? _selectProjectId;
         private List<ProjectInfo> _projects;
-        //private CreateTaskRequest _taskRequest;
+        private List<ProjectUserInfo> _projectUsers;
+        private List<TaskPropertyInfo> _taskStatuses;
+        private List<TaskPropertyInfo> _taskTypes;
+        private List<TaskPropertyInfo> _taskPriorities;
 
         [Inject]
-        private IProjectService _projectService { get; set; }
+        private IProjectService _ProjectService { get; set; }
 
         [Inject]
-        private IUserService _userService { get; set; }
+        private IUserService _UserService { get; set; }
 
         protected override void OnInitialized()
         {
+            _taskTypes = new();
+            _projectUsers = new();
+            _taskStatuses = new();
+            _taskPriorities = new();
+            
             _projects = _projects ?? new();
         }
         
@@ -28,11 +37,49 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
         {
             if (firstRender)
             {
-                var projectsResponse = await _projectService.FindProjects(0, int.MaxValue);
-
+                var projectsResponse = await _ProjectService.FindProjects(0, int.MaxValue);
                 _projects = projectsResponse.Body.ToList();
 
                 StateHasChanged();
+            }
+        }
+
+        private async Task GetTaskPropertiesAsync(ChangeEventArgs arg)
+        {
+            _taskTypes = new();
+            _projectUsers = new();
+            _taskStatuses = new();
+            _taskPriorities = new();
+
+            _selectProjectId = Guid.Parse(arg.Value.ToString());
+
+            var projectResponse = await _ProjectService.GetProjectAsync(_selectProjectId.Value, includeUsers: true);
+            _projectUsers = projectResponse.Users.ToList();
+
+            var taskPropertiesResponse = await _ProjectService.GetTaskPropertiesAsync(
+                skipCount:0, 
+                takeCount: int.MaxValue, 
+                projectId: _selectProjectId.Value);
+
+            ParseProperties(taskPropertiesResponse.Body.ToList());
+        }
+
+        private void ParseProperties(List<TaskPropertyInfo> properties)
+        {
+            foreach (var property in properties)
+            {
+                if (PropertyType.Type == property.PropertyType)
+                {
+                    _taskTypes.Add(property);
+                }
+                else if (PropertyType.Status == property.PropertyType)
+                {
+                    _taskStatuses.Add(property);
+                }
+                else if (PropertyType.Priority == property.PropertyType)
+                {
+                    _taskPriorities.Add(property);
+                }
             }
         }
     }

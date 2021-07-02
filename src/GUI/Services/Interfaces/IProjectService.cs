@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
@@ -5,6 +6,12 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface IProjectService
     {
+        Task<ProjectResponse> GetProjectAsync(
+            Guid projectId, 
+            bool includeUsers = false, 
+            bool includeFiles = false, 
+            bool showNotActiveUsers = false);
+
         Task<FindResponseProjectInfo> FindProjects(
             int skipCount,
             int takeCount, 
@@ -13,5 +20,13 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             string departmentName = null);
 
         Task<ProjectInfo> CreateProject(ProjectRequest request);
+
+        Task<FindResponseTaskProperty> GetTaskPropertiesAsync(
+            int skipCount,
+            int takeCount, 
+            string name = null,
+            Guid? authorId = null,
+            Guid? projectId = null
+        );
     }
 }

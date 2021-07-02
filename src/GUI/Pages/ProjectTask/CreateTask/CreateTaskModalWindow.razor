@@ -34,14 +34,15 @@
 					<div class="modal-body_assignee-inputs">
 						<label for="project">Project <font color="red">*</font></label>
 						<select 
-                    			
-                    			id="project"
-                    			class="form-select">
+							@onchange="GetTaskPropertiesAsync"
+                    		
+                    		id="project"
+                    		class="form-select">
                 			<option value=null selected>Not selected</option>
 
 							@foreach (var project in _projects)
 							{
-								<option value="Project name">@project.ShortName</option>
+								<option value=@project.Id>@project.ShortName</option>
 							}
 
             			</select>
@@ -49,51 +50,63 @@
 						
 						<label for="assignee">Assignee</label>
 						<select 
-                    		disabled=@_projects.Any().ToString()
+                    		disabled=@(!_selectProjectId.HasValue)
                     		id="assignee"
                     		class="form-select">
 							<option value=null selected>Not selected</option>
-							<option value="Employee name">Employee name</option>
-							<option value="Command name">Command name</option>
-							<option value="Employee name">Employee name</option>
+
+							@foreach (var user in _projectUsers)
+							{
+								<option value=@user.Id>@string.Join(" ", user.FirstName, user.MiddleName)</option>
+							}
+
             			</select>
 					</div>
 
 					<div class="modal-body_general-properties-inputs">
 						<label for="status">Status <font color="red">*</font></label>
 						<select 
-                    			
+                    			disabled=@(!_selectProjectId.HasValue)
                     			id="status"
                     			class="form-select">
                 			<option value=null selected>Not selected</option>
-                			<option value="Status name">Status name</option>
-							<option value="Status name">Status name</option>
-							<option value="Status name">Status name</option>
+
+							@foreach (var status in _taskStatuses)
+							{
+								<option value=@status.Id>@status.Name</option>
+							}
+
             			</select>
 					
 					
 						<label for="status">Type <font color="red">*</font></label>
 						<select 
-                    			
+                    		disabled=@(!_selectProjectId.HasValue)
                     		id="status"
                     		class="form-select">
                 			<option value=null selected>Not selected</option>
-                			<option value="Type name">Type name</option>
-							<option value="Type name">Type name</option>
-							<option value="Type name">Type name</option>
+
+                			@foreach (var type in _taskTypes)
+							{
+								<option value=@type.Id>@type.Name</option>
+							}
+
             			</select>
 					</div>
 
 					<div class="modal-body_additional-properties-inputs">
 						<label for="priority">Priority <font color="red">*</font></label>
 						<select 
-                    			
+                    			disabled=@(!_selectProjectId.HasValue)
                     			id="priority"
                     			class="form-select">
                 			<option value=null selected>Not selected</option>
-                			<option value="Priority name">Priority name</option>
-							<option value="Priority name">Priority name</option>
-							<option value="Priority name">Priority name</option>
+
+                			@foreach (var priority in _taskPriorities)
+							{
+								<option value=@priority.Id>@priority.Name</option>
+							}
+
             			</select>
 					
 					
@@ -112,7 +125,7 @@
                     rows="5"
                     id="description"
                     class="form-control"
-                    aria-label="With textarea"
+                    aria-label="With textarea">
                 </textarea>
 			</div>
 
