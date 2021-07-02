@@ -120,9 +120,6 @@
   <data name="Admin" xml:space="preserve">
     <value>Администрирование</value>
   </data>
-  <data name="AddingProjectEmployees" xml:space="preserve">
-    <value>Добавление сотрудников</value>
-  </data>
   <data name="Company" xml:space="preserve">
     <value>Компания</value>
   </data>
@@ -305,5 +302,8 @@
   </data>
   <data name="SearchEmployeePlaceholder" xml:space="preserve">
     <value>Поиск сотрудника</value>
+  </data>
+  <data name="AddingProjectEmployees" xml:space="preserve">
+    <value>Добавление сотрудников</value>
   </data>
 </root>

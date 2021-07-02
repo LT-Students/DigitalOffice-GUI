@@ -1,5 +1,5 @@
-@* <EditForm Model="@ProjectRequest" OnValidSubmit="@HandleSubmit">
-    <DataAnnotationsValidator /> *@
+<EditForm Model="@_taskRequest" OnValidSubmit="@HandleSubmit">
+    <DataAnnotationsValidator />
 
 <div class="modal fade" id="сreate-task-modal-center" tabindex="-1" role="dialog"
 	aria-labelledby="create-task-modal-center-title" aria-hidden="true">
@@ -19,13 +19,23 @@
 				<div class="modal-body_name-parent-input">
 					<div>
 						<label for="name">Name <font color="red">*</font></label>
-						<input id="name" type="text" class="form-control" aria-label="Username"
+						<input 
+							id="name" 
+							type="text" 
+							class="form-control"
+							@bind=_taskRequest.Name 
+							aria-label="Username"
 							aria-describedby="basic-addon1" />
 					</div>
 					
 					<div>
 						<label for="parent">Parent</label>
-						<input id="parent" type="text" class="form-control" aria-label="Username"
+						<input 
+							id="parent"
+							type="text" 
+							class="form-control" 
+							aria-label="Username"
+							@bind=_taskRequest.ParentId
 							aria-describedby="basic-addon1" />
 					</div>
 				</div>
@@ -52,6 +62,7 @@
 						<select 
                     		disabled=@(!_selectProjectId.HasValue)
                     		id="assignee"
+							@bind=_taskRequest.AssignedTo
                     		class="form-select">
 							<option value=null selected>Not selected</option>
 
@@ -68,6 +79,7 @@
 						<select 
                     			disabled=@(!_selectProjectId.HasValue)
                     			id="status"
+								@bind=_taskRequest.StatusId
                     			class="form-select">
                 			<option value=null selected>Not selected</option>
 
@@ -82,6 +94,7 @@
 						<label for="status">Type <font color="red">*</font></label>
 						<select 
                     		disabled=@(!_selectProjectId.HasValue)
+							@bind=_taskRequest.TypeId
                     		id="status"
                     		class="form-select">
                 			<option value=null selected>Not selected</option>
@@ -98,6 +111,7 @@
 						<label for="priority">Priority <font color="red">*</font></label>
 						<select 
                     			disabled=@(!_selectProjectId.HasValue)
+								@bind=_taskRequest.PriorityId
                     			id="priority"
                     			class="form-select">
                 			<option value=null selected>Not selected</option>
@@ -112,7 +126,12 @@
 					
 						<div>
 							<label for="planned-minutes">Planned execution minutes</label>
-							<input id="name" type="text" class="form-control" aria-label="Username"
+							<input 
+								id="name" 
+								type="text" 
+								class="form-control" 
+								aria-label="Username"
+								@bind=_taskRequest.PlannedMinutes
 								aria-describedby="basic-addon1" />
 						</div>
 					</div>
@@ -135,3 +154,4 @@
 		</div>
 	</div>
 </div>
+</EditForm>

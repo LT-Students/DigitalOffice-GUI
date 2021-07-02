@@ -1399,7 +1399,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public System.Guid Id { get; set; }
     
         /// <summary>The department name.</summary>
-        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -1806,7 +1806,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <summary>Project name.</summary>
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [System.ComponentModel.DataAnnotations.StringLength(32, MinimumLength = 1)]
         public string Name { get; set; }
     
         /// <summary>Project short name.</summary>

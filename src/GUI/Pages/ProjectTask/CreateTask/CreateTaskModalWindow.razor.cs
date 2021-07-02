@@ -12,6 +12,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
     {
         private Guid? _selectProjectId;
         private List<ProjectInfo> _projects;
+        private CreateTaskRequest _taskRequest;
         private List<ProjectUserInfo> _projectUsers;
         private List<TaskPropertyInfo> _taskStatuses;
         private List<TaskPropertyInfo> _taskTypes;
@@ -29,6 +30,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
             _projectUsers = new();
             _taskStatuses = new();
             _taskPriorities = new();
+            _taskRequest = new();
             
             _projects = _projects ?? new();
         }
@@ -52,6 +54,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
             _taskPriorities = new();
 
             _selectProjectId = Guid.Parse(arg.Value.ToString());
+            _taskRequest.ProjectId = _selectProjectId.Value;
 
             var projectResponse = await _ProjectService.GetProjectAsync(_selectProjectId.Value, includeUsers: true);
             _projectUsers = projectResponse.Users.ToList();
@@ -81,6 +84,11 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
                     _taskPriorities.Add(property);
                 }
             }
+        }
+
+        private async Task HandleSubmit()
+        {
+            await _ProjectService.CreateTaskAsync(_taskRequest);
         }
     }
 }

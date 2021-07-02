@@ -82,5 +82,12 @@ namespace LT.DigitalOffice.GUI.Services
 
             return await _projectServiceClient.GetProjectAsync(token, projectId, includeUsers, showNotActiveUsers, includeFiles);
         }
+
+        public async Task<OperationResultResponse> CreateTaskAsync(CreateTaskRequest request)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return await _projectServiceClient.CreateTaskAsync(request, token);
+        }
     }
 }
