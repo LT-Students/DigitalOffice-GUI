@@ -11,6 +11,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
     public partial class CreateTaskModalWindow
     {
         private Guid? _selectProjectId;
+        private List<TaskInfo> _projectTasks;
         private List<ProjectInfo> _projects;
         private CreateTaskRequest _taskRequest;
         private List<ProjectUserInfo> _projectUsers;
@@ -31,6 +32,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
             _taskStatuses = new();
             _taskPriorities = new();
             _taskRequest = new();
+            _projectTasks = new();
             
             _projects = _projects ?? new();
         }
@@ -52,9 +54,13 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
             _projectUsers = new();
             _taskStatuses = new();
             _taskPriorities = new();
+            _projectTasks = new();
 
             _selectProjectId = Guid.Parse(arg.Value.ToString());
             _taskRequest.ProjectId = _selectProjectId.Value;
+
+            var taskResponse = await _ProjectService.FindTasksAsync(0, int.MaxValue, projectId: _selectProjectId);
+            _projectTasks = taskResponse.Body.ToList();
 
             var projectResponse = await _ProjectService.GetProjectAsync(_selectProjectId.Value, includeUsers: true);
             _projectUsers = projectResponse.Users.ToList();

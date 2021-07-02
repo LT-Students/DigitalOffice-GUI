@@ -28,7 +28,13 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             int takeCount, 
             string name = null,
             Guid? authorId = null,
-            Guid? projectId = null
-        );
+            Guid? projectId = null);
+
+        Task<FindResponseTaskInfo> FindTasksAsync(
+            int skipCount,
+            int takeCount,
+            int? number = null,
+            Guid? projectId = null,
+            Guid? assignedTo = null);
     }
 }

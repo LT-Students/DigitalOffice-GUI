@@ -89,5 +89,17 @@ namespace LT.DigitalOffice.GUI.Services
 
             return await _projectServiceClient.CreateTaskAsync(request, token);
         }
+
+        public async Task<FindResponseTaskInfo> FindTasksAsync(
+            int skipCount,
+            int takeCount,
+            int? number = null,
+            Guid? projectId = null,
+            Guid? assignedTo = null)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, skipCount, takeCount);
+        }
     }
 }

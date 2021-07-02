@@ -18,7 +18,7 @@
 			<div class="modal-body">
 				<div class="modal-body_name-parent-input">
 					<div>
-						<label for="name">Name <font color="red">*</font></label>
+						<label for="name">Name<font color="red">*</font></label>
 						<input 
 							id="name" 
 							type="text" 
@@ -30,14 +30,15 @@
 					
 					<div>
 						<label for="parent">Parent</label>
-						<select 
+						<select
+							@bind=_taskRequest.ParentId
                     		id="parent"
                     		class="form-select">
                 			<option value=null selected>Not selected</option>
 
-							@foreach (var project in _projects)
+							@foreach (var task in _projectTasks)
 							{
-								<option value=@project.Id>@project</option>
+								<option value=@task.Id>@task.Name</option>
 							}
 
             			</select>
