@@ -30,13 +30,17 @@
 					
 					<div>
 						<label for="parent">Parent</label>
-						<input 
-							id="parent"
-							type="text" 
-							class="form-control" 
-							aria-label="Username"
-							@bind=_taskRequest.ParentId
-							aria-describedby="basic-addon1" />
+						<select 
+                    		id="parent"
+                    		class="form-select">
+                			<option value=null selected>Not selected</option>
+
+							@foreach (var project in _projects)
+							{
+								<option value=@project.Id>@project</option>
+							}
+
+            			</select>
 					</div>
 				</div>
 
