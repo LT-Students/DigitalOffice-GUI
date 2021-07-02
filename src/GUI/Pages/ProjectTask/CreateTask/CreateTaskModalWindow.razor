@@ -1,3 +1,5 @@
+@using LT.DigitalOffice.GUI.Properties
+
 <EditForm Model="@_taskRequest" OnValidSubmit="@HandleSubmit">
     <DataAnnotationsValidator />
 
@@ -8,7 +10,7 @@
 
 			<div class="modal-header">
 
-				<h5 class="modal-title" id="create-task-modal-center-title">Task creation</h5>
+				<h5 class="modal-title" id="create-task-modal-center-title">@Resources.TaskCreationModalTitle</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -18,23 +20,23 @@
 			<div class="modal-body">
 				<div class="modal-body_name-parent-input">
 					<div>
-						<label for="name">Name<font color="red">*</font></label>
+						<label for="name">@Resources.NameTask<font color="red">*</font></label>
 						<input 
 							id="name" 
 							type="text" 
 							class="form-control"
-							@bind=_taskRequest.Name 
-							aria-label="Username"
+							@bind=_taskRequest.Name
 							aria-describedby="basic-addon1" />
 					</div>
 					
 					<div>
-						<label for="parent">Parent</label>
+						<label for="parent">@Resources.TaskParent</label>
 						<select
 							@bind=_taskRequest.ParentId
+							disabled=@(!_selectProjectId.HasValue)
                     		id="parent"
                     		class="form-select">
-                			<option value=null selected>Not selected</option>
+                			<option value=null selected>@Resources.NotSelected</option>
 
 							@foreach (var task in _projectTasks)
 							{
@@ -47,13 +49,12 @@
 
 				<div class="modal-body_additional-inputs">
 					<div class="modal-body_assignee-inputs">
-						<label for="project">Project <font color="red">*</font></label>
+						<label for="project">@Resources.ProjectTask<font color="red">*</font></label>
 						<select 
 							@onchange="GetTaskPropertiesAsync"
-                    		
                     		id="project"
                     		class="form-select">
-                			<option value=null selected>Not selected</option>
+                			<option value=null>@Resources.NotSelected</option>
 
 							@foreach (var project in _projects)
 							{
@@ -63,13 +64,13 @@
             			</select>
 					
 						
-						<label for="assignee">Assignee</label>
+						<label for="assignee">@Resources.TaskAssigned</label>
 						<select 
                     		disabled=@(!_selectProjectId.HasValue)
                     		id="assignee"
 							@bind=_taskRequest.AssignedTo
                     		class="form-select">
-							<option value=null selected>Not selected</option>
+							<option value=null selected>@Resources.NotSelected</option>
 
 							@foreach (var user in _projectUsers)
 							{
@@ -80,13 +81,13 @@
 					</div>
 
 					<div class="modal-body_general-properties-inputs">
-						<label for="status">Status <font color="red">*</font></label>
+						<label for="status">@Resources.TaskStatus<font color="red">*</font></label>
 						<select 
                     			disabled=@(!_selectProjectId.HasValue)
                     			id="status"
 								@bind=_taskRequest.StatusId
                     			class="form-select">
-                			<option value=null selected>Not selected</option>
+                			<option value=null selected>@Resources.NotSelected</option>
 
 							@foreach (var status in _taskStatuses)
 							{
@@ -96,13 +97,13 @@
             			</select>
 					
 					
-						<label for="status">Type <font color="red">*</font></label>
+						<label for="status">@Resources.TaskType<font color="red">*</font></label>
 						<select 
                     		disabled=@(!_selectProjectId.HasValue)
 							@bind=_taskRequest.TypeId
                     		id="status"
                     		class="form-select">
-                			<option value=null selected>Not selected</option>
+                			<option value=null selected>@Resources.NotSelected</option>
 
                 			@foreach (var type in _taskTypes)
 							{
@@ -113,13 +114,13 @@
 					</div>
 
 					<div class="modal-body_additional-properties-inputs">
-						<label for="priority">Priority <font color="red">*</font></label>
+						<label for="priority">@Resources.TaskPriority<font color="red">*</font></label>
 						<select 
                     			disabled=@(!_selectProjectId.HasValue)
 								@bind=_taskRequest.PriorityId
                     			id="priority"
                     			class="form-select">
-                			<option value=null selected>Not selected</option>
+                			<option value=null selected>@Resources.NotSelected</option>
 
                 			@foreach (var priority in _taskPriorities)
 							{
@@ -130,7 +131,7 @@
 					
 					
 						<div>
-							<label for="planned-minutes">Planned execution minutes</label>
+							<label for="planned-minutes">@Resources.PlannedMinutesTask</label>
 							<input 
 								id="name" 
 								type="text" 
@@ -142,9 +143,7 @@
 					</div>
 				</div>
 
-				<label for="description">
-                    Description
-                </label>
+				<label for="description">@Resources.TaskDescription</label>
                 <textarea  
                     rows="5"
                     id="description"
@@ -154,7 +153,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Finish</button>
+				<button type="submit" class="btn btn-primary">@Resources.ModalFinishButton</button>
 			</div>
 		</div>
 	</div>

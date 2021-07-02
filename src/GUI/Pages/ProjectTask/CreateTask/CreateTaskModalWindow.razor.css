@@ -112,6 +112,7 @@ select {
 button[type="submit"]
 {
     float: right;
+    margin: 0;
 
     width: 12%;
 }

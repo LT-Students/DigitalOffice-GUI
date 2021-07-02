@@ -207,7 +207,7 @@
   <data name="ProjectModalBackButton" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="ProjectModalFinishButton" xml:space="preserve">
+  <data name="ModalFinishButton" xml:space="preserve">
     <value>Finish</value>
   </data>
   <data name="ProjectModalNextButton" xml:space="preserve">
@@ -300,7 +300,37 @@
   <data name="SearchEmployeePlaceholder" xml:space="preserve">
     <value>Search employee</value>
   </data>
-  <data name="TaskCreationTitle" xml:space="preserve">
+  <data name="TaskCreationModalTitle" xml:space="preserve">
     <value>Task creation</value>
+  </data>
+  <data name="AddingProjectEmployees" xml:space="preserve">
+    <value>Adding project employees</value>
+  </data>
+  <data name="NameTask" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PlannedMinutesTask" xml:space="preserve">
+    <value>Planned execution minutes</value>
+  </data>
+  <data name="ProjectTask" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="TaskAssigned" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="TaskParent" xml:space="preserve">
+    <value>Task parent</value>
+  </data>
+  <data name="TaskPriority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskType" xml:space="preserve">
+    <value>Type</value>
   </data>
 </root>

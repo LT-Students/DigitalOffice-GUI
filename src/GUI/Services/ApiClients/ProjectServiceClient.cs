@@ -1598,7 +1598,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public object AddedOn { get; set; }
     
         /// <summary>Data and time removed user from project.</summary>
-        [Newtonsoft.Json.JsonProperty("RemovedOn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("RemovedOn", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public object RemovedOn { get; set; }
     
         /// <summary>User state.</summary>

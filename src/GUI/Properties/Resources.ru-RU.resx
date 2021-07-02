@@ -207,7 +207,7 @@
   <data name="ProjectModalBackButton" xml:space="preserve">
     <value>Назад</value>
   </data>
-  <data name="ProjectModalFinishButton" xml:space="preserve">
+  <data name="ModalFinishButton" xml:space="preserve">
     <value>Завершить</value>
   </data>
   <data name="ProjectModalNextButton" xml:space="preserve">
@@ -305,5 +305,35 @@
   </data>
   <data name="AddingProjectEmployees" xml:space="preserve">
     <value>Добавление сотрудников</value>
+  </data>
+  <data name="NameTask" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="PlannedMinutesTask" xml:space="preserve">
+    <value>Планируемое время выполнения</value>
+  </data>
+  <data name="ProjectTask" xml:space="preserve">
+    <value>Проект</value>
+  </data>
+  <data name="TaskAssigned" xml:space="preserve">
+    <value>Назначенный</value>
+  </data>
+  <data name="TaskCreationModalTitle" xml:space="preserve">
+    <value>Создание задачи</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="TaskParent" xml:space="preserve">
+    <value>Главная задача</value>
+  </data>
+  <data name="TaskPriority" xml:space="preserve">
+    <value>Приорите</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="TaskType" xml:space="preserve">
+    <value>Тип</value>
   </data>
 </root>
