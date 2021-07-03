@@ -15,7 +15,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task<ProjectInfo> CreateProject(ProjectRequest request);
 
-        Task<FindResponseTaskInfo> FindTasksAsync(
+        Task<FindResponseTaskInfo> GetTasksAsync(
             int skipCount,
             int takeCount,
             int? number = null,

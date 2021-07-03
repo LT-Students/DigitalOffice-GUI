@@ -60,7 +60,7 @@ namespace LT.DigitalOffice.GUI.Services
             return response.Body;
         }
 
-        public async Task<FindResponseTaskInfo> FindTasksAsync(
+        public async Task<FindResponseTaskInfo> GetTasksAsync(
             int skipCount,
             int takeCount,
             int? number = null,
