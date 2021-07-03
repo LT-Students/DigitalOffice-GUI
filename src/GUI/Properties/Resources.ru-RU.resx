@@ -328,7 +328,7 @@
     <value>Главная задача</value>
   </data>
   <data name="TaskPriority" xml:space="preserve">
-    <value>Приорите</value>
+    <value>Приоритет</value>
   </data>
   <data name="TaskStatus" xml:space="preserve">
     <value>Статус</value>
@@ -344,5 +344,8 @@
   </data>
   <data name="TaskLeadTime" xml:space="preserve">
     <value>Время выполнения</value>
+  </data>
+  <data name="TasksPage" xml:space="preserve">
+    <value>Задачи</value>
   </data>
 </root>

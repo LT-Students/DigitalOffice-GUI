@@ -342,4 +342,7 @@
   <data name="TaskLeadTime" xml:space="preserve">
     <value>Lead time</value>
   </data>
+  <data name="TasksPage" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
 </root>
