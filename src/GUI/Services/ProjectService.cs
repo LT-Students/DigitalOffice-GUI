@@ -1,3 +1,4 @@
+using System;
 using Blazored.SessionStorage;
 using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
@@ -57,6 +58,48 @@ namespace LT.DigitalOffice.GUI.Services
             }
 
             return response.Body;
+        }
+
+        public async Task<FindResponseTaskProperty> GetTaskPropertiesAsync(
+            int skipCount,
+            int takeCount, 
+            string name = null,
+            Guid? authorId = null,
+            Guid? projectId = null)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return await _projectServiceClient.FindTaskPropertiesAsync(token, name, authorId,projectId, skipCount, takeCount);
+        }
+
+        public async Task<ProjectResponse> GetProjectAsync(
+            Guid projectId, 
+            bool includeUsers = false, 
+            bool includeFiles = false, 
+            bool showNotActiveUsers = false)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return await _projectServiceClient.GetProjectAsync(token, projectId, includeUsers, showNotActiveUsers, includeFiles);
+        }
+
+        public async Task<OperationResultResponse> CreateTaskAsync(CreateTaskRequest request)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return await _projectServiceClient.CreateTaskAsync(request, token);
+        }
+
+        public async Task<FindResponseTaskInfo> FindTasksAsync(
+            int skipCount,
+            int takeCount,
+            int? number = null,
+            Guid? projectId = null,
+            Guid? assignedTo = null)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, skipCount, takeCount);
         }
     }
 }
