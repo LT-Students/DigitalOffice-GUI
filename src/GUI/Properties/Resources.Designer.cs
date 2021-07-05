@@ -340,11 +340,11 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Planned execution minutes.
+        ///   Looks up a localized string similar to Planned lead time, min.
         /// </summary>
-        internal static string PlannedMinutesTask {
+        internal static string PlannedTimeTask {
             get {
-                return ResourceManager.GetString("PlannedMinutesTask", resourceCulture);
+                return ResourceManager.GetString("PlannedTimeTask", resourceCulture);
             }
         }
         
@@ -678,6 +678,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string TaskPriority {
             get {
                 return ResourceManager.GetString("TaskPriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks.
+        /// </summary>
+        internal static string TasksPage {
+            get {
+                return ResourceManager.GetString("TasksPage", resourceCulture);
             }
         }
         

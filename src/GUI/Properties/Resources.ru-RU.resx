@@ -309,8 +309,8 @@
   <data name="NameTask" xml:space="preserve">
     <value>Имя</value>
   </data>
-  <data name="PlannedMinutesTask" xml:space="preserve">
-    <value>Планируемое время выполнения</value>
+  <data name="PlannedTimeTask" xml:space="preserve">
+    <value>Планируемое время выполнения, мин</value>
   </data>
   <data name="ProjectTask" xml:space="preserve">
     <value>Проект</value>
@@ -335,5 +335,8 @@
   </data>
   <data name="TaskType" xml:space="preserve">
     <value>Тип</value>
+  </data>
+  <data name="TasksPage" xml:space="preserve">
+    <value>Задачи</value>
   </data>
 </root>
