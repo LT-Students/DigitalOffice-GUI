@@ -339,4 +339,16 @@
   <data name="TasksPage" xml:space="preserve">
     <value>Задачи</value>
   </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Подзадачи</value>
+  </data>
+  <data name="TaskAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="TaskDateСreation" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="TaskGeneralInfo" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
 </root>

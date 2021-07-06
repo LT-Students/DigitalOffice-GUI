@@ -1,7 +1,8 @@
 @page "/tasks"
 
-
 @using LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
+
+@inject NavigationManager UriHelper
 
 <div class="nav-scroller bg-body shadow-sm">
     <nav class="nav nav-underline" aria-label="Tasks navigation">
@@ -16,3 +17,17 @@
 </div>
 
     <CreateTaskModalWindow />
+
+<div style="cursor: pointer;" @onclick=@(() => UriHelper.NavigateTo("/task/0493bd68-3b2e-48fd-bec3-874f8e1a65a4"))>
+        Create endpoint for department
+    <div></div>
+</div>
+
+@code {
+    private Guid _id;
+
+    protected override void OnInitialized()
+    {
+        _id = Guid.NewGuid();
+    }
+}

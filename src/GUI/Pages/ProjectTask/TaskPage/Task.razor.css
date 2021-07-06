@@ -1,0 +1,84 @@
+.task-content {
+    margin: 32px 110px;
+}
+
+.task-content_header-info {
+    display:flex;
+
+    margin-bottom: 53px;
+}
+
+.task-content_header-info div[id="feature-task"],div[id="project-task"]{
+    height: 27px;
+
+    padding: 0 25px;
+
+    text-align: center;
+    color: white;
+
+    border-radius: 5px;
+
+    -webkit-transform: skew(-32deg);
+}
+
+.task-content_header-info div[id="feature-task"] {
+    position:absolute;
+
+    background-color: #1a794e;
+}
+
+.task-content_header-info div[id="project-task"] {
+    margin-left: 99px;
+    padding-left: 30px;
+
+    background-color: #1d2ecc;
+}
+
+.task-content_header-info div[id="project-task"] div, div[id="feature-task"] div{
+    -webkit-transform: skew(32deg);
+}
+
+h1 {
+    margin-bottom: 10px;
+
+    transform: scale(0.8);
+    transform-origin: left;
+}
+
+.btn-link {
+    padding: .4rem 1rem;
+
+    width: -webkit-fill-available;
+    text-align: start;
+}
+
+.card-header {
+    padding: 0;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.card {
+    border: none;
+
+    background-color: #f8f9fa;
+}
+
+.card-header {
+    background: linear-gradient(95deg, #c1c1c15e, transparent);
+
+    margin-bottom: 22px;
+
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none;
+}
+
+.task-content_general-info {
+    margin-bottom: 30px;
+}

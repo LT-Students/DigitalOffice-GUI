@@ -1,0 +1,99 @@
+@page "/task/{taskId:guid}"
+
+@using LT.DigitalOffice.GUI.Properties
+
+<div class="task-content">
+
+    <h1><span>#130 - </span>Create endpoint for department</h1>
+
+    <div class="task-content_header-info">
+        <div id="feature-task"><div>Feature</div></div>
+        <div id="project-task"><div>Project name</div></div>
+    </div>
+
+    <div class="task-content_general-info">
+        <p>@Resources.TaskAssigned: <NavLink href="#" style="text-decoration: none; color: #1d2ecc">Malkin Evgeniy</NavLink></p>
+        <p>@Resources.Status: in progress</p>
+    </div>
+
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        @Resources.TaskAdditionalInfo
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <div>
+                        <p>@Resources.TaskAuthor: <NavLink href="#" style="text-decoration: none; color: #1d2ecc">Ivan Ivanov</NavLink> </p>
+                        <p>@Resources.TaskPriority: normal</p>
+                        <p>@Resources.TaskDateСreation: 01-06-2021</p>
+                        <p>@Resources.PlannedTimeTask: 150</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        @Resources.TaskDescription
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <p>Add entity Company with properties Name, Description, Tagline, logo. Add entity Company with properties Name, Description, Tagline, logo. Add entity Company with properties Name, Description, Tagline, logo. Add entity Company with properties Name, Description, Tagline, logo. Add entity Company with properties Name, Description, Tagline, logo. Add entity Company with properties Name, Description, Tagline, logo. Add entity Company with properties Name, Description, Tagline, logo. Add entity Company with properties Name, Description, Tagline, logo</p>
+                </div>
+            </div>
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        @Resources.Subtasks
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <div style="width: 60%;">
+
+                        <div style="height:45px">
+                            <p style="float:left">Name</p>
+                            <p style="float: right; margin-right: 20px;">Deadline</p>
+                        </div>
+
+                        <div style="height:40px">
+                            <p style="float:left">Create db models</p>
+                            <p style="float: right">20-07-2021</p>
+                        </div>
+
+                        <div style="height:40px">
+                            <p style="float:left">Create mappers</p>
+                            <p style="float: right">20-07-2021</p>
+                        </div>
+
+                        <div style="height:40px">
+                            <p style="float:left">Create mappers</p>
+                            <p style="float: right">20-07-2021</p>
+                        </div>
+
+                        <div style="height:40px">
+                            <p style="float:left">Create mappers</p>
+                            <p style="float: right">20-07-2021</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@code {
+    [Parameter]
+    public Guid taskId { get; set; }
+}

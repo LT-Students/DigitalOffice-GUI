@@ -36,5 +36,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             int? number = null,
             Guid? projectId = null,
             Guid? assignedTo = null);
+        
+        Task<OperationResultResponse> GetTaskAsync(Guid taskId);
     }
 }

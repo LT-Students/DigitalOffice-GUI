@@ -101,5 +101,14 @@ namespace LT.DigitalOffice.GUI.Services
 
             return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, skipCount, takeCount);
         }
+
+        public async Task<OperationResultResponse> GetTaskAsync(Guid taskId)
+        {
+            //var responseTask = await _projectServiceClient.Get
+
+            var token = await _storage.GetItemAsync<string>(Consts.Token);
+
+            return new OperationResultResponse();
+        }
     }
 }
