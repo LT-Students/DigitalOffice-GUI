@@ -336,7 +336,7 @@
   <data name="TaskType" xml:space="preserve">
     <value>Тип</value>
   </data>
-  <data name="TasksPage" xml:space="preserve">
+  <data name="BacklogPage" xml:space="preserve">
     <value>Задачи</value>
   </data>
   <data name="Subtasks" xml:space="preserve">
@@ -350,5 +350,8 @@
   </data>
   <data name="TaskGeneralInfo" xml:space="preserve">
     <value>Дополнительная информация</value>
+  </data>
+  <data name="TaskWindowTitle" xml:space="preserve">
+    <value>Задача</value>
   </data>
 </root>

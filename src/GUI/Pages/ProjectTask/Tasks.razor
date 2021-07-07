@@ -1,6 +1,7 @@
 @page "/tasks"
 
 @using LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
+@using LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 
 @inject NavigationManager UriHelper
 
@@ -18,9 +19,10 @@
 
     <CreateTaskModalWindow />
 
-<div style="cursor: pointer;" @onclick=@(() => UriHelper.NavigateTo("/task/0493bd68-3b2e-48fd-bec3-874f8e1a65a4"))>
+    <TaskModalWindow TaskId=@_id/>
+
+<div style="cursor: pointer;" data-toggle="modal" data-target="#task-modal-center">
         Create endpoint for department
-    <div></div>
 </div>
 
 @code {

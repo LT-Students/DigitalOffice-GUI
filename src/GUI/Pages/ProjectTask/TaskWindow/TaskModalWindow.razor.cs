@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Components;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
-namespace LT.DigitalOffice.GUI.Pages.Project.TaskPage
+namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 {
-    public partial class Task
+    public partial class TaskModalWindow
     {
+        [Parameter]
+        public Guid TaskId { get; set; }
 
         private TasksResponse _task;
 

@@ -79,6 +79,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backlog.
+        /// </summary>
+        internal static string BacklogPage {
+            get {
+                return ResourceManager.GetString("BacklogPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         internal static string Company {
@@ -718,15 +727,6 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tasks.
-        /// </summary>
-        internal static string TasksPage {
-            get {
-                return ResourceManager.GetString("TasksPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         internal static string TaskStatus {
@@ -741,6 +741,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string TaskType {
             get {
                 return ResourceManager.GetString("TaskType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        internal static string TaskWindowTitle {
+            get {
+                return ResourceManager.GetString("TaskWindowTitle", resourceCulture);
             }
         }
         
