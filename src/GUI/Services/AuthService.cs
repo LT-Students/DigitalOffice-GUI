@@ -31,7 +31,8 @@ namespace LT.DigitalOffice.GUI.Services
 
                 _provider.LoginNotify(response);
 
-                await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
+                await _storage.SetItemAsync(nameof(AuthenticationResponse.AccessToken), response.AccessToken);
+                await _storage.SetItemAsync(nameof(AuthenticationResponse.RefreshToken), response.RefreshToken);
                 await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
 
                 return "Authorized";
