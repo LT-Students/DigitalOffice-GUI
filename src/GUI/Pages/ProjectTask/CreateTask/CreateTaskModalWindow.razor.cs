@@ -92,7 +92,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
             }
         }
 
-        private async Task HandleSubmit()
+        public async Task HandleSubmit()
         {
             await _ProjectService.CreateTaskAsync(_taskRequest);
         }
