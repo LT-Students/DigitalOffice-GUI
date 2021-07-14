@@ -422,6 +422,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.AuthService
         [Newtonsoft.Json.JsonProperty("RefreshToken", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string RefreshToken { get; set; }
     
+        /// <summary>AccessToken life time in minutes</summary>
+        [Newtonsoft.Json.JsonProperty("accessTokenExpiresIn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double AccessTokenExpiresIn { get; set; }
+    
+        /// <summary>RefreshToken life time in minutes</summary>
+        [Newtonsoft.Json.JsonProperty("refreshTokenExpiresIn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double RefreshTokenExpiresIn { get; set; }
+    
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
         [Newtonsoft.Json.JsonExtensionData]

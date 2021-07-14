@@ -2148,7 +2148,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         [Newtonsoft.Json.JsonProperty("About", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string About { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string StartWorkingAt { get; set; }
     
         [Newtonsoft.Json.JsonProperty("Rate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]

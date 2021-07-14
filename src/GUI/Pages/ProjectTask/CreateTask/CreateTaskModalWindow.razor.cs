@@ -65,12 +65,19 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
             var projectResponse = await _ProjectService.GetProjectAsync(_selectProjectId.Value, includeUsers: true);
             _projectUsers = projectResponse.Users.ToList();
 
-            var taskPropertiesResponse = await _ProjectService.GetTaskPropertiesAsync(
+            var taskPropertiesResponse = (await _ProjectService.GetTaskPropertiesAsync(
                 skipCount:0, 
                 takeCount: int.MaxValue, 
-                projectId: _selectProjectId.Value);
+                projectId: _selectProjectId.Value)).Body.ToList();
+            
+            var defaultTaskProperties = (await _ProjectService.GetTaskPropertiesAsync(
+                skipCount:0, 
+                takeCount: int.MaxValue, 
+                projectId: Guid.Empty)).Body.ToList();
 
-            ParseProperties(taskPropertiesResponse.Body.ToList());
+            taskPropertiesResponse.AddRange(defaultTaskProperties.Select(x => x));
+
+            ParseProperties(taskPropertiesResponse);
         }
 
         private void ParseProperties(List<TaskPropertyInfo> properties)
