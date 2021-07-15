@@ -2,6 +2,7 @@
 using GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
+using LT.DigitalOffice.GUI.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Net.Http;
@@ -31,8 +32,12 @@ namespace LT.DigitalOffice.GUI.Services
 
                 _provider.LoginNotify(response);
 
-                await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
-                await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
+                await _storage.SetItemAsync(nameof(Consts.AccessToken), response.AccessToken);
+                await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+                await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), response.AccessTokenExpiresIn);
+                await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), response.RefreshTokenExpiresIn);
+                await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+                await _storage.SetItemAsync(nameof(Consts.UserId), response.UserId);
 
                 return "Authorized";
             }
