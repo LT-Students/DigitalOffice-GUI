@@ -36,7 +36,7 @@
                                     disabled=@(!_selectProjectId.HasValue)
                                     id="parent"
                                     class="form-select">
-                                <option value=null selected>@Resources.NotSelected</option>
+                                <option value="null" selected>@Resources.NotSelected</option>
 
                                 @foreach (var task in _projectTasks)
                                 {
@@ -63,7 +63,6 @@
                                 }
 
                             </select>
-                            <ValidationMessage style="font-size: 0.7em;" For="() => _taskRequest.ProjectId" />
 
                             <label for="assignee">@Resources.TaskAssigned</label>
                             <select disabled=@(!_selectProjectId.HasValue)
@@ -95,7 +94,6 @@
                                 }
 
                             </select>
-                            <ValidationMessage style="font-size: 0.7em;" For="() => _taskRequest.StatusId" />
 
                             <label for="status">@Resources.TaskType<font color="red">*</font></label>
                             <select disabled=@(!_selectProjectId.HasValue)
@@ -110,7 +108,6 @@
                                 }
 
                             </select>
-                            <ValidationMessage style="font-size: 0.7em;" For="() => _taskRequest.TypeId" />
                         
 						</div>
 
@@ -129,7 +126,6 @@
                                 }
 
                             </select>
-                            <ValidationMessage style="font-size: 0.7em;" For="() => _taskRequest.PriorityId" />
 
                             <div>
                                 <label for="planned-minutes">@Resources.PlannedTimeTask</label>
@@ -148,8 +144,11 @@
                     <textarea rows="5"
                               id="description"
                               class="form-control"
-                              aria-label="With textarea">
-						</textarea>
+                              aria-label="With textarea"
+                              @bind=_taskRequest.Description>
+					</textarea>
+                    <ValidationMessage style="font-size: 0.7em;" For="() => _taskRequest.Description" />
+
                 </div>
 
                 <div class="modal-footer">
