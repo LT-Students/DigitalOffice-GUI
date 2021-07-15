@@ -132,7 +132,9 @@ h1 {
 }
 
 .subtasks-content_table-header {
-    height:45px;
+    height: 45px;
+
+    padding: 0 10px;
 }
 
 .subtasks-content_table-header p:first-child {
@@ -142,17 +144,28 @@ h1 {
 .subtasks-content_table-header p:last-child {
     float: right;
 
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 .subtasks-content_table-body {
-    height:40px;
+    height: 30px;
+    cursor: pointer;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.subtasks-content_table-body:hover {
+    background-color:#bfd9ff;
 }
 
 .subtasks-content_table-body p:first-child {
     float: left;
+
+    margin-bottom: 0;
 }
 
 .subtasks-content_table-body p:last-child {
     float: right;
+
+    margin-bottom: 0;
 }

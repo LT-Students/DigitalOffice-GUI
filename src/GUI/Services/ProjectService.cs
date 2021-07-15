@@ -106,7 +106,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             //var responseTask = await _projectServiceClient.Get
 
-            var token = await _storage.GetItemAsync<string>(Consts.Token);
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return new OperationResultResponse();
         }
