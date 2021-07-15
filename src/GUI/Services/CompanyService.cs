@@ -24,7 +24,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var token = await _storage.GetItemAsync<string>(Consts.Token);
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
                 var response = await _client.AddDepartmentAsync(request, token);
 
                 return "Successfully created";
@@ -44,7 +44,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var token = await _storage.GetItemAsync<string>(Consts.Token);
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
                 var response = await _client.AddPositionAsync(request, token);
 
                 return "Successfully created";
@@ -64,7 +64,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var token = await _storage.GetItemAsync<string>(Consts.Token);
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 return await _client.GetDepartmentsAsync(token);
             }
@@ -79,7 +79,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var token = await _storage.GetItemAsync<string>(Consts.Token);
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 return await _client.GetPositionsListAsync(token);
             }

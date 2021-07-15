@@ -29,7 +29,7 @@ namespace LT.DigitalOffice.GUI.Services
             FindResponseProjectInfo projectsResponse = null;
             try
             {
-                var token = await _storage.GetItemAsync<string>(Consts.Token);
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 projectsResponse =  await _projectServiceClient.FindProjectsAsync(token, projectName, shortName, departmentName, skipCount, takeCount);
             }
@@ -47,7 +47,7 @@ namespace LT.DigitalOffice.GUI.Services
             OperationResultResponseProjectInfo response = null;
             try
             {
-                var token = await _storage.GetItemAsync<string>(Consts.Token);
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 response =  await _projectServiceClient.CreateProjectAsync(request, token);
             }
@@ -67,7 +67,7 @@ namespace LT.DigitalOffice.GUI.Services
             Guid? authorId = null,
             Guid? projectId = null)
         {
-            var token = await _storage.GetItemAsync<string>(Consts.Token);
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.FindTaskPropertiesAsync(token, name, authorId,projectId, skipCount, takeCount);
         }
@@ -78,14 +78,14 @@ namespace LT.DigitalOffice.GUI.Services
             bool includeFiles = false, 
             bool showNotActiveUsers = false)
         {
-            var token = await _storage.GetItemAsync<string>(Consts.Token);
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.GetProjectAsync(token, projectId, includeUsers, showNotActiveUsers, includeFiles);
         }
 
         public async Task<OperationResultResponse> CreateTaskAsync(CreateTaskRequest request)
         {
-            var token = await _storage.GetItemAsync<string>(Consts.Token);
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.CreateTaskAsync(request, token);
         }
@@ -97,7 +97,7 @@ namespace LT.DigitalOffice.GUI.Services
             Guid? projectId = null,
             Guid? assignedTo = null)
         {
-            var token = await _storage.GetItemAsync<string>(Consts.Token);
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, skipCount, takeCount);
         }

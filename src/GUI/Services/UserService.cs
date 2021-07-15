@@ -28,7 +28,7 @@ namespace LT.DigitalOffice.GUI.Services
 
             try
             {
-                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
 
                 var userInfo = await _userServiceClient.GetUserAsync(token, userId, null, null, null, null, null, null, null, null, null, null, null);
@@ -51,7 +51,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                string token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                string token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 var usersResponse = await _userServiceClient.FindUsersAsync(token, departmentId, skipCount, takeCount);
 
                 return usersResponse;
@@ -66,7 +66,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 var response = await _client.CreateUserAsync(request, token);
 
                 return response.Status.ToString();
@@ -86,7 +86,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
-                var token = await _sessionStorage.GetItemAsync<string>(Consts.Token);
+                var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 return await _client.GeneratePasswordAsync(token);
             }
             catch(ApiException<ErrorResponse> ex)

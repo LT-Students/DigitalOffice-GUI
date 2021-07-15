@@ -1660,7 +1660,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string Name { get; set; }
     
         /// <summary>Project short name.</summary>
-        [Newtonsoft.Json.JsonProperty("ShortName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("ShortName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ShortName { get; set; }
     
         [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -2066,7 +2066,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string Description { get; set; }
     
         [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid AssignedTo { get; set; }
+        public System.Guid? AssignedTo { get; set; }
     
         [Newtonsoft.Json.JsonProperty("TypeId", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -2084,7 +2084,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public int PlannedMinutes { get; set; }
     
         [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid ParentId { get; set; }
+        public System.Guid? ParentId { get; set; }
     
         [Newtonsoft.Json.JsonProperty("AuthorId", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
