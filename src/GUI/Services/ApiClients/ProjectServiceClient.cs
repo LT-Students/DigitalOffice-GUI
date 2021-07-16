@@ -1475,8 +1475,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public int Number { get; set; }
     
         /// <summary>Planed time at completed task.</summary>
-        [Newtonsoft.Json.JsonProperty("PlannedMinutes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int PlannedMinutes { get; set; }
+        [Newtonsoft.Json.JsonProperty("PlannedMinutes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? PlannedMinutes { get; set; }
     
         /// <summary>Data and time created task.</summary>
         [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
