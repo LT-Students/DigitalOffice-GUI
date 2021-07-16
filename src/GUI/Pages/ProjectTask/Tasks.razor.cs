@@ -28,7 +28,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 
         private async Task GetTasks()
         {
-            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: _skipCount, takeCount: TakeCount);
+            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: 0, takeCount: TakeCount);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
             
