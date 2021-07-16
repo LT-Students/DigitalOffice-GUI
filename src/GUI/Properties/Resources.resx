@@ -309,7 +309,7 @@
   <data name="NameTask" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="PlannedMinutesTask" xml:space="preserve">
+  <data name="PlannedTimeTask" xml:space="preserve">
     <value>Planned execution minutes</value>
   </data>
   <data name="ProjectTask" xml:space="preserve">
@@ -342,7 +342,7 @@
   <data name="TaskLeadTime" xml:space="preserve">
     <value>Lead time</value>
   </data>
-  <data name="TasksPage" xml:space="preserve">
-    <value>Tasks</value>
+  <data name="BacklogPage" xml:space="preserve">
+    <value>Backlog</value>
   </data>
 </root>

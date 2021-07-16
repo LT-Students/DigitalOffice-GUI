@@ -24,17 +24,32 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             _tasks = new();
 
             await GetTasks();
-
         }
 
         private async Task GetTasks()
         {
-            var tasksResponse = await _ProjectService.GetTasksAsync(skipCount: 0, takeCount: int.MaxValue);
+            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: _skipCount, takeCount: TakeCount);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
             
             _totalCount = tasksResponse.TotalCount;
             _skipCount ++;
+        }
+
+        private string GetTaskTypeStyle(string typeName)
+        {
+            if (string.Equals("Feature", typeName))
+            {
+                return "color: green;";
+            }
+            else if (string.Equals("Bug", typeName))
+            {
+                return "color: red;";
+            }
+            else
+            {
+                return "color: blue";
+            }
         }
     }
 }

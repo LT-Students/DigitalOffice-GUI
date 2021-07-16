@@ -36,12 +36,5 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             int? number = null,
             Guid? projectId = null,
             Guid? assignedTo = null);
-
-        Task<FindResponseTaskInfo> GetTasksAsync(
-            int skipCount,
-            int takeCount,
-            int? number = null,
-            Guid? projectId = null,
-            Guid? assignedTo = null);
     }
 }

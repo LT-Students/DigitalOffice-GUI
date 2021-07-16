@@ -18,7 +18,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.3.0 (NJsonSchema v10.4.4.0 (Newtonsoft.Json v11.0.0.0))")]
     public partial class ProjectServiceClient 
     {
-        private string _baseUrl = "https://project.ltdo.xyz";
+        private string _baseUrl = "http://localhost:9804";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
@@ -1483,10 +1483,10 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public object CreatedAt { get; set; }
     
         /// <summary>Task creator.</summary>
-        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserTaskInfo Author { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserTaskInfo AssignedTo { get; set; }
     
         [Newtonsoft.Json.JsonProperty("Project", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]

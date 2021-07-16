@@ -13,6 +13,9 @@
             </a>
     </nav>
 </div>
+
+    <CreateTaskModalWindow />
+
 <div class="tasks">
     <div class="overflow-auto">
 
@@ -30,12 +33,22 @@
                                 <h1>-</h1>
                                 <h1>@task.Name</h1>
                             </div>
-                            <h2>@task.TypeName</h2>
+                            <h2 style="@(GetTaskTypeStyle(task.TypeName))">@task.TypeName</h2>
                         </div>
                         <div>
                             <div class="task-content_additional-info">
-                                <h2>@Resources.TaskAssigned: <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.AssignedTo.Id}"}>@string.Join(" ", task.AssignedTo.FirstName, task.AssignedTo.LastName)</NavLink></h2>
-                                <h2>@Resources.TaskAuthor:<NavLink style=@UserLinkStyle href=@{$"/assigned/{task.Author.Id}"}>@string.Join(" ", task.Author.FirstName, task.Author.LastName)</NavLink></h2>
+                                <h2>@Resources.TaskAssigned: 
+                                    <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.AssignedTo?.Id}"}>
+                                        @(task.AssignedTo != null ? 
+                                            string.Join(" ", task.AssignedTo.FirstName, task.AssignedTo.LastName) : "-")
+                                    </NavLink>
+                                </h2>
+                                <h2>@Resources.TaskAuthor:
+                                    <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.Author?.Id}"}>
+                                        @(task.Author != null ? 
+                                            string.Join(" ", task.Author.FirstName, task.Author.LastName) : "-")
+                                    </NavLink>
+                                </h2>
                                 <h2>@Resources.TaskStatus: @task.StatusName</h2>
                                 <h2>@Resources.TaskPriority: @task.PriorityName</h2>
                                 <h2>@Resources.TaskLeadTime: @task.PlannedMinutes</h2> 
@@ -54,5 +67,3 @@
     }
 
 </div>
-
-    <CreateTaskModalWindow />
