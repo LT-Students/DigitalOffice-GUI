@@ -1440,7 +1440,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
             set { _additionalProperties = value; }
         }
     
-    
+
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
@@ -1475,18 +1475,18 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public int Number { get; set; }
     
         /// <summary>Planed time at completed task.</summary>
-        [Newtonsoft.Json.JsonProperty("PlannedMinutes", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int PlannedMinutes { get; set; }
+        [Newtonsoft.Json.JsonProperty("PlannedMinutes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? PlannedMinutes { get; set; }
     
         /// <summary>Data and time created task.</summary>
         [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public object CreatedAt { get; set; }
     
         /// <summary>Task creator.</summary>
-        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserTaskInfo Author { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserTaskInfo AssignedTo { get; set; }
     
         [Newtonsoft.Json.JsonProperty("Project", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
