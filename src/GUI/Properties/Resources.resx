@@ -310,7 +310,7 @@
     <value>Name</value>
   </data>
   <data name="PlannedTimeTask" xml:space="preserve">
-    <value>Planned lead time, min</value>
+    <value>Planned execution minutes</value>
   </data>
   <data name="ProjectTask" xml:space="preserve">
     <value>Project</value>
@@ -333,20 +333,26 @@
   <data name="TaskType" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Create new task</value>
+  </data>
+  <data name="TaskAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="TaskLeadTime" xml:space="preserve">
+    <value>Lead time</value>
+  </data>
   <data name="BacklogPage" xml:space="preserve">
     <value>Backlog</value>
   </data>
   <data name="Subtasks" xml:space="preserve">
     <value>Subtasks</value>
   </data>
-  <data name="TaskAdditionalInfo" xml:space="preserve">
-    <value>Additional information</value>
-  </data>
-  <data name="TaskAuthor" xml:space="preserve">
-    <value>Author</value>
-  </data>
   <data name="TaskDateСreation" xml:space="preserve">
     <value>Date сreation</value>
+  </data>
+  <data name="TaskAdditionalInfo" xml:space="preserve">
+    <value>Additional information</value>
   </data>
   <data name="TaskWindowTitle" xml:space="preserve">
     <value>Task</value>

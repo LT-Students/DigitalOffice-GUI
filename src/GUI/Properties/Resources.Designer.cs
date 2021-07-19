@@ -115,6 +115,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new task.
+        /// </summary>
+        internal static string CreateNewTask {
+            get {
+                return ResourceManager.GetString("CreateNewTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create position.
         /// </summary>
         internal static string CreatePosition {
@@ -349,7 +358,7 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Planned lead time, min.
+        ///   Looks up a localized string similar to Planned execution minutes.
         /// </summary>
         internal static string PlannedTimeTask {
             get {
@@ -705,6 +714,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string TaskDescription {
             get {
                 return ResourceManager.GetString("TaskDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lead time.
+        /// </summary>
+        internal static string TaskLeadTime {
+            get {
+                return ResourceManager.GetString("TaskLeadTime", resourceCulture);
             }
         }
         
