@@ -655,6 +655,24 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subtasks.
+        /// </summary>
+        internal static string Subtasks {
+            get {
+                return ResourceManager.GetString("Subtasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional information.
+        /// </summary>
+        internal static string TaskAdditionalInfo {
+            get {
+                return ResourceManager.GetString("TaskAdditionalInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assignee.
         /// </summary>
         internal static string TaskAssigned {
@@ -678,6 +696,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string TaskCreationModalTitle {
             get {
                 return ResourceManager.GetString("TaskCreationModalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date сreation.
+        /// </summary>
+        internal static string TaskDateСreation {
+            get {
+                return ResourceManager.GetString("TaskDateСreation", resourceCulture);
             }
         }
         
@@ -732,6 +759,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string TaskType {
             get {
                 return ResourceManager.GetString("TaskType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        internal static string TaskWindowTitle {
+            get {
+                return ResourceManager.GetString("TaskWindowTitle", resourceCulture);
             }
         }
         

@@ -50,28 +50,24 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
         /// <param name="token">The JWT token.</param>
-        /// <param name="name">The part that the project name should contain.</param>
-        /// <param name="shortname">The part that the project shortname should contain.</param>
-        /// <param name="departmentname">The part that should be contained in the name of the department to which the project belongs.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="departmentid">Find project with this departments id.</param>
+        /// <param name="skipCount">Number of entries to skip</param>
+        /// <param name="takeCount">Number of projects to take.</param>
         /// <returns>Successfully returned a project information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<FindResponseProjectInfo> FindProjectsAsync(string token, string name, string shortname, string departmentname, int skipCount, int takeCount)
+        public System.Threading.Tasks.Task<FindResponseProjectInfo> FindProjectsAsync(string token, System.Guid? departmentid, int skipCount, int takeCount)
         {
-            return FindProjectsAsync(token, name, shortname, departmentname, skipCount, takeCount, System.Threading.CancellationToken.None);
+            return FindProjectsAsync(token, departmentid, skipCount, takeCount, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
-        /// <param name="name">The part that the project name should contain.</param>
-        /// <param name="shortname">The part that the project shortname should contain.</param>
-        /// <param name="departmentname">The part that should be contained in the name of the department to which the project belongs.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="departmentid">Find project with this departments id.</param>
+        /// <param name="skipCount">Number of entries to skip</param>
+        /// <param name="takeCount">Number of projects to take.</param>
         /// <returns>Successfully returned a project information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<FindResponseProjectInfo> FindProjectsAsync(string token, string name, string shortname, string departmentname, int skipCount, int takeCount, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<FindResponseProjectInfo> FindProjectsAsync(string token, System.Guid? departmentid, int skipCount, int takeCount, System.Threading.CancellationToken cancellationToken)
         {
             if (skipCount == null)
                 throw new System.ArgumentNullException("skipCount");
@@ -81,17 +77,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/project/find?");
-            if (name != null)
+            if (departmentid != null)
             {
-                urlBuilder_.Append(System.Uri.EscapeDataString("name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (shortname != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("shortname") + "=").Append(System.Uri.EscapeDataString(ConvertToString(shortname, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
-            }
-            if (departmentname != null)
-            {
-                urlBuilder_.Append(System.Uri.EscapeDataString("departmentname") + "=").Append(System.Uri.EscapeDataString(ConvertToString(departmentname, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+                urlBuilder_.Append(System.Uri.EscapeDataString("departmentid") + "=").Append(System.Uri.EscapeDataString(ConvertToString(departmentid, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Append(System.Uri.EscapeDataString("skipCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(skipCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Append(System.Uri.EscapeDataString("takeCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(takeCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -394,7 +382,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="projectId">Project global unique identifier.</param>
         /// <returns>Project respose.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<OperationResultResponse> EditProjectAsync(System.Collections.Generic.IEnumerable<PatchDocument> body, string token, System.Guid projectId)
+        public System.Threading.Tasks.Task<OperationResultResponse> EditProjectAsync(System.Collections.Generic.IEnumerable<ProjectPatchDocument> body, string token, System.Guid projectId)
         {
             return EditProjectAsync(body, token, projectId, System.Threading.CancellationToken.None);
         }
@@ -404,7 +392,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="projectId">Project global unique identifier.</param>
         /// <returns>Project respose.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<OperationResultResponse> EditProjectAsync(System.Collections.Generic.IEnumerable<PatchDocument> body, string token, System.Guid projectId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponse> EditProjectAsync(System.Collections.Generic.IEnumerable<ProjectPatchDocument> body, string token, System.Guid projectId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -819,8 +807,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="name">The part of find query that the task property name should contain.</param>
         /// <param name="authorid">The part of find query that the task property author Id should contain.</param>
         /// <param name="projectid">The part of find query that the task property projectid should contain.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="skipCount">Number of entries to skip.</param>
+        /// <param name="takeCount">Number of task properties to take.</param>
         /// <returns>Successfully returned a base task property information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public System.Threading.Tasks.Task<FindResponseTaskProperty> FindTaskPropertiesAsync(string token, string name, System.Guid? authorid, System.Guid? projectid, int skipCount, int takeCount)
@@ -833,8 +821,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="name">The part of find query that the task property name should contain.</param>
         /// <param name="authorid">The part of find query that the task property author Id should contain.</param>
         /// <param name="projectid">The part of find query that the task property projectid should contain.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="skipCount">Number of entries to skip.</param>
+        /// <param name="takeCount">Number of task properties to take.</param>
         /// <returns>Successfully returned a base task property information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async System.Threading.Tasks.Task<FindResponseTaskProperty> FindTaskPropertiesAsync(string token, string name, System.Guid? authorid, System.Guid? projectid, int skipCount, int takeCount, System.Threading.CancellationToken cancellationToken)
@@ -1039,8 +1027,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="number">The part of find query that the task name should contain.</param>
         /// <param name="projectid">The part of find query that the task project Id should contain.</param>
         /// <param name="assignedto">The part of find query that the user assigned task should contain.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="skipCount">Number of entries to skip.</param>
+        /// <param name="takeCount">Number of task to take.</param>
         /// <returns>Successfully returned a base task information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public System.Threading.Tasks.Task<FindResponseTaskInfo> FindTasksAsync(string token, int? number, System.Guid? projectid, System.Guid? assignedto, int skipCount, int takeCount)
@@ -1053,8 +1041,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="number">The part of find query that the task name should contain.</param>
         /// <param name="projectid">The part of find query that the task project Id should contain.</param>
         /// <param name="assignedto">The part of find query that the user assigned task should contain.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="skipCount">Number of entries to skip.</param>
+        /// <param name="takeCount">Number of task to take.</param>
         /// <returns>Successfully returned a base task information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async System.Threading.Tasks.Task<FindResponseTaskInfo> FindTasksAsync(string token, int? number, System.Guid? projectid, System.Guid? assignedto, int skipCount, int takeCount, System.Threading.CancellationToken cancellationToken)
@@ -1235,6 +1223,112 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new ApiException<ErrorResponse>("Forbidden.\n* Token was not entered.\n* Invalid token.\n* Not enough rights\n", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+    
+        /// <param name="token">The JWT token.</param>
+        /// <param name="id">Task global unique identifier.</param>
+        /// <returns>Created TaskResponse will be in response Body property.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<OperationResultResponseTaskResponse> GetTaskAsync(string token, System.Guid id)
+        {
+            return GetTaskAsync(token, id, System.Threading.CancellationToken.None);
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="token">The JWT token.</param>
+        /// <param name="id">Task global unique identifier.</param>
+        /// <returns>Created TaskResponse will be in response Body property.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<OperationResultResponseTaskResponse> GetTaskAsync(string token, System.Guid id, System.Threading.CancellationToken cancellationToken)
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("taskId");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/task/get?");
+            urlBuilder_.Append(System.Uri.EscapeDataString("taskId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder_.Length--;
+    
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    if (token == null)
+                        throw new System.ArgumentNullException("token");
+                    request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+    
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+    
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseTaskResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 403)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Forbidden.\n* Token was not entered.\n* Invalid token.\n", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Not Found.\n* Task with this id not found.\n", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -1440,7 +1534,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
             set { _additionalProperties = value; }
         }
     
-
+    
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
@@ -1483,7 +1577,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public object CreatedAt { get; set; }
     
         /// <summary>Task creator.</summary>
-        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserTaskInfo Author { get; set; }
     
         [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1694,7 +1788,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
     /// <summary>Project status.
     /// May be empty, default value: 'Active'.
-    /// 
     /// ,Enum numbers description
     /// * 0 - Active,
     /// * 1 - Failed,
@@ -1809,8 +1902,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string Name { get; set; }
     
         /// <summary>Project short name.</summary>
-        [Newtonsoft.Json.JsonProperty("ShortName", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("ShortName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ShortName { get; set; }
     
         /// <summary>Project description.</summary>
@@ -1821,8 +1913,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         [Newtonsoft.Json.JsonProperty("ShortDescription", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ShortDescription { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public ProjectStatusType Status { get; set; }
     
@@ -1871,8 +1962,40 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class EditProjectRequest : System.Collections.ObjectModel.Collection<PatchDocument>
+    public partial class EditProjectRequest : System.Collections.ObjectModel.Collection<ProjectPatchDocument>
     {
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class ProjectPatchDocument 
+    {
+        /// <summary>The operation to be performed</summary>
+        [Newtonsoft.Json.JsonProperty("op", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public ProjectPatchDocumentOp Op { get; set; }
+    
+        /// <summary>A JSON-Pointer.</summary>
+        [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public ProjectPatchDocumentPath Path { get; set; }
+    
+        /// <summary>The value to be used within the operations.</summary>
+        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public object Value { get; set; } = new object();
+    
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+    
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+    
     
     }
     
@@ -1915,6 +2038,65 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
         [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
+    
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+    
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class TaskResponse 
+    {
+        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Number", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int Number { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("PlannedMinutes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? PlannedMinutes { get; set; }
+    
+        /// <summary>Data and time created task.</summary>
+        [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object CreatedAt { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Project", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ProjectInfo Project { get; set; }
+    
+        /// <summary>Task creator.</summary>
+        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ProjectUserInfo Author { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("AssignedUser", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ProjectUserInfo AssignedUser { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TaskPropertyInfo Status { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Priority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TaskPropertyInfo Priority { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TaskPropertyInfo Type { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("ParentTask", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TaskInfo ParentTask { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Subtasks", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<TaskInfo> Subtasks { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -2066,7 +2248,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string Description { get; set; }
     
         [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? AssignedTo { get; set; }
+        public System.Guid AssignedTo { get; set; }
     
         [Newtonsoft.Json.JsonProperty("TypeId", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -2084,10 +2266,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public int PlannedMinutes { get; set; }
     
         [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? ParentId { get; set; }
+        public System.Guid ParentId { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("AuthorId", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("AuthorId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid AuthorId { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -2186,6 +2367,32 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
     }
     
+    /// <summary>Response object for action operations.</summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class OperationResultResponseTaskResponse 
+    {
+        [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public TaskResponse Body { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public OperationResultStatusType Status { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> Errors { get; set; }
+    
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+    
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+    
+    
+    }
+    
     /// <summary>Operation complition result status.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
     public enum OperationResultStatusType
@@ -2238,6 +2445,40 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
         [System.Runtime.Serialization.EnumMember(Value = @"/PlannedMinutes")]
         _PlannedMinutes = 6,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
+    public enum ProjectPatchDocumentOp
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"replace")]
+        Replace = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"add")]
+        Add = 1,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
+    public enum ProjectPatchDocumentPath
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"/Name")]
+        _Name = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"/ShortName")]
+        _ShortName = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"/Description")]
+        _Description = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"/ShortDescription")]
+        _ShortDescription = 3,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"/Status")]
+        _Status = 4,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"/DepartmentId")]
+        _DepartmentId = 5,
     
     }
 

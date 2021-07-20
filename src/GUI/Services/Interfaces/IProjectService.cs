@@ -14,10 +14,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task<FindResponseProjectInfo> FindProjects(
             int skipCount,
-            int takeCount, 
-            string shortName = null,
-            string projectName = null,
-            string departmentName = null);
+            int takeCount,
+            Guid? departmentId = null);
 
         Task<ProjectInfo> CreateProject(ProjectRequest request);
 
@@ -36,5 +34,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             int? number = null,
             Guid? projectId = null,
             Guid? assignedTo = null);
+        
+        Task<OperationResultResponseTaskResponse> GetTaskAsync(Guid taskId);
     }
 }

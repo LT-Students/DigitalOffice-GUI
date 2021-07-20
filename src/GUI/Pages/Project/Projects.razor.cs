@@ -126,7 +126,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
             }
             else if (string.Equals(elementId, _departmentRef.Id))
             {
-                _projectsFilter.Department = isRemoveFilter ? null : _searchValue;
+                //_projectsFilter.Department = isRemoveFilter ? null : _searchValue;
             }
             else
             {
@@ -140,10 +140,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
         {
             var responseProjects = await _projectService.FindProjects(
                 _skipCount,
-                _takeCount,
-                _projectsFilter.ShortName,
-                _projectsFilter.Name,
-                _projectsFilter.Department);
+                _takeCount);
 
             if (_projectsInfo.Count > 0)
             {

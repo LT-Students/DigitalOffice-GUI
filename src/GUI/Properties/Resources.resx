@@ -345,4 +345,16 @@
   <data name="BacklogPage" xml:space="preserve">
     <value>Backlog</value>
   </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Subtasks</value>
+  </data>
+  <data name="TaskDateСreation" xml:space="preserve">
+    <value>Date сreation</value>
+  </data>
+  <data name="TaskAdditionalInfo" xml:space="preserve">
+    <value>Additional information</value>
+  </data>
+  <data name="TaskWindowTitle" xml:space="preserve">
+    <value>Task</value>
+  </data>
 </root>

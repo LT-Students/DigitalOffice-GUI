@@ -12,12 +12,14 @@
     border-radius: 5px;
 
     margin-bottom: 2%;
+
+    cursor: pointer;
 }
 
 .overflow-auto {
     height: 75vh;
     width: 100%;
-    
+
     padding-right: 1%;
 }
 
