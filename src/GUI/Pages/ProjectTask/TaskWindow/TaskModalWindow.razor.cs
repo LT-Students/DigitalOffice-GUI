@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
@@ -7,19 +8,22 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 {
     public partial class TaskModalWindow
     {
-        [Parameter]
-        public Guid TaskId { get; set; }
-
-        private TasksResponse _task;
+        private TaskResponse _task;
 
         [Inject]
         private IProjectService _ProjectService { get; set; }
 
-        // protected override async Task OnInitialized()
-        // {
-        //     // var taskResponse = await _ProjectService.GetTaskAsync(taskId);
+        protected override async Task OnInitializedAsync()
+        {
+            _task = new();
+        }
 
-        //     // _task = taskResponse.Body;
-        // }
+        public async Task GetTaskAsync(Guid taskId)
+        {
+            var taskResponse = await _ProjectService.GetTaskAsync(taskId);
+            _task = taskResponse.Body;
+
+            StateHasChanged();
+        }
     }
 }
