@@ -11,7 +11,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 {
     public partial class Tasks
     {
-        private const int TakeCount = 7;
+        private int _takeCount;
         public const string UserLinkStyle = "text-decoration: none; color: #0b5ed7;";
 
         private Guid _taskId;
@@ -27,17 +27,17 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
         {
             _tasks = new();
 
-            await GetTasks();
+            await GetTasksAsync();
         }
 
-        private async Task GetTasks()
+        private async Task GetTasksAsync()
         {
-            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: 0, takeCount: TakeCount);
+            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: 0, takeCount: _takeCount);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
             
             _totalCount = tasksResponse.TotalCount;
-            _skipCount ++;
+            _skipCount += _takeCount;
         }
 
         private string GetTaskTypeStyle(string typeName)
@@ -53,6 +53,26 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             else
             {
                 return "color: blue";
+            }
+        }
+
+        private async Task GetTasksPageAsync(int skipCount)
+        {
+            _skipCount = skipCount;
+            _tasks = new List<TaskInfo>();
+
+            await GetTasksAsync();
+        }
+
+        private async Task SetTakeCount(ChangeEventArgs e)
+        {
+            if (int.TryParse(e.Value.ToString(), out int result))
+            {
+                _skipCount = 0;
+                _tasks = new List<TaskInfo>();
+
+                _takeCount = result;
+                await GetTasksAsync();
             }
         }
 

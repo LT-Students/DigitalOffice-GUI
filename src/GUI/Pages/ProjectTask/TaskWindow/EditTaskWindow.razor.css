@@ -57,11 +57,14 @@ input[id="planned-time-task"] {
 }
 
 .task-content_header {
-    display: flex;
+    height: 70px;
 }
 
 .task-content_header input {
     width: 55%;
+
+    position: relative;
+    float: left;
 }
 
 .task-content_header-info {
@@ -106,6 +109,9 @@ h1 {
 
     transform: scale(0.8);
     transform-origin: left;
+
+    position: relative;
+    float: left;
 }
 
 .btn-link {
@@ -197,6 +203,8 @@ input, select, textarea {
 }
 
 button[type="button"] {
-    margin-left: 145px;
     height: 40px;
+
+    position: relative;
+    float: right;
 }
