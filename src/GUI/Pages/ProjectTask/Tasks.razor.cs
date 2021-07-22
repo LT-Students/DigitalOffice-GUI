@@ -11,7 +11,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 {
     public partial class Tasks
     {
-        private int _takeCount;
+        private int _takeCount = 8;
         public const string UserLinkStyle = "text-decoration: none; color: #0b5ed7;";
 
         private Guid _taskId;
