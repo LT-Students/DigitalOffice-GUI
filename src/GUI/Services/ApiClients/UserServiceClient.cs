@@ -16,36 +16,36 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v11.0.0.0))")]
-    public partial class UserServiceClient 
+    public partial class UserServiceClient
     {
         private string _baseUrl = "https://user.ltdo.xyz";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-    
+
         public UserServiceClient(System.Net.Http.HttpClient httpClient)
         {
             _httpClient = httpClient;
             _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings);
         }
-    
+
         private Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
         {
             var settings = new Newtonsoft.Json.JsonSerializerSettings();
             UpdateJsonSerializerSettings(settings);
             return settings;
         }
-    
+
         public string BaseUrl
         {
             get { return _baseUrl; }
             set { _baseUrl = value; }
         }
-    
+
         protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
-    
+
         partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
-    
-    
+
+
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
@@ -58,17 +58,19 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         /// <param name="includeachievements">Include user achievements info in answer.</param>
         /// <param name="includedepartment">Include user department info in answer.</param>
         /// <param name="includeposition">Include user position info in answer.</param>
+        /// <param name="includeoffice">Include user office info in answer.</param>
+        /// <param name="includerole">Include user role info in answer.</param>
         /// <param name="includeskills">Include user skills info in answer.</param>
         /// <param name="includeprojects">Include user projects info in answer.</param>
         /// <param name="includeimages">Include images content in answer.</param>
         /// <param name="includeeducations">Include educations info in answer.</param>
         /// <returns>Ok.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<UserResponse> GetUserAsync(string token, System.Guid? userId, string name, string email, bool? includecommunications, bool? includecertificates, bool? includeachievements, bool? includedepartment, bool? includeposition, bool? includeskills, bool? includeprojects, bool? includeimages, bool? includeeducations)
+        public System.Threading.Tasks.Task<UserResponse> GetUserAsync(string token, System.Guid? userId, string name, string email, bool? includecommunications, bool? includecertificates, bool? includeachievements, bool? includedepartment, bool? includeposition, bool? includeoffice, bool? includerole, bool? includeskills, bool? includeprojects, bool? includeimages, bool? includeeducations)
         {
-            return GetUserAsync(token, userId, name, email, includecommunications, includecertificates, includeachievements, includedepartment, includeposition, includeskills, includeprojects, includeimages, includeeducations, System.Threading.CancellationToken.None);
+            return GetUserAsync(token, userId, name, email, includecommunications, includecertificates, includeachievements, includedepartment, includeposition, includeoffice, includerole, includeskills, includeprojects, includeimages, includeeducations, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="userId">User global unique identifier.</param>
@@ -79,13 +81,15 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         /// <param name="includeachievements">Include user achievements info in answer.</param>
         /// <param name="includedepartment">Include user department info in answer.</param>
         /// <param name="includeposition">Include user position info in answer.</param>
+        /// <param name="includeoffice">Include user office info in answer.</param>
+        /// <param name="includerole">Include user role info in answer.</param>
         /// <param name="includeskills">Include user skills info in answer.</param>
         /// <param name="includeprojects">Include user projects info in answer.</param>
         /// <param name="includeimages">Include images content in answer.</param>
         /// <param name="includeeducations">Include educations info in answer.</param>
         /// <returns>Ok.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<UserResponse> GetUserAsync(string token, System.Guid? userId, string name, string email, bool? includecommunications, bool? includecertificates, bool? includeachievements, bool? includedepartment, bool? includeposition, bool? includeskills, bool? includeprojects, bool? includeimages, bool? includeeducations, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<UserResponse> GetUserAsync(string token, System.Guid? userId, string name, string email, bool? includecommunications, bool? includecertificates, bool? includeachievements, bool? includedepartment, bool? includeposition, bool? includeoffice, bool? includerole, bool? includeskills, bool? includeprojects, bool? includeimages, bool? includeeducations, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/users/get?");
@@ -121,6 +125,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("includeposition") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeposition, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
+            if (includeoffice != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("includeoffice") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeoffice, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (includerole != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("includerole") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includerole, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
             if (includeskills != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("includeskills") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeskills, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
@@ -138,7 +150,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                 urlBuilder_.Append(System.Uri.EscapeDataString("includeeducations") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeeducations, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -150,14 +162,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -168,9 +180,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -230,11 +242,11 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <param name="departmentid">Specific department of users.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="skipCount">Number of entries to skip.</param>
+        /// <param name="takeCount">Number of users to take.</param>
         /// <returns>Ok.
         /// * Successfully returned list of users information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -242,12 +254,12 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return FindUsersAsync(token, departmentid, skipCount, takeCount, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="departmentid">Specific department of users.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of users on one page.</param>
+        /// <param name="skipCount">Number of entries to skip.</param>
+        /// <param name="takeCount">Number of users to take.</param>
         /// <returns>Ok.
         /// * Successfully returned list of users information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -255,10 +267,10 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (skipCount == null)
                 throw new System.ArgumentNullException("skipCount");
-    
+
             if (takeCount == null)
                 throw new System.ArgumentNullException("takeCount");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/users/find?");
             if (departmentid != null)
@@ -268,7 +280,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
             urlBuilder_.Append(System.Uri.EscapeDataString("skipCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(skipCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Append(System.Uri.EscapeDataString("takeCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(takeCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -280,14 +292,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -298,9 +310,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -350,7 +362,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.
         /// * Created user Id (uuid) will be in response Body property.</returns>
@@ -359,7 +371,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return CreateUserAsync(body, token, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.
@@ -369,10 +381,10 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/users/create");
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -387,14 +399,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -405,9 +417,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 201)
                         {
@@ -439,6 +451,16 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             throw new ApiException<ErrorResponse>("Forbidden.\n* User is not admin and don\'t has rights.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
+                        if (status_ == 409)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<OperationResultResponse>("Conflict.\n* User with this communication value already exists.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
@@ -457,33 +479,33 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <param name="userId">Specific user id</param>
         /// <returns>Ok.
         /// * Update user operation success (boolean) status will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<OperationResultResponse> EditUserAsync(System.Collections.Generic.IEnumerable<PatchOperation> body, string token, System.Guid userId)
+        public System.Threading.Tasks.Task<OperationResultResponse> EditUserAsync(System.Collections.Generic.IEnumerable<PatchUserDocument> body, string token, System.Guid userId)
         {
             return EditUserAsync(body, token, userId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="userId">Specific user id</param>
         /// <returns>Ok.
         /// * Update user operation success (boolean) status will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<OperationResultResponse> EditUserAsync(System.Collections.Generic.IEnumerable<PatchOperation> body, string token, System.Guid userId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponse> EditUserAsync(System.Collections.Generic.IEnumerable<PatchUserDocument> body, string token, System.Guid userId, System.Threading.CancellationToken cancellationToken)
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/users/edit?");
             urlBuilder_.Append(System.Uri.EscapeDataString("userId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -498,14 +520,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PATCH");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -516,9 +538,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -578,7 +600,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <param name="userId">User global unique identifier.</param>
         /// <returns>Ok.
@@ -588,7 +610,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return DisableUserAsync(token, userId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="userId">User global unique identifier.</param>
@@ -599,12 +621,12 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/users/disable?");
             urlBuilder_.Append(System.Uri.EscapeDataString("userId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -616,14 +638,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -634,9 +656,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -686,22 +708,22 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
-        /// <returns>Ok. Success create credentionals.</returns>
+
+        /// <returns>Ok. Success create credentials.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<CredentialsResponse> CreateCredentialsAsync(CreateCredentialsRequest body)
+        public System.Threading.Tasks.Task<Response> CreateCredentialsAsync(CreateCredentialsRequest body)
         {
             return CreateCredentialsAsync(body, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Ok. Success create credentionals.</returns>
+        /// <returns>Ok. Success create credentials.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<CredentialsResponse> CreateCredentialsAsync(CreateCredentialsRequest body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Response> CreateCredentialsAsync(CreateCredentialsRequest body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/credentials/create");
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -713,14 +735,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -731,13 +753,13 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 201)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<CredentialsResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Response>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -775,6 +797,16 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             throw new ApiException<ErrorResponse>("Not Found. User with this id not found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
+                        if (status_ == 409)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Conflict. User with this login already exits.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
@@ -793,7 +825,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.
         /// * Successfully returned password string.</returns>
@@ -802,7 +834,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return GeneratePasswordAsync(token, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.
@@ -812,7 +844,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/password/generate");
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -824,14 +856,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -842,9 +874,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -874,7 +906,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <returns>Ok.
         /// * Change user password operation success (boolean) status will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -882,7 +914,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return ChangePasswordAsync(body, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Ok.
         /// * Change user password operation success (boolean) status will be in response Body property.</returns>
@@ -891,7 +923,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/password/change");
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -903,14 +935,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -921,9 +953,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -983,7 +1015,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <returns>Ok.
         /// * Send email operation success (boolean) status will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -991,7 +1023,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return ForgotPasswordAsync(userEmail, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Ok.
         /// * Send email operation success (boolean) status will be in response Body property.</returns>
@@ -1000,12 +1032,12 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (userEmail == null)
                 throw new System.ArgumentNullException("userEmail");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/password/forgot?");
             urlBuilder_.Append(System.Uri.EscapeDataString("userEmail") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userEmail, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1014,14 +1046,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1032,9 +1064,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1084,7 +1116,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.
         /// * Created education Id (uuid) will be in response Body property.</returns>
@@ -1093,7 +1125,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return CreateEducationAsync(body, token, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.
@@ -1103,10 +1135,10 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/education/create");
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1121,14 +1153,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1139,9 +1171,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1191,33 +1223,33 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <param name="educationId">Specific education id</param>
         /// <returns>Ok.
         /// * Update education operation success (boolean) status will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<OperationResultResponse> EditEducationAsync(System.Collections.Generic.IEnumerable<EditEducationRequest> body, string token, System.Guid educationId)
+        public System.Threading.Tasks.Task<OperationResultResponse> EditEducationAsync(System.Collections.Generic.IEnumerable<PatchEducationDocument> body, string token, System.Guid educationId)
         {
             return EditEducationAsync(body, token, educationId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="educationId">Specific education id</param>
         /// <returns>Ok.
         /// * Update education operation success (boolean) status will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<OperationResultResponse> EditEducationAsync(System.Collections.Generic.IEnumerable<EditEducationRequest> body, string token, System.Guid educationId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponse> EditEducationAsync(System.Collections.Generic.IEnumerable<PatchEducationDocument> body, string token, System.Guid educationId, System.Threading.CancellationToken cancellationToken)
         {
             if (educationId == null)
                 throw new System.ArgumentNullException("educationId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/education/edit?");
             urlBuilder_.Append(System.Uri.EscapeDataString("educationId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(educationId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1232,14 +1264,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PATCH");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1250,9 +1282,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1312,7 +1344,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <param name="educationId">Education global unique identifier.</param>
         /// <returns>Ok.
@@ -1322,7 +1354,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return RemoveEducationAsync(token, educationId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="educationId">Education global unique identifier.</param>
@@ -1333,12 +1365,12 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (educationId == null)
                 throw new System.ArgumentNullException("educationId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/education/remove?");
             urlBuilder_.Append(System.Uri.EscapeDataString("educationId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(educationId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1350,14 +1382,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1368,9 +1400,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1430,7 +1462,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -1438,7 +1470,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return CreateCertificateAsync(body, token, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <returns>Ok.</returns>
@@ -1447,10 +1479,10 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/certificate/create");
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1465,14 +1497,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1483,9 +1515,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1535,31 +1567,31 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <param name="certificateId">Specific certificate id</param>
         /// <returns>Ok.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<OperationResultResponse> EditCertificateAsync(System.Collections.Generic.IEnumerable<EditCertificateRequest> body, string token, System.Guid certificateId)
+        public System.Threading.Tasks.Task<OperationResultResponse> EditCertificateAsync(System.Collections.Generic.IEnumerable<PatchCertificateDocument> body, string token, System.Guid certificateId)
         {
             return EditCertificateAsync(body, token, certificateId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="certificateId">Specific certificate id</param>
         /// <returns>Ok.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<OperationResultResponse> EditCertificateAsync(System.Collections.Generic.IEnumerable<EditCertificateRequest> body, string token, System.Guid certificateId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponse> EditCertificateAsync(System.Collections.Generic.IEnumerable<PatchCertificateDocument> body, string token, System.Guid certificateId, System.Threading.CancellationToken cancellationToken)
         {
             if (certificateId == null)
                 throw new System.ArgumentNullException("certificateId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/certificate/edit?");
             urlBuilder_.Append(System.Uri.EscapeDataString("certificateId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(certificateId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1574,14 +1606,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PATCH");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1592,9 +1624,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1654,7 +1686,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
         /// <param name="token">The JWT token.</param>
         /// <param name="certificateId">Specific certificate id</param>
         /// <returns>Ok.</returns>
@@ -1663,7 +1695,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             return RemoveCertificateAsync(token, certificateId, System.Threading.CancellationToken.None);
         }
-    
+
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
         /// <param name="certificateId">Specific certificate id</param>
@@ -1673,12 +1705,12 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         {
             if (certificateId == null)
                 throw new System.ArgumentNullException("certificateId");
-    
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/certificate/remove?");
             urlBuilder_.Append(System.Uri.EscapeDataString("certificateId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(certificateId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
-    
+
             var client_ = _httpClient;
             var disposeClient_ = false;
             try
@@ -1690,14 +1722,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
                     request_.Method = new System.Net.Http.HttpMethod("DELETE");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-    
+
                     PrepareRequest(client_, request_, urlBuilder_);
-    
+
                     var url_ = urlBuilder_.ToString();
                     request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-    
+
                     PrepareRequest(client_, request_, url_);
-    
+
                     var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     var disposeResponse_ = true;
                     try
@@ -1708,9 +1740,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                             foreach (var item_ in response_.Content.Headers)
                                 headers_[item_.Key] = item_.Value;
                         }
-    
+
                         ProcessResponse(client_, response_);
-    
+
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
@@ -1770,7 +1802,357 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     client_.Dispose();
             }
         }
-    
+
+        /// <param name="token">The JWT token.</param>
+        /// <returns>Ok.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<OperationResultResponse> CreateCommunicationAsync(CreateCommunicationRequest body, string token)
+        {
+            return CreateCommunicationAsync(body, token, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="token">The JWT token.</param>
+        /// <returns>Ok.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<OperationResultResponse> CreateCommunicationAsync(CreateCommunicationRequest body, string token, System.Threading.CancellationToken cancellationToken)
+        {
+            if (body == null)
+                throw new System.ArgumentNullException("body");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/communication/create");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    if (token == null)
+                        throw new System.ArgumentNullException("token");
+                    request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Bad Request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 403)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 409)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<OperationResultResponse>("Conflict.\n* Position with this name already exists.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="token">The JWT token.</param>
+        /// <param name="communicationId">Specific communication id</param>
+        /// <returns>Ok.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<OperationResultResponse> EditCommunicationAsync(System.Collections.Generic.IEnumerable<PatchCommunicationDocument> body, string token, System.Guid communicationId)
+        {
+            return EditCommunicationAsync(body, token, communicationId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="token">The JWT token.</param>
+        /// <param name="communicationId">Specific communication id</param>
+        /// <returns>Ok.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<OperationResultResponse> EditCommunicationAsync(System.Collections.Generic.IEnumerable<PatchCommunicationDocument> body, string token, System.Guid communicationId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (communicationId == null)
+                throw new System.ArgumentNullException("communicationId");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/communication/edit?");
+            urlBuilder_.Append(System.Uri.EscapeDataString("communicationId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(communicationId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder_.Length--;
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    if (token == null)
+                        throw new System.ArgumentNullException("token");
+                    request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PATCH");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Bad Request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 403)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Not Found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="token">The JWT token.</param>
+        /// <param name="communicationId">Specific communication id</param>
+        /// <returns>Ok.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<OperationResultResponse> RemoveCommunicationAsync(string token, System.Guid communicationId)
+        {
+            return RemoveCommunicationAsync(token, communicationId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="token">The JWT token.</param>
+        /// <param name="communicationId">Specific communication id</param>
+        /// <returns>Ok.</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<OperationResultResponse> RemoveCommunicationAsync(string token, System.Guid communicationId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (communicationId == null)
+                throw new System.ArgumentNullException("communicationId");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/communication/remove?");
+            urlBuilder_.Append(System.Uri.EscapeDataString("communicationId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(communicationId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder_.Length--;
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    if (token == null)
+                        throw new System.ArgumentNullException("token");
+                    request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Bad Request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 403)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Not Found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
         protected struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
@@ -1778,21 +2160,21 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                 this.Object = responseObject;
                 this.Text = responseText;
             }
-    
+
             public T Object { get; }
-    
+
             public string Text { get; }
         }
-    
+
         public bool ReadResponseAsString { get; set; }
-        
+
         protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
         {
             if (response == null || response.Content == null)
             {
                 return new ObjectResponseResult<T>(default(T), string.Empty);
             }
-        
+
             if (ReadResponseAsString)
             {
                 var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1827,14 +2209,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                 }
             }
         }
-    
+
         private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
         {
             if (value == null)
             {
                 return "";
             }
-        
+
             if (value is System.Enum)
             {
                 var name = System.Enum.GetName(value.GetType(), value);
@@ -1843,983 +2225,1287 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
                     var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
                     if (field != null)
                     {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
+                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute))
                             as System.Runtime.Serialization.EnumMemberAttribute;
                         if (attribute != null)
                         {
                             return attribute.Value != null ? attribute.Value : name;
                         }
                     }
-        
+
                     var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
                     return converted == null ? string.Empty : converted;
                 }
             }
-            else if (value is bool) 
+            else if (value is bool)
             {
                 return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
             }
             else if (value is byte[])
             {
-                return System.Convert.ToBase64String((byte[]) value);
+                return System.Convert.ToBase64String((byte[])value);
             }
             else if (value.GetType().IsArray)
             {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
+                var array = System.Linq.Enumerable.OfType<object>((System.Array)value);
                 return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
             }
-        
+
             var result = System.Convert.ToString(value, cultureInfo);
             return result == null ? "" : result;
         }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class CreateUserRequest 
+    public partial class CreateUserRequest
     {
         /// <summary>First name of a user.</summary>
         [Newtonsoft.Json.JsonProperty("FirstName", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.StringLength(32, MinimumLength = 1)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string FirstName { get; set; }
-    
+
         /// <summary>Last name of a user.</summary>
         [Newtonsoft.Json.JsonProperty("LastName", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.StringLength(32, MinimumLength = 1)]
-        public string LastName { get; set; }
-    
-        /// <summary>Last name of a user.</summary>
-        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [System.ComponentModel.DataAnnotations.StringLength(32, MinimumLength = 1)]
-        public string MiddleName { get; set; }
-    
-        /// <summary>Time when the user started working for the company.</summary>
-        [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string LastName { get; set; }
+
+        /// <summary>Middle name of a user.</summary>
+        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string MiddleName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Gender", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public UserGender Gender { get; set; }
+
+        /// <summary>Date of user birth.</summary>
+        [Newtonsoft.Json.JsonProperty("DayOfBirth", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
-        public System.DateTimeOffset StartWorkingAt { get; set; }
-    
-        /// <summary>User rate</summary>
-        [Newtonsoft.Json.JsonProperty("Rate", Required = Newtonsoft.Json.Required.Always)]
-        public float Rate { get; set; }
-    
+        public System.DateTimeOffset? DayOfBirth { get; set; }
+
+        /// <summary>User city.</summary>
+        [Newtonsoft.Json.JsonProperty("City", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string City { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("AvatarImage", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public AddImageRequest AvatarImage { get; set; }
+
         [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public UserStatus Status { get; set; }
-    
-        /// <summary>User password.</summary>
-        [Newtonsoft.Json.JsonProperty("Password", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Password { get; set; }
-    
+
         /// <summary>Mark whether the user is an administrator.</summary>
         [Newtonsoft.Json.JsonProperty("IsAdmin", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool? IsAdmin { get; set; } = false;
-    
-        [Newtonsoft.Json.JsonProperty("AvatarImage", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public AddImageRequest AvatarImage { get; set; }
-    
+
+        /// <summary>Time when the user started working for the company.</summary>
+        [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+        public System.DateTimeOffset? StartWorkingAt { get; set; }
+
+        /// <summary>User rate</summary>
+        [Newtonsoft.Json.JsonProperty("Rate", Required = Newtonsoft.Json.Required.Always)]
+        public float Rate { get; set; }
+
         /// <summary>User position ID.</summary>
-        [Newtonsoft.Json.JsonProperty("PositionId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? PositionId { get; set; }
-    
+        [Newtonsoft.Json.JsonProperty("PositionId", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid PositionId { get; set; }
+
         /// <summary>User department ID.</summary>
         [Newtonsoft.Json.JsonProperty("DepartmentId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid? DepartmentId { get; set; }
-    
+
+        /// <summary>User office ID.</summary>
+        [Newtonsoft.Json.JsonProperty("OfficeId", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid OfficeId { get; set; }
+
+        /// <summary>User role ID.</summary>
+        [Newtonsoft.Json.JsonProperty("RoleId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid? RoleId { get; set; }
+
+        /// <summary>User password.</summary>
+        [Newtonsoft.Json.JsonProperty("Password", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Password { get; set; }
+
         /// <summary>Minimum one communication with type Email must be added.</summary>
         [Newtonsoft.Json.JsonProperty("Communications", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<CommunicationInfo> Communications { get; set; } = new System.Collections.ObjectModel.Collection<CommunicationInfo>();
-    
+        public System.Collections.Generic.ICollection<CreateCommunicationRequest> Communications { get; set; } = new System.Collections.ObjectModel.Collection<CreateCommunicationRequest>();
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class CreateCredentialsRequest 
+    public partial class CreateCredentialsRequest
     {
+        /// <summary>Unique user identifier.</summary>
         [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.Guid UserId { get; set; }
-    
+
+        /// <summary>User login.</summary>
         [Newtonsoft.Json.JsonProperty("Login", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Login { get; set; }
-    
+
+        /// <summary>User password received by email.</summary>
         [Newtonsoft.Json.JsonProperty("Password", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Password { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class PatchOperation 
+    public partial class EditUserRequest : System.Collections.ObjectModel.Collection<PatchUserDocument>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class PatchUserDocument
     {
         /// <summary>The operation to be performed.</summary>
         [Newtonsoft.Json.JsonProperty("op", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public PatchOperationOp Op { get; set; }
-    
+        public PatchUserDocumentOp Op { get; set; }
+
         /// <summary>A JSON-Pointer.</summary>
         [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public PatchOperationPath Path { get; set; }
-    
+        public PatchUserDocumentPath Path { get; set; }
+
         /// <summary>The value to be used within the operations.</summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public object Value { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class CredentialsResponse 
+    public partial class CredentialsResponse
     {
         [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid UserId { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Token", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Token { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("AccessToken", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string AccessToken { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("RefreshToken", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string RefreshToken { get; set; }
+
+        /// <summary>AccessToken life time in minutes</summary>
+        [Newtonsoft.Json.JsonProperty("accessTokenExpiresIn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double AccessTokenExpiresIn { get; set; }
+
+        /// <summary>RefreshToken life time in minutes</summary>
+        [Newtonsoft.Json.JsonProperty("refreshTokenExpiresIn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double RefreshTokenExpiresIn { get; set; }
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class UsersResponse 
+    public partial class UsersResponse
     {
         /// <summary>Total number of all users.</summary>
-        [Newtonsoft.Json.JsonProperty("Count", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Count { get; set; }
-    
+        [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int TotalCount { get; set; }
+
         [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<UserInfo> Users { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class UserResponse 
+    public partial class UserResponse
     {
         [Newtonsoft.Json.JsonProperty("User", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserInfo User { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Avatar", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ImageInfo Avatar { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Department", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public DepartmentInfo Department { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Position", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public PositionInfo Position { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Skills", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Skills { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Communications", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        [Newtonsoft.Json.JsonProperty("Communications", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<CommunicationInfo> Communications { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Certificates", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        [Newtonsoft.Json.JsonProperty("Certificates", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<CertificateInfo> Certificates { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Achievements", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        [Newtonsoft.Json.JsonProperty("Achievements", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<UserAchievementInfo> Achievements { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Projects", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        [Newtonsoft.Json.JsonProperty("Projects", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<ProjectInfo> Projects { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Educations", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        [Newtonsoft.Json.JsonProperty("Educations", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<EducationInfo> Educations { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class ImageInfo 
+    public partial class ImageInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid? ParentId { get; set; }
-    
+
         /// <summary>Image file content in base64 encoded string.</summary>
-        [Newtonsoft.Json.JsonProperty("Content", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Content", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Content { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("Extension", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Extension { get; set; }
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class UserInfo 
+    public partial class UserInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("FirstName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string FirstName { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("LastName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string LastName { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string MiddleName { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("Gender", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public UserGender Gender { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("DateOfBirth", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+        public System.DateTimeOffset? DateOfBirth { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("City", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string City { get; set; }
+
         [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public UserStatus Status { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("IsAdmin", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool IsAdmin { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsActive { get; set; }
+
         [Newtonsoft.Json.JsonProperty("About", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string About { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.AllowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string StartWorkingAt { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+        public System.DateTimeOffset? StartWorkingAt { get; set; }
+
         [Newtonsoft.Json.JsonProperty("Rate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Rate { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("Department", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public DepartmentInfo Department { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Position", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public PositionInfo Position { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Avatar", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ImageInfo Avatar { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Role", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public RoleInfo Role { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Office", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public OfficeInfo Office { get; set; }
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class DepartmentInfo 
+    public partial class DepartmentInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string StartWorkingAt { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class PositionInfo 
+    public partial class PositionInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ReceivedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ReceivedAt { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class CommunicationInfo 
+    public partial class RoleInfo
+    {
+        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class OfficeInfo
+    {
+        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("City", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string City { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Address", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Address { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class CommunicationInfo
     {
         [Newtonsoft.Json.JsonProperty("Type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public CommunicationType Type { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Value", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Value { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class CertificateInfo 
+    public partial class CertificateInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("SchoolName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string SchoolName { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("EducationType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public EducationType EducationType { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ReceivedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ReceivedAt { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Image", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ImageInfo Image { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class UserAchievementInfo 
+    public partial class UserAchievementInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         /// <summary>Base achievement ID.</summary>
         [Newtonsoft.Json.JsonProperty("AchievementId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid AchievementId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("ReceivedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ReceivedAt { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Image", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ImageInfo Image { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class ProjectInfo 
+    public partial class ProjectInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsActive { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Status { get; set; }
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class ChangePasswordRequest 
+    public partial class ChangePasswordRequest
     {
+        /// <summary>Unique user identifier.</summary>
         [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid UserId { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Secret", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Secret { get; set; }
-    
+        public System.Guid Secret { get; set; }
+
+        /// <summary>User login.</summary>
         [Newtonsoft.Json.JsonProperty("Login", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Login { get; set; }
-    
+
+        /// <summary>New user password.</summary>
         [Newtonsoft.Json.JsonProperty("NewPassword", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string NewPassword { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     /// <summary>Error information</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class ErrorResponse 
+    public partial class ErrorResponse
     {
         [Newtonsoft.Json.JsonProperty("UtcTime", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UtcTime { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Header", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Header { get; set; }
-    
+
         /// <summary>A human readable message providing more details about the error.</summary>
         [Newtonsoft.Json.JsonProperty("Message", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Message { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     /// <summary>Response object for action operations.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class OperationResultResponse 
+    public partial class OperationResultResponse
     {
         [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public object Body { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public OperationResultStatusType Status { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     /// <summary>Communication type.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
     public enum CommunicationType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"Skype")]
         Skype = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Phone")]
         Phone = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Email")]
         Email = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Telegram")]
         Telegram = 3,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Twitter")]
         Twitter = 4,
-    
+
     }
-    
+
     /// <summary>Education format.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
     public enum EducationType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"Online")]
         Online = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Offline")]
         Offline = 1,
-    
+
     }
-    
+
+    /// <summary>Mode for user gender.</summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public enum UserGender
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"NotSelected")]
+        NotSelected = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Male")]
+        Male = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Female")]
+        Female = 2,
+
+    }
+
     /// <summary>Mode for user status.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
     public enum UserStatus
     {
         [System.Runtime.Serialization.EnumMember(Value = @"Vacation")]
         Vacation = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Sick")]
         Sick = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"WorkFromOffice")]
         WorkFromOffice = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"WorkFromHome")]
         WorkFromHome = 3,
-    
+
     }
-    
+
     /// <summary>Operation complition result status.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
     public enum OperationResultStatusType
     {
         [System.Runtime.Serialization.EnumMember(Value = @"FullSuccess")]
         FullSuccess = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"PartialSuccess")]
         PartialSuccess = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Failed")]
         Failed = 2,
-    
+
     }
-    
+
     /// <summary>Education form.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
     public enum FormEducation
     {
         [System.Runtime.Serialization.EnumMember(Value = @"FullTime")]
         FullTime = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"Distance")]
         Distance = 1,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class EditEducationRequest 
+    public partial class EditEducationRequest : System.Collections.ObjectModel.Collection<PatchEducationDocument>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class PatchEducationDocument
     {
         /// <summary>The operation to be performed.</summary>
         [Newtonsoft.Json.JsonProperty("op", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public EditEducationRequestOp Op { get; set; }
-    
+        public PatchEducationDocumentOp Op { get; set; }
+
         /// <summary>A JSON-Pointer.</summary>
         [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public EditEducationRequestPath Path { get; set; }
-    
+        public PatchEducationDocumentPath Path { get; set; }
+
         /// <summary>The value to be used within the operations.</summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public object Value { get; set; } = new object();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class CreateEducationRequest 
+    public partial class CreateEducationRequest
     {
+        /// <summary>Unique user identifier.</summary>
         [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public System.Guid UserId { get; set; }
-    
+
+        /// <summary>Name of univerity.</summary>
         [Newtonsoft.Json.JsonProperty("UniversityName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(100)]
         public string UniversityName { get; set; }
-    
+
+        /// <summary>Name of qualification.</summary>
         [Newtonsoft.Json.JsonProperty("QualificationName", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(100)]
         public string QualificationName { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("FormEducation", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public FormEducation FormEducation { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("AdmissiomAt", Required = Newtonsoft.Json.Required.Always)]
+
+        /// <summary>Date of admission.</summary>
+        [Newtonsoft.Json.JsonProperty("AdmissionAt", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
-        public System.DateTimeOffset AdmissiomAt { get; set; }
-    
+        public System.DateTimeOffset AdmissionAt { get; set; }
+
+        /// <summary>Date of issuue.</summary>
         [Newtonsoft.Json.JsonProperty("IssueAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
         public System.DateTimeOffset IssueAt { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class BadRequest 
+    public partial class BadRequest
     {
         /// <summary>contains arrays of error messages (format: strings)</summary>
         [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public object Errors { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Type { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Title { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int Status { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("traceId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid TraceId { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class EducationInfo 
+    public partial class EducationInfo
     {
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("UniversityName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string UniversityName { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("QualificationName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string QualificationName { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("FormEducation", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public FormEducation FormEducation { get; set; }
-    
+
         [Newtonsoft.Json.JsonProperty("AdmissionAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string AdmissionAt { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("IssueAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        [Newtonsoft.Json.JsonProperty("IssueAt", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string IssueAt { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class AddImageRequest 
+    public partial class AddImageRequest
     {
         /// <summary>Image name.</summary>
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; }
-    
+
         /// <summary>Image content.</summary>
         [Newtonsoft.Json.JsonProperty("Content", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public byte[] Content { get; set; }
-    
+
         /// <summary>Image extension.</summary>
         [Newtonsoft.Json.JsonProperty("Extension", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Extension { get; set; }
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class CreateCertificateRequest 
+    public partial class CreateCertificateRequest
     {
-        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        /// <summary>Unique user identifier.</summary>
+        [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid UserId { get; set; }
+
+        /// <summary>Certificate name.</summary>
+        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("SchoolName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        /// <summary>Name of school.</summary>
+        [Newtonsoft.Json.JsonProperty("SchoolName", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string SchoolName { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("ReceivedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        /// <summary>Date of issue of the certificate.</summary>
+        [Newtonsoft.Json.JsonProperty("ReceivedAt", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
         public System.DateTimeOffset ReceivedAt { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid UserId { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Image", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public AddImageRequest Image { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("EducationType", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+
+        [Newtonsoft.Json.JsonProperty("EducationType", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public EducationType EducationType { get; set; }
-    
+
+        [Newtonsoft.Json.JsonProperty("Image", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public AddImageRequest Image { get; set; } = new AddImageRequest();
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class EditCertificateRequest 
+    public partial class EditCertificateRequest : System.Collections.ObjectModel.Collection<PatchCertificateDocument>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class PatchCertificateDocument
     {
         /// <summary>The operation to be performed.</summary>
         [Newtonsoft.Json.JsonProperty("op", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public EditCertificateRequestOp Op { get; set; }
-    
+        public PatchCertificateDocumentOp Op { get; set; }
+
         /// <summary>A JSON-Pointer.</summary>
         [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public EditCertificateRequestPath Path { get; set; }
-    
+        public PatchCertificateDocumentPath Path { get; set; }
+
         /// <summary>The value to be used within the operations.</summary>
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public object Value { get; set; } = new object();
-    
+
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-    
+
         [Newtonsoft.Json.JsonExtensionData]
         public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
         {
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
-    
-    
+
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public enum PatchOperationOp
+    public partial class CreateCommunicationRequest
+    {
+        /// <summary>Unique user identifier. Is null if create with user creating</summary>
+        [Newtonsoft.Json.JsonProperty("UserId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid? UserId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Type", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public CommunicationType Type { get; set; }
+
+        /// <summary>Communication value</summary>
+        [Newtonsoft.Json.JsonProperty("Value", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Value { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class EditCommunicationRequest : System.Collections.ObjectModel.Collection<PatchCommunicationDocument>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class PatchCommunicationDocument
+    {
+        /// <summary>The operation to be performed.</summary>
+        [Newtonsoft.Json.JsonProperty("op", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public PatchCommunicationDocumentOp Op { get; set; }
+
+        /// <summary>A JSON-Pointer.</summary>
+        [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public PatchCommunicationDocumentPath Path { get; set; }
+
+        /// <summary>The value to be used within the operations.</summary>
+        [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public object Value { get; set; } = new object();
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    /// <summary>Response object for action operations.</summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public partial class Response
+    {
+        [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public CredentialsResponse Body { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public OperationResultStatusType Status { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> Errors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public enum PatchUserDocumentOp
     {
         [System.Runtime.Serialization.EnumMember(Value = @"add")]
         Add = 0,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"remove")]
-        Remove = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"replace")]
-        Replace = 2,
-    
+        Replace = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"delete")]
+        Delete = 2,
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public enum PatchOperationPath
+    public enum PatchUserDocumentPath
     {
         [System.Runtime.Serialization.EnumMember(Value = @"/FirstName")]
         _FirstName = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"/LastName")]
         _LastName = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"/MiddleName")]
         _MiddleName = 2,
-    
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/Gender")]
+        _Gender = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/DateOfBirth")]
+        _DateOfBirth = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/City")]
+        _City = 5,
+
         [System.Runtime.Serialization.EnumMember(Value = @"/AvatarImage")]
-        _AvatarImage = 3,
-    
+        _AvatarImage = 6,
+
         [System.Runtime.Serialization.EnumMember(Value = @"/Status")]
-        _Status = 4,
-    
+        _Status = 7,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/StartWorkingAt")]
+        _StartWorkingAt = 8,
+
         [System.Runtime.Serialization.EnumMember(Value = @"/Rate")]
-        _Rate = 5,
-    
+        _Rate = 9,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/DepartmentId")]
+        _DepartmentId = 10,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/PositionId")]
+        _PositionId = 11,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/RoleId")]
+        _RoleId = 12,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/OfficeId")]
+        _OfficeId = 13,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/About")]
+        _About = 14,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/IsActive")]
+        _IsActive = 15,
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public enum EditEducationRequestOp
+    public enum PatchEducationDocumentOp
     {
         [System.Runtime.Serialization.EnumMember(Value = @"replace")]
         Replace = 0,
-    
+
+        [System.Runtime.Serialization.EnumMember(Value = @"add")]
+        Add = 1,
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public enum EditEducationRequestPath
+    public enum PatchEducationDocumentPath
     {
         [System.Runtime.Serialization.EnumMember(Value = @"/UniversityName")]
         _UniversityName = 0,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"/QualificationName")]
         _QualificationName = 1,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"/FormEducation")]
         _FormEducation = 2,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"/AdmissiomAt")]
         _AdmissiomAt = 3,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"/IssueAt")]
         _IssueAt = 4,
-    
+
         [System.Runtime.Serialization.EnumMember(Value = @"/IsActive")]
         _IsActive = 5,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public enum EditCertificateRequestOp
+    public enum PatchCertificateDocumentOp
     {
         [System.Runtime.Serialization.EnumMember(Value = @"replace")]
         Replace = 0,
-    
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
-    public enum EditCertificateRequestPath
+    public enum PatchCertificateDocumentPath
     {
-        [System.Runtime.Serialization.EnumMember(Value = @"/Name")]
-        _Name = 0,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"/SchoolName")]
-        _SchoolName = 1,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"/EducationType")]
-        _EducationType = 2,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"/ReceivedAt")]
-        _ReceivedAt = 3,
-    
         [System.Runtime.Serialization.EnumMember(Value = @"/UserId")]
-        _UserId = 4,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"/Image")]
-        _Image = 5,
-    
+        _UserId = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/Name")]
+        _Name = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/SchoolName")]
+        _SchoolName = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/EducationType")]
+        _EducationType = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/ReceivedAt")]
+        _ReceivedAt = 4,
+
         [System.Runtime.Serialization.EnumMember(Value = @"/IsActive")]
-        _IsActive = 6,
-    
+        _IsActive = 5,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/Image")]
+        _Image = 6,
+
     }
-    
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public enum PatchCommunicationDocumentOp
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"replace")]
+        Replace = 0,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v11.0.0.0)")]
+    public enum PatchCommunicationDocumentPath
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"/Type")]
+        _Type = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"/Value")]
+        _Value = 1,
+
+    }
+
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.11.1.0 (NJsonSchema v10.4.3.0 (Newtonsoft.Json v11.0.0.0))")]
     internal class DateFormatConverter : Newtonsoft.Json.Converters.IsoDateTimeConverter
     {
@@ -2868,6 +3554,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
 
 #pragma warning restore 1591
 #pragma warning restore 1573
-#pragma warning restore  472
-#pragma warning restore  114
-#pragma warning restore  108
+#pragma warning restore 472
+#pragma warning restore 114
+#pragma warning restore 108

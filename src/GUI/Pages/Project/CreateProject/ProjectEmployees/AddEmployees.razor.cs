@@ -54,7 +54,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectEmployees
 
             if (ProjectRequest.Users is null)
             {
-                var response = await _userService.GetUsers( 
+                var response = await _userService.FindUsersAsync( 
                     skipCount:0, 
                     takeCount:int.MaxValue,
                     departmentId: ProjectRequest.DepartmentId);

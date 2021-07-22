@@ -19,7 +19,7 @@
             <ValidationMessage style="font-size: 0.7em;" For="() => _departmentInfo.Name" />
         </div>
         <div class="item-group_textarea">
-            <label for="create-department_description">@Resources.DepartmentDescription<font color="red">*</font></label>
+            <label for="create-department_description">@Resources.DepartmentDescription</label>
             <textarea @bind="_departmentInfo.Description"
                       @ref="_descriptionInput"
                       type="text"

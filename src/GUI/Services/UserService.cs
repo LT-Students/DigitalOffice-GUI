@@ -3,96 +3,67 @@ using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace LT.DigitalOffice.GUI.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserServiceClient _userServiceClient;
         private readonly ISessionStorageService _sessionStorage;
         private readonly UserServiceClient _client;
+        private string _token;
 
         public UserService(ISessionStorageService sessionStorage)
         {
             _sessionStorage = sessionStorage;
-            _userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
+            _client = new UserServiceClient(new HttpClient());
         }
 
-        public async Task<string> GetUserName()
+        public async Task<string> GetUserNameAsync()
         {
             if (await _sessionStorage.ContainKeyAsync(Consts.UserName))
             {
                 return await _sessionStorage.GetItemAsync<string>(Consts.UserName);
             }
 
-            try
-            {
-                var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
-                var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
+            _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
+            var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
 
-                var userInfo = await _userServiceClient.GetUserAsync(token, userId, null, null, null, null, null, null, null, null, null, null, null);
+            var userInfo = await _client.GetUserAsync(_token, userId, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
-                var userName = $"{userInfo.User.LastName} {userInfo.User.FirstName}";
+            var userName = $"{userInfo.User.LastName} {userInfo.User.FirstName}";
 
-                await _sessionStorage.SetItemAsync(Consts.UserName, userName);
+            await _sessionStorage.SetItemAsync(Consts.UserName, userName);
 
-                return userName;
-            }
-            catch (ApiException<ErrorResponse> exc)
-            {
-                // TODO: implement catching
-
-                return string.Empty;
-            }
+            return userName;
         }
 
-        public async Task<UsersResponse> GetUsers( int skipCount, int takeCount, Guid? departmentId = default)
+        public async Task<UsersResponse> FindUsersAsync( int skipCount, int takeCount, Guid? departmentId = default)
         {
-            try
-            {
-                string token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
-                var usersResponse = await _userServiceClient.FindUsersAsync(token, departmentId, skipCount, takeCount);
+            _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
-                return usersResponse;
-            }
-            catch (ApiException<ErrorResponse> exc)
-            {
-                return null;
-            }
+            return await _client.FindUsersAsync(_token, departmentId, skipCount, takeCount);
         }
 
-        public async Task<string> CreateUser(CreateUserRequest request)
+        public async Task<OperationResultResponse> CreateUserAsync(CreateUserRequest request)
         {
-            try
-            {
-                var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
-                var response = await _client.CreateUserAsync(request, token);
+            _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
-                return response.Status.ToString();
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                return ex.Result.Message;
-            }
-            catch (Exception ex)
-            {
-                //remove when spec reworked
-                return ex.Message;
-            }
+            return await _client.CreateUserAsync(request, _token);
         }
 
-        public async Task<string> GeneratePassword()
+        public async Task<string> GeneratePasswordAsync()
         {
-            try
-            {
-                var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
-                return await _client.GeneratePasswordAsync(token);
-            }
-            catch(ApiException<ErrorResponse> ex)
-            {
-                return String.Empty;
-            }
+            _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
+
+            return await _client.GeneratePasswordAsync(_token);
+        }
+
+        public async Task<Response> CreateCredentialsAsync(CreateCredentialsRequest request)
+        {
+            return await _client.CreateCredentialsAsync(request);
+            _client.EditUserAsync
         }
     }
 }

@@ -14,37 +14,29 @@ namespace LT.DigitalOffice.GUI.Services
     {
         private readonly AuthStateProvider _provider;
         private readonly ISessionStorageService _storage;
+        private readonly AuthServiceClient _client;
 
-        public AuthService(AuthenticationStateProvider provider, ISessionStorageService storage)
+        public AuthService(
+            AuthenticationStateProvider provider,
+            ISessionStorageService storage)
         {
             _provider = provider as AuthStateProvider;
             _storage = storage;
+            _client = new AuthServiceClient(new HttpClient());
         }
 
-        public async Task<string> Login(AuthenticationRequest request)
+        public async Task LoginAsync(AuthenticationRequest request)
         {
-            try
-            {
-                var httpClient = new HttpClient();
+            var response = await _client.LoginAsync(request);
 
-                var authService = new AuthServiceClient(httpClient);
-                var response = await authService.LoginAsync(request);
+            _provider.LoginNotify(response.UserId);
 
-                _provider.LoginNotify(response);
-
-                await _storage.SetItemAsync(nameof(Consts.AccessToken), response.AccessToken);
-                await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
-                await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), response.AccessTokenExpiresIn);
-                await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), response.RefreshTokenExpiresIn);
-                await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
-                await _storage.SetItemAsync(nameof(Consts.UserId), response.UserId);
-
-                return "Authorized";
-            }
-            catch (ApiException<ErrorResponse> ex)
-            {
-                return ex.Result.Message;
-            }
+            await _storage.SetItemAsync(nameof(Consts.AccessToken), response.AccessToken);
+            await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+            await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), response.AccessTokenExpiresIn);
+            await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), response.RefreshTokenExpiresIn);
+            await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+            await _storage.SetItemAsync(nameof(Consts.UserId), response.UserId);
         }
 
         public bool Logout()

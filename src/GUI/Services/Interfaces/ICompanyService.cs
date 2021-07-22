@@ -10,8 +10,10 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task CreatePositionAsync(CreatePositionRequest request);
 
-        Task<DepartmentsResponse> GetDepartmentsAsync();
+        Task<DepartmentsResponse> FindDepartmentsAsync();
 
-        Task<ICollection<PositionResponse>> GetPositionsAsync();
+        Task<ICollection<PositionResponse>> FindPositionsAsync();
+
+        Task<FindOfficesResponse> FindOfficesAsync();
     }
 }

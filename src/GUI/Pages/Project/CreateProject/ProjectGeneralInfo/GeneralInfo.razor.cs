@@ -41,7 +41,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectGeneralInfo
                 ProjectRequest = new();
             }
 
-            _departments = (await companyService.GetDepartments()).Departments.ToList()
+            _departments = (await companyService.FindDepartmentsAsync()).Departments.ToList()
                 ?? new List<Company.DepartmentInfo>();
         }
 

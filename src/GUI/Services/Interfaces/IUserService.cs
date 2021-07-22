@@ -8,12 +8,12 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     {
         Task<string> GetUserNameAsync();
 
-        Task CreateUserAsync(CreateUserRequest request);
+        Task<OperationResultResponse> CreateUserAsync(CreateUserRequest request);
 
-        Task CreateCredentialsAsync(CreateCredentialsRequest request);
+        Task<CredentialsResponse> CreateCredentialsAsync(CreateCredentialsRequest request);
 
-        Task<string> GeneratePassword();
+        Task<string> GeneratePasswordAsync();
 
-        Task<UsersResponse> GetUsers(int skipCount, int takeCount, Guid? departmentId);
+        Task<UsersResponse> FindUsersAsync(int skipCount, int takeCount, Guid? departmentId);
     }
 }

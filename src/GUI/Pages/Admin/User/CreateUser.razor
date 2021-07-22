@@ -33,7 +33,7 @@
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userData.LastName" />
             </div>
             <div class="item-group">
-                <label for="create-user_middle-name">@Resources.MiddleName<font color="red">*</font></label>
+                <label for="create-user_middle-name">@Resources.MiddleName</label>
                 <input @bind-value="_userData.MiddleName"
                        @ref="_middleNameInput"
                        type="text"
@@ -57,7 +57,7 @@
                 <ValidationMessage style="font-size: 0.7em;" For="() => _userCommunication.Value" />
             </div>
             <div class="item-group">
-                <label for="create-user_password">@Resources.Password<font color="red">*</font></label>
+                <label for="create-user_password">@Resources.Password</label>
                 <div class="input-group">
                     <input @bind-value="_userData.Password"
                            @ref="_passwordInput"
@@ -65,7 +65,7 @@
                            class="form-control"
                            @onkeyup="@((k) => {
                                        if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                           _startWorkingAtInput.FocusAsync();})" />
+                                           _rateSelect.FocusAsync();})" />
                     <button class="btn btn-primary"
                             type="button"
                             @onclick="@GeneratePasswordAsync">
@@ -84,17 +84,6 @@
 
         <div class="create-user_service-container">
             <div class="item-group">
-                <label for="create-user_start-working-at">@Resources.StartWorkingAt<font color="red">*</font></label>
-                <input @bind="_userData.StartWorkingAt"
-                       @ref="_startWorkingAtInput"
-                       type="date"
-                       id="create-user_start-working-at"
-                       class="form-control"
-                       @onkeyup="@((k) => {
-                                   if (k.Code == "Enter")
-                                       _rateSelect.FocusAsync();})" />
-            </div>
-            <div class="item-group">
                 <label for="create-user_rate">@Resources.Rate<font color="red">*</font></label>
                 <select @bind="_userData.Rate"
                         @ref="_rateSelect"
@@ -102,7 +91,7 @@
                         class="form-select"
                         @onkeyup="@((k) => {
                                     if (k.Code == "ArrowDown")
-                                        _departmentSelect.FocusAsync();})">
+                                        _positionSelect.FocusAsync();})">
                     @foreach (var rate in _rateValues)
                     {
                         <option value="@rate">@rate</option>
@@ -110,33 +99,11 @@
                 </select>
             </div>
             <div class="item-group">
-                <label for="create-user_department">@Resources.Department</label>
-                <select @bind="_userData.DepartmentId"
-                        @ref="_departmentSelect"
-                        id="create-user_department"
-                        class="form-select"
-                        @onkeyup="@((k) => {
-                                    if (k.Code == "ArrowDown")
-                                        _positionSelect.FocusAsync();})">
-                    <option value="null" selected>@Resources.NotSelected...</option>
-                    @if (_departments != null)
-                    {
-                        foreach (var department in _departments.Departments)
-                        {
-                            <option value="@department.Id">@department.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="item-group">
-                <label for="create-user_position">@Resources.Position</label>
+                <label for="create-user_position">@Resources.Position<font color="red">*</font></label>
                 <select @bind="_userData.PositionId"
                         @ref="_positionSelect"
                         id="create-user_position"
-                        class="form-select"
-                        @onkeyup="@((k) => {
-                                    if (k.Code == "ArrowDown")
-                                        _statusSelect.FocusAsync();})">
+                        class="form-select">
                     <option value="null" selected>@Resources.NotSelected...</option>
                     @if (_positions != null)
                     {
@@ -145,18 +112,6 @@
                             <option value="@position.Info.Id">@position.Info.Name</option>
                         }
                     }
-                </select>
-            </div>
-            <div class="item-group">
-                <label for="create-user_status">@Resources.Status</label>
-                <select @bind="_userData.Status"
-                        @ref="_statusSelect"
-                        id="create-user_status"
-                        class="form-select">
-                    <option value="WorkFromHome">Work from home</option>
-                    <option value="WorkFromOffice">Work from office</option>
-                    <option value="Vacation">Vacation</option>
-                    <option value="Sick">Sick</option>
                 </select>
             </div>
         </div>

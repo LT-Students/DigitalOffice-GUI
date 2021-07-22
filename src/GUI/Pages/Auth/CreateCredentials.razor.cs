@@ -28,10 +28,10 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
                 await userService.CreateCredentialsAsync(_credentialsData);
                 UriHelper.NavigateTo("");
             }
-            catch (ApiException<ErrorResponse> ex)
+            /*catch (ApiException<ErrorResponse> ex)
             {
                 _message = ex.Result.Message;
-            }
+            }*/
             catch (Exception ex)
             {
                 //remove when spec changed
