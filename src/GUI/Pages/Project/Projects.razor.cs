@@ -12,7 +12,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
 {
     public partial class Projects
     {
-        private const int TakeCount = 4;
+        private int _takeCount = 3;
 
         private string _searchValue;
         private string _useFilterId;
@@ -41,15 +41,15 @@ namespace LT.DigitalOffice.GUI.Pages.Project
 
         protected override void OnAfterRender(bool firstRender)
         {
-            if (firstRender)
-            {
-                _showStateOfFiltersDropdown = new Dictionary<string, bool>
-                {
-                    {_projectNameRef.Id, true},
-                    {_shortNameRef.Id, true},
-                    {_departmentRef.Id, true}
-                };
-            }
+            // if (firstRender)
+            // {
+            //     _showStateOfFiltersDropdown = new Dictionary<string, bool>
+            //     {
+            //         {_projectNameRef.Id, true},
+            //         {_shortNameRef.Id, true},
+            //         {_departmentRef.Id, true}
+            //     };
+            // }
         }
 
         protected override async Task OnParametersSetAsync()
@@ -91,7 +91,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
 
         private async Task ChangeProjectsCountAsync()
         {
-            _skipCount ++;
+            _skipCount += _takeCount;
 
             await GetProjectsAsync();
         }
@@ -126,7 +126,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
             }
             else if (string.Equals(elementId, _departmentRef.Id))
             {
-                _projectsFilter.Department = isRemoveFilter ? null : _searchValue;
+                //_projectsFilter.Department = isRemoveFilter ? null : _searchValue;
             }
             else
             {
@@ -140,10 +140,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
         {
             var responseProjects = await _projectService.FindProjects(
                 _skipCount,
-                TakeCount,
-                _projectsFilter.ShortName,
-                _projectsFilter.Name,
-                _projectsFilter.Department);
+                _takeCount);
 
             if (_projectsInfo.Count > 0)
             {
@@ -157,6 +154,26 @@ namespace LT.DigitalOffice.GUI.Pages.Project
                 _projectsInfo = responseProjects.Body;
                 _totalCount = responseProjects.TotalCount;
             }
+        }
+
+        private async Task SetTakeCount(ChangeEventArgs e)
+        {
+            if (int.TryParse(e.Value.ToString(), out int result))
+            {
+                _skipCount = 0;
+                _projectsInfo = new List<ProjectInfo>();
+
+                _takeCount = result;
+                await GetProjectsAsync();
+            }
+        }
+
+        private async Task GetProjectsPageAsync(int skipCount)
+        {
+            _skipCount = skipCount;
+            _projectsInfo = new List<ProjectInfo>();
+
+            await GetProjectsAsync();
         }
     }
 }

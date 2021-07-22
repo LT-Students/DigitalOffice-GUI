@@ -313,7 +313,7 @@
     <value>Имя</value>
   </data>
   <data name="PlannedTimeTask" xml:space="preserve">
-    <value>Планируемое время выполнения, мин</value>
+    <value>Планируемое время выполнения</value>
   </data>
   <data name="ProjectTask" xml:space="preserve">
     <value>Проект</value>
@@ -331,7 +331,7 @@
     <value>Главная задача</value>
   </data>
   <data name="TaskPriority" xml:space="preserve">
-    <value>Приорите</value>
+    <value>Приоритет</value>
   </data>
   <data name="TaskStatus" xml:space="preserve">
     <value>Статус</value>
@@ -339,7 +339,31 @@
   <data name="TaskType" xml:space="preserve">
     <value>Тип</value>
   </data>
-  <data name="TasksPage" xml:space="preserve">
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Создание новой задачи</value>
+  </data>
+  <data name="TaskAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="TaskLeadTime" xml:space="preserve">
+    <value>Время выполнения</value>
+  </data>
+  <data name="BacklogPage" xml:space="preserve">
     <value>Задачи</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Подзадачи</value>
+  </data>
+  <data name="TaskAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="TaskDateСreation" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="TaskGeneralInfo" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="TaskWindowTitle" xml:space="preserve">
+    <value>Задача</value>
   </data>
 </root>

@@ -22,16 +22,14 @@ namespace LT.DigitalOffice.GUI.Services
         public async Task<FindResponseProjectInfo> FindProjects(
             int skipCount,
             int takeCount,
-            string shortName = null,
-            string projectName = null,
-            string departmentName = null)
+            Guid? departmentId = null)
         {
             FindResponseProjectInfo projectsResponse = null;
             try
             {
                 var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-                projectsResponse =  await _projectServiceClient.FindProjectsAsync(token, projectName, shortName, departmentName, skipCount, takeCount);
+                projectsResponse =  await _projectServiceClient.FindProjectsAsync(token, departmentId, skipCount, takeCount);
             }
             catch (ApiException<ErrorResponse> exc)
             {
@@ -88,6 +86,13 @@ namespace LT.DigitalOffice.GUI.Services
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.CreateTaskAsync(request, token);
+        }
+
+        public async Task<OperationResultResponseTaskResponse> GetTaskAsync(Guid taskId)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+            return await _projectServiceClient.GetTaskAsync(token, taskId);
         }
 
         public async Task<FindResponseTaskInfo> FindTasksAsync(

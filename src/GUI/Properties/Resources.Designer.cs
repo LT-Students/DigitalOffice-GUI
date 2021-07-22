@@ -79,6 +79,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backlog.
+        /// </summary>
+        internal static string BacklogPage {
+            get {
+                return ResourceManager.GetString("BacklogPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         internal static string Company {
@@ -102,6 +111,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string CreateNewProject {
             get {
                 return ResourceManager.GetString("CreateNewProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new task.
+        /// </summary>
+        internal static string CreateNewTask {
+            get {
+                return ResourceManager.GetString("CreateNewTask", resourceCulture);
             }
         }
         
@@ -349,7 +367,7 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Planned lead time, min.
+        ///   Looks up a localized string similar to Planned execution minutes.
         /// </summary>
         internal static string PlannedTimeTask {
             get {
@@ -646,11 +664,38 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subtasks.
+        /// </summary>
+        internal static string Subtasks {
+            get {
+                return ResourceManager.GetString("Subtasks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional information.
+        /// </summary>
+        internal static string TaskAdditionalInfo {
+            get {
+                return ResourceManager.GetString("TaskAdditionalInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assignee.
         /// </summary>
         internal static string TaskAssigned {
             get {
                 return ResourceManager.GetString("TaskAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        internal static string TaskAuthor {
+            get {
+                return ResourceManager.GetString("TaskAuthor", resourceCulture);
             }
         }
         
@@ -664,11 +709,29 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date сreation.
+        /// </summary>
+        internal static string TaskDateСreation {
+            get {
+                return ResourceManager.GetString("TaskDateСreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string TaskDescription {
             get {
                 return ResourceManager.GetString("TaskDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lead time.
+        /// </summary>
+        internal static string TaskLeadTime {
+            get {
+                return ResourceManager.GetString("TaskLeadTime", resourceCulture);
             }
         }
         
@@ -691,15 +754,6 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tasks.
-        /// </summary>
-        internal static string TasksPage {
-            get {
-                return ResourceManager.GetString("TasksPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         internal static string TaskStatus {
@@ -714,6 +768,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string TaskType {
             get {
                 return ResourceManager.GetString("TaskType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        internal static string TaskWindowTitle {
+            get {
+                return ResourceManager.GetString("TaskWindowTitle", resourceCulture);
             }
         }
         
