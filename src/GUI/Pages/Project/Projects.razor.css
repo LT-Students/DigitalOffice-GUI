@@ -77,7 +77,7 @@ button[id="plus"]:focus {
     background-color: #f3f3f3;
     border-radius: 5px;
 
-    margin-bottom: 2%;
+    margin-bottom: 1%;
 }
 
 .overflow-auto {
