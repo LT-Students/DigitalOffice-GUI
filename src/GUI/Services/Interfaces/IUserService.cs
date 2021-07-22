@@ -1,5 +1,6 @@
 ﻿using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using System.Threading.Tasks;
+using System;
 
 namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
@@ -11,6 +12,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task CreateCredentialsAsync(CreateCredentialsRequest request);
 
-        Task<string> GeneratePasswordAsync();
+        Task<string> GeneratePassword();
+
+        Task<UsersResponse> GetUsers(int skipCount, int takeCount, Guid? departmentId);
     }
 }

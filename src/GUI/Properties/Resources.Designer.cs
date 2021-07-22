@@ -61,6 +61,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding project employees.
+        /// </summary>
+        internal static string AddingProjectEmployees {
+            get {
+                return ResourceManager.GetString("AddingProjectEmployees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         internal static string Admin {
@@ -102,6 +111,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string CreatePosition {
             get {
                 return ResourceManager.GetString("CreatePosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creation project.
+        /// </summary>
+        internal static string CreateProjectModal {
+            get {
+                return ResourceManager.GetString("CreateProjectModal", resourceCulture);
             }
         }
         
@@ -196,6 +214,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Found employees.
+        /// </summary>
+        internal static string FoundProjectEmployees {
+            get {
+                return ResourceManager.GetString("FoundProjectEmployees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate.
         /// </summary>
         internal static string Generate {
@@ -268,11 +295,29 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finish.
+        /// </summary>
+        internal static string ModalFinishButton {
+            get {
+                return ResourceManager.GetString("ModalFinishButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string NameTask {
+            get {
+                return ResourceManager.GetString("NameTask", resourceCulture);
             }
         }
         
@@ -304,6 +349,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Planned lead time, min.
+        /// </summary>
+        internal static string PlannedTimeTask {
+            get {
+                return ResourceManager.GetString("PlannedTimeTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position.
         /// </summary>
         internal static string Position {
@@ -331,11 +385,173 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project creation.
+        /// </summary>
+        internal static string ProjectCreationModalTitle {
+            get {
+                return ResourceManager.GetString("ProjectCreationModalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Department.
+        /// </summary>
+        internal static string ProjectDepartment {
+            get {
+                return ResourceManager.GetString("ProjectDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select department.
+        /// </summary>
+        internal static string ProjectDepartmentDropdownPlaceholder {
+            get {
+                return ResourceManager.GetString("ProjectDepartmentDropdownPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string ProjectDescription {
+            get {
+                return ResourceManager.GetString("ProjectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert project description.
+        /// </summary>
+        internal static string ProjectDescriptionInputPlaceholder {
+            get {
+                return ResourceManager.GetString("ProjectDescriptionInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string ProjectEmployeeAddButton {
+            get {
+                return ResourceManager.GetString("ProjectEmployeeAddButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string ProjectEmployeeRemoveButton {
+            get {
+                return ResourceManager.GetString("ProjectEmployeeRemoveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert project full name.
+        /// </summary>
+        internal static string ProjectFullNameInputPlaceholder {
+            get {
+                return ResourceManager.GetString("ProjectFullNameInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General information.
+        /// </summary>
+        internal static string ProjectGeneralInfo {
+            get {
+                return ResourceManager.GetString("ProjectGeneralInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string ProjectModalBackButton {
+            get {
+                return ResourceManager.GetString("ProjectModalBackButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string ProjectModalNextButton {
+            get {
+                return ResourceManager.GetString("ProjectModalNextButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full name.
+        /// </summary>
+        internal static string ProjectName {
+            get {
+                return ResourceManager.GetString("ProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projects.
         /// </summary>
         internal static string Projects {
             get {
                 return ResourceManager.GetString("Projects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short description.
+        /// </summary>
+        internal static string ProjectShortDescription {
+            get {
+                return ResourceManager.GetString("ProjectShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert project short description.
+        /// </summary>
+        internal static string ProjectShortDescriptionInputPlaceholder {
+            get {
+                return ResourceManager.GetString("ProjectShortDescriptionInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Short name.
+        /// </summary>
+        internal static string ProjectShortName {
+            get {
+                return ResourceManager.GetString("ProjectShortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert project short name.
+        /// </summary>
+        internal static string ProjectShortNameInputPlaceholder {
+            get {
+                return ResourceManager.GetString("ProjectShortNameInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string ProjectStatus {
+            get {
+                return ResourceManager.GetString("ProjectStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        internal static string ProjectTask {
+            get {
+                return ResourceManager.GetString("ProjectTask", resourceCulture);
             }
         }
         
@@ -358,11 +574,29 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search employee.
+        /// </summary>
+        internal static string SearchEmployeePlaceholder {
+            get {
+                return ResourceManager.GetString("SearchEmployeePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search projects.
         /// </summary>
         internal static string SearchProjects {
             get {
                 return ResourceManager.GetString("SearchProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected employees.
+        /// </summary>
+        internal static string SelectedProjectEmployees {
+            get {
+                return ResourceManager.GetString("SelectedProjectEmployees", resourceCulture);
             }
         }
         
@@ -408,6 +642,78 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assignee.
+        /// </summary>
+        internal static string TaskAssigned {
+            get {
+                return ResourceManager.GetString("TaskAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task creation.
+        /// </summary>
+        internal static string TaskCreationModalTitle {
+            get {
+                return ResourceManager.GetString("TaskCreationModalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string TaskDescription {
+            get {
+                return ResourceManager.GetString("TaskDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task parent.
+        /// </summary>
+        internal static string TaskParent {
+            get {
+                return ResourceManager.GetString("TaskParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Priority.
+        /// </summary>
+        internal static string TaskPriority {
+            get {
+                return ResourceManager.GetString("TaskPriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks.
+        /// </summary>
+        internal static string TasksPage {
+            get {
+                return ResourceManager.GetString("TasksPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string TaskStatus {
+            get {
+                return ResourceManager.GetString("TaskStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string TaskType {
+            get {
+                return ResourceManager.GetString("TaskType", resourceCulture);
             }
         }
         

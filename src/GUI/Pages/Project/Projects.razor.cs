@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Web;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
-namespace LT.DigitalOffice.GUI.Pages
+namespace LT.DigitalOffice.GUI.Pages.Project
 {
     public partial class Projects
     {

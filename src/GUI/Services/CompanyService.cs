@@ -1,10 +1,11 @@
 ﻿using Blazored.SessionStorage;
 using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Helpers;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -12,40 +13,71 @@ namespace LT.DigitalOffice.GUI.Services
     {
         private readonly ISessionStorageService _storage;
         private readonly CompanyServiceClient _client;
-        private string _token;
 
         public CompanyService(ISessionStorageService storage)
         {
             _storage = storage;
-            _client = new CompanyServiceClient(new System.Net.Http.HttpClient());
+            _client = new CompanyServiceClient(new HttpClient());
         }
 
-        public async Task CreateDepartmentAsync(NewDepartmentRequest request)
+        public async Task<string> CreateDepartment(NewDepartmentRequest request)
         {
-            _token = await _storage.GetItemAsync<string>(Consts.Token);
+            try
+            {
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+                var response = await _client.AddDepartmentAsync(request, token);
 
             await _client.AddDepartmentAsync(request, _token);
         }
 
         public async Task CreatePositionAsync(CreatePositionRequest request)
         {
-            _token = await _storage.GetItemAsync<string>(Consts.Token);
+            try
+            {
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+                var response = await _client.AddPositionAsync(request, token);
 
-            await _client.AddPositionAsync(request, _token);
+                return "Successfully created";
+            }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return ex.Result.Message;
+            }
+            catch (Exception ex)
+            {
+                //remove when spec reworked
+                return ex.Message;
+            }
         }
 
-        public async Task<DepartmentsResponse> GetDepartmentsAsync()
+        public async Task<DepartmentsResponse> GetDepartments()
         {
-            _token = await _storage.GetItemAsync<string>(Consts.Token);
+            try
+            {
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _client.GetDepartmentsAsync(_token);
+                return await _client.GetDepartmentsAsync(token);
+            }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                //to do when spec changed
+                return null;
+            }
         }
 
-        public async Task<ICollection<PositionResponse>> GetPositionsAsync()
+        public async Task<ICollection<PositionResponse>> GetPositions()
         {
-            _token = await _storage.GetItemAsync<string>(Consts.Token);
+            try
+            {
+                var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _client.GetPositionsListAsync(_token);
+                return await _client.GetPositionsListAsync(token);
+            }
+            catch(ApiException<ErrorResponse> ex)
+            {
+                //to do when spec changed
+                return null;
+            }
         }
     }
 }

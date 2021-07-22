@@ -2,6 +2,7 @@
 using GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
+using LT.DigitalOffice.GUI.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Net.Http;
@@ -11,7 +12,6 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly HttpClient _client = new();
         private readonly AuthStateProvider _provider;
         private readonly ISessionStorageService _storage;
 
@@ -21,15 +21,30 @@ namespace LT.DigitalOffice.GUI.Services
             _storage = storage;
         }
 
-        public async Task LoginAsync(AuthenticationRequest request)
+        public async Task<string> Login(AuthenticationRequest request)
         {
-            var authService = new AuthServiceClient(_client);
-            var response = await authService.LoginAsync(request);
+            try
+            {
+                var httpClient = new HttpClient();
 
-            _provider.LoginNotify(response.UserId);
+                var authService = new AuthServiceClient(httpClient);
+                var response = await authService.LoginAsync(request);
 
-            await _storage.SetItemAsync(nameof(AuthenticationResponse.Token), response.Token);
-            await _storage.SetItemAsync(nameof(AuthenticationResponse.UserId), response.UserId);
+                _provider.LoginNotify(response);
+
+                await _storage.SetItemAsync(nameof(Consts.AccessToken), response.AccessToken);
+                await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+                await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), response.AccessTokenExpiresIn);
+                await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), response.RefreshTokenExpiresIn);
+                await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+                await _storage.SetItemAsync(nameof(Consts.UserId), response.UserId);
+
+                return "Authorized";
+            }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return ex.Result.Message;
+            }
         }
 
         public bool Logout()

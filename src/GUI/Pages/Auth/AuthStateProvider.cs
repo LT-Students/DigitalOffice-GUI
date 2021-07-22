@@ -12,7 +12,7 @@ namespace GUI.Pages.Auth
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            await Task.FromResult(0);
+            await Task.FromResult(2);
 
             return new AuthenticationState(claimsPrincipal);
         }

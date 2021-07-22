@@ -1,0 +1,19 @@
+<div class="overflow-auto">
+    @if (Users is not null)
+    {
+        @for (int j = 0; j < Users.Count; j++)
+        {
+            int i = j;
+            @if (!HideEmployees[i])
+            {
+                <div 
+                    class=@( StatesSelectedEmployees[i] 
+                            ? "employee-content select-employee-content" 
+                            : "employee-content") 
+                    @onclick="() => {StatesSelectedEmployees[i] = !StatesSelectedEmployees[i];}"> 
+                    <p><img src=""/> @($"{Users[i].FirstName} {Users[i].LastName}") <font class="position-employee"> Backend </font> </p> 
+                </div>
+            }
+        }   
+    }            
+</div>
