@@ -1561,7 +1561,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string PriorityName { get; set; }
     
         /// <summary>The task's description.</summary>
-        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
     
         /// <summary>Specific task's number.</summary>
@@ -2266,7 +2266,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public int PlannedMinutes { get; set; }
     
         [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid ParentId { get; set; }
+        public System.Guid? ParentId { get; set; }
     
         [Newtonsoft.Json.JsonProperty("AuthorId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid AuthorId { get; set; }

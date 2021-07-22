@@ -117,6 +117,8 @@ h1 {
 
 .card-header {
     padding: 0;
+
+    background: linear-gradient(95deg, #7777775e, transparent)
 }
 
 .btn-link {
@@ -189,7 +191,7 @@ h1 {
     width: 50%;
 }
 
-input, select, text {
+input, select, textarea {
     background-color: #efefef;
     border: none;
 }

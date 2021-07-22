@@ -8,6 +8,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 {
     public partial class TaskModalWindow
     {
+        private bool _isEditTask;
         private TaskResponse _task;
 
         [Inject]

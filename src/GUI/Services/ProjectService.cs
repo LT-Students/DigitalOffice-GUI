@@ -5,6 +5,7 @@ using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -105,6 +106,13 @@ namespace LT.DigitalOffice.GUI.Services
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, skipCount, takeCount);
+        }
+
+        public async Task<OperationResultResponse> EditTaskAsync(IEnumerable<PatchDocument> body, Guid taskId)
+        {
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+            return await _projectServiceClient.EditTaskAsync(body, token, taskId);
         }
     }
 }
