@@ -32,14 +32,14 @@ namespace LT.DigitalOffice.GUI.Services
 
             var userInfo = await _client.GetUserAsync(_token, userId, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
-            var userName = $"{userInfo.User.LastName} {userInfo.User.FirstName}";
+            var userName = $"{userInfo.Body.User.LastName} {userInfo.Body.User.FirstName}";
 
             await _sessionStorage.SetItemAsync(Consts.UserName, userName);
 
             return userName;
         }
 
-        public async Task<UsersResponse> FindUsersAsync( int skipCount, int takeCount, Guid? departmentId = default)
+        public async Task<FindResultResponseUserInfo> FindUsersAsync( int skipCount, int takeCount, Guid? departmentId = default)
         {
             _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
@@ -60,10 +60,9 @@ namespace LT.DigitalOffice.GUI.Services
             return await _client.GeneratePasswordAsync(_token);
         }
 
-        public async Task<Response> CreateCredentialsAsync(CreateCredentialsRequest request)
+        public async Task<OperationResultResponseCredentialsResponse> CreateCredentialsAsync(CreateCredentialsRequest request)
         {
             return await _client.CreateCredentialsAsync(request);
-            _client.EditUserAsync
         }
     }
 }

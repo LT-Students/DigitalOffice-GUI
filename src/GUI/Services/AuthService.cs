@@ -25,18 +25,25 @@ namespace LT.DigitalOffice.GUI.Services
             _client = new AuthServiceClient(new HttpClient());
         }
 
-        public async Task LoginAsync(AuthenticationRequest request)
+        public async Task<AuthenticationResponse> LoginAsync(AuthenticationRequest request)
         {
-            var response = await _client.LoginAsync(request);
+            return await _client.LoginAsync(request);
+        }
 
-            _provider.LoginNotify(response.UserId);
+        public async Task LoginStateAsync(
+            Guid userId,
+            string accessToken,
+            string refreshToken,
+            double accessTokenExpiresIn,
+            double refreshTokenExpiresIn)
+        {
+            _provider.LoginNotify(userId);
 
-            await _storage.SetItemAsync(nameof(Consts.AccessToken), response.AccessToken);
-            await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
-            await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), response.AccessTokenExpiresIn);
-            await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), response.RefreshTokenExpiresIn);
-            await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
-            await _storage.SetItemAsync(nameof(Consts.UserId), response.UserId);
+            await _storage.SetItemAsync(nameof(Consts.AccessToken), accessToken);
+            await _storage.SetItemAsync(nameof(Consts.RefreshToken), refreshToken);
+            await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), accessTokenExpiresIn);
+            await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), refreshTokenExpiresIn);
+            await _storage.SetItemAsync(nameof(Consts.UserId), userId);
         }
 
         public bool Logout()

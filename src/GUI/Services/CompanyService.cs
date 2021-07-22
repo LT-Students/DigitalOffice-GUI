@@ -4,7 +4,6 @@ using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Helpers;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -20,7 +19,7 @@ namespace LT.DigitalOffice.GUI.Services
             _client = new CompanyServiceClient(new HttpClient());
         }
 
-        public async Task CreateDepartmentAsync(NewDepartmentRequest request)
+        public async Task CreateDepartmentAsync(CreateDepartmentRequest request)
         {
             _token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
@@ -34,21 +33,21 @@ namespace LT.DigitalOffice.GUI.Services
             await _client.AddPositionAsync(request, _token);
         }
 
-        public async Task<DepartmentsResponse> FindDepartmentsAsync()
+        public async Task<FindResultResponseDepartmentInfo> FindDepartmentsAsync()
         {
             _token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _client.FindDepartmentsAsync(_token);
+            return await _client.FindDepartmentsAsync(_token, 0, 100, false);
         }
 
-        public async Task<ICollection<PositionResponse>> FindPositionsAsync()
+        public async Task<FindResultResponsePositionInfo> FindPositionsAsync()
         {
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _client.FindPositionsAsync(token);
+            return await _client.FindPositionsAsync(token, 0, 100, false);
         }
 
-        public async Task<FindOfficesResponse> FindOfficesAsync()
+        public async Task<FindResultResponseOfficeInfo> FindOfficesAsync()
         {
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 

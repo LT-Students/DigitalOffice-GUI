@@ -15,7 +15,14 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
         {
             try
             {
-                await authService.LoginAsync(_authData);
+                var loginResponse = await authService.LoginAsync(_authData);
+
+                await authService.LoginStateAsync(loginResponse.UserId,
+                    loginResponse.AccessToken,
+                    loginResponse.RefreshToken,
+                    loginResponse.AccessTokenExpiresIn,
+                    loginResponse.RefreshTokenExpiresIn);
+
                 UriHelper.NavigateTo("");
             }
             catch (ApiException<ErrorResponse> ex)

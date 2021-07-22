@@ -1,9 +1,9 @@
-﻿using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
-using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
+﻿using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OperationResultResponse = LT.DigitalOffice.GUI.Services.ApiClients.UserService.OperationResultResponse;
+using PositionInfo = LT.DigitalOffice.GUI.Services.ApiClients.CompanyService.PositionInfo;
 
 namespace LT.DigitalOffice.GUI.Pages.Admin.User
 {
@@ -11,7 +11,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
     {
         private CreateUserRequest _userData = new();
         private CreateCommunicationRequest _userCommunication = new();
-        private ICollection<PositionResponse> _positions;
+        private ICollection<PositionInfo> _positions;
         private string _message;
         private List<float> _rateValues = new List<float> { 0.25f, 0.5f, 0.75f, 1 };
 
@@ -40,15 +40,24 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
                 await userService.CreateUserAsync(_userData);
                 UriHelper.NavigateTo("/");
             }
-            catch(Exception ex)
+            catch(Services.ApiClients.UserService.ApiException<Services.ApiClients.UserService.ErrorResponse> ex)
             {
-                _message = ex.Message;
+
+            }
+            catch(Services.ApiClients.UserService.ApiException<OperationResultResponse> ex)
+            {
+                _message = ex.Result.Errors.ToString();
+            }
+            catch(Services.ApiClients.UserService.ApiException ex)
+            {
+                _message = ex.Message.ToString();
             }
         }
 
         protected async override void OnInitialized()
         {
-            _positions = await companyService.FindPositionsAsync();
+            var positionsResponse = await companyService.FindPositionsAsync();
+            _positions = positionsResponse.Body;
             StateHasChanged();
         }
     }

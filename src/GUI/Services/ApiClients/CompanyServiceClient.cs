@@ -53,7 +53,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         /// <param name="token">The JWT token.</param>
         /// <returns>Successfully returned a position.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<PositionResponse> GetPositionAsync(System.Guid positionId, string token)
+        public System.Threading.Tasks.Task<OperationResultResponsePositionInfo> GetPositionAsync(System.Guid positionId, string token)
         {
             return GetPositionAsync(positionId, token, System.Threading.CancellationToken.None);
         }
@@ -63,7 +63,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         /// <param name="token">The JWT token.</param>
         /// <returns>Successfully returned a position.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<PositionResponse> GetPositionAsync(System.Guid positionId, string token, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponsePositionInfo> GetPositionAsync(System.Guid positionId, string token, System.Threading.CancellationToken cancellationToken)
         {
             if (positionId == null)
                 throw new System.ArgumentNullException("positionId");
@@ -108,7 +108,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<PositionResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponsePositionInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -156,21 +156,40 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         }
 
         /// <param name="token">The JWT token.</param>
+        /// <param name="skipCount">Number of positions to skip.</param>
+        /// <param name="takeCount">Number of positions to take.</param>
+        /// <param name="includeDeactivated">If it is true, response will be have deactivated records.</param>
         /// <returns>Successfully returned added positions.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PositionResponse>> FindPositionsAsync(string token)
+        public System.Threading.Tasks.Task<FindResultResponsePositionInfo> FindPositionsAsync(string token, int skipCount, int takeCount, bool? includeDeactivated)
         {
-            return FindPositionsAsync(token, System.Threading.CancellationToken.None);
+            return FindPositionsAsync(token, skipCount, takeCount, includeDeactivated, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
+        /// <param name="skipCount">Number of positions to skip.</param>
+        /// <param name="takeCount">Number of positions to take.</param>
+        /// <param name="includeDeactivated">If it is true, response will be have deactivated records.</param>
         /// <returns>Successfully returned added positions.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<PositionResponse>> FindPositionsAsync(string token, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<FindResultResponsePositionInfo> FindPositionsAsync(string token, int skipCount, int takeCount, bool? includeDeactivated, System.Threading.CancellationToken cancellationToken)
         {
+            if (skipCount == null)
+                throw new System.ArgumentNullException("skipCount");
+
+            if (takeCount == null)
+                throw new System.ArgumentNullException("takeCount");
+
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/position/find");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/position/find?");
+            urlBuilder_.Append(System.Uri.EscapeDataString("skipCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(skipCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder_.Append(System.Uri.EscapeDataString("takeCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(takeCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            if (includeDeactivated != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("includeDeactivated") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeDeactivated, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -207,7 +226,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<PositionResponse>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<FindResultResponsePositionInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -222,7 +241,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ErrorResponse>("Forbidden.\n* Token was not entered.\n* Invalid token.\n", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ErrorResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -473,7 +492,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         /// <param name="token">The JWT token.</param>
         /// <returns>Guid of the created вузфкеьуте will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<OperationResultResponse> AddDepartmentAsync(NewDepartmentRequest body, string token)
+        public System.Threading.Tasks.Task<OperationResultResponse> AddDepartmentAsync(CreateDepartmentRequest body, string token)
         {
             return AddDepartmentAsync(body, token, System.Threading.CancellationToken.None);
         }
@@ -482,7 +501,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         /// <param name="token">The JWT token.</param>
         /// <returns>Guid of the created вузфкеьуте will be in response Body property.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<OperationResultResponse> AddDepartmentAsync(NewDepartmentRequest body, string token, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponse> AddDepartmentAsync(CreateDepartmentRequest body, string token, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -694,21 +713,40 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         }
 
         /// <param name="token">The JWT token.</param>
+        /// <param name="skipCount">Number of deparments to skip.</param>
+        /// <param name="takeCount">Number of departments to take.</param>
+        /// <param name="includeDeactivated">If it is true, response will be have deactivated records.</param>
         /// <returns>Successfully returned departments.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<DepartmentsResponse> FindDepartmentsAsync(string token)
+        public System.Threading.Tasks.Task<FindResultResponseDepartmentInfo> FindDepartmentsAsync(string token, int skipCount, int takeCount, bool? includeDeactivated)
         {
-            return FindDepartmentsAsync(token, System.Threading.CancellationToken.None);
+            return FindDepartmentsAsync(token, skipCount, takeCount, includeDeactivated, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
+        /// <param name="skipCount">Number of deparments to skip.</param>
+        /// <param name="takeCount">Number of departments to take.</param>
+        /// <param name="includeDeactivated">If it is true, response will be have deactivated records.</param>
         /// <returns>Successfully returned departments.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<DepartmentsResponse> FindDepartmentsAsync(string token, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<FindResultResponseDepartmentInfo> FindDepartmentsAsync(string token, int skipCount, int takeCount, bool? includeDeactivated, System.Threading.CancellationToken cancellationToken)
         {
+            if (skipCount == null)
+                throw new System.ArgumentNullException("skipCount");
+
+            if (takeCount == null)
+                throw new System.ArgumentNullException("takeCount");
+
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/department/find");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/department/find?");
+            urlBuilder_.Append(System.Uri.EscapeDataString("skipCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(skipCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder_.Append(System.Uri.EscapeDataString("takeCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(takeCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            if (includeDeactivated != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("includeDeactivated") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeDeactivated, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -745,12 +783,22 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<DepartmentsResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<FindResultResponseDepartmentInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 403)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ErrorResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -1320,24 +1368,24 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         }
 
         /// <param name="token">The JWT token.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of offices on one page.</param>
+        /// <param name="skipCount">Number of offices to skip.</param>
+        /// <param name="takeCount">Number of offices to take.</param>
         /// <param name="includeDeactivated">If it is true, response will be have deactivated records.</param>
         /// <returns>Successfully returned all offices.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<FindOfficesResponse> FindOfficesAsync(string token, int skipCount, int takeCount, bool? includeDeactivated)
+        public System.Threading.Tasks.Task<FindResultResponseOfficeInfo> FindOfficesAsync(string token, int skipCount, int takeCount, bool? includeDeactivated)
         {
             return FindOfficesAsync(token, skipCount, takeCount, includeDeactivated, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
-        /// <param name="skipCount">Number of pages to skip.</param>
-        /// <param name="takeCount">Number of offices on one page.</param>
+        /// <param name="skipCount">Number of offices to skip.</param>
+        /// <param name="takeCount">Number of offices to take.</param>
         /// <param name="includeDeactivated">If it is true, response will be have deactivated records.</param>
         /// <returns>Successfully returned all offices.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<FindOfficesResponse> FindOfficesAsync(string token, int skipCount, int takeCount, bool? includeDeactivated, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<FindResultResponseOfficeInfo> FindOfficesAsync(string token, int skipCount, int takeCount, bool? includeDeactivated, System.Threading.CancellationToken cancellationToken)
         {
             if (skipCount == null)
                 throw new System.ArgumentNullException("skipCount");
@@ -1390,7 +1438,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<FindOfficesResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<FindResultResponseOfficeInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1398,14 +1446,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
                             return objectResponse_.Object;
                         }
                         else
-                        if (status_ == 404)
+                        if (status_ == 403)
                         {
                             var objectResponse_ = await ReadObjectResponseAsync<ErrorResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<ErrorResponse>("Not Found.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<ErrorResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {
@@ -1556,42 +1604,23 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class EditPositionRequest : System.Collections.ObjectModel.Collection<PatchPositionDocument>
+    public partial class CreateDepartmentRequest
     {
+        /// <summary>Department name.</summary>
+        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Name { get; set; }
 
-    }
+        /// <summary>Department description.</summary>
+        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; set; }
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class NewDepartmentRequest
-    {
-        [Newtonsoft.Json.JsonProperty("Info", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public BaseDepartmentInfo Info { get; set; } = new BaseDepartmentInfo();
+        /// <summary>Specific director user id this department.</summary>
+        [Newtonsoft.Json.JsonProperty("DirectorUserId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid? DirectorUserId { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<System.Guid> Users { get; set; } = new System.Collections.ObjectModel.Collection<System.Guid>();
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class PositionResponse
-    {
-        [Newtonsoft.Json.JsonProperty("Info", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public PositionInfo Info { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("UserIds", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<System.Guid> UserIds { get; set; }
+        [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<System.Guid> Users { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1623,39 +1652,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         /// <summary>Marks whether position is active or not.</summary>
         [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool IsActive { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-
-    }
-
-    /// <summary>Specific department data.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class BaseDepartmentInfo
-    {
-        /// <summary>Department id.</summary>
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid Id { get; set; }
-
-        /// <summary>Department name.</summary>
-        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Name { get; set; }
-
-        /// <summary>Department description.</summary>
-        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; set; }
-
-        /// <summary>Specific director user id this department.</summary>
-        [Newtonsoft.Json.JsonProperty("DirectorUserId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? DirectorUserId { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1710,10 +1706,73 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class DepartmentsResponse
+    public partial class FindResultResponseDepartmentInfo
     {
-        [Newtonsoft.Json.JsonProperty("Departments", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<DepartmentInfo> Departments { get; set; }
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public OperationResultStatusType Status { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int TotalCount { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<DepartmentInfo> Body { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> Errors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class FindResultResponseOfficeInfo
+    {
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public OperationResultStatusType Status { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<OfficeInfo> Body { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int TotalCount { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> Errors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class FindResultResponsePositionInfo
+    {
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public OperationResultStatusType Status { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int TotalCount { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<PositionInfo> Body { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<string> Errors { get; set; }
@@ -1735,7 +1794,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     public partial class DepartmentResponse
     {
         [Newtonsoft.Json.JsonProperty("Department", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ShortDepartmentInfo Department { get; set; }
+        public DepartmentInfo Department { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<DepartmentUserInfo> Users { get; set; }
@@ -1774,9 +1833,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         [Newtonsoft.Json.JsonProperty("Director", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserInfo Director { get; set; }
 
-        /// <summary>Workers of this department.</summary>
-        [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<UserInfo> Users { get; set; }
+        [Newtonsoft.Json.JsonProperty("CountUsers", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int CountUsers { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1805,6 +1863,18 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
 
         [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string MiddleName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Rate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Rate { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsActive { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Image", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ImageInfo Image { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Position", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public PositionInfo Position { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1966,47 +2036,13 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         public SmtpInfo SmtpInfo { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Departments", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<ShortDepartmentInfo> Departments { get; set; }
+        public System.Collections.Generic.ICollection<DepartmentInfo> Departments { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Positions", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<PositionInfo> Positions { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Offices", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Collections.Generic.ICollection<OfficeInfo> Offices { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-
-    }
-
-    /// <summary>Specific department data.</summary>
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class ShortDepartmentInfo
-    {
-        /// <summary>Department id.</summary>
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid Id { get; set; }
-
-        /// <summary>Department name.</summary>
-        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; set; }
-
-        /// <summary>Department description.</summary>
-        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Director", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public DepartmentUserInfo Director { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsActive { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -2050,30 +2086,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
 
     }
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class FindOfficesResponse
-    {
-        [Newtonsoft.Json.JsonProperty("Offices", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<OfficeInfo> Offices { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int TotalCount { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<string> Errors { get; set; }
-
-        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
-
-        [Newtonsoft.Json.JsonExtensionData]
-        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
-        {
-            get { return _additionalProperties; }
-            set { _additionalProperties = value; }
-        }
-
-
-    }
-
     /// <summary>Response object for action operations.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class OperationResultResponse
@@ -2104,7 +2116,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     public partial class OperationResultResponseCompanyInfo
     {
         [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public CompanyInfo Body { get; set; }
+        public Body Body { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
@@ -2128,8 +2140,34 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class OperationResultResponseDepartmentInfo
     {
+        /// <summary>Full departmant information.</summary>
         [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public DepartmentResponse Body { get; set; }
+        public Body2 Body { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public OperationResultStatusType Status { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<string> Errors { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class OperationResultResponsePositionInfo
+    {
+        [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public Body3 Body { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
@@ -2266,12 +2304,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class EditCompanyRequest : System.Collections.ObjectModel.Collection<PatchCompanyDocument>
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class PatchCompanyDocument
     {
         /// <summary>The operation to be performed.</summary>
@@ -2335,12 +2367,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class EditDepartmentRequest : System.Collections.ObjectModel.Collection<PatchDepartmentDocument>
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class PatchDepartmentDocument
     {
         /// <summary>The operation to be performed.</summary>
@@ -2359,6 +2385,127 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
         [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
         public object Value { get; set; } = new object();
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class EditDepartmentRequest : System.Collections.ObjectModel.Collection<PatchDepartmentDocument>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class EditCompanyRequest : System.Collections.ObjectModel.Collection<PatchCompanyDocument>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class EditPositionRequest : System.Collections.ObjectModel.Collection<PatchPositionDocument>
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Body
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("portalName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string PortalName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("companyName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string CompanyName { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("tagline", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Tagline { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("siteUrl", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string SiteUrl { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("logo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ImageInfo Logo { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("smtpInfo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public SmtpInfo SmtpInfo { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("departments", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<DepartmentInfo> Departments { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("positions", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<PositionInfo> Positions { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("offices", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<OfficeInfo> Offices { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Body2
+    {
+        [Newtonsoft.Json.JsonProperty("department", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public DepartmentInfo Department { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("users", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<DepartmentUserInfo> Users { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("projects", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ProjectInfo Projects { get; set; }
+
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Body3
+    {
+        /// <summary>Specific position id.</summary>
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid Id { get; set; }
+
+        /// <summary>Position name.</summary>
+        [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Name { get; set; }
+
+        /// <summary>Position description.</summary>
+        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; set; }
+
+        /// <summary>Marks whether position is active or not.</summary>
+        [Newtonsoft.Json.JsonProperty("isActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsActive { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 

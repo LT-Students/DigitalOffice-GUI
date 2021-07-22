@@ -3,6 +3,7 @@
 
 @inject IUserService userService
 @inject ICompanyService companyService
+@inject IAuthService authService
 @inject NavigationManager UriHelper
 
 <EditForm Model="@_userData" OnValidSubmit="@HandleValidSubmitAsync">
@@ -109,7 +110,7 @@
                     {
                         foreach (var position in _positions)
                         {
-                            <option value="@position.Info.Id">@position.Info.Name</option>
+                            <option value="@position.Id">@position.Name</option>
                         }
                     }
                 </select>

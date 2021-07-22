@@ -25,13 +25,21 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
         {
             try
             {
-                await userService.CreateCredentialsAsync(_credentialsData);
+                var loginResponse = await userService.CreateCredentialsAsync(_credentialsData);
+
+                await authService.LoginStateAsync(
+                    loginResponse.Body.UserId,
+                    loginResponse.Body.AccessToken,
+                    loginResponse.Body.RefreshToken,
+                    loginResponse.Body.AccessTokenExpiresIn,
+                    loginResponse.Body.RefreshTokenExpiresIn);
+
                 UriHelper.NavigateTo("");
             }
-            /*catch (ApiException<ErrorResponse> ex)
+            catch (ApiException<ErrorResponse> ex)
             {
                 _message = ex.Result.Message;
-            }*/
+            }
             catch (Exception ex)
             {
                 //remove when spec changed

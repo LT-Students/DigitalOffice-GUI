@@ -59,7 +59,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectEmployees
                     takeCount:int.MaxValue,
                     departmentId: ProjectRequest.DepartmentId);
 
-                FoundEmployees = response.Users.ToList();
+                FoundEmployees = response.Body.ToList();
             }
 
             for (int i = 0; i < FoundEmployees.Count; i++)

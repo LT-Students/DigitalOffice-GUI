@@ -7,17 +7,11 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
 {
     public partial class CreateDepartment
     {
-        private NewDepartmentRequest _departmentData = new();
-        private BaseDepartmentInfo _departmentInfo = new();
+        private CreateDepartmentRequest _departmentData = new();
         private string _message;
 
         private ElementReference _descriptionInput;
         private ElementReference _directorSelect;
-
-        public CreateDepartment()
-        {
-            _departmentData.Info = _departmentInfo;
-        }
 
         private async Task HandleValidSubmit()
         {
