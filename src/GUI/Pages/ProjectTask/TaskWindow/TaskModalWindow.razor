@@ -1,4 +1,5 @@
 @using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Shared
 
     <div class="modal fade" id="task-modal-center" tabindex="-1" role="dialog" aria-labelledby="task-modal-center-title"
         aria-hidden="true">
@@ -22,10 +23,12 @@
                             {
                                 <div class="task-content">
 
-                                    <div class="task-content_header">
-                                        <h1><span>#@_task.Number - </span>@_task.Name</h1>
+                                    <div>
+                                        <div class="task-content_header">
+                                            <h1><span>#@_task.Number - </span>@_task.Name</h1>
 
-                                        <button type="button" class="btn btn-primary" @onclick="() => _isEditTask = !_isEditTask">Edit</button>
+                                            <button type="button" class="btn btn-primary" @onclick="() => _isEditTask = !_isEditTask">Edit</button>
+                                        </div>
                                     </div>
 
                                     <div class="task-content_header-info">

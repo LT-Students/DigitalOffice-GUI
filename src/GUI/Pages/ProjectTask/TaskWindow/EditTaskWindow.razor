@@ -1,4 +1,5 @@
 @using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Shared
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
 <div class="modal-body">
@@ -16,9 +17,18 @@
                 value="@Task.Name"
                 aria-describedby="basic-addon1" 
                 @onchange="e => SetValueToPatchDocument(PatchDocumentPath._Name, e.Value)"/>
-            <button type="button" class="btn btn-primary" @onclick="EditTask">@Resources.SaveTaskButton</button>
+            <button 
+                type="button" 
+                class="btn btn-primary" 
+                @onclick="EditTask"
+                data-toggle="modal" data-target=".bd-example-modal-sm">
+                    @Resources.SaveTaskButton
+            </button>
 
         </div>
+
+
+            <Snackbar Message=@_messageUser IsSuccesOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
 
         <div>
             <p>@Resources.EditTaskButton:

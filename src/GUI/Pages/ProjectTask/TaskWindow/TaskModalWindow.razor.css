@@ -57,7 +57,7 @@ input[id="planned-time-task"] {
 }
 
 .task-content_header {
-    height: 60px;
+    height: 92px;
 }
 
 .task-content_header input {
@@ -199,6 +199,7 @@ input, select, text {
 
 button[type="button"] {
     height: 40px;
+    padding: 0 32px;
 
     position: relative;
     float: right;

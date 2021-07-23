@@ -8,6 +8,7 @@
 input {
     height: 40px;
 }
+
 input[id="planned-time-task"] {
     width: 25%;
 }
@@ -204,6 +205,7 @@ input, select, textarea {
 
 button[type="button"] {
     height: 40px;
+    padding: 0 32px;
 
     position: relative;
     float: right;

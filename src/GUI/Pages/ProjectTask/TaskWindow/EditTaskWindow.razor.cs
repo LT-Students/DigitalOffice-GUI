@@ -10,6 +10,8 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 {
     public partial class EditTaskWindow
     {
+        private string _messageUser;
+
         private List<PatchDocument> _requestBody;
         private List<TaskInfo> _projectTasks;
         private List<ProjectInfo> _projects;
@@ -18,6 +20,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
         private List<TaskPropertyInfo> _taskStatuses;
         private List<TaskPropertyInfo> _taskTypes;
         private List<TaskPropertyInfo> _taskPriorities;
+        public OperationResultResponse _editTaskResponse;
         
         [Parameter]
         public TaskResponse Task { get; set; }
@@ -112,7 +115,29 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 
         private async Task EditTask()
         {
-            var response = await _ProjectService.EditTaskAsync(_requestBody, Task.Id);
+            _messageUser = null;
+            _editTaskResponse = null;
+
+            if (!_requestBody.Any())
+            {
+                _messageUser = "The task has no changes";
+                return;
+            }
+
+            try
+            {
+                _editTaskResponse = await _ProjectService.EditTaskAsync(_requestBody, Task.Id);
+
+                _messageUser = _editTaskResponse.Status == OperationResultStatusType.FullSuccess ? 
+                    "Changes were saved successfully!" : 
+                    $"Something went wrong, please try again later.\nMessage: { _editTaskResponse.Errors }";
+            }
+            catch (ApiException ex)
+            {
+                _messageUser = $"Something went wrong, please try again later.\nMessage: { ex.Response }";
+            }
+
+            _requestBody = new();
         }
     }
 }
