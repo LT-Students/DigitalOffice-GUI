@@ -11,12 +11,14 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class CompanyService : ICompanyService
     {
+        private readonly RefreshTokenHelper _refreshToken;
         private readonly ISessionStorageService _storage;
         private readonly CompanyServiceClient _client;
 
-        public CompanyService(ISessionStorageService storage)
+        public CompanyService(ISessionStorageService storage, IAuthService authService)
         {
             _storage = storage;
+            _refreshToken = new(authService, storage);
             _client = new CompanyServiceClient(new HttpClient());
         }
 
@@ -24,6 +26,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
                 var response = await _client.AddDepartmentAsync(request, token);
 
@@ -44,6 +47,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
                 var response = await _client.AddPositionAsync(request, token);
 
@@ -64,6 +68,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 return await _client.GetDepartmentsAsync(token);
@@ -79,6 +84,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 return await _client.GetPositionsListAsync(token);

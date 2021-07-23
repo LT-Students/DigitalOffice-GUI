@@ -7,6 +7,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     {
         Task<string> Login(AuthenticationRequest request);
 
+        Task RefreshTokenAsync();
+
         bool Logout();
     }
 }

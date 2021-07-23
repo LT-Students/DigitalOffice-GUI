@@ -9,13 +9,15 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class UserService : IUserService
     {
+        private readonly RefreshTokenHelper _refreshToken;
         private readonly UserServiceClient _userServiceClient;
         private readonly ISessionStorageService _sessionStorage;
         private readonly UserServiceClient _client;
 
-        public UserService(ISessionStorageService sessionStorage)
+        public UserService(ISessionStorageService sessionStorage, IAuthService authService)
         {
             _sessionStorage = sessionStorage;
+            _refreshToken = new(authService, sessionStorage);
             _userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
         }
 
@@ -28,6 +30,7 @@ namespace LT.DigitalOffice.GUI.Services
 
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
 
@@ -51,6 +54,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
+                await _refreshToken.RefreshAsync();
                 string token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 var usersResponse = await _userServiceClient.FindUsersAsync(token, departmentId, skipCount, takeCount);
 
@@ -66,6 +70,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 var response = await _client.CreateUserAsync(request, token);
 
@@ -86,6 +91,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
                 return await _client.GeneratePasswordAsync(token);
             }
