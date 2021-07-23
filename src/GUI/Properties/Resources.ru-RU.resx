@@ -351,9 +351,6 @@
   <data name="Subtasks" xml:space="preserve">
     <value>Подзадачи</value>
   </data>
-  <data name="TaskAuthor" xml:space="preserve">
-    <value>Автор</value>
-  </data>
   <data name="TaskDateСreation" xml:space="preserve">
     <value>Дата создания</value>
   </data>
@@ -362,5 +359,17 @@
   </data>
   <data name="TaskWindowTitle" xml:space="preserve">
     <value>Задача</value>
+  </data>
+  <data name="EditTaskButton" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="SaveTaskButton" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="TaskNameTableHeader" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="TaskStatusTableHeader" xml:space="preserve">
+    <value>Статус</value>
   </data>
 </root>

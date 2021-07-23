@@ -196,6 +196,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string EditTaskButton {
+            get {
+                return ResourceManager.GetString("EditTaskButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         internal static string Email {
@@ -574,6 +583,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string SaveTaskButton {
+            get {
+                return ResourceManager.GetString("SaveTaskButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         internal static string Search {
@@ -727,6 +745,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string TaskNameTableHeader {
+            get {
+                return ResourceManager.GetString("TaskNameTableHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Task parent.
         /// </summary>
         internal static string TaskParent {
@@ -750,6 +777,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string TaskStatus {
             get {
                 return ResourceManager.GetString("TaskStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string TaskStatusTableHeader {
+            get {
+                return ResourceManager.GetString("TaskStatusTableHeader", resourceCulture);
             }
         }
         

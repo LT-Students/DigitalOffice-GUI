@@ -30,9 +30,7 @@
         {
             @foreach (var task in _tasks)
             {
-                Guid taskId = task.Id;
-
-                <div class="task" @onclick="() => _taskModalWindow.GetTaskAsync(taskId)" data-toggle="modal" data-target="#task-modal-center">
+                <div class="task" @onclick="() => _taskModalWindow.GetTaskAsync(task.Id)" data-toggle="modal" data-target="#task-modal-center">
                     <div style="padding: 1% 2%;">
 
                         <div class="task-content_general-info">
@@ -98,7 +96,7 @@
 
     @if (_tasks is not null && _tasks.Count >= _takeCount && _tasks.Count != _totalCount)
     {
-        <button type="button" class="btn btn-primary" id="showMore" @onclick="GetTasksAsync">@Resources.ShowMore</button>
+        <button type="button" class="btn btn-primary" id="show-more" @onclick="GetTasksAsync">@Resources.ShowMore</button>
     }
 
 </div>

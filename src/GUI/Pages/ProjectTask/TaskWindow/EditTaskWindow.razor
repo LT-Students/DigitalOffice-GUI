@@ -16,12 +16,12 @@
                 value="@Task.Name"
                 aria-describedby="basic-addon1" 
                 @onchange="e => SetValueToPatchDocument(PatchDocumentPath._Name, e.Value)"/>
-            <button type="button" class="btn btn-primary" @onclick="EditTask">Save</button>
+            <button type="button" class="btn btn-primary" @onclick="EditTask">@Resources.SaveTaskButton</button>
 
         </div>
 
         <div>
-            <p>Type:
+            <p>@Resources.EditTaskButton:
                 <select value="@Task.Type.Name" id="taskTypes" class="form-select">
                     <option value=@Task.Type.Name selected>@Task.Type.Name</option>
 
@@ -32,7 +32,7 @@
                 </select>
             </p>
 
-            <p style="margin-top: 20px">Project: @Task.Project.Name </p>
+            <p style="margin-top: 20px">@Resources.ProjectTask: @Task.Project.Name </p>
         </div>
 
         <div class="task-content_general-info">
@@ -152,8 +152,8 @@
                         <div style="width: 60%;">
 
                             <div class="subtasks-content_table-header">
-                                <p>Name</p>
-                                <p>Deadline</p>
+                                <p>@Resources.TaskNameTableHeader</p>
+                                <p>@Resources.TaskStatusTableHeader</p>
                             </div>
 
                             @foreach (var subtask in Task.Subtasks)

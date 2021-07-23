@@ -16,8 +16,12 @@
     cursor: pointer;
 }
 
+.task:hover {
+    background-color: #e4e4e4;
+}
+
 .overflow-auto {
-    height: 75vh;
+    height: 70vh;
     width: 100%;
 
     padding-right: 1%;
@@ -46,14 +50,12 @@
     background-color: #0b5ed7;
 }
 
-button[id="showMore"] {
-    width: 10%;
-
+button[id="show-more"] {
     background-color: #0b5ed7;
     border: none;
 
     display: block;
-    margin-top: 1%;
+    margin-top: 3px;
     margin-left: auto;
     margin-right: auto ;
 }

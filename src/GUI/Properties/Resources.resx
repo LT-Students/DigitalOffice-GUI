@@ -357,4 +357,16 @@
   <data name="TaskWindowTitle" xml:space="preserve">
     <value>Task</value>
   </data>
+  <data name="EditTaskButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="SaveTaskButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="TaskNameTableHeader" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TaskStatusTableHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
 </root>

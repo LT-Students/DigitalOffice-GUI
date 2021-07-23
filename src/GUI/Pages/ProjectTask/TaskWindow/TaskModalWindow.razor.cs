@@ -14,7 +14,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
         [Inject]
         private IProjectService _ProjectService { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             _task = new();
         }
