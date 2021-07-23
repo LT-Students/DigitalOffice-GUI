@@ -18,8 +18,10 @@ namespace LT.DigitalOffice.GUI.Helpers
 
         public async Task RefreshAsync()
         {
-            int accessTokenExpiresIn = int.Parse((await _storage.GetItemAsync<string>(Consts.AccessTokenExpiresIn)));
-            if (DateTime.UnixEpoch.Second >=  accessTokenExpiresIn)
+            int unixTimestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
+            
+            if (unixTimestamp >= int.Parse((await _storage.GetItemAsync<string>(Consts.AccessTokenExpiresIn))) 
+                || unixTimestamp >= int.Parse((await _storage.GetItemAsync<string>(Consts.RefreshTokenExpiresIn))))
             {
                 await _authService.RefreshTokenAsync();
             }
