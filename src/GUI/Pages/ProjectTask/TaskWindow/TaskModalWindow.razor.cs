@@ -9,10 +9,17 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
     public partial class TaskModalWindow
     {
         private bool _isEditTask;
+        private bool _isClickContentModal;
         private TaskResponse _task;
 
         [Inject]
         private IProjectService _ProjectService { get; set; }
+
+        private void CheckEditingTasks()
+        {
+            _isEditTask = _isClickContentModal is true && _isEditTask;
+            _isClickContentModal = false;
+        }
 
         protected override void OnInitialized()
         {
