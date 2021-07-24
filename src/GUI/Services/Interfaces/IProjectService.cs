@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
@@ -36,5 +37,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             Guid? assignedTo = null);
         
         Task<OperationResultResponseTaskResponse> GetTaskAsync(Guid taskId);
+
+        Task<OperationResultResponse> EditTaskAsync(IEnumerable<PatchDocument> body, Guid taskId);
     }
 }

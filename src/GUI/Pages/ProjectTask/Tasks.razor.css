@@ -16,8 +16,12 @@
     cursor: pointer;
 }
 
+.task:hover {
+    background-color: #e4e4e4;
+}
+
 .overflow-auto {
-    height: 75vh;
+    height: 70vh;
     width: 100%;
 
     padding-right: 1%;
@@ -46,14 +50,12 @@
     background-color: #0b5ed7;
 }
 
-button[id="showMore"] {
-    width: 10%;
-
+button[id="show-more"] {
     background-color: #0b5ed7;
     border: none;
 
     display: block;
-    margin-top: 1%;
+    margin-top: 3px;
     margin-left: auto;
     margin-right: auto ;
 }
@@ -99,5 +101,25 @@ button[id="showMore"] {
 
 h2 {
     font-size: 16px;
+}
+
+.control-page {
+    display: flex;
+
+    margin-top: 10px;
+    width: 65%;
+    height: 38px;
+
+    transform: scale(0.8);
+    transform-origin: left;
+}
+
+.control-page select[id="items-per-page"]  {
+    width: auto;
+}
+
+.control-page div[id="items-per-page-lable"] {
+    width: 115px;
+    align-self: center;
 }
 

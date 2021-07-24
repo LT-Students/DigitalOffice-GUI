@@ -8,6 +8,7 @@
 input {
     height: 40px;
 }
+
 input[id="planned-time-task"] {
     width: 25%;
 }
@@ -57,11 +58,14 @@ input[id="planned-time-task"] {
 }
 
 .task-content_header {
-    height: 92px;
+    height: 70px;
 }
 
 .task-content_header input {
     width: 55%;
+
+    position: relative;
+    float: left;
 }
 
 .task-content_header-info {
@@ -71,11 +75,9 @@ input[id="planned-time-task"] {
 }
 
 .task-content_header-info div[id="feature-task"],div[id="project-task"]{
-    height: 30px;
+    height: 25px;
 
     padding: 0 25px;
-
-    padding-top: 3px;
 
     font-size: 15px;
     text-align: center;
@@ -108,8 +110,8 @@ h1 {
 
     transform: scale(0.8);
     transform-origin: left;
-    
-    position: absolute;
+
+    position: relative;
     float: left;
 }
 
@@ -122,6 +124,8 @@ h1 {
 
 .card-header {
     padding: 0;
+
+    background: linear-gradient(95deg, #7777775e, transparent)
 }
 
 .btn-link {
@@ -191,10 +195,10 @@ h1 {
 }
 
 .form-select {
-    width: 50%;
+    width: 40%;
 }
 
-input, select, text {
+input, select, textarea {
     background-color: #efefef;
     border: none;
 }
