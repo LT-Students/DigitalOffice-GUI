@@ -71,9 +71,11 @@ input[id="planned-time-task"] {
 }
 
 .task-content_header-info div[id="feature-task"],div[id="project-task"]{
-    height: 25px;
+    height: 30px;
 
     padding: 0 25px;
+
+    padding-top: 3px;
 
     font-size: 15px;
     text-align: center;

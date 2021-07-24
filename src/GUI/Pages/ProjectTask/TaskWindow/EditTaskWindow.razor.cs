@@ -120,7 +120,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 
             if (!_requestBody.Any())
             {
-                _messageUser = "The task has no changes";
+                _messageUser = "The task has not changes";
                 return;
             }
 

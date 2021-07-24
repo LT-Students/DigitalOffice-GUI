@@ -21,13 +21,14 @@
                 type="button" 
                 class="btn btn-primary" 
                 @onclick="EditTask"
-                data-toggle="modal" data-target=".bd-example-modal-sm">
+                data-toggle="modal"
+                data-target="#edit-task-modal">
                     @Resources.SaveTaskButton
             </button>
 
         </div>
 
-        <Snackbar Message=@_messageUser IsSuccesOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
+        <Snackbar DataTarget="edit-task-modal" Message=@_messageUser IsSuccessOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
         <div>
             <p>@Resources.TaskType:
                 <select 

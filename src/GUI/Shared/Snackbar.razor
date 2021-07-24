@@ -1,10 +1,15 @@
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="snackbar-modal" aria-hidden="true">
+<div 
+  class="modal fade bd-example-modal-sm" 
+  id=@DataTarget
+  tabindex="-1" role="dialog" 
+  aria-labelledby="snackbar-modal" 
+  aria-hidden="true">
   <div class="modal-dialog modal-sm">
-    <div class="modal-content @(IsSuccesOperation ? "succes" : "fail")">
+    <div class="modal-content @(IsSuccessOperation ? "success" : "fail")">
       <p>
         <img 
-          src="/icons/@(IsSuccesOperation ? "succes.png" : "fail.png")" 
-          class="rounded mr-2 @(IsSuccesOperation ? "img-succes" : "img-fail")">
+          src="/icons/@(IsSuccessOperation ? "success.png" : "fail.png")" 
+          class="rounded mr-2 @(IsSuccessOperation ? "img-success" : "img-fail")">
         @Message
       </p>
     </div>
@@ -17,5 +22,8 @@
     public string Message { get; set; }
 
     [Parameter]
-    public bool IsSuccesOperation { get; set; }
+    public bool IsSuccessOperation { get; set; }
+
+    [Parameter]
+    public string DataTarget { get; set; }
 }

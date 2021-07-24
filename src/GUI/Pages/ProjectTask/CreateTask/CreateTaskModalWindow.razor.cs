@@ -12,6 +12,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
     {
         private string _messageUser;
         
+        private bool _isSuccessOperation;
         private Guid? _selectProjectId;
         private List<TaskInfo> _projectTasks;
         private List<ProjectInfo> _projects;
@@ -103,18 +104,27 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
 
         public async Task HandleSubmit()
         {
-            OperationResultResponse response = null;
             _messageUser = null;
+            OperationResultResponse response = null;
+            _isSuccessOperation = false;
 
             try
             {
                 response = await _ProjectService.CreateTaskAsync(_taskRequest);
-                _messageUser = response.Status == OperationResultStatusType.FullSuccess ? 
-                    "Successfully create task!" :
-                    $"Something went wrong, please try again later.\nMessage: { response.Errors }";
+
+                if (response.Status == OperationResultStatusType.FullSuccess)
+                {
+                    _messageUser = "The task were created successfully!";
+                    _isSuccessOperation = true;
+                    
+                    return;
+                }
+
+                _messageUser = $"Something went wrong, please try again later.\nMessage: { response.Errors }";
             }
             catch (ApiException<ErrorResponse> ex)
-            {
+            {   
+                _isSuccessOperation = false;
                 _messageUser = $"Something went wrong, please try again later.\nMessage: { ex.Result.Message }";
             }
         }
