@@ -12,11 +12,13 @@ namespace LT.DigitalOffice.GUI.Services
     public class ProjectService : IProjectService
     {
         private readonly ISessionStorageService _storage;
+        private readonly RefreshTokenHelper _refreshToken;
         private readonly ProjectServiceClient _projectServiceClient;
 
-        public ProjectService(ISessionStorageService storage)
+        public ProjectService(ISessionStorageService storage, IAuthService authService)
         {
             _storage = storage;
+            _refreshToken = new(authService, storage);
             _projectServiceClient = new ProjectServiceClient(new HttpClient());
         }
 
@@ -28,6 +30,7 @@ namespace LT.DigitalOffice.GUI.Services
             FindResponseProjectInfo projectsResponse = null;
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 projectsResponse =  await _projectServiceClient.FindProjectsAsync(token, departmentId, skipCount, takeCount);
@@ -46,6 +49,7 @@ namespace LT.DigitalOffice.GUI.Services
             OperationResultResponseProjectInfo response = null;
             try
             {
+                await _refreshToken.RefreshAsync();
                 var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
                 response =  await _projectServiceClient.CreateProjectAsync(request, token);
@@ -66,6 +70,7 @@ namespace LT.DigitalOffice.GUI.Services
             Guid? authorId = null,
             Guid? projectId = null)
         {
+            await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.FindTaskPropertiesAsync(token, name, authorId,projectId, skipCount, takeCount);
@@ -77,6 +82,7 @@ namespace LT.DigitalOffice.GUI.Services
             bool includeFiles = false, 
             bool showNotActiveUsers = false)
         {
+            await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.GetProjectAsync(token, projectId, includeUsers, showNotActiveUsers, includeFiles);
@@ -84,6 +90,7 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<OperationResultResponse> CreateTaskAsync(CreateTaskRequest request)
         {
+            await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.CreateTaskAsync(request, token);
@@ -91,6 +98,7 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<OperationResultResponseTaskResponse> GetTaskAsync(Guid taskId)
         {
+            await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.GetTaskAsync(token, taskId);
@@ -103,6 +111,7 @@ namespace LT.DigitalOffice.GUI.Services
             Guid? projectId = null,
             Guid? assignedTo = null)
         {
+            await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, skipCount, takeCount);
