@@ -154,6 +154,8 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">@Resources.ModalFinishButton</button>
                 </div>
+
+                @* <Snackbar Message=@_messageUser IsSuccesOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/> *@
             </div>
         </div>
     </div>

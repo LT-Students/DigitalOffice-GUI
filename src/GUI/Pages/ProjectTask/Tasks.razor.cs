@@ -32,7 +32,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 
         private async Task GetTasksAsync()
         {
-            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: 0, takeCount: _takeCount);
+            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: _skipCount, takeCount: _takeCount);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
             
@@ -74,11 +74,6 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
                 _takeCount = result;
                 await GetTasksAsync();
             }
-        }
-
-        private void GetGuid(Guid taskId)
-        {
-            _taskId = taskId;
         }
     }
 }

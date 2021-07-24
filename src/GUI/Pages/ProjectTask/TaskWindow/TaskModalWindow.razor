@@ -1,8 +1,14 @@
 @using LT.DigitalOffice.GUI.Properties
 @using LT.DigitalOffice.GUI.Shared
 
-    <div class="modal fade" id="task-modal-center" tabindex="-1" role="dialog" aria-labelledby="task-modal-center-title"
-        aria-hidden="true">
+    <div 
+        class="modal fade" 
+        id="task-modal-center" 
+        tabindex="-1" 
+        role="dialog" 
+        aria-labelledby="task-modal-center-title"
+        aria-hidden="true"
+        @onclick="() => _isEditTask = false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 

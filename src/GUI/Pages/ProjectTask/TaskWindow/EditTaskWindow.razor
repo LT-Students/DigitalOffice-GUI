@@ -27,14 +27,14 @@
 
         </div>
 
-
-            <Snackbar Message=@_messageUser IsSuccesOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
-
+        <Snackbar Message=@_messageUser IsSuccesOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
         <div>
-            <p>@Resources.EditTaskButton:
-                <select value="@Task.Type.Name" id="taskTypes" class="form-select">
-                    <option value=@Task.Type.Name selected>@Task.Type.Name</option>
-
+            <p>@Resources.TaskType:
+                <select 
+                value="@Task.Type.Name" 
+                id="taskTypes" 
+                class="form-select"
+                @onchange="e => SetValueToPatchDocument(PatchDocumentPath._TypeId, e.Value)">
                     @foreach (var type in _taskTypes)
                     {
                         <option value=@type.Id>@type.Name</option>
@@ -69,12 +69,12 @@
                     id="taskTypes" 
                     class="form-select"
                     @onchange="e => SetValueToPatchDocument(PatchDocumentPath._StatusId, e.Value)">
-                    <option value=@Task.Status.Name selected>@Task.Status.Name</option>
 
                     @foreach (var status in _taskStatuses)
                     {
                         <option value=@status.Id>@status.Name</option>
                     }
+
                 </select>
             </p>
         </div>
@@ -103,12 +103,12 @@
                                     id="taskTypes" 
                                     class="form-select"
                                     @onchange="e => SetValueToPatchDocument(PatchDocumentPath._PriorityId, e.Value)">
-                                    <option value=@Task.Priority.Name selected>@Task.Priority.Name</option>
 
                                     @foreach (var priority in _taskPriorities)
                                     {
                                         <option value=@priority.Id>@priority.Name</option>
                                     }
+
                                 </select>
                             </p>
                             <p>@Resources.TaskDateСreation: @Task.CreatedAt</p>

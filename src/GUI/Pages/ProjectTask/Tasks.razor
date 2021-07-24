@@ -30,7 +30,11 @@
         {
             @foreach (var task in _tasks)
             {
-                <div class="task" @onclick="() => _taskModalWindow.GetTaskAsync(task.Id)" data-toggle="modal" data-target="#task-modal-center">
+                <div 
+                    class="task" 
+                    @onclick="() => _taskModalWindow.GetTaskAsync(task.Id)" 
+                    data-toggle="modal" 
+                    data-target="#task-modal-center">
                     <div style="padding: 1% 2%;">
 
                         <div class="task-content_general-info">
