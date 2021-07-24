@@ -18,16 +18,22 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
             try
             {
                 await companyService.CreateDepartmentAsync(_departmentData);
-                UriHelper.NavigateTo("/admin");
+                UriHelper.NavigateTo("/");
             }
             catch (ApiException<ErrorResponse> ex)
             {
                 _message = ex.Result.Message;
             }
-            catch (Exception ex)
+            catch (ApiException<OperationResultResponse> ex)
             {
-                //remove when spec reworked
-                _message = ex.Message;
+                foreach (var error in ex.Result.Errors)
+                {
+                    _message = _message + " " + error;
+                }
+            }
+            catch (ApiException ex)
+            {
+                _message = "Something went wrong";
             }
         }
     }

@@ -40,10 +40,16 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
             {
                 _message = ex.Result.Message;
             }
-            catch (Exception ex)
+            catch (ApiException<OperationResultResponse> ex)
             {
-                //remove when spec changed
-                _message = ex.Message;
+                foreach (var error in ex.Result.Errors)
+                {
+                    _message = _message + " " + error;
+                }
+            }
+            catch (ApiException ex)
+            {
+                _message = "Something went wrong";
             }
         }
     }

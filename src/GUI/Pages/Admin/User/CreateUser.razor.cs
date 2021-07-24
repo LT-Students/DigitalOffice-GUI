@@ -40,17 +40,20 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
                 await userService.CreateUserAsync(_userData);
                 UriHelper.NavigateTo("/");
             }
-            catch(Services.ApiClients.UserService.ApiException<Services.ApiClients.UserService.ErrorResponse> ex)
+            catch(ApiException<ErrorResponse> ex)
             {
-
+                _message = ex.Result.Message;
             }
-            catch(Services.ApiClients.UserService.ApiException<OperationResultResponse> ex)
+            catch(ApiException<OperationResultResponse> ex)
             {
-                _message = ex.Result.Errors.ToString();
+                foreach(var error in ex.Result.Errors)
+                {
+                    _message = _message + " " + error;
+                }
             }
-            catch(Services.ApiClients.UserService.ApiException ex)
+            catch (ApiException ex)
             {
-                _message = ex.Message.ToString();
+                _message = "Something went wrong";
             }
         }
 
