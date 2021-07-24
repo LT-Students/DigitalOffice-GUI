@@ -1,19 +1,17 @@
-<div 
-  class="modal fade bd-example-modal-sm" 
-  id=@DataTarget
-  tabindex="-1" role="dialog" 
-  aria-labelledby="snackbar-modal" 
-  aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content @(IsSuccessOperation ? "success" : "fail")">
-      <p>
-        <img 
-          src="/icons/@(IsSuccessOperation ? "success.png" : "fail.png")" 
-          class="rounded mr-2 @(IsSuccessOperation ? "img-success" : "img-fail")">
-        @Message
-      </p>
+<div class="modal fade bd-example-modal-sm"
+     id=@DataTarget
+     tabindex="-1" role="dialog"
+     aria-labelledby="snackbar-modal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content @(IsSuccessOperation ? "success" : "fail")">
+            <p>
+                <img src="/icons/@(IsSuccessOperation ? "success.png" : "fail.png")"
+                     class="rounded mr-2 @(IsSuccessOperation ? "img-success" : "img-fail")">
+                @Message
+            </p>
+        </div>
     </div>
-  </div>
 </div>
 
 @code {
