@@ -1,0 +1,45 @@
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Shared
+
+<div 
+    class="modal fade" 
+    id="task-modal-center" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="task-modal-center-title"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                
+                <h5 class="modal-title" id="task-modal-center-title">@Resources.TaskWindowTitle</h5>
+                <button 
+                    type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+                <div class="modal-body">
+
+                    @if (_task.Id != Guid.Empty)
+                    {
+                        <div class="task-content">
+
+                            <div>
+                                <div class="task-content_header">
+                                    <h1><span>#@_task.Number - </span>@_task.Name</h1>
+
+                                    <button type="button" class="btn btn-primary" @onclick="() => _isEditTask = !_isEditTask">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+        </div>
+    </div>
+</div>

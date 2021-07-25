@@ -80,6 +80,14 @@ button[id="plus"]:focus {
     margin-bottom: 1%;
 }
 
+.project-body {
+    padding: 12px;
+}
+
+p {
+    margin-bottom: 6px;
+}
+
 .overflow-auto {
     height: 69vh;
     width: 100%;
@@ -87,7 +95,21 @@ button[id="plus"]:focus {
     padding-right: 1%;
 }
 
-.project-addition-info {
+.project-body_general-info {
+    height: 35px;
+}
+
+.project-body_general-info h1{
+    position: relative;
+    float: left;
+}
+
+.project-body_general-info p{
+    position: relative;
+    float: right;
+}
+
+.project-body_addition-info {
     position: relative;
     display: flex;
 }
