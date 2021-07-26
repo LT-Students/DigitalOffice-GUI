@@ -50,16 +50,6 @@
     background-color: #0b5ed7;
 }
 
-button[id="show-more"] {
-    background-color: #0b5ed7;
-    border: none;
-
-    display: block;
-    margin-top: 3px;
-    margin-left: auto;
-    margin-right: auto ;
-}
-
 .task-content_general-info {
     margin-bottom: 50px;
 }

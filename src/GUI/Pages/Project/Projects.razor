@@ -2,6 +2,7 @@
 @attribute [Authorize]
 
 @using LT.DigitalOffice.GUI.Properties;
+@using LT.DigitalOffice.GUI.Pages.Project.ProjectWindow;
 @using LT.DigitalOffice.GUI.Pages.Project.CreateProject.ModalWindow
 
 <div class="nav-scroller bg-body shadow-sm">
@@ -93,13 +94,19 @@
 
     </div> *@
 
+    <ProjectModalWindow @ref="_projectWindow"/>
+
     <div class="overflow-auto">
 
         @if (_projectsInfo is not null)
         {
             @foreach (var project in _projectsInfo)
             {
-                <div class="project">
+                <div 
+                    class="project" 
+                    @onclick="() => _projectWindow.GetProjectAsync(project.Id)"
+                    data-toggle="modal" 
+                    data-target="#project-modal-center">
 
                     <div class="project-body">
 

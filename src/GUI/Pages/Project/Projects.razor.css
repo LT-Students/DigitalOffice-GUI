@@ -12,8 +12,6 @@
 }
 
 button.btn.btn-primary {
-    margin-right: 5%;
-
     background-color: #0b5ed7;
     border: none;
 }
@@ -77,7 +75,13 @@ button[id="plus"]:focus {
     background-color: #f3f3f3;
     border-radius: 5px;
 
+    cursor: pointer;
+
     margin-bottom: 1%;
+}
+
+.project:hover {
+    background-color: #e4e4e4;
 }
 
 .project-body {
@@ -130,13 +134,6 @@ p {
 
 .overflow-auto::-webkit-scrollbar-thumb {
     background-color: #0b5ed7;
-}
-
-button[id="show-more"] {
-    margin-top: 5px;
-
-    position: absolute;
-    left: 50%;
 }
 
 .filter {
