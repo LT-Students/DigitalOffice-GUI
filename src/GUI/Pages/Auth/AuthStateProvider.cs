@@ -1,5 +1,5 @@
-﻿using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -16,11 +16,11 @@ namespace GUI.Pages.Auth
             return new AuthenticationState(claimsPrincipal);
         }
 
-        public void LoginNotify(AuthenticationResponse response)
+        public void LoginNotify(Guid userId)
         {
             var identity = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, response.UserId.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 },
                 "Real Authentication");
 
