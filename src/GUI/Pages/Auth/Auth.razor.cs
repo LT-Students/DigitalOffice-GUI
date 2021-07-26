@@ -17,11 +17,10 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
             {
                 var loginResponse = await authService.LoginAsync(_authData);
 
-                await authService.LoginStateAsync(loginResponse.UserId,
+                await authService.SetLoginStateAsync(
+                    loginResponse.UserId,
                     loginResponse.AccessToken,
-                    loginResponse.RefreshToken,
-                    loginResponse.AccessTokenExpiresIn,
-                    loginResponse.RefreshTokenExpiresIn);
+                    loginResponse.RefreshToken);
 
                 UriHelper.NavigateTo("");
             }

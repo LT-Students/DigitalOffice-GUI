@@ -27,12 +27,10 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
             {
                 var loginResponse = await userService.CreateCredentialsAsync(_credentialsData);
 
-                await authService.LoginStateAsync(
+                await authService.SetLoginStateAsync(
                     loginResponse.Body.UserId,
                     loginResponse.Body.AccessToken,
-                    loginResponse.Body.RefreshToken,
-                    loginResponse.Body.AccessTokenExpiresIn,
-                    loginResponse.Body.RefreshTokenExpiresIn);
+                    loginResponse.Body.RefreshToken);
 
                 UriHelper.NavigateTo("");
             }

@@ -53,7 +53,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _client.FindOfficesAsync(token, 0, 100, null);
+            return await _client.FindOfficesAsync(token, 0, int.MaxValue, null);
         }
     }
 }

@@ -8,12 +8,10 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     {
         Task<AuthenticationResponse> LoginAsync(AuthenticationRequest request);
 
-        Task LoginStateAsync(
+        Task SetLoginStateAsync(
             Guid userId,
             string accessToken,
-            string refreshToken,
-            double accessTokenExpiresIn,
-            double refreshTokenExpiresIn);
+            string refreshToken);
 
         Task RefreshTokenAsync();
 
