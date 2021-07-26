@@ -31,7 +31,11 @@
 
                                 <div>
                                     <div class="task-content_header">
-                                        <h1><span>#@_task.Number - </span>@_task.Name</h1>
+                                        <div>
+                                            <h1>
+                                                <span>#@_task.Number - </span>@_task.Name
+                                            </h1>
+                                        </div>
 
                                         <button type="button" class="btn btn-primary" @onclick="() => _isEditTask = !_isEditTask">Edit</button>
                                     </div>

@@ -56,8 +56,9 @@ input[id="planned-time-task"] {
     margin: 15px 0;
 }
 
-.task-content_header {
-    height: 92px;
+.task-content div:first-child {
+    display: flex;
+    justify-content: space-between;
 }
 
 .task-content_header input {
@@ -68,6 +69,15 @@ input[id="planned-time-task"] {
     display:flex;
 
     margin-bottom: 40px;
+}
+
+.task-content_header div{
+    width: 73%;
+}
+
+.task-content_header h1{
+    word-break: break-all;
+    font-size: 30px;
 }
 
 .task-content_header-info div[id="feature-task"],div[id="project-task"]{
@@ -106,11 +116,7 @@ input[id="planned-time-task"] {
 h1 {
     margin-bottom: 10px;
 
-    transform: scale(0.8);
     transform-origin: left;
-    
-    position: absolute;
-    float: left;
 }
 
 .btn-link {
@@ -202,7 +208,4 @@ input, select, text {
 button[type="button"] {
     height: 40px;
     padding: 0 32px;
-
-    position: relative;
-    float: right;
 }
