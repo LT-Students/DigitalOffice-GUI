@@ -23,6 +23,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task CreateDepartmentAsync(CreateDepartmentRequest request)
         {
+            await _refreshToken.RefreshAsync();
+
             _token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             await _client.AddDepartmentAsync(request, _token);
@@ -30,6 +32,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task CreatePositionAsync(CreatePositionRequest request)
         {
+            await _refreshToken.RefreshAsync();
+
             _token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             await _client.AddPositionAsync(request, _token);
@@ -37,6 +41,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<FindResultResponseDepartmentInfo> FindDepartmentsAsync()
         {
+            await _refreshToken.RefreshAsync();
+
             _token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _client.FindDepartmentsAsync(_token, 0, 100, false);
@@ -44,6 +50,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<FindResultResponsePositionInfo> FindPositionsAsync()
         {
+            await _refreshToken.RefreshAsync();
+
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _client.FindPositionsAsync(token, 0, 100, false);
@@ -51,6 +59,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<FindResultResponseOfficeInfo> FindOfficesAsync()
         {
+            await _refreshToken.RefreshAsync();
+
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _client.FindOfficesAsync(token, 0, int.MaxValue, null);

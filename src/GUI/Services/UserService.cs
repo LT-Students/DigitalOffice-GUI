@@ -11,7 +11,6 @@ namespace LT.DigitalOffice.GUI.Services
     public class UserService : IUserService
     {
         private readonly RefreshTokenHelper _refreshToken;
-        private readonly UserServiceClient _userServiceClient;
         private readonly ISessionStorageService _sessionStorage;
         private readonly UserServiceClient _client;
         private string _token;
@@ -20,7 +19,7 @@ namespace LT.DigitalOffice.GUI.Services
         {
             _sessionStorage = sessionStorage;
             _refreshToken = new(authService, sessionStorage);
-            _userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
+            _client = new UserServiceClient(new System.Net.Http.HttpClient());
         }
 
         public async Task<string> GetUserNameAsync()
@@ -44,6 +43,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<FindResultResponseUserInfo> FindUsersAsync( int skipCount, int takeCount, Guid? departmentId = default)
         {
+            await _refreshToken.RefreshAsync();
+
             _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _client.FindUsersAsync(_token, departmentId, skipCount, takeCount);
@@ -51,6 +52,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<OperationResultResponse> CreateUserAsync(CreateUserRequest request)
         {
+            await _refreshToken.RefreshAsync();
+
             _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _client.CreateUserAsync(request, _token);
@@ -58,6 +61,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<string> GeneratePasswordAsync()
         {
+            await _refreshToken.RefreshAsync();
+
             _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _client.GeneratePasswordAsync(_token);
@@ -65,6 +70,8 @@ namespace LT.DigitalOffice.GUI.Services
 
         public async Task<OperationResultResponseCredentialsResponse> CreateCredentialsAsync(CreateCredentialsRequest request)
         {
+            await _refreshToken.RefreshAsync();
+
             return await _client.CreateCredentialsAsync(request);
         }
     }
