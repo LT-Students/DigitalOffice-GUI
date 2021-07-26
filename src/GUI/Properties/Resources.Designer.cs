@@ -286,6 +286,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        internal static string LoginData {
+            get {
+                return ResourceManager.GetString("LoginData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login or Email or Phone number.
         /// </summary>
         internal static string LoginOrEmailOrPhoneNumber {

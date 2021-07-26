@@ -34,14 +34,14 @@ namespace LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectGeneralInfo
         [Inject]
         private ICompanyService companyService { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected async Task OnInitializedAsync()
         {
             if (ProjectRequest is null)
             {
                 ProjectRequest = new();
             }
 
-            _departments = (await companyService.GetDepartments()).Departments.ToList()
+            _departments = (await companyService.FindDepartmentsAsync()).Body.ToList()
                 ?? new List<Company.DepartmentInfo>();
         }
 

@@ -16,6 +16,9 @@
 @code {
     protected override void OnInitialized()
     {
-        UriHelper.NavigateTo("");
+        if (UriHelper.Uri.IndexOf("credentials") == -1)
+        {
+            UriHelper.NavigateTo("/login");
+        }
     }
 }
