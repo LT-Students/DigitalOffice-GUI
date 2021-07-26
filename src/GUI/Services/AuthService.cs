@@ -5,45 +5,67 @@ using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace LT.DigitalOffice.GUI.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly AuthServiceClient _authService;
         private readonly AuthStateProvider _provider;
         private readonly ISessionStorageService _storage;
-        private readonly AuthServiceClient _client;
 
-        public AuthService(
-            AuthenticationStateProvider provider,
-            ISessionStorageService storage)
+        private async Task SetTokenValues(AuthenticationResponse response)
         {
+            var handler = new JwtSecurityTokenHandler();
+
+            Func<string, string> tokenExpiresIn = token => ((handler.ReadToken(token)) as JwtSecurityToken)
+                .Claims.First(x => string.Equals("exp", x.Type)).Value;
+            
+            await _storage.SetItemAsync(nameof(Consts.AccessToken), response.AccessToken);
+            await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+            await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), tokenExpiresIn(response.AccessToken));
+            await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), tokenExpiresIn(response.RefreshToken));
+            await _storage.SetItemAsync(nameof(Consts.RefreshToken), response.RefreshToken);
+        }
+
+        public AuthService(AuthenticationStateProvider provider, ISessionStorageService storage)
+        {
+            _authService = new AuthServiceClient(new HttpClient());
             _provider = provider as AuthStateProvider;
             _storage = storage;
-            _client = new AuthServiceClient(new HttpClient());
         }
 
-        public async Task<AuthenticationResponse> LoginAsync(AuthenticationRequest request)
+        public async Task<string> Login(AuthenticationRequest request)
         {
-            return await _client.LoginAsync(request);
+            try
+            {
+                var response = await _authService.LoginAsync(request);
+
+                _provider.LoginNotify(response);
+
+                await SetTokenValues(response);
+                await _storage.SetItemAsync(nameof(Consts.UserId), response.UserId);
+
+                return "Authorized";
+            }
+            catch (ApiException<ErrorResponse> ex)
+            {
+                return ex.Result.Message;
+            }
         }
 
-        public async Task LoginStateAsync(
-            Guid userId,
-            string accessToken,
-            string refreshToken,
-            double accessTokenExpiresIn,
-            double refreshTokenExpiresIn)
+        public async Task RefreshTokenAsync()
         {
-            _provider.LoginNotify(userId);
+            RefreshRequest body = new() 
+            {
+                RefreshToken = await _storage.GetItemAsync<string>(Consts.RefreshToken)
+            };
 
-            await _storage.SetItemAsync(nameof(Consts.AccessToken), accessToken);
-            await _storage.SetItemAsync(nameof(Consts.RefreshToken), refreshToken);
-            await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), accessTokenExpiresIn);
-            await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), refreshTokenExpiresIn);
-            await _storage.SetItemAsync(nameof(Consts.UserId), userId);
+            await SetTokenValues(await _authService.RefreshAsync(body));
         }
 
         public bool Logout()

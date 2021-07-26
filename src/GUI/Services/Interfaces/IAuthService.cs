@@ -15,6 +15,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             double accessTokenExpiresIn,
             double refreshTokenExpiresIn);
 
+        Task RefreshTokenAsync();
+
         bool Logout();
     }
 }

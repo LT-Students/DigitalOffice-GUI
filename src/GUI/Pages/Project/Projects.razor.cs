@@ -12,7 +12,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
 {
     public partial class Projects
     {
-        private int _takeCount = 3;
+        private int _takeCount = 4;
 
         private string _searchValue;
         private string _useFilterId;

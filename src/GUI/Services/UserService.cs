@@ -10,14 +10,17 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class UserService : IUserService
     {
+        private readonly RefreshTokenHelper _refreshToken;
+        private readonly UserServiceClient _userServiceClient;
         private readonly ISessionStorageService _sessionStorage;
         private readonly UserServiceClient _client;
         private string _token;
 
-        public UserService(ISessionStorageService sessionStorage)
+        public UserService(ISessionStorageService sessionStorage, IAuthService authService)
         {
             _sessionStorage = sessionStorage;
-            _client = new UserServiceClient(new HttpClient());
+            _refreshToken = new(authService, sessionStorage);
+            _userServiceClient = new UserServiceClient(new System.Net.Http.HttpClient());
         }
 
         public async Task<string> GetUserNameAsync()

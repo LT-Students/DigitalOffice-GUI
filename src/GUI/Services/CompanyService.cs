@@ -9,13 +9,15 @@ namespace LT.DigitalOffice.GUI.Services
 {
     public class CompanyService : ICompanyService
     {
+        private readonly RefreshTokenHelper _refreshToken;
         private readonly ISessionStorageService _storage;
         private readonly CompanyServiceClient _client;
         private string _token;
 
-        public CompanyService(ISessionStorageService storage)
+        public CompanyService(ISessionStorageService storage, IAuthService authService)
         {
             _storage = storage;
+            _refreshToken = new(authService, storage);
             _client = new CompanyServiceClient(new HttpClient());
         }
 

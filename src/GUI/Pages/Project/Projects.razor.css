@@ -77,11 +77,11 @@ button[id="plus"]:focus {
     background-color: #f3f3f3;
     border-radius: 5px;
 
-    margin-bottom: 2%;
+    margin-bottom: 1%;
 }
 
 .overflow-auto {
-    height: 68vh;
+    height: 69vh;
     width: 100%;
 
     padding-right: 1%;
@@ -111,7 +111,7 @@ button[id="plus"]:focus {
 }
 
 button[id="show-more"] {
-    margin-top: 14px;
+    margin-top: 5px;
 
     position: absolute;
     left: 50%;
@@ -135,7 +135,7 @@ button[id="show-more"] {
 .control-page {
     display: flex;
 
-    margin-top: 10px;
+    margin-top: 4px;
     width: 65%;
     height: 38px;
 
