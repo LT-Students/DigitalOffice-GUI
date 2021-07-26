@@ -1,5 +1,6 @@
 ﻿using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OperationResultResponse = LT.DigitalOffice.GUI.Services.ApiClients.UserService.OperationResultResponse;
@@ -46,10 +47,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
             }
             catch(ApiException<OperationResultResponse> ex)
             {
-                foreach(var error in ex.Result.Errors)
-                {
-                    _message = _message + " " + error;
-                }
+                _message = String.Join(" ", ex.Result.Errors);
             }
             catch (ApiException ex)
             {

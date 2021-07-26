@@ -40,10 +40,7 @@ namespace LT.DigitalOffice.GUI.Pages.Auth
             }
             catch (ApiException<OperationResultResponse> ex)
             {
-                foreach (var error in ex.Result.Errors)
-                {
-                    _message = _message + " " + error;
-                }
+                _message = String.Join(" ", ex.Result.Errors);
             }
             catch (ApiException ex)
             {
