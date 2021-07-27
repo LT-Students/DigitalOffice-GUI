@@ -421,6 +421,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data creation.
+        /// </summary>
+        internal static string ProjectDataCreation {
+            get {
+                return ResourceManager.GetString("ProjectDataCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
         internal static string ProjectDepartment {
@@ -471,6 +480,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string ProjectEmployeeRemoveButton {
             get {
                 return ResourceManager.GetString("ProjectEmployeeRemoveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        internal static string ProjectFiles {
+            get {
+                return ResourceManager.GetString("ProjectFiles", resourceCulture);
             }
         }
         
