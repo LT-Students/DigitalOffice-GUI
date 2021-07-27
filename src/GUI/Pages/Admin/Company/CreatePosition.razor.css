@@ -9,17 +9,14 @@
     margin: 5px 0;
 }
 
-.create-position_actions-container {
-    width: 100%;
-    min-height: 60px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.item-group_textarea {
+    min-height: 100px;
+    margin: 5px 0;
 }
 
-.info_container {
-    width: 70%;
+.create-position_actions-container {
+    width: 100%;
 
-    color: red;
+    display: flex;
+    justify-content: flex-end;
 }

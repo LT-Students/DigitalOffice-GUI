@@ -118,9 +118,14 @@
         </div>
 
         <div class="create-user_actions-container">
-            <p class="info_container">@_message</p>
-            <button class="btn btn-primary" type="submit">@Resources.CreateUser</button>
+            <button class="btn btn-primary"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#create-user_snack"
+                    >@Resources.CreateUser
+            </button>
         </div>
     </div>
+    <Snackbar DataTarget="create-user_snack" Message=@_message IsSuccessOperation=@_isSuccessOperation />
 </EditForm>
 

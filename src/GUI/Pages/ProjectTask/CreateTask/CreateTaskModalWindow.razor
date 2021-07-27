@@ -156,12 +156,12 @@
                         type="submit" 
                         class="btn btn-primary"
                         data-toggle="modal" 
-                        data-target="#create-task-modal">
+                        data-target="#snackbar-modal">
                         @Resources.ModalFinishButton
                     </button>
                 </div>
 
-                <Snackbar DataTarget="create-task-modal" Message=@_messageUser IsSuccessOperation=@_isSuccessOperation/>
+                <Snackbar DataTarget="snackbar-modal" Message=@_messageUser IsSuccessOperation=@_isSuccessOperation/>
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
         private CreateCommunicationRequest _userCommunication = new();
         private ICollection<PositionInfo> _positions;
         private string _message;
+        private bool _isSuccessOperation;
         private List<float> _rateValues = new List<float> { 0.25f, 0.5f, 0.75f, 1 };
 
         private ElementReference _lastNameInput;
@@ -39,19 +40,24 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
             try
             {
                 await userService.CreateUserAsync(_userData);
-                UriHelper.NavigateTo("/");
+                _message = "Successfully created";
+                _isSuccessOperation = true;
+                StateHasChanged();
             }
             catch(ApiException<ErrorResponse> ex)
             {
                 _message = ex.Result.Message;
+                StateHasChanged();
             }
             catch(ApiException<OperationResultResponse> ex)
             {
                 _message = String.Join(" ", ex.Result.Errors);
+                StateHasChanged();
             }
             catch (ApiException ex)
             {
                 _message = "Something went wrong";
+                StateHasChanged();
             }
         }
 

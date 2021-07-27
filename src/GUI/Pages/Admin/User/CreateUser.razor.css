@@ -24,21 +24,13 @@
 
 .create-user_actions-container {
     width: 100%;
-    min-height: 60px;
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
 }
 
 .item-group {
     min-height: 80px;
 
     margin: 5px 0;
-}
-
-.info_container {
-    width: 70%;
-
-    color: red;
 }
