@@ -381,4 +381,7 @@
   <data name="ProjectFiles" xml:space="preserve">
     <value>Файлы</value>
   </data>
+  <data name="ProjectWindow" xml:space="preserve">
+    <value>Проект</value>
+  </data>
 </root>

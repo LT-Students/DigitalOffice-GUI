@@ -54,7 +54,7 @@
                                     <p>@Resources.TaskAssigned:
                                         <NavLink href="#" style="text-decoration: none; color: #1d2ecc">
                                             @(_task.AssignedUser is null ? 
-                                                "-" : string.Join(" ", _task.AssignedUser.FirstName, _task.AssignedUser.MiddleName))
+                                                "-" : string.Join(" ", _task.AssignedUser.FirstName, _task.AssignedUser.LastName))
                                         </NavLink>
                                     </p>
                                     <p>@Resources.Status: @_task.Status.Name</p>
