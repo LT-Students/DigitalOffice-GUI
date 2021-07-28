@@ -20,23 +20,21 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
                 await companyService.CreatePositionAsync(_positionData);
                 _message = "Successfully created";
                 _isSuccessOperation = true;
-                StateHasChanged();
             }
             catch (ApiException<ErrorResponse> ex)
             {
                 _message = ex.Result.Message;
-                StateHasChanged();
             }
             catch (ApiException<OperationResultResponse> ex)
             {
                 _message = String.Join(" ", ex.Result.Errors);
-                StateHasChanged();
             }
             catch (ApiException ex)
             {
                 _message = "Something went wrong";
-                StateHasChanged();
             }
+
+            StateHasChanged();
         }
     }
 }

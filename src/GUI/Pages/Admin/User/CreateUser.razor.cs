@@ -42,30 +42,28 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
                 await userService.CreateUserAsync(_userData);
                 _message = "Successfully created";
                 _isSuccessOperation = true;
-                StateHasChanged();
             }
             catch(ApiException<ErrorResponse> ex)
             {
                 _message = ex.Result.Message;
-                StateHasChanged();
             }
             catch(ApiException<OperationResultResponse> ex)
             {
                 _message = String.Join(" ", ex.Result.Errors);
-                StateHasChanged();
+
             }
             catch (ApiException ex)
             {
                 _message = "Something went wrong";
-                StateHasChanged();
             }
+
+            StateHasChanged();
         }
 
         protected async override void OnInitialized()
         {
             var positionsResponse = await companyService.FindPositionsAsync();
             _positions = positionsResponse.Body;
-            StateHasChanged();
         }
     }
 }
