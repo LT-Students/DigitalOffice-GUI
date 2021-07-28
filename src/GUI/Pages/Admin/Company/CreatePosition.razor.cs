@@ -9,6 +9,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
     {
         private CreatePositionRequest _positionData = new();
         private string _message;
+        private bool _isSuccessOperation;
 
         private ElementReference _descriptionInput;
 
@@ -17,7 +18,8 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
             try
             {
                 await companyService.CreatePositionAsync(_positionData);
-                UriHelper.NavigateTo("/");
+                _message = "Successfully created";
+                _isSuccessOperation = true;
             }
             catch (ApiException<ErrorResponse> ex)
             {
@@ -31,6 +33,8 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
             {
                 _message = "Something went wrong";
             }
+
+            StateHasChanged();
         }
     }
 }

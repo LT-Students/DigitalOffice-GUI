@@ -9,6 +9,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
     {
         private CreateDepartmentRequest _departmentData = new();
         private string _message;
+        private bool _isSuccessOperation;
 
         private ElementReference _descriptionInput;
         private ElementReference _directorSelect;
@@ -18,7 +19,9 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
             try
             {
                 await companyService.CreateDepartmentAsync(_departmentData);
-                UriHelper.NavigateTo("/");
+
+                _message = "Successfully created";
+                _isSuccessOperation = true;
             }
             catch (ApiException<ErrorResponse> ex)
             {
@@ -32,6 +35,8 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.Company
             {
                 _message = "Something went wrong";
             }
+
+            StateHasChanged();
         }
     }
 }
