@@ -15,13 +15,18 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
         public const string UserLinkStyle = "text-decoration: none; color: #0b5ed7;";
 
         private Guid _taskId;
+        private Guid? _assignedTo;
         private int _totalCount;
         private int _skipCount;
+        private bool _onlyAuthorizedUser = true;
         private List<TaskInfo> _tasks;
         private TaskModalWindow _taskModalWindow;
 
         [Inject]
         private IProjectService _ProjectService { get; set; }
+
+        [Inject]
+        private IUserService _UserService { get; set; }
         
         protected override async Task OnInitializedAsync()
         {
@@ -32,7 +37,11 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 
         private async Task GetTasksAsync()
         {
-            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: _skipCount, takeCount: _takeCount);
+            var tasksResponse = await _ProjectService.FindTasksAsync(
+                skipCount: _skipCount, 
+                takeCount: _takeCount, 
+                assignedTo: _assignedTo, 
+                onlyAuthorizedUser: _onlyAuthorizedUser);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
             
@@ -64,6 +73,11 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             await GetTasksAsync();
         }
 
+        private async Task GetUserTasksByAllProjects()
+        {
+            var user = await _UserService.GetAuthorizedUserAsync(includeProjects: true);
+        }
+
         private async Task SetTakeCount(ChangeEventArgs e)
         {
             if (int.TryParse(e.Value.ToString(), out int result))
@@ -74,6 +88,15 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
                 _takeCount = result;
                 await GetTasksAsync();
             }
+        }
+
+        private async Task RefreshTasks(bool onlyAuthorizedUser)
+        {
+            _onlyAuthorizedUser = onlyAuthorizedUser;
+            _tasks = new List<TaskInfo>();
+            _skipCount = 0;
+
+            await GetTasksAsync();
         }
     }
 }

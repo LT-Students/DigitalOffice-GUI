@@ -1680,7 +1680,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string FirstName { get; set; }
     
         /// <summary>The user middle name.</summary>
-        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string MiddleName { get; set; }
     
         /// <summary>The user last name.</summary>

@@ -14,8 +14,36 @@
             class="nav-link" 
             data-toggle="modal"
             data-target="#сreate-task-modal-center">
-                @Resources.CreateNewTask
+                Create new work item
+        </a>
+        
+        <div class="dropdown show">
+            <a 
+                href="javascript:void(0)" 
+                class="nav-link" 
+                role="button" 
+                id="dropdownMenuLink" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false">
+                Work items
             </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a 
+                    class="dropdown-item" 
+                    href="javascript:void(0)" 
+                    @onclick="async () => await RefreshTasks(true)">
+                    My work items
+                </a>
+                <a 
+                    class="dropdown-item" 
+                    href="javascript:void(0)" 
+                    @onclick="async () => await RefreshTasks(false)">
+                    All work items
+                </a>
+            </div>
+        </div>
     </nav>
 </div>
 
@@ -40,7 +68,7 @@
                         <div class="task-content_general-info">
                             <h2>#@task.Number</h2>
                             <div>
-                                <h1>@task.Project.ShortName - @task.Name</h1>
+                                <h1>@task.Name</h1>
                             </div>
                             <h2 style="@(GetTaskTypeStyle(task.TypeName))">@task.TypeName</h2>
                         </div>
@@ -60,7 +88,8 @@
                                 </h2>
                                 <h2>@Resources.TaskStatus: @task.StatusName</h2>
                                 <h2>@Resources.TaskPriority: @task.PriorityName</h2>
-                                <h2>@Resources.TaskLeadTime: @task.PlannedMinutes</h2> 
+                                <h2>@Resources.TaskLeadTime: @task.PlannedMinutes</h2>
+                                <h2>@Resources.TaskProjectName: @task.Project.ShortName</h2>
                             </div>
                         </div>
 

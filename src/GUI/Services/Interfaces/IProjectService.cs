@@ -34,7 +34,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             int takeCount,
             int? number = null,
             Guid? projectId = null,
-            Guid? assignedTo = null);
+            Guid? assignedTo = null,
+            bool onlyAuthorizedUser = false);
         
         Task<OperationResultResponseTaskResponse> GetTaskAsync(Guid taskId);
 

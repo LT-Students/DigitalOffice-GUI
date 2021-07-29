@@ -375,4 +375,7 @@
   <data name="TaskStatusTableHeader" xml:space="preserve">
     <value>Статус</value>
   </data>
+  <data name="TaskProjectName" xml:space="preserve">
+    <value>Имя проекта</value>
+  </data>
 </root>

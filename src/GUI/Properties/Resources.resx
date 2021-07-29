@@ -372,4 +372,7 @@
   <data name="TaskStatusTableHeader" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="TaskProjectName" xml:space="preserve">
+    <value>Project name</value>
+  </data>
 </root>

@@ -781,6 +781,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project name.
+        /// </summary>
+        internal static string TaskProjectName {
+            get {
+                return ResourceManager.GetString("TaskProjectName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         internal static string TaskStatus {

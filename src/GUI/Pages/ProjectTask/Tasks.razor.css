@@ -27,6 +27,19 @@
     padding-right: 1%;
 }
 
+a[role="button"] {
+    text-decoration: none;
+}
+
+.dropdown {
+    align-self: center;
+}
+
+.dropdown .show {
+    top: -12px !important;
+    left: 45px !important;
+}
+
 .project-addition-info {
     position: relative;
     display: flex;
@@ -60,6 +73,14 @@ button[id="show-more"] {
     margin-right: auto ;
 }
 
+.nav-scroller {
+    overflow-y: unset;
+}
+
+.nav-scroller .nav {
+    overflow-x: unset;
+}
+
 .task-content_general-info {
     margin-bottom: 50px;
 }
@@ -79,17 +100,12 @@ button[id="show-more"] {
 }
 
 .task-content_additional-info {
-    height: 25px;
-}
-
-.task-content_additional-info h2 {
-    margin-right: 2%;
-
-    float: left;
+    display: flex;
+    justify-content: space-between;
 }
 
 .task-content_additional-info h2:last-child {
-    margin-right: 0;
+    margin-left: 12%;
 
     float: right;
 }
