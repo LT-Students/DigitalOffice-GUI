@@ -85,7 +85,7 @@
                     <li class="page-item disabled">
                         <span class="page-link">Previous</span>
                     </li>
-                        @for(int i=0; i < _totalCount/_takeCount; i++)
+                        @for(int i=0; i < Math.Ceiling(_totalCount / (double)_takeCount); i++)
                         {
                             int y = i;
                             <li class="page-item"><a class="page-link" href="javascript:void(0)" @onclick="async () => await GetTasksPageAsync(y * _takeCount)">@(i + 1)</a></li>

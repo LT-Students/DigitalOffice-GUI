@@ -2506,8 +2506,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         public UserGender Gender { get; set; }
 
         [Newtonsoft.Json.JsonProperty("DateOfBirth", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
-        public System.DateTimeOffset? DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [Newtonsoft.Json.JsonProperty("City", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string City { get; set; }
@@ -2526,8 +2525,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.UserService
         public string About { get; set; }
 
         [Newtonsoft.Json.JsonProperty("StartWorkingAt", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
-        public System.DateTimeOffset? StartWorkingAt { get; set; }
+        public string StartWorkingAt { get; set; }
 
         [Newtonsoft.Json.JsonProperty("Rate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Rate { get; set; }

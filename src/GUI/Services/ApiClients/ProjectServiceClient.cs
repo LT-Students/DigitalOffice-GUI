@@ -914,7 +914,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         }
     
         /// <param name="token">The JWT token.</param>
-        /// <param name="id">Task global unique identifier.</param>
+        /// <param name="taskId">Task global unique identifier.</param>
         /// <returns>Task respose.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public System.Threading.Tasks.Task<OperationResultResponse> EditTaskAsync(System.Collections.Generic.IEnumerable<PatchDocument> body, string token, System.Guid id)
@@ -924,20 +924,20 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
-        /// <param name="id">Task global unique identifier.</param>
+        /// <param name="taskId">Task global unique identifier.</param>
         /// <returns>Task respose.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         public async System.Threading.Tasks.Task<OperationResultResponse> EditTaskAsync(System.Collections.Generic.IEnumerable<PatchDocument> body, string token, System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
-                throw new System.ArgumentNullException("id");
+                throw new System.ArgumentNullException("taskId");
     
             if (body == null)
                 throw new System.ArgumentNullException("body");
     
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/task/edit?");
-            urlBuilder_.Append(System.Uri.EscapeDataString("Id") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            urlBuilder_.Append(System.Uri.EscapeDataString("taskId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             urlBuilder_.Length--;
     
             var client_ = _httpClient;
@@ -1680,7 +1680,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string FirstName { get; set; }
     
         /// <summary>The user middle name.</summary>
-        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("MiddleName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string MiddleName { get; set; }
     
         /// <summary>The user last name.</summary>
