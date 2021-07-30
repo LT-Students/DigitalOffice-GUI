@@ -6,17 +6,20 @@ using Microsoft.AspNetCore.Components;
 using LT.DigitalOffice.GUI.Models.Filters;
 using Microsoft.AspNetCore.Components.Web;
 using LT.DigitalOffice.GUI.Services.Interfaces;
+using LT.DigitalOffice.GUI.Pages.Project.ProjectWindow;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 
 namespace LT.DigitalOffice.GUI.Pages.Project
 {
     public partial class Projects
     {
-        private int _takeCount = 4;
+        private int _takeCount = 5;
 
+        private Guid _projectId;
         private string _searchValue;
         private string _useFilterId;
         private bool _isShowDropdownMenu;
+        private ProjectModalWindow _projectWindow;
         private ProjectsFilter _projectsFilter;
         private ElementReference _projectNameRef;
         private ElementReference _shortNameRef;

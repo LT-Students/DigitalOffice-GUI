@@ -30,20 +30,15 @@
                                       _directorSelect.FocusAsync();})" />
             <ValidationMessage style="font-size: 0.7em;" For="() => _departmentData.Description" />
         </div>
-        <div class="item-group">
-            <label for="create-department_director">@Resources.DepartmentDirector</label>
-            <select @bind="_departmentData.DirectorUserId"
-                    @ref="_directorSelect"
-                    id="create-department_director"
-                    class="form-select">
-                <option value=null selected>@Resources.NotSelected...</option>
-                <option>to do</option>
-            </select>
-        </div>
         <div class="create-department_actions-container">
-            <p class="info_container">@_message</p>
-            <button class="btn btn-primary" type="submit">@Resources.CreateDepartment</button>
+            <button class="btn btn-primary"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#create-department_snack"
+                    >@Resources.CreateDepartment
+            </button>
         </div>
     </div>
+    <Snackbar DataTarget="create-department_snack" Message=@_message IsSuccessOperation=@_isSuccessOperation />
 </EditForm>
 

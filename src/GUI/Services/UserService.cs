@@ -32,7 +32,7 @@ namespace LT.DigitalOffice.GUI.Services
             _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
             var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
 
-            var userInfo = await _client.GetUserAsync(_token, userId, null, null, null, null, null, null, null, null, null, null, null, null, null);
+            var userInfo = await _client.GetUserAsync(_token, userId, null, null, true, null, null, null, null, null, null, null, null, null, null);
 
             var userName = $"{userInfo.Body.User.LastName} {userInfo.Body.User.FirstName}";
 

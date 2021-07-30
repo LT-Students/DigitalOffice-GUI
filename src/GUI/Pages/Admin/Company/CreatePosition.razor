@@ -18,8 +18,8 @@
                                    _descriptionInput.FocusAsync();})" />
             <ValidationMessage style="font-size: 0.7em;" For="() => _positionData.Name" />
         </div>
-        <div class="item-group">
-            <label for="create-position_description">@Resources.PositionDescription<font color="red">*</font></label>
+        <div class="item-group_textarea">
+            <label for="create-position_description">@Resources.PositionDescription</label>
             <textarea @bind="_positionData.Description"
                       @ref="_descriptionInput"
                       type="text"
@@ -28,9 +28,14 @@
             <ValidationMessage style="font-size: 0.7em;" For="() => _positionData.Description" />
         </div>
         <div class="create-position_actions-container">
-            <p class="info_container">@_message</p>
-            <button class="btn btn-primary" type="submit">@Resources.CreatePosition</button>
+            <button class="btn btn-primary"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#create-position_snack"
+                    >@Resources.CreatePosition
+            </button>
         </div>
     </div>
+    <Snackbar DataTarget="create-position_snack" Message=@_message IsSuccessOperation=@_isSuccessOperation />
 </EditForm>
 

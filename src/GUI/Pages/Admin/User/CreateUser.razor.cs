@@ -14,6 +14,7 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
         private CreateCommunicationRequest _userCommunication = new();
         private ICollection<PositionInfo> _positions;
         private string _message;
+        private bool _isSuccessOperation;
         private List<float> _rateValues = new List<float> { 0.25f, 0.5f, 0.75f, 1 };
 
         private ElementReference _lastNameInput;
@@ -39,7 +40,8 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
             try
             {
                 await userService.CreateUserAsync(_userData);
-                UriHelper.NavigateTo("/");
+                _message = "Successfully created";
+                _isSuccessOperation = true;
             }
             catch(ApiException<ErrorResponse> ex)
             {
@@ -48,18 +50,20 @@ namespace LT.DigitalOffice.GUI.Pages.Admin.User
             catch(ApiException<OperationResultResponse> ex)
             {
                 _message = String.Join(" ", ex.Result.Errors);
+
             }
             catch (ApiException ex)
             {
                 _message = "Something went wrong";
             }
+
+            StateHasChanged();
         }
 
         protected async override void OnInitialized()
         {
             var positionsResponse = await companyService.FindPositionsAsync();
             _positions = positionsResponse.Body;
-            StateHasChanged();
         }
     }
 }

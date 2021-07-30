@@ -372,6 +372,15 @@
   <data name="TaskStatusTableHeader" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="ProjectDataCreation" xml:space="preserve">
+    <value>Data creation</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="ProjectWindow" xml:space="preserve">
+    <value>Project</value>
+  </data>
   <data name="TaskProjectName" xml:space="preserve">
     <value>Project name</value>
   </data>

@@ -283,7 +283,7 @@
     <value>Статус</value>
   </data>
   <data name="Users" xml:space="preserve">
-    <value>Сотрудники</value>
+    <value>Пользователи</value>
   </data>
   <data name="ProjectCreationModalTitle" xml:space="preserve">
     <value>Создание проекта</value>
@@ -374,6 +374,15 @@
   </data>
   <data name="TaskStatusTableHeader" xml:space="preserve">
     <value>Статус</value>
+  </data>
+  <data name="ProjectDataCreation" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Файлы</value>
+  </data>
+  <data name="ProjectWindow" xml:space="preserve">
+    <value>Проект</value>
   </data>
   <data name="TaskProjectName" xml:space="preserve">
     <value>Имя проекта</value>

@@ -6,34 +6,34 @@
 <div class="admin-page_container">
     <div class="company-actions_container">
         <h4>@Resources.Company</h4>
-        <button class="btn btn-link"
-                @onclick='(() => {
-                              _modalWindow.Open();
-                              _modalTitle = Resources.CreateDepartment;
-                          })'>
+        <button type="button"
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#createModalCenter"
+                @onclick='(() => { _modalTitle = Resources.CreateDepartment; })'>
             @Resources.CreateDepartment
         </button>
-        <button class="btn btn-link"
-                @onclick='(() => {
-                              _modalWindow.Open();
-                              _modalTitle = Resources.CreatePosition;
-                          })'>
+        <button type="button"
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#createModalCenter"
+                @onclick='(() => { _modalTitle = Resources.CreatePosition; })'>
             @Resources.CreatePosition
         </button>
     </div>
     <div class="user-actions_container">
         <h4>@Resources.Users</h4>
-        <button class="btn btn-link"
-                @onclick='(() => {
-                              _modalWindow.Open();
-                              _modalTitle = Resources.CreateUser;
-                          })'>
+        <button type="button"
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#createModalCenter"
+                @onclick='(() => { _modalTitle = Resources.CreateUser; })'>
             @Resources.CreateUser
         </button>
     </div>
 </div>
 
-<ModalWindow @ref="_modalWindow">
+<ModalWindow @ref="_modalWindow" >
     <Title>@_modalTitle</Title>
     <Body>
         @if (_modalTitle == Resources.CreateDepartment)

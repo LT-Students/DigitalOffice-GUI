@@ -31,7 +31,11 @@
 
                                 <div>
                                     <div class="task-content_header">
-                                        <h1><span>#@_task.Number - </span>@_task.Name</h1>
+                                        <div>
+                                            <h1>
+                                                <span>#@_task.Number - </span>@_task.Name
+                                            </h1>
+                                        </div>
 
                                         <button type="button" class="btn btn-primary" @onclick="() => _isEditTask = !_isEditTask">Edit</button>
                                     </div>
@@ -50,7 +54,7 @@
                                     <p>@Resources.TaskAssigned:
                                         <NavLink href="#" style="text-decoration: none; color: #1d2ecc">
                                             @(_task.AssignedUser is null ? 
-                                                "-" : string.Join(" ", _task.AssignedUser.FirstName, _task.AssignedUser.MiddleName))
+                                                "-" : string.Join(" ", _task.AssignedUser.FirstName, _task.AssignedUser.LastName))
                                         </NavLink>
                                     </p>
                                     <p>@Resources.Status: @_task.Status.Name</p>
