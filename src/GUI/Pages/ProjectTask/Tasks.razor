@@ -24,6 +24,9 @@
 <TaskModalWindow @ref="_taskModalWindow"/>
 
 <div class="tasks">
+
+    <TasksFilters FindTaskByProjectId="@SetProjectIdFilterParam"/>
+
     <div class="overflow-auto">
 
         @if (_tasks is not null)

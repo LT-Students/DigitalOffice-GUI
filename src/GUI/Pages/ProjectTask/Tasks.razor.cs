@@ -13,7 +13,8 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
     {
         private int _takeCount = 8;
         public const string UserLinkStyle = "text-decoration: none; color: #0b5ed7;";
-
+        
+        private Guid? _projectId;
         private Guid _taskId;
         private int _totalCount;
         private int _skipCount;
@@ -32,7 +33,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 
         private async Task GetTasksAsync()
         {
-            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: _skipCount, takeCount: _takeCount);
+            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: _skipCount, takeCount: _takeCount, projectId: _projectId);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
             
@@ -74,6 +75,17 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
                 _takeCount = result;
                 await GetTasksAsync();
             }
+        }
+
+        private async Task SetProjectIdFilterParam(Guid projectId)
+        {
+            _projectId = projectId;
+
+            _skipCount = 0;
+            _tasks = new List<TaskInfo>();
+            await GetTasksAsync();
+
+            StateHasChanged();
         }
     }
 }
