@@ -88,6 +88,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Work items.
+        /// </summary>
+        internal static string BacklogSubmenu {
+            get {
+                return ResourceManager.GetString("BacklogSubmenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         internal static string Company {
@@ -115,11 +124,11 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new task.
+        ///   Looks up a localized string similar to Create new work item.
         /// </summary>
-        internal static string CreateNewTask {
+        internal static string CreateNewWorkItem {
             get {
-                return ResourceManager.GetString("CreateNewTask", resourceCulture);
+                return ResourceManager.GetString("CreateNewWorkItem", resourceCulture);
             }
         }
         
@@ -228,6 +237,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My work items.
+        /// </summary>
+        internal static string FirstParameterBacklogSubmenu {
+            get {
+                return ResourceManager.GetString("FirstParameterBacklogSubmenu", resourceCulture);
             }
         }
         
@@ -651,6 +669,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string SearchProjects {
             get {
                 return ResourceManager.GetString("SearchProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All work items.
+        /// </summary>
+        internal static string SecondParameterBacklogSubmenu {
+            get {
+                return ResourceManager.GetString("SecondParameterBacklogSubmenu", resourceCulture);
             }
         }
         

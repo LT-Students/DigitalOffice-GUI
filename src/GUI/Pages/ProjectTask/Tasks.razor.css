@@ -40,19 +40,6 @@ a[role="button"] {
     left: 45px !important;
 }
 
-.project-addition-info {
-    position: relative;
-    display: flex;
-}
-
-.project h1, h2 {
-    font-size: 1.3rem;
-}
-
-.project-addition-info p {
-    margin-bottom: 0;
-}
-
 .overflow-auto::-webkit-scrollbar
 {
 	width: 5px;
@@ -85,13 +72,17 @@ button[id="show-more"] {
     margin-bottom: 50px;
 }
 
-.task-content_general-info h1 {
-    font-size: 18px;
+h2[id="task-name"] {
+    font-size: 20px;
+
+    float: left;
 }
 
 .task-content_general-info h2:first-child {
     float: left;
     margin-right: 6%;
+
+    font-size: 20px;
 }
 
 .task-content_general-info div {

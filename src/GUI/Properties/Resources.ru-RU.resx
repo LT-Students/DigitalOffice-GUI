@@ -339,7 +339,7 @@
   <data name="TaskType" xml:space="preserve">
     <value>Тип</value>
   </data>
-  <data name="CreateNewTask" xml:space="preserve">
+  <data name="CreateNewWorkItem" xml:space="preserve">
     <value>Создание новой задачи</value>
   </data>
   <data name="TaskAuthor" xml:space="preserve">
@@ -386,5 +386,14 @@
   </data>
   <data name="TaskProjectName" xml:space="preserve">
     <value>Имя проекта</value>
+  </data>
+  <data name="BacklogSubmenu" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="FirstParameterBacklogSubmenu" xml:space="preserve">
+    <value>Мои задачи</value>
+  </data>
+  <data name="SecondParameterBacklogSubmenu" xml:space="preserve">
+    <value>Все задачи</value>
   </data>
 </root>

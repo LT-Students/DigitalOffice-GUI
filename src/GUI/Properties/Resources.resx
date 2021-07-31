@@ -336,8 +336,8 @@
   <data name="TaskType" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="CreateNewTask" xml:space="preserve">
-    <value>Create new task</value>
+  <data name="CreateNewWorkItem" xml:space="preserve">
+    <value>Create new work item</value>
   </data>
   <data name="TaskAuthor" xml:space="preserve">
     <value>Author</value>
@@ -383,5 +383,14 @@
   </data>
   <data name="TaskProjectName" xml:space="preserve">
     <value>Project name</value>
+  </data>
+  <data name="BacklogSubmenu" xml:space="preserve">
+    <value>Work items</value>
+  </data>
+  <data name="FirstParameterBacklogSubmenu" xml:space="preserve">
+    <value>My work items</value>
+  </data>
+  <data name="SecondParameterBacklogSubmenu" xml:space="preserve">
+    <value>All work items</value>
   </data>
 </root>
