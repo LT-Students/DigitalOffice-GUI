@@ -73,7 +73,7 @@ namespace LT.DigitalOffice.GUI.Services
             await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _projectServiceClient.FindTaskPropertiesAsync(token, name, authorId,projectId, skipCount, takeCount);
+            return await _projectServiceClient.FindTaskPropertiesAsync(token, name, authorId, projectId, skipCount, takeCount);
         }
 
         public async Task<ProjectResponse> GetProjectAsync(
@@ -109,8 +109,14 @@ namespace LT.DigitalOffice.GUI.Services
             int takeCount,
             int? number = null,
             Guid? projectId = null,
-            Guid? assignedTo = null)
+            Guid? assignedTo = null,
+            bool onlyAuthorizedUser = false)
         {
+            if (onlyAuthorizedUser)
+            {
+                assignedTo = await _storage.GetItemAsync<Guid>(Consts.UserId);
+            }
+
             await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
