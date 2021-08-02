@@ -56,7 +56,7 @@ button[id="plus"]:focus {
 }
 
 .filter {
-    margin-left: 2%;
+    margin-left: 12px;
 
     display: flex;
     cursor:pointer;
@@ -84,6 +84,6 @@ button[id="plus"]:focus {
 }
 
 .form-select {
-    width: 65%;
+    width: 150px;
     border-radius: 0 5px 5px 0;
 }

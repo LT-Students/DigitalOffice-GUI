@@ -1,5 +1,6 @@
 @using Models.Filters
 @using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
+@using LT.DigitalOffice.GUI.Services.ApiClients.UserService
 @using LT.DigitalOffice.GUI.Services.Interfaces
 
 <div class="filter-content">
@@ -15,65 +16,105 @@
             @onclick="() => _isShowDropdownMenu = true">
         </button>
 
-        @if (stateCheck(_projectNameRef, _showStateOfFiltersDropdown))
+        @if (stateCheck(_projectRef, _showStateOfFiltersDropdown))
         {
-            <div class=@(_isSearchButton ? "set-filter" : "filter") @onclick="() => _isSearchButton = false">
-                @if (!_isSearchButton)
+            <div class=@(_searchStateByFiltersDropdown[_projectRef.Id] ? "set-filter" : "filter") @onclick="() => _searchStateByFiltersDropdown[_projectRef.Id] = false">
+                @if (!_searchStateByFiltersDropdown[_projectRef.Id])
                 {
-                    <button @onclick="() => {_isSearchButton = true; FindTaskByProjectId(_tasksFilters.ProjectId);}" type="button" class="btn btn-primary">Search</button>
+                    <button @onclick="() => {_searchStateByFiltersDropdown[_projectRef.Id] = true; FindTaskByProjectId(_tasksFilters.ProjectId);}" type="button" class="btn btn-primary">Search</button>
                     <select @bind="@_tasksFilters.ProjectId" class="form-select">
 
-                        @foreach (var project in _projectsResponse?.Body ?? new List<ProjectInfo>())
+                        @if (_projectsResponse?.Body != null)
                         {
-                            <option @onclick="() => _isSearchButton = true" value="@project.Id">
-                                @(string.IsNullOrEmpty(@project.ShortName) ? @project.Name : @project.ShortName)
-                            </option>
+                            @foreach (var project in _projectsResponse.Body)
+                            {
+                                <option value="@project.Id">
+                                    @(string.IsNullOrEmpty(@project.ShortName) ? @project.Name : @project.ShortName)
+                                </option>
+                            }
+                        }
+
+                    </select>
+                }
+                else
+                {
+                    var project = _projectsResponse?.Body.FirstOrDefault(x => x.Id == _tasksFilters.ProjectId);
+                    @("Project: " + (string.IsNullOrEmpty(project?.ShortName) ? project.Name : project.ShortName))
+                }
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _projectRef.Id)"></button>
+            </div>
+        }
+
+        @if (stateCheck(_statusRef, _showStateOfFiltersDropdown))
+        {
+            <div class=@(_searchStateByFiltersDropdown[_statusRef.Id] ? "set-filter" : "filter") @onclick="() => _searchStateByFiltersDropdown[_statusRef.Id] = false">
+                @if (!_searchStateByFiltersDropdown[_statusRef.Id])
+                {
+                    <button @onclick="() => {_searchStateByFiltersDropdown[_statusRef.Id] = true; FindTaskByStatusId(_tasksFilters.StatusId);}" type="button" class="btn btn-primary">Search</button>
+                    <select @bind="@_tasksFilters.StatusId" class="form-select">
+
+                        @if (_taskPropertyResponse != null)
+                        {
+                            @foreach (var property in _taskPropertyResponse.Body)
+                            {
+                                <option value="@property.Id"> @property?.Name</option>
+                            }
                         }
                     </select>
                 }
                 else
                 {
-                    @("Project: " + _projectsResponse?.Body.FirstOrDefault(x => x.Id == _tasksFilters.ProjectId)?.ShortName)
+                    @("Status: " + _taskPropertyResponse?.Body.FirstOrDefault(x => x.Id == _tasksFilters.StatusId)?.Name)
                 }
-                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _projectNameRef.Id)"></button>
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _statusRef.Id)"></button>
             </div>
         }
 
-        @if (stateCheck(_shortNameRef, _showStateOfFiltersDropdown))
+        @if (stateCheck(_assignedToRef, _showStateOfFiltersDropdown))
         {
-            <div class=@(GetStyleFilter(_shortNameRef.Id)) @onclick="() => _useFilterId = _shortNameRef.Id">
-                Status: @_tasksFilters.StatusId
-                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _shortNameRef.Id)"></button>
-            </div>
-        }
+            <div class=@(_searchStateByFiltersDropdown[_assignedToRef.Id] ? "set-filter" : "filter") @onclick="() => _searchStateByFiltersDropdown[_assignedToRef.Id] = false">
+                @if (!_searchStateByFiltersDropdown[_assignedToRef.Id])
+                {
+                    <button @onclick="() => {_searchStateByFiltersDropdown[_assignedToRef.Id] = true; FindTaskByStatusId(_tasksFilters.StatusId);}" type="button" class="btn btn-primary">Search</button>
+                    <select @bind="@_tasksFilters.AssignedTo" class="form-select">
 
-        @if (stateCheck(_departmentRef, _showStateOfFiltersDropdown))
-        {
-            <div class=@(GetStyleFilter(_departmentRef.Id)) @onclick="() => _useFilterId = _departmentRef.Id">
-                AssignedTo: @_tasksFilters.AssignedTo
-                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _departmentRef.Id)"></button>
+                        @if (_usersResponse != null)
+                        {
+                            @foreach (var user in _usersResponse?.Body)
+                            {
+                                <option value="@user.Id"> @(string.Join(" ", user.FirstName, user.LastName))</option>
+                            }
+                        }
+                    </select>
+                }
+                else
+                {
+                    UserInfo user = _usersResponse?.Body.FirstOrDefault(x => x.Id == _tasksFilters.AssignedTo);
+                    @("AssignedTo: " + string.Join(" ", user?.FirstName, user?.LastName));
+                }
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _assignedToRef.Id)"></button>
             </div>
         }
 
         <div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
             <a
-                @ref=_projectNameRef
-                class="@GetStyleFiltersOfDropdown(_projectNameRef)"
+                @ref=_projectRef
+                class="@GetStyleFiltersOfDropdown(_projectRef)"
                 href="javascript: void(0);"
-                @onclick="() => SetFilter(_projectNameRef)">
+                @onclick="() => SetFilter(_projectRef)">
                 Project
             </a>
             <a
-                @ref=_shortNameRef
-                class="@GetStyleFiltersOfDropdown(_shortNameRef)"
-                href="javascript: void(0);" @onclick="() => SetFilter(_shortNameRef)">
+                @ref=_statusRef
+                class="@GetStyleFiltersOfDropdown(_statusRef)"
+                href="javascript: void(0);" @onclick="() => SetFilter(_statusRef)">
                 Status
             </a>
             <a
-                @ref=_departmentRef
-                class="@GetStyleFiltersOfDropdown(_departmentRef)"
+                @ref=_assignedToRef
+                class="@GetStyleFiltersOfDropdown(_assignedToRef)"
                 href="javascript: void(0);"
-                @onclick="() => SetFilter(_departmentRef)">
+                @onclick="() => SetFilter(_assignedToRef)">
                 AssignedTo
             </a>
         </div>
@@ -84,20 +125,29 @@
 @code {
     [Parameter]
     public Func<Guid, Task> FindTaskByProjectId { get; set; }
+
+    [Parameter]
+    public Func<Guid, Task> FindTaskByStatusId { get; set; }
+
     private string _useFilterId;
-    private bool _isSearchButton;
+    private bool _isSearchProject;
     private bool _isShowDropdownMenu;
     private Dictionary<string, bool> _showStateOfFiltersDropdown;
+    private Dictionary<string, bool> _searchStateByFiltersDropdown;
     private Func<ElementReference, Dictionary<string, bool>, bool> stateCheck =
         (elementRef, states) => states is not null && !states[elementRef.Id];
         
-    
-    private ElementReference _projectNameRef;
-    private ElementReference _shortNameRef;
-    private ElementReference _departmentRef;
+    private ElementReference _projectRef;
+    private ElementReference _statusRef;
+    private ElementReference _assignedToRef;
 
     private TasksFilter _tasksFilters;
-    public FindResponseProjectInfo _projectsResponse;
+    private FindResponseProjectInfo _projectsResponse;
+    private FindResultResponseUserInfo _usersResponse;
+    private FindResponseTaskProperty _taskPropertyResponse;
+
+    [Inject]
+    private IUserService _UserService { get; set; }
 
     [Inject]
     private IProjectService _ProjectService { get; set; }
@@ -113,10 +163,17 @@
          {
              _showStateOfFiltersDropdown = new Dictionary<string, bool>
              {
-                 {_projectNameRef.Id, true},
-                 {_shortNameRef.Id, true},
-                 {_departmentRef.Id, true}
+                 {_projectRef.Id, true},
+                 {_statusRef.Id, true},
+                 {_assignedToRef.Id, true}
              };
+
+             _searchStateByFiltersDropdown = new Dictionary<string, bool>
+            {
+                {_projectRef.Id, false},
+                {_statusRef.Id, false},
+                {_assignedToRef.Id, false}
+            };
         }
     }
 
@@ -129,11 +186,11 @@
             return;
         }
 
-        if (string.Equals(elementId, _projectNameRef.Id))
+        if (string.Equals(elementId, _projectRef.Id))
         {
            // _tasksFilters.AssignedTo = isRemoveFilter ? null : _searchValue;
         }
-        else if (string.Equals(elementId, _departmentRef.Id))
+        else if (string.Equals(elementId, _assignedToRef.Id))
         {
             //_projectsFilter.Department = isRemoveFilter ? null : _searchValue;
         }
@@ -164,17 +221,17 @@
     {
         _showStateOfFiltersDropdown[elementRef.Id] = false;
         
-        if (string.Equals(elementRef.Id, _projectNameRef.Id))
+        if (string.Equals(elementRef.Id, _projectRef.Id))
         {
-           _projectsResponse = await _ProjectService.FindProjects(0, int.MaxValue);
+            _projectsResponse = await _ProjectService.FindProjects(0, int.MaxValue);
         }
-        else if (string.Equals(elementRef.Id, _departmentRef.Id))
+        else if (string.Equals(elementRef.Id, _statusRef.Id))
         {
-            //_projectsFilter.Department = isRemoveFilter ? null : _searchValue;
+            _taskPropertyResponse = await _ProjectService.GetTaskPropertiesAsync(0, int.MaxValue);
         }
-        else
+        else if (string.Equals(elementRef.Id, _assignedToRef.Id))
         {
-            //_tasksFilters.ProjectId = isRemoveFilter ? null : _searchValue;
+            _usersResponse = await _UserService.FindUsersAsync(0, int.MaxValue, null);
         }
 
         _isShowDropdownMenu = false;
