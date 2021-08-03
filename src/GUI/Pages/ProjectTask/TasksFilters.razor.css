@@ -60,16 +60,28 @@ button[id="plus"]:focus {
 
     display: flex;
     cursor:pointer;
+
+    padding: 3px 10px;
+    background: #eeeeee;
+    border-radius: 5px;
 }
 
 .set-filter {
+    display: flex;
     align-self: center;
     padding: 5px;
     margin-left: 15px;
+
     background-color: #0b5ed7;
     border-radius: 7px;
+
     color: white;
+
     cursor: pointer;
+}
+
+.parameter-filter-content {
+    display: flex;
 }
 
 .filter-content {
@@ -86,4 +98,8 @@ button[id="plus"]:focus {
 .form-select {
     width: 150px;
     border-radius: 0 5px 5px 0;
+}
+
+.form-select:focus {
+    box-shadow: 2px 0px 0px 0.25rem rgb(13 110 253 / 25%)
 }
