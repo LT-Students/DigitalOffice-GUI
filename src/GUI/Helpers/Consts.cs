@@ -7,6 +7,8 @@
         internal const string AccessToken = nameof(AccessToken);
         internal const string RefreshToken = nameof(RefreshToken);
         internal const string AccessTokenExpiresIn = nameof(AccessTokenExpiresIn);
+
+        internal const string UserAvatarId = nameof(UserAvatarId);
         internal const string RefreshTokenExpiresIn = nameof(RefreshTokenExpiresIn);
     }
 }

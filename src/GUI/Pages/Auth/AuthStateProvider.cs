@@ -28,5 +28,12 @@ namespace GUI.Pages.Auth
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
+
+        public void LogoutNotify()
+        {
+            claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
+
+            NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+        }
     }
 }

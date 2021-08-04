@@ -29,14 +29,24 @@ namespace LT.DigitalOffice.GUI.Services
                 return await _sessionStorage.GetItemAsync<string>(Consts.UserName);
             }
 
-            _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
-            var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
+            Guid userId = Guid.Empty;
+
+            while(_token == null || userId == Guid.Empty)
+            {
+                _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
+                userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
+            }
 
             var userInfo = await _client.GetUserAsync(_token, userId, null, null, true, null, null, null, null, null, null, null, null, null, null);
 
             var userName = $"{userInfo.Body.User.LastName} {userInfo.Body.User.FirstName}";
 
             await _sessionStorage.SetItemAsync(Consts.UserName, userName);
+
+            if (userInfo.Body.User.Avatar != null)
+            {
+                await _sessionStorage.SetItemAsync(Consts.UserAvatarId, userInfo.Body.User.Avatar.Id);
+            }
 
             return userName;
         }
