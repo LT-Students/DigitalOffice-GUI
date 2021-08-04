@@ -1,4 +1,6 @@
-﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
+﻿@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Properties;
 
 @inject IUserService _userService
@@ -24,11 +26,12 @@
                 <button class="btn btn-outline-success" type="submit">@Resources.Search</button>
             </form>
             <img src="" alt="" class="rounded-circle">
-            <a class="nav-link" href="#">@userName</a>
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalLong" >@userName</a>
         </div>
     </div>
 </nav>
 
+<UserWindow/>
 @code {
     private string userName;
 

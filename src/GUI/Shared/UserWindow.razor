@@ -1,0 +1,33 @@
+@using Blazored.SessionStorage
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@inject NavigationManager UriHelper
+@inject ISessionStorageService SessionStorage
+@inject SignOutSessionStateManager SignOutManager
+
+<div class="modal fade bd-example-modal-sm" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" @onclick="LogoutAsync">Logout</button>
+    </div>
+  </div>
+</div>
+
+@code {
+    private bool _isShowWindow;
+
+    protected override void OnInitialized()
+    {
+        _isShowWindow = true;
+    }
+    
+    private async Task LogoutAsync()
+    {
+        _isShowWindow = false;
+
+        await SignOutManager.SetSignOutState();
+        await SessionStorage.ClearAsync();
+
+        UriHelper.NavigateTo("/login");
+    }
+}

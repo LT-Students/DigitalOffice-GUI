@@ -18,6 +18,7 @@ namespace LT.DigitalOffice.GUI
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddBlazoredSessionStorage();
             builder.Services.AddServices();
+        
 
             await builder.Build().RunAsync();
         }
