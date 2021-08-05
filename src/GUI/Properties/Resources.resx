@@ -130,7 +130,7 @@
     <value>Create new project</value>
   </data>
   <data name="CreateProjectModal" xml:space="preserve">
-    <value>Creation project</value>
+    <value>Create project</value>
   </data>
   <data name="FoundProjectEmployees" xml:space="preserve">
     <value>Found employees</value>
@@ -304,7 +304,7 @@
     <value>Search employee</value>
   </data>
   <data name="TaskCreationModalTitle" xml:space="preserve">
-    <value>Task creation</value>
+    <value>Create work item</value>
   </data>
   <data name="AddingProjectEmployees" xml:space="preserve">
     <value>Adding project employees</value>

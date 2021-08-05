@@ -142,7 +142,7 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creation project.
+        ///   Looks up a localized string similar to Create project.
         /// </summary>
         internal static string CreateProjectModal {
             get {
@@ -772,7 +772,7 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Task creation.
+        ///   Looks up a localized string similar to Create work item.
         /// </summary>
         internal static string TaskCreationModalTitle {
             get {
