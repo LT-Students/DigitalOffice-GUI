@@ -56,13 +56,11 @@ input[id="planned-time-task"] {
     margin: 15px 0;
 }
 
-.task-content div:first-child {
-    display: flex;
-    justify-content: space-between;
-}
-
 .task-content_header {
     width: -webkit-fill-available;
+
+    display: flex;
+    justify-content: space-between;
 }
 
 .task-content_header input {

@@ -1,6 +1,5 @@
 ﻿using LT.DigitalOffice.GUI.Services;
 using LT.DigitalOffice.GUI.Services.Interfaces;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LT.DigitalOffice.GUI.Helpers.Extensions
@@ -13,8 +12,6 @@ namespace LT.DigitalOffice.GUI.Helpers.Extensions
             {
                 return services;
             }
-
-            services.AddSingleton<SignOutSessionStateManager>();
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();

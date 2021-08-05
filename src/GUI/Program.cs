@@ -1,5 +1,5 @@
 using Blazored.SessionStorage;
-using GUI.Pages.Auth;
+using LT.DigitalOffice.GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Helpers.Extensions;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

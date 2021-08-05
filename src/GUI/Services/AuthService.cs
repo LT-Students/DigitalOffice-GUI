@@ -1,5 +1,5 @@
 ﻿using Blazored.SessionStorage;
-using GUI.Pages.Auth;
+using LT.DigitalOffice.GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Helpers;
@@ -73,6 +73,19 @@ namespace LT.DigitalOffice.GUI.Services
             await _storage.ClearAsync();
 
             _uriHelper.NavigateTo("/login");
+
+            return true;
+        }
+
+        public async Task<bool> AuthorizeAsync()
+        {
+            if (!await _storage.ContainKeyAsync(Consts.UserId))
+            {
+                return false;
+            }
+
+            _provider.LoginNotify(await _storage.GetItemAsync<Guid>(Consts.UserId));
+            _uriHelper.NavigateTo(await _storage.GetItemAsync<string>(Consts.Uri));
 
             return true;
         }

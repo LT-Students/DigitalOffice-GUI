@@ -3,7 +3,7 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace GUI.Pages.Auth
+namespace LT.DigitalOffice.GUI.Pages.Auth
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {
