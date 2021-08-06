@@ -99,5 +99,16 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 
             await GetTasksAsync();
         }
+
+        private async Task SetProjectIdFilterParam(Guid projectId)
+        {
+            _projectId = projectId;
+
+            _skipCount = 0;
+            _tasks = new List<TaskInfo>();
+            await GetTasksAsync();
+
+            StateHasChanged();
+        }
     }
 }
