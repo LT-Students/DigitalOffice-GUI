@@ -15,6 +15,7 @@ namespace LT.DigitalOffice.GUI.Helpers.Extensions
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ICompanyService, CompanyService>();
 

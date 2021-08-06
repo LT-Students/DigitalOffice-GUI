@@ -1,6 +1,6 @@
 @using LT.DigitalOffice.GUI.Properties
 
-@page "/tasks"
+@page "/backlog"
 
 @using LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
 @using LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
@@ -16,34 +16,20 @@
             data-target="#сreate-task-modal-center">
                 @Resources.CreateNewWorkItem
         </a>
-        
-        <div class="dropdown show">
-            <a 
-                href="javascript:void(0)" 
-                class="nav-link dropdown-toggle" 
-                role="button" 
-                id="dropdownMenuLink" 
-                data-toggle="dropdown" 
-                aria-haspopup="true" 
-                aria-expanded="false">
-                @Resources.BacklogSubmenu
-            </a>
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a 
-                    class="dropdown-item" 
-                    href="javascript:void(0)" 
-                    @onclick="async () => await RefreshTasks(true)">
-                    @Resources.FirstParameterBacklogSubmenu
-                </a>
-                <a 
-                    class="dropdown-item" 
-                    href="javascript:void(0)" 
-                    @onclick="async () => await RefreshTasks(false)">
-                    @Resources.SecondParameterBacklogSubmenu
-                </a>
-            </div>
-        </div>
+        <a 
+            class="nav-link" 
+            href="javascript:void(0)" 
+            @onclick="async () => await RefreshTasks(true)">
+            @Resources.FirstParameterBacklogSubmenu
+        </a>
+
+        <a 
+            class="nav-link" 
+            href="javascript:void(0)" 
+            @onclick="async () => await RefreshTasks(false)">
+            @Resources.SecondParameterBacklogSubmenu
+        </a>
     </nav>
 </div>
 

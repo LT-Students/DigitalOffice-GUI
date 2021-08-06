@@ -1,5 +1,5 @@
 ﻿using Blazored.SessionStorage;
-using GUI.Pages.Auth;
+using LT.DigitalOffice.GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Services.ApiClients.AuthService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Helpers;
@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Components;
 
 namespace LT.DigitalOffice.GUI.Services
 {
@@ -17,6 +18,7 @@ namespace LT.DigitalOffice.GUI.Services
         private readonly AuthServiceClient _authService;
         private readonly AuthStateProvider _provider;
         private readonly ISessionStorageService _storage;
+        private readonly NavigationManager _uriHelper;
 
         private async Task SetTokenValues(string accessToken, string refreshToken)
         {
@@ -25,17 +27,18 @@ namespace LT.DigitalOffice.GUI.Services
             Func<string, string> tokenExpiresIn = token => ((handler.ReadToken(token)) as JwtSecurityToken)
                 .Claims.First(x => string.Equals("exp", x.Type)).Value;
 
-            await _storage.SetItemAsync(nameof(Consts.AccessToken), accessToken);
-            await _storage.SetItemAsync(nameof(Consts.RefreshToken), refreshToken);
-            await _storage.SetItemAsync(nameof(Consts.AccessTokenExpiresIn), tokenExpiresIn(accessToken));
-            await _storage.SetItemAsync(nameof(Consts.RefreshTokenExpiresIn), tokenExpiresIn(refreshToken));
+            await _storage.SetItemAsync(Consts.AccessToken, accessToken);
+            await _storage.SetItemAsync(Consts.IsUserAdmin, accessToken);
+            await _storage.SetItemAsync(Consts.AccessTokenExpiresIn, tokenExpiresIn(accessToken));
+            await _storage.SetItemAsync(Consts.RefreshTokenExpiresIn, tokenExpiresIn(refreshToken));
         }
 
-        public AuthService(AuthenticationStateProvider provider, ISessionStorageService storage)
+        public AuthService(AuthenticationStateProvider provider, ISessionStorageService storage, NavigationManager uriHelper)
         {
             _authService = new AuthServiceClient(new HttpClient());
             _provider = provider as AuthStateProvider;
             _storage = storage;
+            _uriHelper = uriHelper;
         }
 
         public async Task<AuthenticationResponse> LoginAsync(AuthenticationRequest request)
@@ -63,9 +66,28 @@ namespace LT.DigitalOffice.GUI.Services
             await SetTokenValues(refreshTokenData.AccessToken, refreshTokenData.RefreshToken);
         }
 
-        public bool Logout()
+        public async Task<bool> LogoutAsync()
         {
-            throw new NotImplementedException();
+            _provider.LogoutNotify();
+
+            await _storage.ClearAsync();
+
+            _uriHelper.NavigateTo("/login");
+
+            return true;
+        }
+
+        public async Task<bool> AuthorizeAsync()
+        {
+            if (!await _storage.ContainKeyAsync(Consts.UserId))
+            {
+                return false;
+            }
+
+            _provider.LoginNotify(await _storage.GetItemAsync<Guid>(Consts.UserId));
+            _uriHelper.NavigateTo(await _storage.GetItemAsync<string>(Consts.PageUri));
+
+            return true;
         }
     }
 }
