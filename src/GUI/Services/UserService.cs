@@ -41,7 +41,31 @@ namespace LT.DigitalOffice.GUI.Services
             return userName;
         }
 
-        public async Task<FindResultResponseUserInfo> FindUsersAsync( int skipCount, int takeCount, Guid? departmentId = default)
+        public async Task<OperationResultResponseUserResponse> GetAuthorizedUserAsync(bool includeCommunications = true, bool includeProjects = false)
+        {
+            await _refreshToken.RefreshAsync();
+            var userId = await _sessionStorage.GetItemAsync<Guid>(Consts.UserId);
+            _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
+
+            return await _client.GetUserAsync(
+                _token, 
+                userId, 
+                null, 
+                null, 
+                includeCommunications, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                includeProjects, 
+                null, 
+                null);
+        }
+
+        public async Task<FindResultResponseUserInfo> FindUsersAsync(int skipCount, int takeCount, Guid? departmentId = default)
         {
             await _refreshToken.RefreshAsync();
 

@@ -16,13 +16,18 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
         
         private Guid? _projectId;
         private Guid _taskId;
+        private Guid? _assignedTo;
         private int _totalCount;
         private int _skipCount;
+        private bool _onlyAuthorizedUser = true;
         private List<TaskInfo> _tasks;
         private TaskModalWindow _taskModalWindow;
 
         [Inject]
         private IProjectService _ProjectService { get; set; }
+
+        [Inject]
+        private IUserService _UserService { get; set; }
         
         protected override async Task OnInitializedAsync()
         {
@@ -33,7 +38,11 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 
         private async Task GetTasksAsync()
         {
-            var tasksResponse = await _ProjectService.FindTasksAsync(skipCount: _skipCount, takeCount: _takeCount, projectId: _projectId);
+            var tasksResponse = await _ProjectService.FindTasksAsync(
+                skipCount: _skipCount, 
+                takeCount: _takeCount, 
+                assignedTo: _assignedTo, 
+                onlyAuthorizedUser: _onlyAuthorizedUser);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
             
@@ -65,6 +74,11 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             await GetTasksAsync();
         }
 
+        private async Task GetUserTasksByAllProjects()
+        {
+            var user = await _UserService.GetAuthorizedUserAsync(includeProjects: true);
+        }
+
         private async Task SetTakeCount(ChangeEventArgs e)
         {
             if (int.TryParse(e.Value.ToString(), out int result))
@@ -77,15 +91,13 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             }
         }
 
-        private async Task SetProjectIdFilterParam(Guid projectId)
+        private async Task RefreshTasks(bool onlyAuthorizedUser)
         {
-            _projectId = projectId;
-
-            _skipCount = 0;
+            _onlyAuthorizedUser = onlyAuthorizedUser;
             _tasks = new List<TaskInfo>();
-            await GetTasksAsync();
+            _skipCount = 0;
 
-            StateHasChanged();
+            await GetTasksAsync();
         }
     }
 }

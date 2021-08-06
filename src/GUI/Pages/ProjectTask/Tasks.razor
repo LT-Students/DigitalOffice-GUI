@@ -14,13 +14,43 @@
             class="nav-link" 
             data-toggle="modal"
             data-target="#сreate-task-modal-center">
-                @Resources.CreateNewTask
+                @Resources.CreateNewWorkItem
+        </a>
+        
+        <div class="dropdown show">
+            <a 
+                href="javascript:void(0)" 
+                class="nav-link dropdown-toggle" 
+                role="button" 
+                id="dropdownMenuLink" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false">
+                @Resources.BacklogSubmenu
             </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a 
+                    class="dropdown-item" 
+                    href="javascript:void(0)" 
+                    @onclick="async () => await RefreshTasks(true)">
+                    @Resources.FirstParameterBacklogSubmenu
+                </a>
+                <a 
+                    class="dropdown-item" 
+                    href="javascript:void(0)" 
+                    @onclick="async () => await RefreshTasks(false)">
+                    @Resources.SecondParameterBacklogSubmenu
+                </a>
+            </div>
+        </div>
     </nav>
 </div>
 
 <CreateTaskModalWindow />
     
+<TaskModalWindow @ref="_taskModalWindow"/>
+
 <TaskModalWindow @ref="_taskModalWindow"/>
 
 <div class="tasks">
@@ -41,9 +71,7 @@
 
                         <div class="task-content_general-info">
                             <h2>#@task.Number</h2>
-                            <div>
-                                <h1>@task.Project.ShortName - @task.Name</h1>
-                            </div>
+                            <h2 id="task-name">@task.Name</h2>
                             <h2 style="@(GetTaskTypeStyle(task.TypeName))">@task.TypeName</h2>
                         </div>
                         <div>
@@ -62,7 +90,8 @@
                                 </h2>
                                 <h2>@Resources.TaskStatus: @task.StatusName</h2>
                                 <h2>@Resources.TaskPriority: @task.PriorityName</h2>
-                                <h2>@Resources.TaskLeadTime: @task.PlannedMinutes</h2> 
+                                <h2>@Resources.TaskLeadTime: @task.PlannedMinutes</h2>
+                                <h2>@Resources.TaskProjectName: @task.Project.ShortName</h2>
                             </div>
                         </div>
 

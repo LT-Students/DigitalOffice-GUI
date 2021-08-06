@@ -27,17 +27,17 @@
     padding-right: 1%;
 }
 
-.project-addition-info {
-    position: relative;
-    display: flex;
+a[role="button"] {
+    text-decoration: none;
 }
 
-.project h1, h2 {
-    font-size: 1.3rem;
+.dropdown {
+    align-self: center;
 }
 
-.project-addition-info p {
-    margin-bottom: 0;
+.dropdown .show {
+    top: -12px !important;
+    left: 45px !important;
 }
 
 .overflow-auto::-webkit-scrollbar
@@ -50,17 +50,39 @@
     background-color: #0b5ed7;
 }
 
+button[id="show-more"] {
+    background-color: #0b5ed7;
+    border: none;
+
+    display: block;
+    margin-top: 3px;
+    margin-left: auto;
+    margin-right: auto ;
+}
+
+.nav-scroller {
+    overflow-y: unset;
+}
+
+.nav-scroller .nav {
+    overflow-x: unset;
+}
+
 .task-content_general-info {
     margin-bottom: 50px;
 }
 
-.task-content_general-info h1 {
-    font-size: 18px;
+h2[id="task-name"] {
+    font-size: 20px;
+
+    float: left;
 }
 
 .task-content_general-info h2:first-child {
     float: left;
     margin-right: 6%;
+
+    font-size: 20px;
 }
 
 .task-content_general-info div {
@@ -69,17 +91,12 @@
 }
 
 .task-content_additional-info {
-    height: 25px;
-}
-
-.task-content_additional-info h2 {
-    margin-right: 2%;
-
-    float: left;
+    display: flex;
+    justify-content: space-between;
 }
 
 .task-content_additional-info h2:last-child {
-    margin-right: 0;
+    margin-left: 12%;
 
     float: right;
 }

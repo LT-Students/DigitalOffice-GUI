@@ -10,6 +10,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task<OperationResultResponse> CreateUserAsync(CreateUserRequest request);
 
+        Task<OperationResultResponseUserResponse> GetAuthorizedUserAsync(bool includeCommunications = true, bool includeProjects = false);
+
         Task<OperationResultResponseCredentialsResponse> CreateCredentialsAsync(CreateCredentialsRequest request);
 
         Task<string> GeneratePasswordAsync();
