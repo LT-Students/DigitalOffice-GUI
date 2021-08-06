@@ -16,8 +16,24 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="#">@Resources.News</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">@Resources.Department</a></li>
-                <li class="nav-item"><a class="nav-link" href="projects">@Resources.Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href="tasks">@Resources.BacklogPage</a></li>
+                <li class="nav-item">
+                    <div class="dropdown show">
+                        <a 
+                            class="btn btn-secondary dropdown-toggle" 
+                            href="javascript:void(0)" 
+                            role="button" 
+                            id="dropdownMenuLink" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false">
+                            @Resources.Projects
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="projects">@Resources.Projects</a>
+                                <a class="dropdown-item" href="backlog">@Resources.BacklogPage</a>
+                            </div>
+                    </div>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="messages">@Resources.Messages</a></li>
                 <li class="nav-item"><a class="nav-link" href="admin">@Resources.Admin</a></li>
             </ul>
