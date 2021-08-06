@@ -34,7 +34,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project.CreateProject.ProjectGeneralInfo
         [Inject]
         private ICompanyService companyService { get; set; }
 
-        protected async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             if (ProjectRequest is null)
             {

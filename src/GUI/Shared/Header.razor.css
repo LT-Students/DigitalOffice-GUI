@@ -44,3 +44,31 @@
 .header a[id=Logout] {
     margin-left: 5%;
 }
+
+.btn-secondary {
+    background-color: unset !important;
+    border-color: unset !important;
+    border: none;
+
+    padding-top: 0.5rem;
+}
+
+.btn-check:active+.btn-secondary:focus, 
+.btn-check:checked+.btn-secondary:focus, 
+.btn-secondary.active:focus, 
+.btn-secondary:active:focus, 
+.show>.btn-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+
+    background-color: #717a84 !important;
+}
+
+a:focus {
+    background-color: #717a84;
+
+    border-radius: 5px;
+}
+
+.dropdown-show:focus {
+    background-color: #717a84;
+}

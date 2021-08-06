@@ -3,7 +3,7 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace GUI.Pages.Auth
+namespace LT.DigitalOffice.GUI.Pages.Auth
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {
@@ -25,6 +25,13 @@ namespace GUI.Pages.Auth
                 "Real Authentication");
 
             claimsPrincipal = new ClaimsPrincipal(identity);
+
+            NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+        }
+
+        public void LogoutNotify()
+        {
+            claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }

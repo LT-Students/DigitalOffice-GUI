@@ -1,5 +1,5 @@
 using Blazored.SessionStorage;
-using GUI.Pages.Auth;
+using LT.DigitalOffice.GUI.Pages.Auth;
 using LT.DigitalOffice.GUI.Helpers.Extensions;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -18,6 +18,7 @@ namespace LT.DigitalOffice.GUI
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddBlazoredSessionStorage();
             builder.Services.AddServices();
+        
 
             await builder.Build().RunAsync();
         }

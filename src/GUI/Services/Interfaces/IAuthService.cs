@@ -15,6 +15,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
         Task RefreshTokenAsync();
 
-        bool Logout();
+        Task<bool> LogoutAsync();
+
+        Task<bool> AuthorizeAsync();
     }
 }
