@@ -41,7 +41,7 @@
 
 <div class="tasks">
 
-    <TasksFilters FindTaskByProjectId="@SetProjectIdFilterParam" FindTaskByStatusId="@SetProjectIdFilterParam"/>
+    <TasksFilters FindTaskByFilterParam="@SetFilterParam"/>
 
     @if (_tasks is not null && _tasks.Any())
     {

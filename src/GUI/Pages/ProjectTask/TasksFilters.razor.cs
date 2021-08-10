@@ -12,10 +12,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
     public partial class TasksFilters
     {
         [Parameter]
-        public Func<Guid, Task> FindTaskByProjectId { get; set; }
-
-        [Parameter]
-        public Func<Guid, Task> FindTaskByStatusId { get; set; }
+        public Func<TasksFilter, Task> FindTaskByFilterParam { get; set; }
 
         private string _useFilterId;
         private bool _isSearchProject;
@@ -65,7 +62,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             }
         }
 
-        private void RemoveFilter(bool isRemoveFilter, string elementId)
+        private async Task RemoveFilter(bool isRemoveFilter, string elementId)
         {
             elementId = elementId ?? _useFilterId;
             _searchStateByFilterParameters[elementId] = false;
@@ -77,18 +74,20 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 
             if (string.Equals(elementId, _projectRef.Id))
             {
-            _tasksFilters.ProjectId = Guid.Empty;
+                _tasksFilters.ProjectId = null;
             }
             else if (string.Equals(elementId, _assignedToRef.Id))
             {
-                _tasksFilters.AssignedTo = Guid.Empty;
+                _tasksFilters.AssignedTo = null;
             }
             else if (string.Equals(elementId, _statusRef.Id))
             {
-                _tasksFilters.StatusId = Guid.Empty;
+                _tasksFilters.StatusId = null;
             }
 
             _stateFiltersSet[elementId] = false;
+
+            await FindTaskByFilterParam(_tasksFilters);
         }
 
         private string GetStyleFiltersOfDropdown(ElementReference elementRef)
@@ -124,6 +123,14 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             }
 
             _isShowDropdownMenu = false;
+        }
+
+        private async Task SearchTask(string elementId, Func<TasksFilter, Task> findTask)
+        {
+            _searchStateByFilterParameters[elementId] = false; 
+            _stateFiltersSet[elementId] = true; 
+
+            await findTask(_tasksFilters);
         }
     }
 }

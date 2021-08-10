@@ -223,6 +223,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter parameters.
+        /// </summary>
+        internal static string FilterParameters {
+            get {
+                return ResourceManager.GetString("FilterParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filters.
         /// </summary>
         internal static string Filters {
@@ -669,6 +678,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string SearchProjects {
             get {
                 return ResourceManager.GetString("SearchProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        internal static string SearchTaskFilterButton {
+            get {
+                return ResourceManager.GetString("SearchTaskFilterButton", resourceCulture);
             }
         }
         

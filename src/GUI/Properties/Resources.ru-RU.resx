@@ -396,4 +396,10 @@
   <data name="SecondParameterBacklogSubmenu" xml:space="preserve">
     <value>Все задачи</value>
   </data>
+  <data name="FilterParameters" xml:space="preserve">
+    <value>Параметры фильтра</value>
+  </data>
+  <data name="SearchTaskFilterButton" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
 </root>

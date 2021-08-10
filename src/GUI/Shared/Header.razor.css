@@ -63,6 +63,10 @@
     background-color: #717a84 !important;
 }
 
+.btn-secondary {
+    color: #ffffff8c !important;
+}
+
 a:focus {
     background-color: #717a84;
 
@@ -71,4 +75,8 @@ a:focus {
 
 .dropdown-show:focus {
     background-color: #717a84;
+}
+
+a[id="user-name"]:focus {
+    background-color: unset;
 }

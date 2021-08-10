@@ -42,7 +42,7 @@
                 <button class="btn btn-outline-success" type="submit">@Resources.Search</button>
             </form>
             <img src="" alt="" class="rounded-circle">
-            <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalLong" @onclick="async () => await _userWindow.GetUserData()">@userName</a>
+            <a class="nav-link" id="user-name" href="#" data-toggle="modal" data-target="#exampleModalLong" @onclick="async () => await _userWindow.GetUserData()">@userName</a>
         </div>
     </div>
 </nav>
