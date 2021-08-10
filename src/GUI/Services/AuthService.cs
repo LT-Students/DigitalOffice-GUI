@@ -49,9 +49,12 @@ namespace LT.DigitalOffice.GUI.Services
         public async Task SetLoginStateAsync(Guid userId, string accessToken, string refreshToken)
         {
             _provider.LoginNotify(userId);
-
-            await SetTokenValues(accessToken, refreshToken);
-            await _storage.SetItemAsync(nameof(Consts.UserId), userId);
+            
+            // while (string.IsNullOrEmpty(await _storage.GetItemAsync<string>(Consts.AccessToken)))
+            // {
+                await SetTokenValues(accessToken, refreshToken);
+                await _storage.SetItemAsync(nameof(Consts.UserId), userId);
+            //}
         }
 
         public async Task RefreshTokenAsync()

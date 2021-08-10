@@ -42,7 +42,6 @@ namespace LT.DigitalOffice.GUI.Services
             var userName = $"{userInfo.Body.User.LastName} {userInfo.Body.User.FirstName}";
 
             await _sessionStorage.SetItemAsync(Consts.UserName, userName);
-            await _sessionStorage.SetItemAsync(Consts.IsUserAdmin, userInfo.Body.User.IsAdmin);
 
             if (userInfo.Body.User.Avatar != null)
             {

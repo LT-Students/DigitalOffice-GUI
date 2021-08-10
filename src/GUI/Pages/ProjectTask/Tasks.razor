@@ -34,14 +34,18 @@
 </div>
 
 <CreateTaskModalWindow />
+    
+<TaskModalWindow @ref="_taskModalWindow"/>
 
 <TaskModalWindow @ref="_taskModalWindow"/>
 
 <div class="tasks">
-    <div class="overflow-auto">
 
-        @if (_tasks is not null)
-        {
+    <TasksFilters FindTaskByFilterParam="@SetFilterParam"/>
+
+    @if (_tasks is not null && _tasks.Any())
+    {
+        <div class="overflow-auto">
             @foreach (var task in _tasks)
             {
                 <div 
@@ -80,10 +84,10 @@
                     </div>
                 </div>
             }
-        }
-    </div>
+        
+        </div>
 
-    <div class="control-page">
+            <div class="control-page">
             <div id="items-per-page-lable"> 
                 Items per page:
             </div>
@@ -91,7 +95,7 @@
                 <option selected="8">8</option>
                 <option value="16">16</option>
                 <option value="24">24</option>
-             </select>
+            </select>
         <div>
             <nav aria-label="Projects navigation">
                 <ul class="pagination">
@@ -115,5 +119,11 @@
     {
         <button type="button" class="btn btn-primary" id="show-more" @onclick="GetTasksAsync">@Resources.ShowMore</button>
     }
+    }
+    else
+    {
+        @("Work items not found.")
+    }
+
 
 </div>

@@ -393,4 +393,10 @@
   <data name="SecondParameterBacklogSubmenu" xml:space="preserve">
     <value>All work items</value>
   </data>
+  <data name="FilterParameters" xml:space="preserve">
+    <value>Filter parameters</value>
+  </data>
+  <data name="SearchTaskFilterButton" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

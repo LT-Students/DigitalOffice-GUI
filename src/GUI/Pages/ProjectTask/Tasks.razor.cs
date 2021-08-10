@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 using LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow;
+using LT.DigitalOffice.GUI.Models.Filters;
 
 namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 {
@@ -15,10 +16,11 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
         public const string UserLinkStyle = "text-decoration: none; color: #0b5ed7;";
 
         private Guid _taskId;
-        private Guid? _assignedTo;
         private int _totalCount;
         private int _skipCount;
         private bool _onlyAuthorizedUser = true;
+
+        public TasksFilter _taskFilter; 
         private List<TaskInfo> _tasks;
         private TaskModalWindow _taskModalWindow;
 
@@ -31,6 +33,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
         protected override async Task OnInitializedAsync()
         {
             _tasks = new();
+            _taskFilter = new();
 
             await GetTasksAsync();
         }
@@ -39,8 +42,10 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
         {
             var tasksResponse = await _ProjectService.FindTasksAsync(
                 skipCount: _skipCount, 
-                takeCount: _takeCount, 
-                assignedTo: _assignedTo, 
+                takeCount: _takeCount,
+                projectId: _taskFilter.ProjectId,
+                //statusId:  _statusId,
+                assignedTo: _taskFilter.AssignedTo, 
                 onlyAuthorizedUser: _onlyAuthorizedUser);
 
             _tasks.AddRange(tasksResponse.Body.ToList());
@@ -97,6 +102,17 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             _skipCount = 0;
 
             await GetTasksAsync();
+        }
+
+        private async Task SetFilterParam(TasksFilter taskFilter)
+        {
+            _taskFilter = taskFilter;
+
+            _skipCount = 0;
+            _tasks = new List<TaskInfo>();
+            await GetTasksAsync();
+
+            StateHasChanged();
         }
     }
 }
