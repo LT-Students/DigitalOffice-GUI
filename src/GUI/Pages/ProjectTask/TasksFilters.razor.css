@@ -45,7 +45,7 @@ button[id="plus"]:focus {
     background-color: white;
 
     border-radius: 28px;
-    border: 1px solid #0b5ed7;
+    border: 1px solid;
 
     float: right;
     cursor: pointer;

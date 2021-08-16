@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Blazored.SessionStorage;
+using LT.DigitalOffice.GUI.Models;
 using LT.DigitalOffice.GUI.Services.Interfaces;
 
 namespace LT.DigitalOffice.GUI.Helpers
@@ -19,9 +20,9 @@ namespace LT.DigitalOffice.GUI.Helpers
         public async Task RefreshAsync()
         {
             int unixTimestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
-            
-            if (unixTimestamp >= int.Parse((await _storage.GetItemAsync<string>(Consts.AccessTokenExpiresIn))) 
-                || unixTimestamp >= int.Parse((await _storage.GetItemAsync<string>(Consts.RefreshTokenExpiresIn))))
+
+            if (unixTimestamp >= int.Parse(TokensValues.AccessTokenExpiresIn) 
+                || unixTimestamp >= int.Parse(TokensValues.RefreshTokenExpiresIn))
             {
                 await _authService.RefreshTokenAsync();
             }
