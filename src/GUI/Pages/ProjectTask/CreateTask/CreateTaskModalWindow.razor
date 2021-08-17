@@ -32,11 +32,11 @@
 
                         <div>
                             <label for="parent">@Resources.TaskParent</label>
-                            <select @bind=_taskRequest.ParentId
-                                    disabled=@(!_selectProjectId.HasValue)
+                            <select disabled=@(!_selectProjectId.HasValue)
                                     id="parent"
+                                    @onchange= "e => _taskRequest.ParentId = e.Value as Guid?"
                                     class="form-select">
-                                <option value="null" selected>@Resources.NotSelected</option>
+                                <option selected="null">@Resources.NotSelected</option>
 
                                 @foreach (var task in _projectTasks)
                                 {
@@ -59,7 +59,7 @@
 
                                 @foreach (var project in _projects)
                                 {
-                                    <option value=@project.Id>@project.ShortName</option>
+                                    <option value=@project.Id>@(project.ShortName ?? project.Name)</option>
                                 }
 
                             </select>
@@ -67,9 +67,9 @@
                             <label for="assignee">@Resources.TaskAssigned</label>
                             <select disabled=@(!_selectProjectId.HasValue)
                                     id="assignee"
-                                    @bind=_taskRequest.AssignedTo
+                                    @onchange= "e => _taskRequest.AssignedTo = e.Value as Guid?"
                                     class="form-select">
-                                <option value=null selected>@Resources.NotSelected</option>
+                                <option value=null>@Resources.NotSelected</option>
 
                                 @foreach (var user in _projectUsers)
                                 {
@@ -86,7 +86,7 @@
                                     id="status"
                                     @bind=_taskRequest.StatusId
                                     class="form-select">
-                                <option value=null selected>@Resources.NotSelected</option>
+                                <option value=null>@Resources.NotSelected</option>
 
                                 @foreach (var status in _taskStatuses)
                                 {
@@ -100,7 +100,7 @@
                                     @bind=_taskRequest.TypeId
                                     id="status"
                                     class="form-select">
-                                <option value=null selected>@Resources.NotSelected</option>
+                                <option value=null>@Resources.NotSelected</option>
 
                                 @foreach (var type in _taskTypes)
                                 {
@@ -118,7 +118,7 @@
                                     @bind=_taskRequest.PriorityId
                                     id="priority"
                                     class="form-select">
-                                <option value=null selected>@Resources.NotSelected</option>
+                                <option value=null>@Resources.NotSelected</option>
 
                                 @foreach (var priority in _taskPriorities)
                                 {

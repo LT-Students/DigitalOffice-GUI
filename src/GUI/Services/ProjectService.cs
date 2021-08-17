@@ -109,6 +109,7 @@ namespace LT.DigitalOffice.GUI.Services
             int takeCount,
             int? number = null,
             Guid? projectId = null,
+            Guid? statusId = null,
             Guid? assignedTo = null,
             bool onlyAuthorizedUser = false)
         {
@@ -120,7 +121,7 @@ namespace LT.DigitalOffice.GUI.Services
             await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, skipCount, takeCount);
+            return await _projectServiceClient.FindTasksAsync(token, number, projectId, assignedTo, statusId, skipCount, takeCount);
         }
 
         public async Task<OperationResultResponse> EditTaskAsync(IEnumerable<PatchDocument> body, Guid taskId)
