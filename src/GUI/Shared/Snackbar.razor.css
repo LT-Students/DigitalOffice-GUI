@@ -13,11 +13,11 @@
 }
 
 .success {
-    background-color: #25ac25;
+    background-color: #25ac25c4;
 }
 
 .fail {
-    background-color: #ce9e0f;
+    background-color: #ce9e0fc2;
 }
 
 .img-success {

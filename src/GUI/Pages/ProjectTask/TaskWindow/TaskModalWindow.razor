@@ -1,5 +1,6 @@
 @using LT.DigitalOffice.GUI.Properties
 @using LT.DigitalOffice.GUI.Shared
+@using Services.ApiClients.ProjectService
 
 <div 
     class="modal fade" 
@@ -42,7 +43,16 @@
                                             </h1>
                                         </div>
 
-                                        <button type="button" class="btn btn-primary" @onclick="() => _isEditTask = !_isEditTask">Edit</button>
+                                        @if (_userRole == UserRoleType.ProjectAdmin || IsUserAdmin)
+                                        {
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-primary" 
+                                                @onclick="() => _isEditTask = !_isEditTask">
+                                                    Edit
+                                            </button>
+                                        }
+
                                     </div>
                                 </div>
 
