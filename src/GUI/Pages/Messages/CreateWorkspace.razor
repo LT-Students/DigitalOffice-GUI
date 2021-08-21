@@ -1,0 +1,25 @@
+<div class=@(IsOpenCreateWorkspaceWindow ? "create-workspace-window" : "create-workspace-window-hide")>
+    <p>Create workspace</p>
+    <hr>
+
+    <label for="name">Name</label>
+    <input id="name" type="text" class="form-control" aria-describedby="basic-addon1" />
+
+    <label for="description">Description</label>
+    <textarea rows="3" id="description" type="text" class="form-control" aria-describedby="basic-addon1"></textarea>
+
+    <label for="image">Image</label>
+    
+    <button type="submit" 
+        class="btn btn-primary"
+        data-toggle="modal" 
+        data-target="#snackbar-modal">
+        Finish
+        </button>
+</div>
+
+
+@code {
+    [Parameter]
+    public bool IsOpenCreateWorkspaceWindow { get; set; }
+}

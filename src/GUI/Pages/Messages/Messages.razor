@@ -10,6 +10,33 @@
     </nav>
 </div>
 
-@code {
+<WorkspaceSidebar OpenWorkspace=@OpenWorkspace/>
 
+<Workspace IsOpenWorkspace=@_isOpenWorkspace/>
+<CreateWorkspace IsOpenCreateWorkspaceWindow=@_isCreateWorkspaceWindow/>
+
+@code {
+    private bool _isOpenWorkspace;
+    private bool _isCreateWorkspaceWindow;
+
+    private void OpenWorkspace(bool isWorkspace)
+    {
+        if (isWorkspace)
+        {
+            _isOpenWorkspace = !_isOpenWorkspace;
+        }
+        else
+        {
+            _isCreateWorkspaceWindow = !_isCreateWorkspaceWindow;
+        }
+
+        StateHasChanged();
+    }
+
+    private void OpenCreateWorkspaceWindow()
+    {
+        _isCreateWorkspaceWindow = !_isCreateWorkspaceWindow;
+
+        StateHasChanged();
+    }
 }
