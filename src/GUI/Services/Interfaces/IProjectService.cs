@@ -34,6 +34,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             int takeCount,
             int? number = null,
             Guid? projectId = null,
+            Guid? statusId = null,
             Guid? assignedTo = null,
             bool onlyAuthorizedUser = false);
         

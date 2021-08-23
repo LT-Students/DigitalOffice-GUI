@@ -44,7 +44,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
                 skipCount: _skipCount, 
                 takeCount: _takeCount,
                 projectId: _taskFilter.ProjectId,
-                //statusId:  _statusId,
+                statusId:  _taskFilter.StatusId,
                 assignedTo: _taskFilter.AssignedTo, 
                 onlyAuthorizedUser: _onlyAuthorizedUser);
 

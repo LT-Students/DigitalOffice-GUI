@@ -6,6 +6,7 @@ using LT.DigitalOffice.GUI.Models.Filters;
 using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
 using LT.DigitalOffice.GUI.Services.ApiClients.UserService;
 using LT.DigitalOffice.GUI.Services.Interfaces;
+using System.Linq;
 
 namespace LT.DigitalOffice.GUI.Pages.ProjectTask
 {
@@ -116,6 +117,8 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask
             else if (string.Equals(elementRef.Id, _statusRef.Id))
             {
                 _taskPropertyResponse = await _ProjectService.GetTaskPropertiesAsync(0, int.MaxValue);
+
+                _taskPropertyResponse.Body = _taskPropertyResponse.Body.Where(x => x.PropertyType == PropertyType.Status).ToList();
             }
             else if (string.Equals(elementRef.Id, _assignedToRef.Id))
             {
