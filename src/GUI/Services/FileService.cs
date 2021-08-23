@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using Blazored.SessionStorage;
 using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.FileService;
+using LT.DigitalOffice.GUI.Services.Interfaces;
 
-namespace LT.DigitalOffice.GUI.Services.Interfaces
+namespace LT.DigitalOffice.GUI.Services
 {
     public class FileService : IFileService
     {
