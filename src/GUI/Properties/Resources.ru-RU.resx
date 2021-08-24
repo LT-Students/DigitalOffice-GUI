@@ -402,4 +402,16 @@
   <data name="SearchTaskFilterButton" xml:space="preserve">
     <value>Поиск</value>
   </data>
+  <data name="CreateWorkspace" xml:space="preserve">
+    <value>Создание рабочего пространства</value>
+  </data>
+  <data name="WorkspaceDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="WorkspaceImage" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="WorkspaceName" xml:space="preserve">
+    <value>Название</value>
+  </data>
 </root>

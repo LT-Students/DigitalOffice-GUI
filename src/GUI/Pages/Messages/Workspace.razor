@@ -1,16 +1,25 @@
- <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style=@(IsOpenWorkspace ? "width: 280px; margin-left: 73px;" : "display:none !important;")>
+ <div 
+  class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" 
+  style=@(IsOpenWorkspace ? "width: 280px; margin-left: 62px;" : "display:none !important;")>
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
       <span class="fs-4">Digital Office</span>
     </a>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-          Create workspace
-        </a>
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          Channels
+        </button>
+        <div class="collapse show" id="home-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="text-white rounded">do-backend</a></li>
+            <li><a href="#" class="text-white rounded">do-frontend</a></li>
+            <li><a href="#" class="text-white rounded">Reports</a></li>
+          </ul>
+        </div>
       </li>
+      <li class="border-top my-3"></li>
     </ul>
     <hr>
     <div class="dropdown">
