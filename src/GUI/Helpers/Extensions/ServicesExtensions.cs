@@ -18,6 +18,7 @@ namespace LT.DigitalOffice.GUI.Helpers.Extensions
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             return services;
         }
