@@ -1,4 +1,3 @@
-@using Helpers
 @using Services.ApiClients.MessageService
 @using Services.Interfaces
 @using LT.DigitalOffice.GUI.Shared
@@ -87,7 +86,7 @@
             }
             catch (Exception ex)
             {
-
+                 _messageUser = $"Image did not load, please try again later.";
             }
         }
     }

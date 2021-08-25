@@ -10,9 +10,11 @@
     </nav>
 </div>
 
-<WorkspaceSidebar OpenWorkspace=@OpenWorkspace/>
+<div style="display:flex;">
+    <WorkspaceSidebar OpenWorkspace=@OpenWorkspace/>
+    <Workspace IsOpenWorkspace=@_isOpenWorkspace/>
+</div>
 
-<Workspace IsOpenWorkspace=@_isOpenWorkspace/>
 <CreateWorkspace IsOpenCreateWorkspaceWindow=@_isCreateWorkspaceWindow/>
 
 @code {
