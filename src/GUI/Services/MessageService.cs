@@ -21,12 +21,33 @@ namespace LT.DigitalOffice.GUI.Services
             _client = new MessageServiceClient(new HttpClient());
         }
 
-        public async Task<OperationResultResponse> CreateWorkspace(WorkspaceRequest request)
+        public async Task<OperationResultResponse> CreateWorkspaceAsync(CreateWorkspaceRequest request)
         {
             await _refreshToken.RefreshAsync();
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-            return await _client.Create2Async(request, token);
+            return await _client.CreateWorkspaceAsync(request, token);
+        }
+
+        public async Task<FindResultResponseShortWorkspaceInfo> FindWorkspaceAsync(
+            int skipCount, 
+            int takeCount, 
+            bool? includeDeactivated = false)
+        {
+            await _refreshToken.RefreshAsync();
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+            return await _client.FindWorkspaceAsync(token, skipCount, takeCount, includeDeactivated);
+        }
+
+        public async Task<OperationResultResponseWorkspaceInfo> GetWorkspaceAsync(Guid workspaceId, 
+            bool? includeUsers = false ,
+            bool? includeChannels = false)
+        {
+            await _refreshToken.RefreshAsync();
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+            return await _client.GetWorkspaceAsync(token, workspaceId, includeUsers, includeChannels);
         }
     }
 }

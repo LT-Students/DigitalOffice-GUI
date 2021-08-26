@@ -1,9 +1,14 @@
+ @using LT.DigitalOffice.GUI.Services.Interfaces
+ @using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
+
+ @inject IMessageService messageService
+
  <div 
   class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" 
-  style=@(IsOpenWorkspace ? "width: 280px;" : "display:none !important;")>
+  style=@(_isOpenWorkspace ? "width: 280px;" : "display:none !important;")>
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      <span class="fs-4">Digital Office</span>
+      <span class="fs-4">@_workspace.Name</span>
     </a>
     <hr>
     <ul class="list-unstyled ps-0">
@@ -13,6 +18,10 @@
         </button>
         <div class="collapse" id="home-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            @* @foreach (var channel in _workspace.Channels)
+            {
+            } *@
+
             <li><a href="#" class="text-white rounded">do-backend</a></li>
             <li><a href="#" class="text-white rounded">do-frontend</a></li>
             <li><a href="#" class="text-white rounded">Reports</a></li>
@@ -28,5 +37,25 @@
 
   @code {
       [Parameter]
-      public bool IsOpenWorkspace { get; set; }
+      public Guid WorkspaceId { get; set; }
+
+      private bool _isOpenWorkspace;
+      private Body _workspace = new();
+
+      public async Task GetWorkspace(Guid workspaceId)
+      {
+        _isOpenWorkspace = !_isOpenWorkspace;
+        
+        if (!_isOpenWorkspace)
+        {
+          StateHasChanged();
+
+          return;
+        }
+
+        var response = await messageService.GetWorkspaceAsync(workspaceId);
+
+        _workspace = response.Body;
+        StateHasChanged();
+      }
   }
