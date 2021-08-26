@@ -2,6 +2,7 @@
 @using Services.Interfaces
 @using LT.DigitalOffice.GUI.Shared
 @using LT.DigitalOffice.GUI.Properties
+@using System.Text.RegularExpressions
 
 @inject IMessageService _MessageService;
 
@@ -72,17 +73,21 @@
 
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
+        ImageInfo image = new();
         List<IBrowserFile> files = new();
-
-        _request.Image.Name = e.File.Name;
 
         foreach(var file in e.GetMultipleFiles())
         {
             try
             {
-                var fileContent = new StreamContent(file.OpenReadStream(1024 * 1024 * 15));
-                _request.Image.Content = await fileContent.ReadAsStringAsync();
+                List<string> imageData = new List<string>(file.Name.Split("."));
+                image.Name = imageData.Last();
 
+                imageData.RemoveAt(imageData.Count - 1);
+                image.Extension = string.Join("", imageData);
+
+                var fileContent = new StreamContent(file.OpenReadStream(1024 * 1024 * 15));
+                image.Content = Convert.ToBase64String(await fileContent.ReadAsByteArrayAsync());
             }
             catch (Exception ex)
             {
