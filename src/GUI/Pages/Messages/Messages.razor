@@ -8,12 +8,21 @@
 
 <div class="nav-scroller bg-body shadow-sm">
     <nav class="nav nav-underline" aria-label="Messages navigation">
+        <a 
+            class="nav-link" 
+            style="padding-top: 0.65rem;"
+            href="javascript:void(0)" 
+            @onclick="OpenCreateWorkspaceWindow">
+            <i class="bi bi-plus-circle" style="font-size: 18px; color: black;"></i>
+        </a>
+
         @foreach (var workspace in _workspaces)
         {
             <a class="nav-link" href="javascript:void(0)" @onclick="() => _workspace.GetWorkspace(workspace.Id)">
                 @workspace.Name
             </a>
         }
+
     </nav>
 </div>
 

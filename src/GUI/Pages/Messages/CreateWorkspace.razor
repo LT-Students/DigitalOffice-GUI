@@ -17,7 +17,7 @@
         aria-describedby="basic-addon1"></textarea>
 
     <label for="image">@Resources.WorkspaceImage</label>
-    <InputFile OnChange="@LoadFile" style="margin-bottom: 12px;"/>
+    <InputFile OnChange="@LoadFile" style="margin-bottom: 20px;"/>
 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#snackbar-modal"
         @onclick="CreateWorkspaceAsync">
@@ -80,10 +80,10 @@
             try
             {
                 List<string> imageData = new List<string>(file.Name.Split("."));
-                image.Extension = imageData.Last();
+                image.Extension = string.Join("", ".", imageData.Last());
 
                 imageData.RemoveAt(imageData.Count - 1);
-                image.Name = string.Join("", imageData);
+                image.Name = string.Join(".", imageData);
 
                 var fileContent = new StreamContent(file.OpenReadStream(1024 * 1024 * 15));
                 image.Content = Convert.ToBase64String(await fileContent.ReadAsByteArrayAsync());
