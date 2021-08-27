@@ -1,15 +1,51 @@
 ﻿@page "/messages"
 @attribute [Authorize]
 
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
+
+@inject IMessageService messageService
+
 <div class="nav-scroller bg-body shadow-sm">
     <nav class="nav nav-underline" aria-label="Messages navigation">
-        @for (int i = 0; i < 10; i++)
+        <a 
+            class="nav-link" 
+            style="padding-top: 0.65rem;"
+            href="javascript:void(0)" 
+            @onclick="OpenCreateWorkspaceWindow">
+            <i class="bi bi-plus-circle" style="font-size: 18px; color: black;"></i>
+        </a>
+
+        @foreach (var workspace in _workspaces)
         {
-            <a class="nav-link" href="/messages">Test @i</a>
+            <a class="nav-link" href="javascript:void(0)" @onclick="() => _workspace.GetWorkspace(workspace.Id)">
+                @workspace.Name
+            </a>
         }
+
     </nav>
 </div>
 
-@code {
+<Workspace @ref="_workspace"/>
 
+<CreateWorkspace IsOpenCreateWorkspaceWindow=@_isCreateWorkspaceWindow/>
+
+@code {
+    private bool _isCreateWorkspaceWindow;
+    private Workspace _workspace;
+
+    private List<Body3> _workspaces = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        FindResultResponseShortWorkspaceInfo response = await messageService.FindWorkspaceAsync(0, int.MaxValue);
+        _workspaces = response.Body.ToList();
+    }
+
+    private void OpenCreateWorkspaceWindow()
+    {
+        _isCreateWorkspaceWindow = !_isCreateWorkspaceWindow;
+
+        StateHasChanged();
+    }
 }

@@ -160,6 +160,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create workspace.
+        /// </summary>
+        internal static string CreateWorkspace {
+            get {
+                return ResourceManager.GetString("CreateWorkspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creation.
         /// </summary>
         internal static string Creation {
@@ -903,6 +912,33 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string WorkspaceDescription {
+            get {
+                return ResourceManager.GetString("WorkspaceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        internal static string WorkspaceImage {
+            get {
+                return ResourceManager.GetString("WorkspaceImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string WorkspaceName {
+            get {
+                return ResourceManager.GetString("WorkspaceName", resourceCulture);
             }
         }
     }

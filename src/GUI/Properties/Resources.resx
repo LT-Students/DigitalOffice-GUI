@@ -399,4 +399,16 @@
   <data name="SearchTaskFilterButton" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="CreateWorkspace" xml:space="preserve">
+    <value>Create workspace</value>
+  </data>
+  <data name="WorkspaceDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="WorkspaceImage" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="WorkspaceName" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

@@ -115,7 +115,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
 
                 if (response.Status == OperationResultStatusType.FullSuccess)
                 {
-                    _messageUser = "The task were created successfully!";
+                    _messageUser = $"The task was created successfully!";
                     _isSuccessOperation = true;
                     
                     return;
