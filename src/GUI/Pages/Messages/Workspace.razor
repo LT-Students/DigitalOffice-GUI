@@ -5,9 +5,12 @@
 
  <div 
   class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" 
-  style=@(_isOpenWorkspace ? "width: 280px;" : "display:none !important;")>
+  style=@(_isOpenWorkspace ? "width: 280px; height: 653px;" : "display:none !important;")>
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <img src="data:image/@_workspace.Image?.Extension;base64,@_workspace.Image?.Content" alt="Red dot" />
+      <img
+        class="rounded-circle"
+        src="data:image/@_workspace.Image?.Extension;base64,@_workspace.Image?.Content" 
+        alt="Red dot" />
       <span class="fs-4">@_workspace.Name</span>
     </a>
     <hr>
@@ -18,35 +21,26 @@
         </button>
         <div class="collapse" id="channels-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            @* @foreach (var channel in _workspace.Channels)
-            {
-            } *@
-
             <li><a href="#" class="text-white rounded">do-backend</a></li>
             <li><a href="#" class="text-white rounded">do-frontend</a></li>
             <li><a href="#" class="text-white rounded">Reports</a></li>
           </ul>
         </div>
       </li>
+      <li class="border-top my-3"></li>
       <li class="mb-1">
         <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#direct-collapse" aria-expanded="true">
           Direct messages
         </button>
         <div class="collapse" id="direct-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            @* @foreach (var channel in _workspace.Channels)
-            {
-            } *@
-
             <li><a href="#" class="text-white rounded">Ivan Ivanov</a></li>
             <li><a href="#" class="text-white rounded">Ivan Ivanov</a></li>
             <li><a href="#" class="text-white rounded">Ivan Ivanov</a></li>
           </ul>
         </div>
       </li>
-      <li class="border-top my-3"></li>
     </ul>
-    <hr>
     <div class="dropdown">
     </div>
   </div>
