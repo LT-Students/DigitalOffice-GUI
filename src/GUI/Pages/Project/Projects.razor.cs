@@ -13,7 +13,8 @@ namespace LT.DigitalOffice.GUI.Pages.Project
 {
     public partial class Projects
     {
-        private int _takeCount = 5;
+        private int _takeCount;
+        private int _takeCountDefault = 5;
 
         private Guid _projectId;
         private string _searchValue;
@@ -37,6 +38,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
 
         protected override void OnInitialized()
         {
+            _takeCount = _takeCountDefault;
             _isShowDropdownMenu = true;
             _projectsInfo = new List<ProjectInfo>();
             _projectsFilter = new ProjectsFilter();

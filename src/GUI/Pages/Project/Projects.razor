@@ -117,8 +117,8 @@
                         <p>@project.Description</p>
 
                         <div class="project-body_addition-info">
-                            <p>Department: @project.Department.Name</p>
-                            <p style="position:absolute; right:0">Creation: @(((DateTime)project.CreatedAt).ToShortDateString())</p>
+                            <p>@Resources.ProjectDepartment: @project.Department.Name</p>
+                            <p style="position:absolute; right:0">@Resources.Creation: @(((DateTime)project.CreatedAtUtc).ToShortDateString())</p>
                         </div>
 
                     </div>
@@ -131,26 +131,43 @@
 
     <div class="control-page">
             <div id="items-per-page-lable"> 
-                Items per page:
+                @Resources.ItemsPerPage:
             </div>
             <select id="items-per-page" @onchange="(ChangeEventArgs e) => SetTakeCount(e)" class="form-select">
-                <option selected="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
+                <option selected=@_takeCountDefault>@_takeCountDefault</option>
+                <option value=@(_takeCountDefault * 2)>@(_takeCountDefault * 2)</option>
+                <option value=@(_takeCountDefault * 3)>@(_takeCountDefault * 3)</option>
              </select>
         <div>
             <nav aria-label="Projects navigation">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                        <span class="page-link">Previous</span>
+                    <li class="page-item @(_skipCount == 0 ? "disabled" : "")">
+                        <a 
+                            class="page-link" 
+                            href="javascript:void(0)" 
+                            @onclick="() => GetProjectsPageAsync(_skipCount - _takeCount)">
+                            @Resources.PreviousPage
+                        </a>
                     </li>
                         @for(int i=0; i < Math.Ceiling(_totalCount / (double)_takeCount); i++)
                         {
                             int y = i;
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)" @onclick="async () => await GetProjectsPageAsync(y * _takeCount)">@(i + 1)</a></li>
+                            <li class="page-item">
+                                <a 
+                                    class="page-link" 
+                                    href="javascript:void(0)" 
+                                    @onclick="async () => await GetProjectsPageAsync(y * _takeCount)">
+                                    @(i + 1)
+                                </a>
+                            </li>
                         }
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
+                    <li class="page-item @(_skipCount >= _totalCount - _takeCount ? "disabled" : "")">
+                        <a
+                            class="page-link" 
+                            href="javascript:void(0)" 
+                            @onclick="() => GetProjectsPageAsync(_skipCount + _takeCount)">
+                            @Resources.NextPage
+                        </a>
                     </li>
                  </ul>
             </nav>
@@ -160,7 +177,7 @@
     <div>
         @if (_projectsInfo is not null && _projectsInfo.Count >= _takeCount && _projectsInfo.Count != _totalCount)
         {
-            <button type="button" class="btn btn-primary" id="show-more" @onclick="ChangeProjectsCountAsync">show more</button>
+            <button type="button" class="btn btn-primary" id="show-more" @onclick="ChangeProjectsCountAsync">@Resources.ShowMore</button>
         }
     </div>
 
