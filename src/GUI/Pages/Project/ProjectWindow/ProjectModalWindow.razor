@@ -35,7 +35,7 @@
                                     <p>@Resources.ProjectStatus: @_project.Project.Status</p>
                                     <p>@Resources.ShortName: @_project.Project.ShortName</p>
                                     <p>@Resources.ProjectDepartment: @_project.Project.Department.Name</p>
-                                    <p>@Resources.ProjectDataCreation: @(((DateTime)_project.Project.CreatedAt).ToShortDateString())</p>
+                                    <p>@Resources.ProjectDataCreation: @(((DateTime)_project.Project.CreatedAtUtc).ToShortDateString())</p>
                                 </div>
                             </div>
                             <div id="accordion">
