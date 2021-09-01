@@ -97,6 +97,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Channels.
+        /// </summary>
+        internal static string Channels {
+            get {
+                return ResourceManager.GetString("Channels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         internal static string Company {
@@ -210,6 +219,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         internal static string DepartmentName {
             get {
                 return ResourceManager.GetString("DepartmentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Direct message.
+        /// </summary>
+        internal static string DirectMessage {
+            get {
+                return ResourceManager.GetString("DirectMessage", resourceCulture);
             }
         }
         

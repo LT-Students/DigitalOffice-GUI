@@ -6,3 +6,10 @@
     width: 60px;
     margin-right: 10px;
 }
+
+button[id="dropdown-menu"] {
+    padding: 0px 4px;
+    background-color: #ffffff00;
+    border: none;
+}
+

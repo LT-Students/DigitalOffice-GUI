@@ -420,4 +420,10 @@
   <data name="PreviousPage" xml:space="preserve">
     <value>Previous</value>
   </data>
+  <data name="Channels" xml:space="preserve">
+    <value>Channels</value>
+  </data>
+  <data name="DirectMessage" xml:space="preserve">
+    <value>Direct message</value>
+  </data>
 </root>

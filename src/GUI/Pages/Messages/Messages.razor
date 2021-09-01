@@ -2,6 +2,7 @@
 @attribute [Authorize]
 
 @using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Pages.Messages.Workspace
 @using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
 
 @inject IMessageService messageService
@@ -39,7 +40,7 @@
 
 @code {
     private bool _isCreateWorkspaceWindow;
-    private Workspace _workspace;
+    private Workspace.Workspace _workspace;
 
     private List<Body3> _workspaces = new();
 
