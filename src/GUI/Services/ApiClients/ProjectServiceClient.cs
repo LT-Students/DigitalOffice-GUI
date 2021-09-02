@@ -1884,8 +1884,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string ShortDescription { get; set; }
     
         /// <summary>Data and time created project.</summary>
-        [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object CreatedAt { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedAtUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object CreatedAtUtc { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     

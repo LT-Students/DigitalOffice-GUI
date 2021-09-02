@@ -414,4 +414,13 @@
   <data name="WorkspaceName" xml:space="preserve">
     <value>Название</value>
   </data>
+  <data name="ItemsPerPage" xml:space="preserve">
+    <value>Объекты на странице</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Назад</value>
+  </data>
 </root>
