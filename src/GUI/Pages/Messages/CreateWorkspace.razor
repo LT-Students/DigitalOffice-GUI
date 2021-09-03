@@ -3,7 +3,7 @@
 @using LT.DigitalOffice.GUI.Shared
 @using LT.DigitalOffice.GUI.Properties
 
-@inject IMessageService _MessageService;
+@inject IMessageService MessageService;
 
 <div class=@(IsOpenCreateWorkspaceWindow ? "create-workspace-window" : "create-workspace-window-hide")>
     <p>@Resources.CreateWorkspace</p>
@@ -35,7 +35,7 @@
     private string _messageUser;
     private bool _isSuccessOperation;
 
-    private CreateWorkspaceRequest _request { get; set; }
+    private CreateWorkspaceRequest _request;
 
     protected override void OnInitialized()
     {
@@ -46,7 +46,7 @@
     {
         try
         {
-            var response = await _MessageService.CreateWorkspaceAsync(_request);
+            var response = await MessageService.CreateWorkspaceAsync(_request);
 
             if (response.Status == OperationResultStatusType.FullSuccess)
             {
@@ -63,7 +63,7 @@
             _isSuccessOperation = false;
             _messageUser = $"Something went wrong, please try again later.\nMessage: { ex.Result.Message }";
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             _isSuccessOperation = false;
             _messageUser = $"Something went wrong, please try again later.";
@@ -88,7 +88,7 @@
                 var fileContent = new StreamContent(file.OpenReadStream(1024 * 1024 * 15));
                 image.Content = Convert.ToBase64String(await fileContent.ReadAsByteArrayAsync());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                  _messageUser = $"Image did not load, please try again later.";
             }
