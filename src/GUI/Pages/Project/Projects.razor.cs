@@ -14,7 +14,7 @@ namespace LT.DigitalOffice.GUI.Pages.Project
     public partial class Projects
     {
         private int _takeCount;
-        private int _takeCountDefault = 5;
+        private const int _takeCountDefault = 5;
 
         private Guid _projectId;
         private string _searchValue;
