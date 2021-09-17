@@ -426,4 +426,7 @@
   <data name="DirectMessage" xml:space="preserve">
     <value>Direct message</value>
   </data>
+  <data name="EditWorkspaceWindow" xml:space="preserve">
+    <value>Edit workspace</value>
+  </data>
 </root>

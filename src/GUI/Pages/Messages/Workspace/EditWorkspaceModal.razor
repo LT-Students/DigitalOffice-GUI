@@ -4,7 +4,7 @@
 
 <ModalWindow>
     <Title>
-        Edit workspace
+        @Resources.EditWorkspaceWindow
     </Title>
     <Body>
         <label for="name">@Resources.WorkspaceName</label>
@@ -29,14 +29,15 @@
         </textarea>
 
         <button 
-            type="submite" 
+            type="button" 
             class="btn btn-primary" 
             data-toggle="modal" 
-            data-target="#snackbar-modal"
-            @onclick="EditWorkspace">
+            data-target="#edit-workspace-modal"
+            @onclick="EditWorkspaceAsync">
             @Resources.ModalFinishButton
         </button>
+
     </Body>
 </ModalWindow>
 
-<Snackbar DataTarget="snackbar-modal" IsSuccessOperation=@_isSuccessOperation Message=@_messageUser />
+<Snackbar DataTarget="edit-workspace-modal" IsSuccessOperation=@_isSuccessOperation Message=@_messageUser />

@@ -29,7 +29,11 @@
 
         </div>
 
-        <Snackbar DataTarget="edit-task-modal" Message=@_messageUser IsSuccessOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
+        <Snackbar 
+            DataTarget="edit-task-modal" 
+            Message=@_messageUser 
+            IsSuccessOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
+            
         <div>
             <p>@Resources.TaskType:
                 <select 

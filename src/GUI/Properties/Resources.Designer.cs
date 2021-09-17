@@ -241,6 +241,15 @@ namespace LT.DigitalOffice.GUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit workspace.
+        /// </summary>
+        internal static string EditWorkspaceWindow {
+            get {
+                return ResourceManager.GetString("EditWorkspaceWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         internal static string Email {

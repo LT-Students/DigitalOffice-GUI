@@ -19,7 +19,11 @@
     <label for="image">@Resources.WorkspaceImage</label>
     <InputFile OnChange="@LoadFile" style="margin-bottom: 20px;"/>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#snackbar-modal"
+    <button 
+        type="button" 
+        class="btn btn-primary" 
+        data-toggle="modal" 
+        data-target="#snackbar-modal"
         @onclick="CreateWorkspaceAsync">
         @Resources.ModalFinishButton
     </button>

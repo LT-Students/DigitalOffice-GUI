@@ -429,4 +429,7 @@
   <data name="WorkspaceChannels" xml:space="preserve">
     <value>Каналы</value>
   </data>
+  <data name="EditWorkspaceWindow" xml:space="preserve">
+    <value>Изменить рабочее пространство</value>
+  </data>
 </root>

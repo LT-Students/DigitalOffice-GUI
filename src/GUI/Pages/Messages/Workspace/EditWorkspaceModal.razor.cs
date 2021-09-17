@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,13 +46,15 @@ namespace LT.DigitalOffice.GUI.Pages.Messages.Workspace
             }
         }
 
-        private async Task EditWorkspace()
+        private async Task EditWorkspaceAsync()
         {
             _messageUser = null;
 
             if (!_requestBody.Any())
             {
                 _messageUser = "The workspace has not changes";
+                _isSuccessOperation = false;
+
                 return;
             }
 
@@ -59,13 +62,20 @@ namespace LT.DigitalOffice.GUI.Pages.Messages.Workspace
             {
                 OperationResultResponse _editWorkspaceResponse = await MesageService.EditWorkspaceAsync(Workspace.Id, _requestBody);
 
-                _messageUser = _editWorkspaceResponse.Status == OperationResultStatusType.FullSuccess ?
+                _isSuccessOperation = (bool)_editWorkspaceResponse.Body;
+                _messageUser = _isSuccessOperation ?
                     "Changes were saved successfully!" :
                     $"Something went wrong, please try again later.\nMessage: { _editWorkspaceResponse.Errors }";
             }
             catch (ApiException ex)
             {
+                _isSuccessOperation = false;
                 _messageUser = $"Something went wrong, please try again later.\nMessage: { ex.Response }";
+            }
+            catch (Exception)
+            {
+                _isSuccessOperation = false;
+                _messageUser = $"Something went wrong, please try again later.";
             }
 
             _requestBody = new();
