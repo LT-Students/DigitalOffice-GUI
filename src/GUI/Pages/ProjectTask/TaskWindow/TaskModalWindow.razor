@@ -43,7 +43,7 @@
                                             </h1>
                                         </div>
 
-                                        @if (_userRole == UserRoleType.ProjectAdmin || IsUserAdmin)
+                                        @if (_userRole == ProjectUserRoleType.Manager || IsUserAdmin)
                                         {
                                             <button 
                                                 type="button" 
@@ -92,11 +92,11 @@
                                                 <div>
                                                     <p>@Resources.TaskAuthor:
                                                         <NavLink href="#" style="text-decoration: none; color: #1d2ecc">
-                                                            @string.Join(" ", _task.Author.FirstName, _task.Author.MiddleName)
+                                                            @string.Join(" ", _task.CreatedBy.FirstName, _task.CreatedBy.MiddleName)
                                                         </NavLink>
                                                     </p>
                                                     <p>@Resources.TaskPriority: @_task.Priority?.Name</p>
-                                                    <p>@Resources.TaskDateСreation: @_task.CreatedAt</p>
+                                                    <p>@Resources.TaskDateСreation: @_task.CreatedAtUtc</p>
                                                     <p>@Resources.PlannedTimeTask: @(_task.PlannedMinutes is null ? "-" : _task.PlannedMinutes)</p>
                                                 </div>
                                             </div>

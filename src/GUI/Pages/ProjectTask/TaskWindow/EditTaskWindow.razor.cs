@@ -44,15 +44,13 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
 
         protected override async Task OnInitializedAsync()
         {
-
             _projects = (await _ProjectService.FindProjects(0, int.MaxValue)).Body.ToList();
-            await GetTaskPropertiesAsync();
-            
+            await GetTaskPropertiesAsync(); 
         }
 
         private void SetValueToPatchDocument(PatchDocumentPath path, object value)
         {
-            PatchDocument patch = _requestBody.FirstOrDefault(X => X.Path == path);
+            PatchDocument patch = _requestBody.FirstOrDefault(x => x.Path == path);
 
             if (patch is null)
             {
@@ -77,7 +75,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
             _projectTasks = taskResponse.Body.ToList();
 
             var projectResponse = await _ProjectService.GetProjectAsync(Task.Project.Id, includeUsers: true);
-            _projectUsers = projectResponse.Users.ToList();
+            _projectUsers = projectResponse.Body.Users.ToList();
 
             var taskPropertiesResponse = (await _ProjectService.GetTaskPropertiesAsync(
                 skipCount:0, 

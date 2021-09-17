@@ -7,7 +7,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task<ProjectResponse> GetProjectAsync(
+        Task<OperationResultResponseProjectResponse> GetProjectAsync(
             Guid projectId, 
             bool includeUsers = false, 
             bool includeFiles = false, 
@@ -18,7 +18,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             int takeCount,
             Guid? departmentId = null);
 
-        Task<ProjectInfo> CreateProject(ProjectRequest request);
+        Task<OperationResultResponse> CreateProject(ProjectRequest request);
 
         Task<OperationResultResponse> CreateTaskAsync(CreateTaskRequest request);
 

@@ -28,7 +28,7 @@
             }
 
             <a class="nav-link" href="javascript:void(0)" @onclick="() => _workspace.GetWorkspace(workspace.Id)">
-                @StringHandler(workspace.Name)
+                @WorkspaceNameHandler(workspace.Name)
             </a>
         }
 
@@ -39,11 +39,13 @@
 
 <CreateWorkspace IsOpenCreateWorkspaceWindow=@_isCreateWorkspaceWindow/>
 
+<EditWorkspaceModal Workspace=@_workspace?.workspace/>
+
 @code {
     private bool _isCreateWorkspaceWindow;
     private Workspace.Workspace _workspace;
 
-    private List<Body3> _workspaces = new();
+    private List<ShortWorkspaceInfo> _workspaces = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -58,7 +60,7 @@
         StateHasChanged();
     }
 
-    private string StringHandler(string workspaceName)
+    private string WorkspaceNameHandler(string workspaceName)
     {
         string[] separateName = workspaceName.Split(" ");
 

@@ -67,7 +67,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
                 string.Equals("Feature", x.TypeName) || string.Equals("Task", x.TypeName)).ToList();
 
             var projectResponse = await _ProjectService.GetProjectAsync(_selectProjectId.Value, includeUsers: true);
-            _projectUsers = projectResponse.Users.ToList();
+            _projectUsers = projectResponse.Body.Users.ToList();
 
             var taskPropertiesResponse = (await _ProjectService.GetTaskPropertiesAsync(
                 skipCount:0, 

@@ -16,7 +16,9 @@ namespace LT.DigitalOffice.GUI.Pages.Project.ProjectWindow
 
         public async Task GetProjectAsync(Guid projectId)
         {
-            _project = await _ProjectService.GetProjectAsync(projectId, includeUsers: true, includeFiles: true);
+            var response = await _ProjectService.GetProjectAsync(projectId, includeUsers: true, includeFiles: true);
+            _project = response.Body;
+
             StateHasChanged();
         }
     }

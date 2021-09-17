@@ -72,7 +72,7 @@
 
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
-        CreateImageRequest image = new();
+        Image image = new();
         List<IBrowserFile> files = new();
 
         foreach(var file in e.GetMultipleFiles())
@@ -81,9 +81,6 @@
             {
                 List<string> imageData = new List<string>(file.Name.Split("."));
                 image.Extension = string.Join("", ".", imageData.Last());
-
-                imageData.RemoveAt(imageData.Count - 1);
-                image.Name = string.Join(".", imageData);
 
                 var fileContent = new StreamContent(file.OpenReadStream(1024 * 1024 * 15));
                 image.Content = Convert.ToBase64String(await fileContent.ReadAsByteArrayAsync());

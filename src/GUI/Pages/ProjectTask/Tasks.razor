@@ -67,9 +67,9 @@
                                     </NavLink>
                                 </h2>
                                 <h2>@Resources.TaskAuthor:
-                                    <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.Author.Id}"}>
-                                        @(task.Author != null ? 
-                                            string.Join(" ", task.Author.FirstName, task.Author.LastName) : "-")
+                                    <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.CreatedBy.Id}"}>
+                                        @(task.CreatedBy != null ? 
+                                            string.Join(" ", task.CreatedBy.FirstName, task.CreatedBy.LastName) : "-")
                                     </NavLink>
                                 </h2>
                                 <h2>@Resources.TaskStatus: @task.StatusName</h2>

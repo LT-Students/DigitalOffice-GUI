@@ -9,9 +9,9 @@
     <div style="display:flex;">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <img class="rounded-circle"
-                 src="data:image/@_workspace.Image?.Extension;base64,@_workspace.Image?.Content"
+                 src="data:image/@workspace.Image?.Extension;base64,@workspace.Image?.Content"
                  alt="icon" />
-            <span class="fs-4">@_workspace.Name</span>
+            <span class="fs-4">@workspace.Name</span>
         </a>
         <div class="dropdown">
             <button 
@@ -61,9 +61,9 @@
 @code {
     [Parameter]
     public Guid WorkspaceId { get; set; }
+    public Body workspace = new();
 
     private bool _isOpenWorkspace;
-    private Body _workspace = new();
 
     public async Task GetWorkspace(Guid workspaceId)
     {
@@ -77,7 +77,7 @@
         }
 
         var response = await messageService.GetWorkspaceAsync(workspaceId);
-        _workspace = response.Body;
+        workspace = response.Body;
 
         StateHasChanged();
     }

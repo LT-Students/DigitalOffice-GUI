@@ -157,7 +157,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="projectId">Project global unique identifier.</param>
         /// <returns>Successfully returned a project information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<ProjectResponse> GetProjectAsync(string token, System.Guid projectId, bool? includeusers, bool? shownotactiveusers, bool? includefiles)
+        public System.Threading.Tasks.Task<OperationResultResponseProjectResponse> GetProjectAsync(string token, System.Guid projectId, bool? includeusers, bool? shownotactiveusers, bool? includefiles)
         {
             return GetProjectAsync(token, projectId, includeusers, shownotactiveusers, includefiles, System.Threading.CancellationToken.None);
         }
@@ -167,7 +167,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         /// <param name="projectId">Project global unique identifier.</param>
         /// <returns>Successfully returned a project information.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<ProjectResponse> GetProjectAsync(string token, System.Guid projectId, bool? includeusers, bool? shownotactiveusers, bool? includefiles, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponseProjectResponse> GetProjectAsync(string token, System.Guid projectId, bool? includeusers, bool? shownotactiveusers, bool? includefiles, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -224,7 +224,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProjectResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseProjectResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -272,20 +272,18 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         }
     
         /// <param name="token">The JWT token.</param>
-        /// <returns>Base info new project.
-        ///   * OK</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<OperationResultResponseProjectInfo> CreateProjectAsync(ProjectRequest body, string token)
+        public System.Threading.Tasks.Task<OperationResultResponse> CreateProjectAsync(ProjectRequest body, string token)
         {
             return CreateProjectAsync(body, token, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="token">The JWT token.</param>
-        /// <returns>Base info new project.
-        ///   * OK</returns>
+        /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<OperationResultResponseProjectInfo> CreateProjectAsync(ProjectRequest body, string token, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<OperationResultResponse> CreateProjectAsync(ProjectRequest body, string token, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -331,7 +329,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseProjectInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1600,12 +1598,12 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public int? PlannedMinutes { get; set; }
     
         /// <summary>Data and time created task.</summary>
-        [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object CreatedAt { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedAtUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object CreatedAtUtc { get; set; }
     
         /// <summary>Task creator.</summary>
-        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public UserTaskInfo Author { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public UserTaskInfo CreatedBy { get; set; }
     
         [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public UserTaskInfo AssignedTo { get; set; }
@@ -1634,7 +1632,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
         [Newtonsoft.Json.JsonProperty("Role", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public UserRoleType Role { get; set; }
+        public ProjectUserRoleType Role { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -1660,8 +1658,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public System.Guid? ProjectId { get; set; }
     
         /// <summary>Unique author Id task property identifier.</summary>
-        [Newtonsoft.Json.JsonProperty("AuthorId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? AuthorId { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedBy", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid? CreatedBy { get; set; }
     
         /// <summary>The task property name.</summary>
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1672,8 +1670,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public string Description { get; set; }
     
         /// <summary>Data and time created task property.</summary>
-        [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object CreatedAt { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedAtUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object CreatedAtUtc { get; set; }
     
         /// <summary>Task property is active.</summary>
         [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1767,10 +1765,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid Id { get; set; }
     
-        /// <summary>Unique project identifier.</summary>
-        [Newtonsoft.Json.JsonProperty("ImageId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid ImageId { get; set; }
-    
         /// <summary>The user first name</summary>
         [Newtonsoft.Json.JsonProperty("FirstName", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string FirstName { get; set; }
@@ -1787,16 +1781,19 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public UserStatus Status { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("AvatarImage", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Rate", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public double Rate { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("AvatarImage", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ImageInfo AvatarImage { get; set; }
     
         /// <summary>Data and time added user to project.</summary>
-        [Newtonsoft.Json.JsonProperty("AddedOn", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object AddedOn { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedAtUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object CreatedAtUtc { get; set; }
     
         /// <summary>Data and time removed user from project.</summary>
-        [Newtonsoft.Json.JsonProperty("RemovedOn", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object RemovedOn { get; set; }
+        [Newtonsoft.Json.JsonProperty("ModifiedAtUtc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object ModifiedAtUtc { get; set; }
     
         /// <summary>User state.</summary>
         [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1808,12 +1805,12 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
         [Newtonsoft.Json.JsonProperty("Role", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public UserRoleType Role { get; set; }
+        public ProjectUserRoleType Role { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("Position", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Position", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public PositionInfo Position { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("Department", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Department", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public DepartmentInfo Department { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -1859,8 +1856,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public System.Guid Id { get; set; }
     
         /// <summary>Unique project creater identifier.</summary>
-        [Newtonsoft.Json.JsonProperty("AuthorId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid AuthorId { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Guid CreatedBy { get; set; }
     
         /// <summary>Project name.</summary>
         [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1999,10 +1996,13 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     /// * 1 - Admin
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
-    public enum UserRoleType
+    public enum ProjectUserRoleType
     {
-        [System.Runtime.Serialization.EnumMember(Value = @"ProjectAdmin")]
-        ProjectAdmin = 0,
+        [System.Runtime.Serialization.EnumMember(Value = @"Manager")]
+        Manager = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Employee")]
+        Employee = 1,
     
     }
     
@@ -2026,17 +2026,18 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         [Newtonsoft.Json.JsonProperty("ShortDescription", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string ShortDescription { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
         public ProjectStatusType Status { get; set; }
     
         /// <summary>Unique department identifier.</summary>
-        [Newtonsoft.Json.JsonProperty("DepartmentId", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("DepartmentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid DepartmentId { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<ProjectUserRequest> Users { get; set; }
+        [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<ProjectUserRequest> Users { get; set; } = new System.Collections.ObjectModel.Collection<ProjectUserRequest>();
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -2123,7 +2124,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         [Newtonsoft.Json.JsonProperty("Role", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public UserRoleType Role { get; set; }
+        public ProjectUserRoleType Role { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -2183,15 +2184,15 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         public int? PlannedMinutes { get; set; }
     
         /// <summary>Data and time created task.</summary>
-        [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object CreatedAt { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedAtUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public object CreatedAtUtc { get; set; }
     
         [Newtonsoft.Json.JsonProperty("Project", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ProjectInfo Project { get; set; }
     
         /// <summary>Task creator.</summary>
-        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ProjectUserInfo Author { get; set; }
+        [Newtonsoft.Json.JsonProperty("CreatedBy", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ProjectUserInfo CreatedBy { get; set; }
     
         [Newtonsoft.Json.JsonProperty("AssignedUser", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ProjectUserInfo AssignedUser { get; set; }
@@ -2360,7 +2361,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
         [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("AssignedTo", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public System.Guid? AssignedTo { get; set; }
     
         [Newtonsoft.Json.JsonProperty("TypeId", Required = Newtonsoft.Json.Required.Always)]
@@ -2453,10 +2454,10 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     
     /// <summary>Response object for action operations.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
-    public partial class OperationResultResponseProjectInfo 
+    public partial class OperationResultResponseProjectResponse 
     {
         [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ProjectInfo Body { get; set; }
+        public ProjectResponse Body { get; set; }
     
         [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
@@ -2598,49 +2599,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v11.0.0.0)")]
     public partial class Body 
     {
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid Id { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Name { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Description { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Number", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int Number { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("PlannedMinutes", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? PlannedMinutes { get; set; }
-    
-        /// <summary>Data and time created task.</summary>
-        [Newtonsoft.Json.JsonProperty("CreatedAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public object CreatedAt { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Project", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonProperty("project", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public ProjectInfo Project { get; set; }
     
-        /// <summary>Task creator.</summary>
-        [Newtonsoft.Json.JsonProperty("Author", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ProjectUserInfo Author { get; set; }
+        [Newtonsoft.Json.JsonProperty("users", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<ProjectUserInfo> Users { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("AssignedUser", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public ProjectUserInfo AssignedUser { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TaskPropertyInfo Status { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Priority", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TaskPropertyInfo Priority { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Type", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TaskPropertyInfo Type { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("ParentTask", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public TaskInfo ParentTask { get; set; }
-    
-        [Newtonsoft.Json.JsonProperty("Subtasks", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.Generic.ICollection<TaskInfo> Subtasks { get; set; }
+        [Newtonsoft.Json.JsonProperty("files", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.ICollection<ProjectFileInfo> Files { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     

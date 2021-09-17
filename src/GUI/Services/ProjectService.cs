@@ -44,9 +44,9 @@ namespace LT.DigitalOffice.GUI.Services
             return projectsResponse;
         }
 
-        public async Task<ProjectInfo> CreateProject(ProjectRequest request)
+        public async Task<OperationResultResponse> CreateProject(ProjectRequest request)
         {
-            OperationResultResponseProjectInfo response = null;
+            OperationResultResponse response = null;
             try
             {
                 await _refreshToken.RefreshAsync();
@@ -60,7 +60,7 @@ namespace LT.DigitalOffice.GUI.Services
                 throw;
             }
 
-            return response.Body;
+            return response;
         }
 
         public async Task<FindResponseTaskProperty> GetTaskPropertiesAsync(
@@ -76,7 +76,7 @@ namespace LT.DigitalOffice.GUI.Services
             return await _projectServiceClient.FindTaskPropertiesAsync(token, name, authorId, projectId, skipCount, takeCount);
         }
 
-        public async Task<ProjectResponse> GetProjectAsync(
+        public async Task<OperationResultResponseProjectResponse> GetProjectAsync(
             Guid projectId, 
             bool includeUsers = false, 
             bool includeFiles = false, 

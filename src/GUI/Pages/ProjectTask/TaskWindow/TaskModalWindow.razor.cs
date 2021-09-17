@@ -15,7 +15,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
         private bool _isEditTask;
         private bool _isClickContentModal;
 
-        private UserRoleType _userRole;
+        private ProjectUserRoleType _userRole;
         private TaskResponse _task;
 
         [Inject]
@@ -43,7 +43,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
             var project = await _ProjectService.GetProjectAsync(taskResponse.Body.Project.Id, includeUsers: true);
 
             Guid userId = await _Storage.GetItemAsync<Guid>(Consts.UserId);
-            _userRole = project.Users.FirstOrDefault(x => x.Id == userId).Role;
+            _userRole = project.Body.Users.FirstOrDefault(x => x.Id == userId).Role;
 
             IsUserAdmin = await _Storage.GetItemAsync<bool>(Consts.IsUserAdmin);
 

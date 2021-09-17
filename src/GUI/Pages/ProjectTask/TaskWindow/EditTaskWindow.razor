@@ -98,7 +98,7 @@
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
                         <div>
-                            <p>@Resources.TaskAuthor: @string.Join(" ", Task.Author.FirstName, Task.Author.MiddleName)</p>
+                            <p>@Resources.TaskAuthor: @string.Join(" ", Task.CreatedBy.FirstName, Task.CreatedBy.MiddleName)</p>
                             <p>@Resources.TaskPriority:
                                 <select 
                                     value="@Task.Priority.Id" 
@@ -113,7 +113,7 @@
 
                                 </select>
                             </p>
-                            <p>@Resources.TaskDateСreation: @Task.CreatedAt</p>
+                            <p>@Resources.TaskDateСreation: @Task.CreatedAtUtc</p>
                             <p>@Resources.PlannedTimeTask:
                                 <input 
                                     id="planned-time-task" 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Services.ApiClients.MessageService;
 
@@ -14,5 +15,9 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
             Guid workspaceId, 
             bool? includeUsers = false, 
             bool? includeChannels = false);
+
+        Task<OperationResultResponse> EditWorkspaceAsync(
+            Guid workspaceId,
+            List<PatchWorkspaceDocument> body);
     }
 }

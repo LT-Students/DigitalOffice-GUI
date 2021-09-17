@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Blazored.SessionStorage;
@@ -48,6 +49,16 @@ namespace LT.DigitalOffice.GUI.Services
             var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
             return await _client.GetWorkspaceAsync(token, workspaceId, includeUsers, includeChannels);
+        }
+
+        public async Task<OperationResultResponse> EditWorkspaceAsync(
+            Guid workspaceId,
+            List<PatchWorkspaceDocument> body)
+        {
+            await _refreshToken.RefreshAsync();
+            var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+            return await _client.EditWorkspaceAsync(body, token, workspaceId);
         }
     }
 }
