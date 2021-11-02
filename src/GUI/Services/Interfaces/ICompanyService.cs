@@ -1,18 +1,18 @@
-﻿using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using LT.DigitalOffice.GUI.Services.ApiClients.CompanyService;
 
 namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
-    public interface ICompanyService
-    {
-        Task CreateDepartmentAsync(CreateDepartmentRequest request);
+  public interface ICompanyService
+  {
+    Task CreateDepartmentAsync(CreateDepartmentRequest request);
 
-        Task CreatePositionAsync(CreatePositionRequest request);
+    Task CreatePositionAsync(CreatePositionRequest request);
 
-        Task<FindResultResponseDepartmentInfo> FindDepartmentsAsync();
+    Task<FindResultResponseDepartmentInfo> FindDepartmentsAsync();
 
-        Task<FindResultResponsePositionInfo> FindPositionsAsync();
+    Task<FindResultResponsePositionInfo> FindPositionsAsync();
 
-        Task<FindResultResponseOfficeInfo> FindOfficesAsync();
-    }
+    Task<FindResultResponseOfficeInfo> FindOfficesAsync();
+  }
 }
