@@ -1,0 +1,22 @@
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
+
+@inject IMessageService _messageService
+
+<div class="cannels_container">
+	<div class="channels_public">
+		<p>Channels</p>
+		@if (WorkspaceInfo.Channels is not null)
+		{
+			@foreach (var channel in WorkspaceInfo.Channels)
+			{
+				<div class="cannels_item">
+					@channel.Name
+				</div>
+			}
+		}
+	</div>
+	<div class="channels_private">
+
+	</div>
+</div>

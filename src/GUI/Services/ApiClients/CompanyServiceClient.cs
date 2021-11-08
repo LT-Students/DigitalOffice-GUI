@@ -19,7 +19,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.CompanyService
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.12.1.0 (NJsonSchema v10.4.6.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class CompanyServiceClient
     {
-        private string _baseUrl = "https://company.ltdo.xyz";
+        private string _baseUrl = "https://company.dev.ltdo.xyz";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 

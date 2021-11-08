@@ -51,7 +51,8 @@ namespace LT.DigitalOffice.GUI.Services
         null,
         null,
         null,
-        null);
+        null,
+				null);
 
       var userName = $"{userInfo.Body.User.LastName} {userInfo.Body.User.FirstName}";
 
@@ -87,7 +88,8 @@ namespace LT.DigitalOffice.GUI.Services
         null,
         includeProjects,
         null,
-        null);
+        null,
+				null);
     }
 
     public async Task<FindResultResponseUserInfo> FindUsersAsync(int skipCount, int takeCount, Guid? departmentId = default)
@@ -96,7 +98,7 @@ namespace LT.DigitalOffice.GUI.Services
 
       _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
-      return await _client.FindUsersAsync(_token, departmentId, skipCount, takeCount);
+      return await _client.FindUsersAsync(_token, skipCount, takeCount, null, null, null, null, null, null);
     }
 
     public async Task<OperationResultResponse> CreateUserAsync(CreateUserRequest request)

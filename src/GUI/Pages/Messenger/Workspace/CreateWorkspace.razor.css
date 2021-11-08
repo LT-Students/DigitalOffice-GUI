@@ -1,0 +1,11 @@
+.create-workspace_image_container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	height: 150px;
+}
+
+#create-workspace_loaded-image {
+	height: 100%;
+}

@@ -1,0 +1,55 @@
+@using Services.Interfaces
+@using LT.DigitalOffice.GUI.Shared
+@using LT.DigitalOffice.GUI.Properties
+
+@inject IMessageService _messageService
+
+<EditForm Model="@_request" OnValidSubmit="@HandleValidSubmit">
+	<DataAnnotationsValidator />
+	<div class="create-workspace_container">
+		<div class="item-group">
+			<label for="create-workspace_name">@Resources.WorkspaceName<font color="red">*</font></label>
+			<input @bind-value="_request.Name"
+				   type="text"
+				   id="create-workspace_name"
+				   class="form-control"
+				   @onkeyup="@((k) => {
+								   if (k.Code == "Enter" || k.Code == "ArrowDown")
+									   _descriptionInput.FocusAsync();})" />
+			<ValidationMessage style="font-size: 0.7em;" For="() => _request.Name" />
+		</div>
+		<div class="item-group_textarea">
+			<label for="create-workspace_description">@Resources.WorkspaceDescription</label>
+			<textarea @bind="_request.Description"
+					  @ref="_descriptionInput"
+					  type="text"
+					  id="create-workspace_description"
+					  class="form-control" />
+			<ValidationMessage style="font-size: 0.7em;" For="() => _request.Description" />
+		</div>
+
+		<div class="item-group">
+			<label for="create-workspace_add-image"
+				   class="form-label">
+				@Resources.WorkspaceImage
+			</label>
+			<div class="create-workspace_image_container">
+				<InputFile class="form-control" OnChange="@LoadFile" />
+				@if (_request.Image is not null)
+				{
+					<img id="create-workspace_loaded-image"
+						 src="data:image/@_request.Image.Extension;base64,@_request.Image.Content" />
+				}
+			</div>
+		</div>
+		<div class="create-department_actions-container">
+			<button class="btn btn-primary"
+					type="submit"
+					data-toggle="modal"
+					data-target="#snackbar-modal">
+				@Resources.CreateWorkspace
+			</button>
+		</div>
+		<Snackbar DataTarget="snackbar-modal" IsSuccessOperation=@_isSuccessOperation Message=@_infoMessage />
+	</div>
+</EditForm>
