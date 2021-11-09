@@ -1,0 +1,28 @@
+﻿.workspaces-navigation_container {
+	display: flex;
+
+	height: 40px;
+	padding: 4px 0;
+
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.workspaces-navigation_container div {
+	display: flex;
+	justify-content: center;
+}
+
+.workspaces-navigation_item {
+	display: flex;
+
+	margin: 0 5px;
+}
+
+.workspaces-navigation_item_image {
+	height: 100%;
+}
+
+#plus_button {
+	height: 100%;
+}
+

@@ -1,0 +1,42 @@
+﻿@page "/messenger"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces
+
+@inject IMessageService _messageService
+
+<div class="messenger-page_container">
+	<div class="workspaces-navigation_container">
+		<button id="workspaces-navigation_add-workspace_button"
+				type="button"
+				class="btn btn-link"
+				data-toggle="modal"
+				data-target="#createModalCenter">
+			<img id="plus_button" src="/icons/plus_w.png">
+		</button>
+		@foreach (var workspace in _workspaces)
+		{
+			<button class="workspaces-navigation_item btn btn-outline-light"
+					@onclick='(() => OnSetWorkspaceAsync(workspace.Id) )'>
+
+				@if (workspace.Image != null)
+				{
+					<img class="workspaces-navigation_item_image"
+						 src="data:image/@workspace.Image.Extension;base64,@workspace.Image.Content" />
+				}
+				<p>@StringHandler(workspace.Name)</p>
+			</button>
+		}
+	</div>
+	<div class="workspaces-content_container">
+		<LT.DigitalOffice.GUI.Pages.Messenger.Workspace.Channels WorkspaceInfo="@_workspaceInfo"/>
+	</div>
+</div>
+
+<ModalWindow @ref="_modalWindow">
+	<Title>title</Title>
+	<Body>
+		<LT.DigitalOffice.GUI.Pages.Messenger.Workspace.CreateWorkspace />
+	</Body>
+</ModalWindow>
+

@@ -40,7 +40,8 @@ namespace LT.DigitalOffice.GUI.Services
       return await _client.FindWorkspaceAsync(token, skipCount, takeCount, includeDeactivated);
     }
 
-    public async Task<OperationResultResponseWorkspaceInfo> GetWorkspaceAsync(Guid workspaceId,
+    public async Task<OperationResultResponseWorkspaceInfo> GetWorkspaceAsync(
+      Guid workspaceId,
       bool? includeUsers = false,
       bool? includeChannels = false)
     {
