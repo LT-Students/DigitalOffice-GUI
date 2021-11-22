@@ -50,5 +50,24 @@ namespace LT.DigitalOffice.GUI.Services
 
       return await _client.GetWorkspaceAsync(token, workspaceId, includeUsers, includeChannels);
     }
+
+    public async Task<OperationResultResponseChannelInfo> GetChannelAsync(
+      Guid channelId,
+      int skipCount,
+      int takeCount)
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      return await _client.GetChannelAsync(token, channelId, skipCount, takeCount);
+    }
+
+    public async Task<OperationResultResponse> CreateMessageAsync(CreateMessageRequest request)
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      return await _client.CreateMessageAsync(request, token);
+    }
   }
 }

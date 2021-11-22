@@ -1,0 +1,29 @@
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
+
+@inject IMessageService _messageService
+
+<div class="cannel_container">
+    <div class="channel_header">
+        <p>here will be channel menu</p>
+    </div>
+
+    <div class="chat_container" id="chat-list">
+        @if (ChannelData.Body.Messages is not null)
+        {
+            @foreach (var message in ChannelData.Body.Messages)
+            {
+                <div class="message_container">
+                    <div class="message_sending-info">
+                        <p>@message.CreatedBy?.FirstName</p>
+                        <p>@message.CreatedAtUtc</p>
+                    </div>
+                    <div class="message_content">
+                        <p>@message.Content</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <LT.DigitalOffice.GUI.Pages.Messenger.Message.Message ChannelId="@ChannelData.Body.Id" /> 
+</div>
