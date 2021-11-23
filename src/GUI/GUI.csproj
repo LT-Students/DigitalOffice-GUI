@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <AssemblyName>LT.DIgitalOffice.GUI</AssemblyName>
+    <AssemblyName>LT.DigitalOffice.GUI</AssemblyName>
     <RootNamespace>LT.DigitalOffice.GUI</RootNamespace>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
   </PropertyGroup>
