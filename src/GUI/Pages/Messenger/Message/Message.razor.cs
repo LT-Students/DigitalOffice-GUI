@@ -30,13 +30,9 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Message
       }
       catch (ApiException<OperationResultResponse> ex)
       {
-        //_isSuccessOperation = false;
-        //_infoMessage = $"Something went wrong, please try again later.\nMessage: { ex.Result.Errors }";
       }
       catch (Exception ex)
       {
-        //_isSuccessOperation = false;
-        //_infoMessage = ex.Message;
       }
     }
   }
