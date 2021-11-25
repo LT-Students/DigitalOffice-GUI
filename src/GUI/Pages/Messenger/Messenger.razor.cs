@@ -11,7 +11,7 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger
   {
     private ModalWindow _modalWindow { get; set; }
     private List<ShortWorkspaceInfo> _workspaces = new();
-    private OperationResultResponseWorkspaceInfo _workspaceInfo = new();
+    private OperationResultResponseWorkspaceInfo _workspaceInfo;
 
     protected async override void OnInitialized()
     {
@@ -35,10 +35,10 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger
       }
       catch (Exception ex)
       {
-
+        _workspaceInfo = null;
       }
 
-      //StateHasChanged();
+      StateHasChanged();
     }
 
     private string StringHandler(string name)

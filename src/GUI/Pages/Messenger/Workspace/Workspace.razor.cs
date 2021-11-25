@@ -10,7 +10,13 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Workspace
     [Parameter]
     public OperationResultResponseWorkspaceInfo WorkspaceData { get; set; }
 
-    private OperationResultResponseChannelInfo _channelInfo = new();
+    private OperationResultResponseChannelInfo _channelInfo;
+
+    protected override void OnParametersSet()
+    {
+      _channelInfo = null;
+      StateHasChanged();
+    }
 
     private async Task OnSetChannelAsync(Guid channelId)
     {
@@ -20,8 +26,10 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Workspace
       }
       catch (Exception ex)
       {
-
+        _channelInfo = null;
       }
+
+      StateHasChanged();
     }
   }
 }

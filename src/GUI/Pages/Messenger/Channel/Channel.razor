@@ -3,14 +3,13 @@
 
 @inject IMessageService _messageService
 
-<div class="cannel_container">
+<div class="@(ChannelData?.Body is null? "hide-content" : "cannel_container")">
     <div class="channel_header">
         <p>here will be channel menu</p>
     </div>
-
-    <div class="chat_container" id="chat-list">
-        @if (ChannelData.Body.Messages is not null)
-        {
+    @if (ChannelData?.Body?.Messages is not null)
+    {
+        <div class="chat_container" id="chat-list">
             @foreach (var message in ChannelData.Body.Messages)
             {
                 <div class="message_container">
@@ -23,7 +22,7 @@
                     </div>
                 </div>
             }
-        }
-    </div>
-    <LT.DigitalOffice.GUI.Pages.Messenger.Message.Message ChannelId="@ChannelData.Body.Id" /> 
+        </div>
+        <LT.DigitalOffice.GUI.Pages.Messenger.Message.Message ChannelId="@ChannelData.Body.Id" />
+    }
 </div>

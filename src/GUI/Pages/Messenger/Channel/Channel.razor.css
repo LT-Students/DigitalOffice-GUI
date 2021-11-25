@@ -7,6 +7,10 @@
     width: calc(100% - 300px);
 }
 
+.hide-content {
+    display: none;
+}
+
 .channel_header {
 }
 

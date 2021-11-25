@@ -1,29 +1,28 @@
-﻿
-@using LT.DigitalOffice.GUI.Services.Interfaces
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces
 
 @inject IMessageService _messageService
 
 <div class="workspace_container">
-    <div class="channels-navigation_container">
-        <div class="workspace-settings_container">
-            <p>here will be workspace settings menu</p>
-        </div>
-        <div class="channels-list_container">
-            @if (WorkspaceData.Body.Channels is not null)
-            {
-                @foreach (var channel in WorkspaceData.Body.Channels)
+    @if (WorkspaceData?.Body is not null)
+    {
+        <div class="channels-navigation_container">
+            <div class="workspace-settings_container">
+                <p>here will be workspace settings menu</p>
+            </div>
+            <div class="channels-list_container">
+                @if (WorkspaceData.Body.Channels is not null)
                 {
-                    <button class="cannels_item btn btn-outline-secondary"
+                    @foreach (var channel in WorkspaceData.Body.Channels)
+                    {
+                        <button class="cannels_item btn btn-outline-secondary"
                             @onclick='(() => OnSetChannelAsync(channel.Id) )'>
 
-                        <p>@channel.Name</p>
-                    </button>
+                            <p>@channel.Name</p>
+                        </button>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
-    @if (_channelInfo?.Body is not null)
-    {
-       <LT.DigitalOffice.GUI.Pages.Messenger.Channel.Channel ChannelData="_channelInfo" /> 
+        <LT.DigitalOffice.GUI.Pages.Messenger.Channel.Channel ChannelData="_channelInfo"/>
     }
 </div>
