@@ -19,13 +19,12 @@ namespace LT.DigitalOffice.GUI.Services
 
     public async Task Connect(Guid channelId)
     {
-      string t = await _storage.GetItemAsync<string>(Consts.AccessToken);
-      Console.WriteLine(t);
+      string token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
       _hubConnection = new HubConnectionBuilder()
         .WithUrl("https://message.dev.ltdo.xyz/chatHub", options =>
         {
-          options.Headers.Add("token", t);
+          options.Headers.Add("token", token);
         })
         .Build();
       /*hubConnection.On<string>("channelId", (ChannelId) =>
@@ -35,7 +34,6 @@ namespace LT.DigitalOffice.GUI.Services
         StateHasChanged();
       });*/
       await _hubConnection.StartAsync();
-
       await _hubConnection.InvokeAsync("JoinChannel", channelId.ToString());
     }
   }
