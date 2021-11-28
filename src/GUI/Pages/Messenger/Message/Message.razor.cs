@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Services.ApiClients.MessageService;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.SignalR;
 
 namespace LT.DigitalOffice.GUI.Pages.Messenger.Message
 {
@@ -12,6 +11,18 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Message
     public Guid ChannelId { get; set; }
 
     private CreateMessageRequest _request = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+      try
+      {
+        await _chatHub.Connect(ChannelId);
+      }
+      catch (Exception ex)
+      {
+
+      }
+    }
 
     private async Task SendMessageAsync()
     {

@@ -9,9 +9,9 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     Task<OperationResultResponse> CreateWorkspaceAsync(CreateWorkspaceRequest request);
 
     Task<FindResultResponseShortWorkspaceInfo> FindWorkspaceAsync(
-			int skipCount,
-			int takeCount,
-			bool? includeDeactivated = false);
+	  int skipCount,
+	  int takeCount,
+	  bool? includeDeactivated = false);
 
     Task<OperationResultResponseWorkspaceInfo> GetWorkspaceAsync(
       Guid workspaceId,

@@ -1,7 +1,8 @@
-﻿@using LT.DigitalOffice.GUI.Services.Interfaces
-@using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
 
-@inject IMessageService _messageService
+@inject IMessageService _messageService;
+@inject IChatHub _chatHub;
+
 
 <EditForm Model="@_request" OnValidSubmit="@SendMessageAsync">
     <div class="create-message_container">

@@ -19,6 +19,7 @@ namespace LT.DigitalOffice.GUI.Helpers.Extensions
       services.AddScoped<IProjectService, ProjectService>();
       services.AddScoped<ICompanyService, CompanyService>();
       services.AddScoped<IMessageService, MessageService>();
+      services.AddScoped<IChatHub, ChatHub>();
 
       return services;
     }
