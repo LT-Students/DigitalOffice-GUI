@@ -33,8 +33,19 @@ namespace LT.DigitalOffice.GUI.Services
         //messages.Add(encodedMsg);
         StateHasChanged();
       });*/
+      _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+      {
+        //Message = $"Got message {message} from user {user}";
+        this.StateHasChanged();
+      });
+
       await _hubConnection.StartAsync();
       await _hubConnection.InvokeAsync("JoinChannel", channelId.ToString());
+    }
+
+    private void StateHasChanged()
+    {
+      throw new NotImplementedException();
     }
   }
 }

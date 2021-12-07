@@ -1,7 +1,8 @@
-﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
+﻿@using Blazored.SessionStorage
+@using LT.DigitalOffice.GUI.Services.Interfaces;
 
 @inject IMessageService _messageService;
-@inject IChatHub _chatHub;
+@inject ISessionStorageService _storage;
 
 
 <EditForm Model="@_request" OnValidSubmit="@SendMessageAsync">

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Blazored.SessionStorage;
+using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.MessageService;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace LT.DigitalOffice.GUI.Pages.Messenger.Message
 {
@@ -12,16 +15,42 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Message
 
     private CreateMessageRequest _request = new();
 
+    private HubConnection? _hubConnection;
+
     protected override async Task OnInitializedAsync()
     {
+      string token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+      Console.WriteLine(token);
+
       try
       {
-        await _chatHub.Connect(ChannelId);
+        _hubConnection = new HubConnectionBuilder()
+          .WithUrl("https://message.dev.ltdo.xyz/chatHub", options =>
+          {
+            //options.AccessTokenProvider();
+            options.Headers.Add("token", token);
+          })
+          .Build();
       }
-      catch (Exception ex)
+      catch(Exception ex)
       {
 
       }
+
+      /*hubConnection.On<string>("channelId", (ChannelId) =>
+      {
+        var encodedMsg = $"{user}: {message}";
+        //messages.Add(encodedMsg);
+        StateHasChanged();
+      });*/
+      _hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+      {
+        Console.WriteLine($"Got message {message} from user {user}");
+        this.StateHasChanged();
+      });
+
+      await _hubConnection.StartAsync();
+      await _hubConnection.InvokeAsync("JoinChannel", ChannelId.ToString());
     }
 
     private async Task SendMessageAsync()
