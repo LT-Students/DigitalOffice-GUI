@@ -19,7 +19,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.AuthService
   [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.2.0 (NJsonSchema v10.5.2.0 (Newtonsoft.Json v12.0.0.0))")]
   public partial class AuthServiceClient
   {
-    private string _baseUrl = "https://auth.dev.ltdo.xyz";
+    private string _baseUrl = "http://localhost:9818";//"https://auth.dev.ltdo.xyz";
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 

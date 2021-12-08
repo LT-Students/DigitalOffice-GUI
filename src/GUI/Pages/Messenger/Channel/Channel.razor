@@ -1,7 +1,9 @@
-﻿@using LT.DigitalOffice.GUI.Services.Interfaces
+﻿@using Blazored.SessionStorage
+@using LT.DigitalOffice.GUI.Services.Interfaces
 @using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
 
-@inject IMessageService _messageService
+@inject IMessageService _messageService;
+@inject ISessionStorageService _storage;
 
 <div class="@(ChannelData?.Body is null? "hide-content" : "cannel_container")">
     <div class="channel_header">

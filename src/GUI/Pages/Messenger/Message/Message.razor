@@ -2,8 +2,6 @@
 @using LT.DigitalOffice.GUI.Services.Interfaces;
 
 @inject IMessageService _messageService;
-@inject ISessionStorageService _storage;
-
 
 <EditForm Model="@_request" OnValidSubmit="@SendMessageAsync">
     <div class="create-message_container">
