@@ -8,7 +8,11 @@
     display: flex;
     height: 40px;
     padding: 4px 0;
+
     background: rgba(0, 0, 0, 0.5);
+
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .workspaces-navigation_container div {
@@ -28,5 +32,20 @@
 
 #plus_button {
 	height: 100%;
+}
+
+::-webkit-scrollbar {
+    height: 4px;
+    background-color: #253861;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 9em;
+    box-shadow: inset 1px 1px 10px #f3faf7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #253861;
 }
 

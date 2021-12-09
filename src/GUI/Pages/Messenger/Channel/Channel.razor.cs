@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
 using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.MessageService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace LT.DigitalOffice.GUI.Pages.Messenger.Channel
 {
@@ -40,8 +40,10 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Channel
 
           _hubConnection.On<MessageInfo>(
             "ReceiveMessage",
-            (Message) =>
+            async (Message) =>
             {
+              ChannelData.Body.Messages.Add(Message);
+              await JsRuntime.InvokeVoidAsync("ScrollDown");
               Console.WriteLine($"Got message {Message.Content}");
               this.StateHasChanged();
             });

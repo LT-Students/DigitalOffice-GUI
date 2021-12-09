@@ -14,11 +14,20 @@
                 {
                     @foreach (var channel in WorkspaceData.Body.Channels)
                     {
-                        <button class="cannels_item btn btn-outline-secondary"
-                            @onclick='(() => OnSetChannelAsync(channel.Id) )'>
+                        <div class="cannels_item"
+                             @onclick='(() => OnSetChannelAsync(channel.Id) )'>
 
-                            <p>@channel.Name</p>
-                        </button>
+                             <div class="channels_item_image">
+                                @if (channel.Avatar is not null)
+                                {
+                                    <img class="rounded mx-auto d-block"
+                                         loading="lazy"
+                                         src="data:image/@channel.Avatar.Extension;base64,@channel.Avatar.Content" />
+                                }
+                             </div>
+
+                            <div class="channels_item_channel-name">@channel.Name</div>
+                        </div>
                     }
                 }
             </div>

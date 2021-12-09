@@ -43,6 +43,11 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger
 
     private string StringHandler(string name)
     {
+      if (name.Length > 15)
+      {
+        return string.Join("'", name.Split(" ").Select(w => w[0])).ToUpper();
+      }
+
       return name;
     }
   }
