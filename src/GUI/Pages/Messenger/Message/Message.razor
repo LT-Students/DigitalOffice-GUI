@@ -1,20 +1,14 @@
-﻿@using Blazored.SessionStorage
-@using LT.DigitalOffice.GUI.Services.Interfaces;
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
 
 @inject IMessageService _messageService;
 
-<EditForm Model="@_request" OnValidSubmit="@SendMessageAsync">
-    <div class="create-message_container">
-        <div class="create-message_textarea">
-            <textarea @bind="_request.Content"
-                      class="form-control" placeholder="Type message here" />
+<div class="message_container">
+    <div class="message_sending-info">
+        <p>@MessageData.CreatedBy?.FirstName</p>
+        <p>@MessageData.CreatedAtUtc</p>
         </div>
-
-        <div class="create-message_actions-container">
-            <div><p>here will be message settings and attchments</p></div>
-            <button type="submit" class="btn btn-outline-dark" id="send-message_btn">
-                send
-            </button>  
+    <div class="message_content">
+        <p>@MessageData.Content</p>
         </div>
     </div>
-</EditForm>

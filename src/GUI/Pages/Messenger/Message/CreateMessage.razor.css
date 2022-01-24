@@ -1,0 +1,12 @@
+﻿.create-message_container {
+    width: 100%;
+
+    padding: 20px 10px;
+}
+
+.create-message_actions-container {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px 0 0;
+}

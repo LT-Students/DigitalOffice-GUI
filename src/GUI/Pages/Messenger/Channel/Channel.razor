@@ -13,19 +13,15 @@
     @if (ChannelData?.Body?.Messages is not null)
     {
         <div class="chat_container" id="chat-list">
-            @foreach (var message in ChannelData.Body.Messages)
+            @foreach (var message in ChannelData.Body.Messages.Reverse())
             {
-                <div class="message_container">
-                    <div class="message_sending-info">
-                        <p>@message.CreatedBy?.FirstName</p>
-                        <p>@message.CreatedAtUtc</p>
-                    </div>
-                    <div class="message_content">
-                        <p>@message.Content</p>
-                    </div>
-                </div>
+                <LT.DigitalOffice.GUI.Pages.Messenger.Message.Message MessageData="@message" />
+            }
+            @foreach (var message in NewMessages)
+            {
+                <LT.DigitalOffice.GUI.Pages.Messenger.Message.Message MessageData="@message" />
             }
         </div>
-        <LT.DigitalOffice.GUI.Pages.Messenger.Message.Message ChannelId="@ChannelData.Body.Id" />
+        <LT.DigitalOffice.GUI.Pages.Messenger.Message.CreateMessage ChannelId="@ChannelData.Body.Id" />
     }
 </div>
