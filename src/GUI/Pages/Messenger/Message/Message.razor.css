@@ -1,12 +1,9 @@
-﻿.create-message_container {
-    width: 100%;
-
-    padding: 20px 10px;
-}
-
-.create-message_actions-container {
+﻿.message_container {
     display: flex;
-    justify-content: space-between;
-
-    padding: 10px 0 0;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 1px lightskyblue;
 }

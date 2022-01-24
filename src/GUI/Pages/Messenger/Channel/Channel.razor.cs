@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.MessageService;
 using Microsoft.AspNetCore.Components;
@@ -12,6 +13,7 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Channel
   {
     [Parameter]
     public OperationResultResponseChannelInfo ChannelData { get; set; }
+    public List<MessageInfo> NewMessages = new();
 
     private HubConnection? _hubConnection;
 
@@ -28,11 +30,6 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Channel
             {
               options.Headers.Add("token", token);
             })
-            .AddJsonProtocol(options =>
-            {
-              options.PayloadSerializerOptions.PropertyNamingPolicy = null;
-            })
-            .WithAutomaticReconnect()
             .Build();
 
           await _hubConnection.StartAsync();
@@ -40,12 +37,19 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Channel
 
           _hubConnection.On<MessageInfo>(
             "ReceiveMessage",
-            async (Message) =>
+            (Message) =>
             {
-              ChannelData.Body.Messages.Add(Message);
-              await JsRuntime.InvokeVoidAsync("ScrollDown");
+              NewMessages.Add(Message);
+              
               Console.WriteLine($"Got message {Message.Content}");
+              
+              
               this.StateHasChanged();
+              
+              //await JsRuntime.InvokeVoidAsync("ScrollDown");
+
+              
+
             });
         }
         catch (Exception ex)
