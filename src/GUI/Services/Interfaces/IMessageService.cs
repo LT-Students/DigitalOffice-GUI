@@ -13,7 +13,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 	  int takeCount,
 	  bool? includeDeactivated = false);
 
-    Task<OperationResultResponseWorkspaceInfo> GetWorkspaceAsync(
+    Task<OperationResultResponseExamInfo> GetWorkspaceAsync(
       Guid workspaceId,
       bool? includeUsers = false,
       bool? includeChannels = false);

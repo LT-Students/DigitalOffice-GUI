@@ -4,7 +4,6 @@ using LT.DigitalOffice.GUI.Helpers;
 using LT.DigitalOffice.GUI.Services.ApiClients.MessageService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
 namespace LT.DigitalOffice.GUI.Pages.Messenger.Channel
@@ -40,15 +39,15 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Channel
             (Message) =>
             {
               NewMessages.Add(Message);
-              
+
               Console.WriteLine($"Got message {Message.Content}");
-              
-              
+
+
               this.StateHasChanged();
-              
+
               //await JsRuntime.InvokeVoidAsync("ScrollDown");
 
-              
+
 
             });
         }

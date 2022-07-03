@@ -255,7 +255,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.MessageService
     /// <param name="workspaceId">Id of workspace.</param>
     /// <returns>Ok.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public System.Threading.Tasks.Task<OperationResultResponseWorkspaceInfo> GetWorkspaceAsync(string token, System.Guid workspaceId, bool? includeUsers, bool? includeChannels)
+    public System.Threading.Tasks.Task<OperationResultResponseExamInfo> GetWorkspaceAsync(string token, System.Guid workspaceId, bool? includeUsers, bool? includeChannels)
     {
       return GetWorkspaceAsync(token, workspaceId, includeUsers, includeChannels, System.Threading.CancellationToken.None);
     }
@@ -265,7 +265,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.MessageService
     /// <param name="workspaceId">Id of workspace.</param>
     /// <returns>Ok.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public async System.Threading.Tasks.Task<OperationResultResponseWorkspaceInfo> GetWorkspaceAsync(string token, System.Guid workspaceId, bool? includeUsers, bool? includeChannels, System.Threading.CancellationToken cancellationToken)
+    public async System.Threading.Tasks.Task<OperationResultResponseExamInfo> GetWorkspaceAsync(string token, System.Guid workspaceId, bool? includeUsers, bool? includeChannels, System.Threading.CancellationToken cancellationToken)
     {
       if (workspaceId == null)
         throw new System.ArgumentNullException("workspaceId");
@@ -318,7 +318,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.MessageService
             var status_ = (int)response_.StatusCode;
             if (status_ == 200)
             {
-              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseWorkspaceInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseExamInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
               if (objectResponse_.Object == null)
               {
                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -1749,7 +1749,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.MessageService
   }
 
   [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v12.0.0.0)")]
-  public partial class OperationResultResponseWorkspaceInfo
+  public partial class OperationResultResponseExamInfo
   {
     [Newtonsoft.Json.JsonProperty("body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public Body Body { get; set; }

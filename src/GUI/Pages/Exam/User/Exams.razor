@@ -1,0 +1,26 @@
+﻿@page "/user/exams"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces
+
+@inject IExamService _examService
+@inject NavigationManager UriHelper;
+
+<div class="user-exams-page_container">
+    <div class="user-exams_container">
+    @foreach (var exam in _exams)
+    {
+        <div class="user-exams_item" onclick="@(() => OnSetExamAsync(exam.Id))">
+            <h4 class="user-exams_item_header">
+                @exam.Name
+            </h4>
+            <h6 class="user-exams_item_deadline">
+                Deadline: @(exam.DeadLineUtc.HasValue ? exam.DeadLineUtc.Value.LocalDateTime : "-")
+            </h6>
+            <p class="user-exams_item_description">
+                @exam.Description
+            </p>
+        </div>
+    }
+    </div>
+</div>

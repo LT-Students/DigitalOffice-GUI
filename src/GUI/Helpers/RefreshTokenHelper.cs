@@ -19,10 +19,10 @@ namespace LT.DigitalOffice.GUI.Helpers
 
     public async Task RefreshAsync()
     {
-			int unixTimestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
+      int unixTimestamp = (int)(DateTime.UtcNow.Subtract(DateTime.UnixEpoch)).TotalSeconds;
 
       if (int.TryParse(TokensValues.AccessTokenExpiresIn, out int at) && (unixTimestamp >= at)
-				|| int.TryParse(TokensValues.RefreshTokenExpiresIn, out int rt) && (unixTimestamp >= rt))
+                || int.TryParse(TokensValues.RefreshTokenExpiresIn, out int rt) && (unixTimestamp >= rt))
       {
         await _authService.RefreshTokenAsync();
       }

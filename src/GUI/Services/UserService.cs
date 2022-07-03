@@ -9,6 +9,7 @@ namespace LT.DigitalOffice.GUI.Services
 {
   public class UserService : IUserService
   {
+    //"http://localhost:9802";/*"https://user.dev.ltdo.xyz";*/
     private readonly RefreshTokenHelper _refreshToken;
     private readonly ISessionStorageService _sessionStorage;
     private readonly UserServiceClient _client;
@@ -52,17 +53,12 @@ namespace LT.DigitalOffice.GUI.Services
         null,
         null,
         null,
-				null);
+		null);
 
       var userName = $"{userInfo.Body.User.LastName} {userInfo.Body.User.FirstName}";
 
       await _sessionStorage.SetItemAsync(Consts.UserName, userName);
       await _sessionStorage.SetItemAsync(Consts.IsUserAdmin, userInfo.Body.User.IsAdmin);
-
-      if (userInfo.Body.User.Avatar != null)
-      {
-        await _sessionStorage.SetItemAsync(Consts.UserAvatarId, userInfo.Body.User.Avatar.Id);
-      }
 
       return userName;
     }
@@ -98,7 +94,7 @@ namespace LT.DigitalOffice.GUI.Services
 
       _token = await _sessionStorage.GetItemAsync<string>(Consts.AccessToken);
 
-      return await _client.FindUsersAsync(_token, skipCount, takeCount, null, null, null, null, null, null);
+      return await _client.FindUsersAsync(_token, skipCount, takeCount, null, null, null, null, null);
     }
 
     public async Task<OperationResultResponse> CreateUserAsync(CreateUserRequest request)
