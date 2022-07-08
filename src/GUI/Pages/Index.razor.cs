@@ -1,10 +1,12 @@
-﻿namespace LT.DigitalOffice.GUI.Pages
+﻿using LT.DigitalOffice.GUI.Helpers;
+
+namespace LT.DigitalOffice.GUI.Pages
 {
   public partial class Index
   {
     protected async override void OnInitialized()
     {
-      UriHelper.NavigateTo("/user/exams");
+      UriHelper.NavigateTo(Urls.UserCourse);
 
       StateHasChanged();
     }

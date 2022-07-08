@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize]
 
+@using LT.DigitalOffice.GUI.Helpers
 @using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Properties;
 
@@ -32,9 +33,13 @@
                             </div>
                     </div>
                 </li-->
-                 <li class="nav-item"><a class="nav-link" href="user/exams">Exam</a></li>
+                <li class="nav-item"><a class="nav-link" href=@Urls.UserCourse>Course</a></li>
                 <!--li class="nav-item"><a class="nav-link" href="messenger">@Resources.Messages</a></li-->
-                <li class="nav-item"><a class="nav-link" href="admin">@Resources.Admin</a></li>
+                @if(_isAdmin)
+                {
+                    <li class="nav-item"><a class="nav-link" href="admin">@Resources.Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href=@Urls.ManageCourse>Manage Courses</a></li>
+                }
             </ul>
             <!--form class="d-flex" style="margin-left:10px">
                 <input class="form-control me-2" type="search" placeholder="@Resources.Search" aria-label="Search">
@@ -47,14 +52,3 @@
 </nav>
 
 <UserWindow @ref="_userWindow"/>
-
-@code {
-    private string _userName = string.Empty;
-    private UserWindow _userWindow;
-
-    protected async override Task OnInitializedAsync()
-    {
-        _userName = await _userService.GetUserNameAsync();
-        StateHasChanged();
-    }
-}

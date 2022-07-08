@@ -1,9 +1,8 @@
-﻿@page "/exam/user/create/{Id:guid}"
+﻿@page "/user/course/exam/{Id:guid}"
 @attribute [Authorize]
 
 @using LT.DigitalOffice.GUI.Services.Interfaces
 @using Blazored.SessionStorage
-
 
 @inject IExamService _examService
 @inject NavigationManager UriHelper;
@@ -24,10 +23,10 @@
                 <label for="show-answers">Show answers</label>
             </div>
         }
-        @if (_examData?.Body?.Questions is not null)
+        @if (_examData?.Questions is not null)
         {
             <div class="create-user-exam_question_container">
-                @foreach (var question in _examData.Body.Questions)
+                @foreach (var question in _examData.Questions)
                 {
                     <div class="create-user-exam_question-item_container">
                         <p>@question.Subject</p>

@@ -1,0 +1,30 @@
+﻿.manage-course-page_container {
+    max-width: 100%;
+    margin: 0 auto;
+
+    display: flex;
+}
+
+.manage-course_navigation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 300px;
+    padding: 10px;
+}
+
+.manage-course_courses-container {
+    width: 100%;
+    padding: 10px;
+}
+
+.manage-course_course {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid silver;
+}

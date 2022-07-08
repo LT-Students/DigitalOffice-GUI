@@ -22,6 +22,13 @@ namespace LT.DigitalOffice.GUI.Services
       _client = new UserServiceClient(new System.Net.Http.HttpClient());
     }
 
+    public async Task<bool> IsAdminAsync()
+    {
+      return await _sessionStorage.ContainKeyAsync(Consts.IsAdmin)
+        ? await _sessionStorage.GetItemAsync<bool>(Consts.IsAdmin)
+        : false;
+    }
+
     public async Task<string> GetUserNameAsync()
     {
       if (await _sessionStorage.ContainKeyAsync(Consts.UserName))
@@ -53,12 +60,12 @@ namespace LT.DigitalOffice.GUI.Services
         null,
         null,
         null,
-		null);
+        null);
 
       var userName = $"{userInfo.Body.User.LastName} {userInfo.Body.User.FirstName}";
 
       await _sessionStorage.SetItemAsync(Consts.UserName, userName);
-      await _sessionStorage.SetItemAsync(Consts.IsUserAdmin, userInfo.Body.User.IsAdmin);
+      await _sessionStorage.SetItemAsync(Consts.IsAdmin, userInfo.Body.User.IsAdmin);
 
       return userName;
     }
@@ -85,7 +92,7 @@ namespace LT.DigitalOffice.GUI.Services
         includeProjects,
         null,
         null,
-				null);
+                null);
     }
 
     public async Task<FindResultResponseUserInfo> FindUsersAsync(int skipCount, int takeCount, Guid? departmentId = default)

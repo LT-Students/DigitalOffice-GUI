@@ -1,0 +1,84 @@
+﻿@page "/manage/course/exam/{Id:guid}"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using Blazored.SessionStorage
+
+@inject IExamService _examService
+@inject NavigationManager UriHelper;
+@inject ISessionStorageService Storage
+
+<div class="manage-exam_page-container">
+    @if (_examData is not null)
+    {
+        <div class="manage-exam_exam-info_container">
+            <h4>Questions</h4>
+        </div>
+        <div class="manage-exam_questions-container">
+            @foreach (var question in _examData.Questions)
+            {
+                <div class="manage-exam_question-container">
+                    <p>@question.Subject</p>
+                    <div class="manage-exam_question_answers-container">
+                        @foreach (var answer in question.Answers)
+                        {
+                            <div class="manage-exam_question_answer-container">
+                                <input type="radio"
+                                    id="@answer.Id"
+                                    name="@question.Id"
+                                    value="@answer.Id"
+                                    checked=@(answer.IsCorrect.HasValue && answer.IsCorrect.Value)>
+                                <label for="@answer.Id">@answer.Answer</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    <EditForm Model="@_request" OnValidSubmit="@SubmitValidQuestionAsync">
+        <DataAnnotationsValidator />
+        <div class="manage-exam_create-question-container">
+            <div class="manage-exam_create-question_question-info-container">
+                <div class="item-group">
+                    <label for="create-question_subject">Subject<font color="red">*</font></label>
+                    <input @bind-value="_request.Subject"
+                            type="text"
+                            id="create-question_subject"
+                            class="form-control"/>
+                    <ValidationMessage style="font-size: 0.7em;" For="() => _request.Subject" />
+                </div>
+                <div class="item-group">
+                    <label for="create-question_score">Score</label>
+                    <input @bind-value="_request.Score"
+                            type="number"
+                            id="create-question_score"
+                            class="form-control"/>
+                    <ValidationMessage style="font-size: 0.7em;" For="() => _request.Score" />
+                </div>
+                <div class="item-group">
+                    <div class="create-question_answers-container">
+                        @foreach(var answer in _answers)
+                        {
+                            <div class="create-question_answers-container">
+                                <label for="question_create-answer">Answer</label>
+                                <input @bind-value="answer.Answer"
+                                    type="text"
+                                    id="question_create-answer"/>
+
+                                <input type="checkbox" @bind-value="answer.IsCorrect">
+                            </div>
+                        }
+                        <button type="button" onclick="@(() => AddAnswer())">Add option</button>
+                    </div>
+                </div>
+            </div>
+            <div class="create-question_actions_container">
+                <button class="btn btn-primary"
+                        type="submit"
+                        >Create
+                </button>
+            </div>
+        </div>
+    </EditForm>
+</div>

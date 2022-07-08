@@ -24,12 +24,44 @@ namespace LT.DigitalOffice.GUI.Services
        _client = new ExamServiceClient(new HttpClient());
     }
 
+    public async Task CreateCourseAsync(CreateCourseRequest request)
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      await _client.CreateCourseAsync(request, token);
+    }
+
+    public async Task<FindResultResponseCourseInfo> FindCourseAsync()
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      return await _client.FindCoursesAsync(token);
+    }
+
+    public async Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId)
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      return await _client.GetCourseAsync(courseId, token);
+    }
+
     public async Task CreateExamAsync(CreateExamRequest request)
     {
       await _refreshToken.RefreshAsync();
       var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
       await _client.CreateExamAsync(request, token);
+    }
+
+    public async Task CreateQuestionAsync(CreateQuestionRequest request)
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      await _client.CreateQuestionAsync(request, token);
     }
 
     public async Task<FindResultResponseExamInfo> FindExamsAsync()
@@ -62,6 +94,14 @@ namespace LT.DigitalOffice.GUI.Services
       var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
       return await _client.GetUserExamAsync(examId, token);
+    }
+
+    public async Task<FindResultResponseUserExamInfo> FindUserCourseExamsAsync(Guid courseId)
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      return await _client.FindUserCourseExamsAsync(courseId, token);
     }
   }
 }

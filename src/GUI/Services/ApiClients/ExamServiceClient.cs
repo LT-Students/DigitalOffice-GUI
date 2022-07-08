@@ -52,6 +52,274 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Guid of the created position will be in response Body property.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateCourseAsync(CreateCourseRequest body, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    {
+      if (body == null)
+        throw new System.ArgumentNullException("body");
+
+      var urlBuilder_ = new System.Text.StringBuilder();
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/course/create");
+
+      var client_ = _httpClient;
+      var disposeClient_ = false;
+      try
+      {
+        using (var request_ = new System.Net.Http.HttpRequestMessage())
+        {
+
+          if (token == null)
+            throw new System.ArgumentNullException("token");
+          request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+          var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+          content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+          request_.Content = content_;
+          request_.Method = new System.Net.Http.HttpMethod("POST");
+          request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+          PrepareRequest(client_, request_, urlBuilder_);
+
+          var url_ = urlBuilder_.ToString();
+          request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+          PrepareRequest(client_, request_, url_);
+
+          var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+          var disposeResponse_ = true;
+          try
+          {
+            var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+            if (response_.Content != null && response_.Content.Headers != null)
+            {
+              foreach (var item_ in response_.Content.Headers)
+                headers_[item_.Key] = item_.Value;
+            }
+
+            ProcessResponse(client_, response_);
+
+            var status_ = (int)response_.StatusCode;
+            if (status_ == 201)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              return objectResponse_.Object;
+            }
+            else
+            if (status_ == 400)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Bad request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            if (status_ == 403)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            {
+              var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+              throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+            }
+          }
+          finally
+          {
+            if (disposeResponse_)
+              response_.Dispose();
+          }
+        }
+      }
+      finally
+      {
+        if (disposeClient_)
+          client_.Dispose();
+      }
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="courseId">Course global unique identifier.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Successfully returned list of courses.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    {
+      if (courseId == null)
+        throw new System.ArgumentNullException("courseId");
+
+      var urlBuilder_ = new System.Text.StringBuilder();
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/course/get?");
+      urlBuilder_.Append(System.Uri.EscapeDataString("courseId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(courseId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      urlBuilder_.Length--;
+
+      var client_ = _httpClient;
+      var disposeClient_ = false;
+      try
+      {
+        using (var request_ = new System.Net.Http.HttpRequestMessage())
+        {
+
+          if (token == null)
+            throw new System.ArgumentNullException("token");
+          request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+          request_.Method = new System.Net.Http.HttpMethod("GET");
+          request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+          PrepareRequest(client_, request_, urlBuilder_);
+
+          var url_ = urlBuilder_.ToString();
+          request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+          PrepareRequest(client_, request_, url_);
+
+          var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+          var disposeResponse_ = true;
+          try
+          {
+            var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+            if (response_.Content != null && response_.Content.Headers != null)
+            {
+              foreach (var item_ in response_.Content.Headers)
+                headers_[item_.Key] = item_.Value;
+            }
+
+            ProcessResponse(client_, response_);
+
+            var status_ = (int)response_.StatusCode;
+            if (status_ == 200)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseCourseResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              return objectResponse_.Object;
+            }
+            else
+            if (status_ == 403)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<FindResultResponseCourseInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<FindResultResponseCourseInfo>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            {
+              var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+              throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+            }
+          }
+          finally
+          {
+            if (disposeResponse_)
+              response_.Dispose();
+          }
+        }
+      }
+      finally
+      {
+        if (disposeClient_)
+          client_.Dispose();
+      }
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Successfully returned course response.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<FindResultResponseCourseInfo> FindCoursesAsync(string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    {
+      var urlBuilder_ = new System.Text.StringBuilder();
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/course/find");
+
+      var client_ = _httpClient;
+      var disposeClient_ = false;
+      try
+      {
+        using (var request_ = new System.Net.Http.HttpRequestMessage())
+        {
+
+          if (token == null)
+            throw new System.ArgumentNullException("token");
+          request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+          request_.Method = new System.Net.Http.HttpMethod("GET");
+          request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+          PrepareRequest(client_, request_, urlBuilder_);
+
+          var url_ = urlBuilder_.ToString();
+          request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+          PrepareRequest(client_, request_, url_);
+
+          var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+          var disposeResponse_ = true;
+          try
+          {
+            var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+            if (response_.Content != null && response_.Content.Headers != null)
+            {
+              foreach (var item_ in response_.Content.Headers)
+                headers_[item_.Key] = item_.Value;
+            }
+
+            ProcessResponse(client_, response_);
+
+            var status_ = (int)response_.StatusCode;
+            if (status_ == 200)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<FindResultResponseCourseInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              return objectResponse_.Object;
+            }
+            else
+            if (status_ == 403)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseCourseResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponseCourseResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            {
+              var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+              throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+            }
+          }
+          finally
+          {
+            if (disposeResponse_)
+              response_.Dispose();
+          }
+        }
+      }
+      finally
+      {
+        if (disposeClient_)
+          client_.Dispose();
+      }
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="examId">Exam global unique identifier.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Successfully returned exam.</returns>
@@ -341,6 +609,104 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     }
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Guid of the created question will be in response Body property.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateQuestionAsync(CreateQuestionRequest body, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    {
+      if (body == null)
+        throw new System.ArgumentNullException("body");
+
+      var urlBuilder_ = new System.Text.StringBuilder();
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/question/create");
+
+      var client_ = _httpClient;
+      var disposeClient_ = false;
+      try
+      {
+        using (var request_ = new System.Net.Http.HttpRequestMessage())
+        {
+
+          if (token == null)
+            throw new System.ArgumentNullException("token");
+          request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+          var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+          content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+          request_.Content = content_;
+          request_.Method = new System.Net.Http.HttpMethod("POST");
+          request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+          PrepareRequest(client_, request_, urlBuilder_);
+
+          var url_ = urlBuilder_.ToString();
+          request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+          PrepareRequest(client_, request_, url_);
+
+          var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+          var disposeResponse_ = true;
+          try
+          {
+            var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+            if (response_.Content != null && response_.Content.Headers != null)
+            {
+              foreach (var item_ in response_.Content.Headers)
+                headers_[item_.Key] = item_.Value;
+            }
+
+            ProcessResponse(client_, response_);
+
+            var status_ = (int)response_.StatusCode;
+            if (status_ == 201)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              return objectResponse_.Object;
+            }
+            else
+            if (status_ == 400)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Bad request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            if (status_ == 403)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            {
+              var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+              throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+            }
+          }
+          finally
+          {
+            if (disposeResponse_)
+              response_.Dispose();
+          }
+        }
+      }
+      finally
+      {
+        if (disposeClient_)
+          client_.Dispose();
+      }
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="examId">Exam global unique identifier.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Ok.</returns>
@@ -392,6 +758,104 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
             if (status_ == 200)
             {
               var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponseUserExamResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              return objectResponse_.Object;
+            }
+            else
+            if (status_ == 400)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Bad request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            if (status_ == 403)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            {
+              var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+              throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+            }
+          }
+          finally
+          {
+            if (disposeResponse_)
+              response_.Dispose();
+          }
+        }
+      }
+      finally
+      {
+        if (disposeClient_)
+          client_.Dispose();
+      }
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="courseId">Course global unique identifier.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Ok.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<FindResultResponseUserExamInfo> FindUserCourseExamsAsync(System.Guid courseId, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    {
+      if (courseId == null)
+        throw new System.ArgumentNullException("courseId");
+
+      var urlBuilder_ = new System.Text.StringBuilder();
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/user/find?");
+      urlBuilder_.Append(System.Uri.EscapeDataString("courseId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(courseId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      urlBuilder_.Length--;
+
+      var client_ = _httpClient;
+      var disposeClient_ = false;
+      try
+      {
+        using (var request_ = new System.Net.Http.HttpRequestMessage())
+        {
+
+          if (token == null)
+            throw new System.ArgumentNullException("token");
+          request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+          request_.Method = new System.Net.Http.HttpMethod("GET");
+          request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+          PrepareRequest(client_, request_, urlBuilder_);
+
+          var url_ = urlBuilder_.ToString();
+          request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+          PrepareRequest(client_, request_, url_);
+
+          var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+          var disposeResponse_ = true;
+          try
+          {
+            var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+            if (response_.Content != null && response_.Content.Headers != null)
+            {
+              foreach (var item_ in response_.Content.Headers)
+                headers_[item_.Key] = item_.Value;
+            }
+
+            ProcessResponse(client_, response_);
+
+            var status_ = (int)response_.StatusCode;
+            if (status_ == 200)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<FindResultResponseUserExamInfo>(response_, headers_, cancellationToken).ConfigureAwait(false);
               if (objectResponse_.Object == null)
               {
                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -640,11 +1104,50 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
   }
 
   /// <summary>
+  /// Specific course data.
+  /// </summary>
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class CreateCourseRequest
+  {
+    [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Guid ParentId { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+    public string Name { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string Description { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("StartDateUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+    public System.DateTimeOffset StartDateUtc { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("EndDateUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+    public System.DateTimeOffset EndDateUtc { get; set; }
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
+  /// <summary>
   /// Specific exam data.
   /// </summary>
   [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
   public partial class CreateExamRequest
   {
+    [Newtonsoft.Json.JsonProperty("CourseId", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+    public System.Guid CourseId { get; set; }
+
     /// <summary>
     /// Exam name.
     /// </summary>
@@ -661,9 +1164,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     [Newtonsoft.Json.JsonProperty("DeadLineUtc", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
     public System.DateTimeOffset DeadLineUtc { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Guid ParentId { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Questions", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
@@ -683,15 +1183,15 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
   [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
   public partial class CreateQuestionRequest
   {
-    [Newtonsoft.Json.JsonProperty("ExamId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Guid ExamId { get; set; }
+    [Newtonsoft.Json.JsonProperty("ExamId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Guid? ExamId { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Subject", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
     public string Subject { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Score", Required = Newtonsoft.Json.Required.Always)]
-    public double Score { get; set; }
+    public int Score { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Answers", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
@@ -711,14 +1211,14 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
   [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
   public partial class CreateAnswerRequest
   {
-    [Newtonsoft.Json.JsonProperty("QuestionId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Guid QuestionId { get; set; }
+    [Newtonsoft.Json.JsonProperty("QuestionId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Guid? QuestionId { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Answer", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
     public string Answer { get; set; }
 
-    [Newtonsoft.Json.JsonProperty("IsCorrect", Required = Newtonsoft.Json.Required.Always)]
+    [Newtonsoft.Json.JsonProperty("IsCorrect", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public bool IsCorrect { get; set; }
 
     private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
@@ -744,6 +1244,74 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
 
     [Newtonsoft.Json.JsonProperty("Custom", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string Custom { get; set; }
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class CourseResponse
+  {
+    [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Guid Id { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Guid? ParentId { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string Name { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public string Description { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("StartDateUtc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+    public System.DateTimeOffset? StartDateUtc { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("EndDateUtc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+    public System.DateTimeOffset? EndDateUtc { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public bool IsActive { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Exams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<ExamInfo> Exams { get; set; }
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class CourseInfo
+  {
+    [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+    public System.Guid Id { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("ParentId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Guid? ParentId { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+    public string Name { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("IsActive", Required = Newtonsoft.Json.Required.Always)]
+    public bool IsActive { get; set; }
 
     private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -895,10 +1463,6 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     [System.ComponentModel.DataAnnotations.Required]
     public ExamInfo Exam { get; set; } = new ExamInfo();
 
-    [Newtonsoft.Json.JsonProperty("SubExams", Required = Newtonsoft.Json.Required.Always)]
-    [System.ComponentModel.DataAnnotations.Required]
-    public System.Collections.Generic.ICollection<ExamInfo> SubExams { get; set; } = new System.Collections.ObjectModel.Collection<ExamInfo>();
-
     [Newtonsoft.Json.JsonProperty("Questions", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]
     public System.Collections.Generic.ICollection<QuestionInfo> Questions { get; set; } = new System.Collections.ObjectModel.Collection<QuestionInfo>();
@@ -1030,6 +1594,27 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
 
   }
 
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class OperationResultResponseCourseResponse
+  {
+    [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public CourseResponse Body { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required]
+    public System.Collections.Generic.ICollection<string> Errors { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
   /// <summary>
   /// Response object for action operations.
   /// </summary>
@@ -1096,6 +1681,30 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
   }
 
   [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class FindResultResponseCourseInfo
+  {
+    [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.Always)]
+    public int TotalCount { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<CourseInfo> Body { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required]
+    public System.Collections.Generic.ICollection<string> Errors { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
   public partial class FindResultResponseExamInfo
   {
     [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.Always)]
@@ -1103,6 +1712,54 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
 
     [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<ExamInfo> Body { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required]
+    public System.Collections.Generic.ICollection<string> Errors { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class UserExamInfo
+  {
+    [Newtonsoft.Json.JsonProperty("Exam", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public ExamInfo Exam { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("IsFinished", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public bool IsFinished { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("FinishedAtUtc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+    public System.DateTimeOffset? FinishedAtUtc { get; set; }
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class FindResultResponseUserExamInfo
+  {
+    [Newtonsoft.Json.JsonProperty("TotalCount", Required = Newtonsoft.Json.Required.Always)]
+    public int TotalCount { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<UserExamInfo> Body { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required]

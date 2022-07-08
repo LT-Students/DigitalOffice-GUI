@@ -3,7 +3,7 @@
   internal static class Consts
   {
     internal const string PageUri = nameof(PageUri);
-    internal const string IsUserAdmin = nameof(IsUserAdmin);
+    internal const string IsAdmin = nameof(IsAdmin);
     internal const string UserId = nameof(UserId);
     internal const string UserName = nameof(UserName);
     internal const string AccessToken = nameof(AccessToken);

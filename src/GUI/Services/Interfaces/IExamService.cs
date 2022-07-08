@@ -7,7 +7,15 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
   public interface IExamService
   {
+    Task CreateCourseAsync(CreateCourseRequest request);
+
     Task CreateExamAsync(CreateExamRequest request);
+
+    Task CreateQuestionAsync(CreateQuestionRequest request);
+
+    Task<FindResultResponseCourseInfo> FindCourseAsync();
+
+    Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId);
 
     Task<FindResultResponseExamInfo> FindExamsAsync();
 
@@ -16,5 +24,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     Task<OperationResultResponse> CreateUserAnswerAsync(List<CreateUserAnswerRequest> request);
 
     Task<OperationResultResponseUserExamResponse> GetUserExamAsync(Guid examId);
+
+    Task<FindResultResponseUserExamInfo> FindUserCourseExamsAsync(Guid courseId);
   }
 }
