@@ -9,10 +9,17 @@
 @inject ISessionStorageService Storage
 
 <div class="create-user-exam-page_container">
-    <div class="exam_exam-info_container">
-
-    </div>
-    <EditForm Model="@_questionsAnswers" OnValidSubmit="@SubmitAsync">
+    @if (_examData is not null)
+    {
+        <div class="exam_exam-info_container">
+            @if (_examData is not null)
+            {
+                <h4>@_examData.Exam.Name</h4>
+                <p>@_examData.Exam.Description</p>
+            }
+        </div>
+    }
+    <EditForm style="width: 100%" Model="@_questionsAnswers" OnValidSubmit="@SubmitAsync">
         @if (_showAnswersButhonAvailability)
         {
             <div class="create-user-exam_show-answers_container">

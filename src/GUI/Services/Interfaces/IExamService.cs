@@ -13,7 +13,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
     Task CreateQuestionAsync(CreateQuestionRequest request);
 
-    Task<FindResultResponseCourseInfo> FindCourseAsync();
+    Task<FindResultResponseCourseInfo> FindCourseAsync(bool usercourses = false);
 
     Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId);
 
@@ -26,5 +26,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
     Task<OperationResultResponseUserExamResponse> GetUserExamAsync(Guid examId);
 
     Task<FindResultResponseUserExamInfo> FindUserCourseExamsAsync(Guid courseId);
+
+    Task<OperationResultResponse> CreateUserCourseAsync(Guid courseId, Guid userId);
   }
 }

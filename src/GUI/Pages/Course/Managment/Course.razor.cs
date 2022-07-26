@@ -18,7 +18,7 @@ namespace LT.DigitalOffice.GUI.Pages.Course.Managment
 
     protected override void OnParametersSet()
     {
-      this.StateHasChanged();
+      StateHasChanged();
     }
 
     private async Task SubmitValidExamAsync()

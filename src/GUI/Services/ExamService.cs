@@ -32,12 +32,16 @@ namespace LT.DigitalOffice.GUI.Services
       await _client.CreateCourseAsync(request, token);
     }
 
-    public async Task<FindResultResponseCourseInfo> FindCourseAsync()
+    public async Task<FindResultResponseCourseInfo> FindCourseAsync(bool usercourses = false)
     {
       await _refreshToken.RefreshAsync();
       var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-      return await _client.FindCoursesAsync(token);
+      return await _client.FindCoursesAsync(
+        token: token,
+        skipCount: 0,
+        takeCount: int.MaxValue,
+        usercourses: usercourses);
     }
 
     public async Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId)
@@ -86,6 +90,14 @@ namespace LT.DigitalOffice.GUI.Services
       var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
       return await _client.CreateUserAnswerAsync(request, token);
+    }
+
+    public async Task<OperationResultResponse> CreateUserCourseAsync(Guid courseId, Guid userId)
+    {
+      await _refreshToken.RefreshAsync();
+      var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
+
+      return await _client.CreateUserCourseAsync(token: token, courseId: courseId, userId: userId);
     }
 
     public async Task<OperationResultResponseUserExamResponse> GetUserExamAsync(Guid examId)

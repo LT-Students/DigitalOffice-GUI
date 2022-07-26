@@ -20,7 +20,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
   [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
   public partial class ExamServiceClient
   {
-    private string _baseUrl = "http://localhost:9854";
+    private string _baseUrl = "https://exam.dev.ltdo.xyz";
     private System.Net.Http.HttpClient _httpClient;
     private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
@@ -51,11 +51,19 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
     partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Guid of the created position will be in response Body property.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponse> CreateCourseAsync(CreateCourseRequest body, string token)
+    {
+      return CreateCourseAsync(body, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Guid of the created position will be in response Body property.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateCourseAsync(CreateCourseRequest body, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateCourseAsync(CreateCourseRequest body, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (body == null)
         throw new System.ArgumentNullException("body");
@@ -149,12 +157,21 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="courseId">Course global unique identifier.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Successfully returned list of courses.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, string token)
+    {
+      return GetCourseAsync(courseId, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="courseId">Course global unique identifier.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Successfully returned list of courses.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (courseId == null)
         throw new System.ArgumentNullException("courseId");
@@ -237,14 +254,41 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
-    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="skipCount">Number of entries to skip.</param>
+    /// <param name="takeCount">Number of users to take.</param>
+    /// <param name="usercourses">User global unique identifier.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Successfully returned course response.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<FindResultResponseCourseInfo> FindCoursesAsync(string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual System.Threading.Tasks.Task<FindResultResponseCourseInfo> FindCoursesAsync(int skipCount, int takeCount, bool? usercourses, string token)
     {
+      return FindCoursesAsync(skipCount, takeCount, usercourses, token, System.Threading.CancellationToken.None);
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="skipCount">Number of entries to skip.</param>
+    /// <param name="takeCount">Number of users to take.</param>
+    /// <param name="usercourses">User global unique identifier.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Successfully returned course response.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<FindResultResponseCourseInfo> FindCoursesAsync(int skipCount, int takeCount, bool? usercourses, string token, System.Threading.CancellationToken cancellationToken)
+    {
+      if (skipCount == null)
+        throw new System.ArgumentNullException("skipCount");
+
+      if (takeCount == null)
+        throw new System.ArgumentNullException("takeCount");
+
       var urlBuilder_ = new System.Text.StringBuilder();
-      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/course/find");
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/course/find?");
+      urlBuilder_.Append(System.Uri.EscapeDataString("skipCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(skipCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      urlBuilder_.Append(System.Uri.EscapeDataString("takeCount") + "=").Append(System.Uri.EscapeDataString(ConvertToString(takeCount, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      if (usercourses != null)
+      {
+        urlBuilder_.Append(System.Uri.EscapeDataString("usercourses") + "=").Append(System.Uri.EscapeDataString(ConvertToString(usercourses, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      }
+      urlBuilder_.Length--;
 
       var client_ = _httpClient;
       var disposeClient_ = false;
@@ -319,12 +363,21 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="examId">Exam global unique identifier.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Successfully returned exam.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponseExamResponse> GetExamAsync(System.Guid examId, string token)
+    {
+      return GetExamAsync(examId, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="examId">Exam global unique identifier.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Successfully returned exam.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponseExamResponse> GetExamAsync(System.Guid examId, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<OperationResultResponseExamResponse> GetExamAsync(System.Guid examId, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (examId == null)
         throw new System.ArgumentNullException("examId");
@@ -417,13 +470,23 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="token">The JWT token.</param>
+    /// <param name="skipcount">Number of exams to skip.</param>
+    /// <param name="takecount">Number of exams to take.</param>
+    /// <returns>Successfully returned exams.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<FindResultResponseExamInfo> FindExamsAsync(string token, int skipcount, int takecount)
+    {
+      return FindExamsAsync(token, skipcount, takecount, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="token">The JWT token.</param>
     /// <param name="skipcount">Number of exams to skip.</param>
     /// <param name="takecount">Number of exams to take.</param>
     /// <returns>Successfully returned exams.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<FindResultResponseExamInfo> FindExamsAsync(string token, int skipcount, int takecount, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<FindResultResponseExamInfo> FindExamsAsync(string token, int skipcount, int takecount, System.Threading.CancellationToken cancellationToken)
     {
       if (skipcount == null)
         throw new System.ArgumentNullException("skipcount");
@@ -510,11 +573,19 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Guid of the created position will be in response Body property.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponse> CreateExamAsync(CreateExamRequest body, string token)
+    {
+      return CreateExamAsync(body, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Guid of the created position will be in response Body property.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateExamAsync(CreateExamRequest body, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateExamAsync(CreateExamRequest body, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (body == null)
         throw new System.ArgumentNullException("body");
@@ -608,11 +679,19 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Guid of the created question will be in response Body property.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponse> CreateQuestionAsync(CreateQuestionRequest body, string token)
+    {
+      return CreateQuestionAsync(body, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Guid of the created question will be in response Body property.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateQuestionAsync(CreateQuestionRequest body, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateQuestionAsync(CreateQuestionRequest body, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (body == null)
         throw new System.ArgumentNullException("body");
@@ -706,12 +785,133 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="token">The JWT token.</param>
+    /// <param name="answerId">Identifier</param>
+    /// <returns>Ok.
+    /// <br/>* Update answer operation success (boolean) status will be in response Body property.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponse> EditAnswerAsync(System.Collections.Generic.IEnumerable<PatchAnswerDocument> body, string token, System.Guid answerId)
+    {
+      return EditAnswerAsync(body, token, answerId, System.Threading.CancellationToken.None);
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <param name="answerId">Identifier</param>
+    /// <returns>Ok.
+    /// <br/>* Update answer operation success (boolean) status will be in response Body property.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> EditAnswerAsync(System.Collections.Generic.IEnumerable<PatchAnswerDocument> body, string token, System.Guid answerId, System.Threading.CancellationToken cancellationToken)
+    {
+      if (answerId == null)
+        throw new System.ArgumentNullException("answerId");
+
+      var urlBuilder_ = new System.Text.StringBuilder();
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/answer/edit?");
+      urlBuilder_.Append(System.Uri.EscapeDataString("answerId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(answerId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      urlBuilder_.Length--;
+
+      var client_ = _httpClient;
+      var disposeClient_ = false;
+      try
+      {
+        using (var request_ = new System.Net.Http.HttpRequestMessage())
+        {
+
+          if (token == null)
+            throw new System.ArgumentNullException("token");
+          request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+          var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+          content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+          request_.Content = content_;
+          request_.Method = new System.Net.Http.HttpMethod("PATCH");
+          request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+          PrepareRequest(client_, request_, urlBuilder_);
+
+          var url_ = urlBuilder_.ToString();
+          request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+          PrepareRequest(client_, request_, url_);
+
+          var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+          var disposeResponse_ = true;
+          try
+          {
+            var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+            if (response_.Content != null && response_.Content.Headers != null)
+            {
+              foreach (var item_ in response_.Content.Headers)
+                headers_[item_.Key] = item_.Value;
+            }
+
+            ProcessResponse(client_, response_);
+
+            var status_ = (int)response_.StatusCode;
+            if (status_ == 200)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              return objectResponse_.Object;
+            }
+            else
+            if (status_ == 400)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Bad Request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            if (status_ == 403)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            {
+              var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+              throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+            }
+          }
+          finally
+          {
+            if (disposeResponse_)
+              response_.Dispose();
+          }
+        }
+      }
+      finally
+      {
+        if (disposeClient_)
+          client_.Dispose();
+      }
+    }
+
+    /// <param name="examId">Exam global unique identifier.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Ok.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponseUserExamResponse> GetUserExamAsync(System.Guid examId, string token)
+    {
+      return GetUserExamAsync(examId, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="examId">Exam global unique identifier.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Ok.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponseUserExamResponse> GetUserExamAsync(System.Guid examId, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<OperationResultResponseUserExamResponse> GetUserExamAsync(System.Guid examId, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (examId == null)
         throw new System.ArgumentNullException("examId");
@@ -804,12 +1004,21 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="courseId">Course global unique identifier.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Ok.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<FindResultResponseUserExamInfo> FindUserCourseExamsAsync(System.Guid courseId, string token)
+    {
+      return FindUserCourseExamsAsync(courseId, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="courseId">Course global unique identifier.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Ok.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<FindResultResponseUserExamInfo> FindUserCourseExamsAsync(System.Guid courseId, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<FindResultResponseUserExamInfo> FindUserCourseExamsAsync(System.Guid courseId, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (courseId == null)
         throw new System.ArgumentNullException("courseId");
@@ -902,11 +1111,19 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       }
     }
 
+    /// <param name="token">The JWT token.</param>
+    /// <returns>Created.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponse> CreateUserAnswerAsync(System.Collections.Generic.IEnumerable<CreateUserAnswerRequest> body, string token)
+    {
+      return CreateUserAnswerAsync(body, token, System.Threading.CancellationToken.None);
+    }
+
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <param name="token">The JWT token.</param>
     /// <returns>Created.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateUserAnswerAsync(System.Collections.Generic.IEnumerable<CreateUserAnswerRequest> body, string token, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateUserAnswerAsync(System.Collections.Generic.IEnumerable<CreateUserAnswerRequest> body, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (body == null)
         throw new System.ArgumentNullException("body");
@@ -927,6 +1144,120 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
           var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
           content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
           request_.Content = content_;
+          request_.Method = new System.Net.Http.HttpMethod("POST");
+          request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+          PrepareRequest(client_, request_, urlBuilder_);
+
+          var url_ = urlBuilder_.ToString();
+          request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+          PrepareRequest(client_, request_, url_);
+
+          var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+          var disposeResponse_ = true;
+          try
+          {
+            var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+            if (response_.Content != null && response_.Content.Headers != null)
+            {
+              foreach (var item_ in response_.Content.Headers)
+                headers_[item_.Key] = item_.Value;
+            }
+
+            ProcessResponse(client_, response_);
+
+            var status_ = (int)response_.StatusCode;
+            if (status_ == 201)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              return objectResponse_.Object;
+            }
+            else
+            if (status_ == 400)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Bad request.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            if (status_ == 403)
+            {
+              var objectResponse_ = await ReadObjectResponseAsync<OperationResultResponse>(response_, headers_, cancellationToken).ConfigureAwait(false);
+              if (objectResponse_.Object == null)
+              {
+                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+              }
+              throw new ApiException<OperationResultResponse>("Forbidden.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+            }
+            else
+            {
+              var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+              throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+            }
+          }
+          finally
+          {
+            if (disposeResponse_)
+              response_.Dispose();
+          }
+        }
+      }
+      finally
+      {
+        if (disposeClient_)
+          client_.Dispose();
+      }
+    }
+
+    /// <param name="token">The JWT token.</param>
+    /// <param name="courseId">Course global unique identifier.</param>
+    /// <param name="userId">User global unique identifier.</param>
+    /// <returns>Created.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual System.Threading.Tasks.Task<OperationResultResponse> CreateUserCourseAsync(string token, System.Guid courseId, System.Guid userId)
+    {
+      return CreateUserCourseAsync(token, courseId, userId, System.Threading.CancellationToken.None);
+    }
+
+    /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <param name="token">The JWT token.</param>
+    /// <param name="courseId">Course global unique identifier.</param>
+    /// <param name="userId">User global unique identifier.</param>
+    /// <returns>Created.</returns>
+    /// <exception cref="ApiException">A server side error occurred.</exception>
+    public virtual async System.Threading.Tasks.Task<OperationResultResponse> CreateUserCourseAsync(string token, System.Guid courseId, System.Guid userId, System.Threading.CancellationToken cancellationToken)
+    {
+      if (courseId == null)
+        throw new System.ArgumentNullException("courseId");
+
+      if (userId == null)
+        throw new System.ArgumentNullException("userId");
+
+      var urlBuilder_ = new System.Text.StringBuilder();
+      urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/usercourse/create?");
+      urlBuilder_.Append(System.Uri.EscapeDataString("courseId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(courseId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      urlBuilder_.Append(System.Uri.EscapeDataString("userId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      urlBuilder_.Length--;
+
+      var client_ = _httpClient;
+      var disposeClient_ = false;
+      try
+      {
+        using (var request_ = new System.Net.Http.HttpRequestMessage())
+        {
+
+          if (token == null)
+            throw new System.ArgumentNullException("token");
+          request_.Headers.TryAddWithoutValidation("token", ConvertToString(token, System.Globalization.CultureInfo.InvariantCulture));
+          request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
           request_.Method = new System.Net.Http.HttpMethod("POST");
           request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
@@ -1190,7 +1521,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
     public string Subject { get; set; }
 
-    [Newtonsoft.Json.JsonProperty("Score", Required = Newtonsoft.Json.Required.Always)]
+    [Newtonsoft.Json.JsonProperty("Score", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public int Score { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Answers", Required = Newtonsoft.Json.Required.Always)]
@@ -1220,6 +1551,48 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
 
     [Newtonsoft.Json.JsonProperty("IsCorrect", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public bool IsCorrect { get; set; }
+
+    private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+
+    [Newtonsoft.Json.JsonExtensionData]
+    public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+    {
+      get { return _additionalProperties; }
+      set { _additionalProperties = value; }
+    }
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class EditAnswerRequest : System.Collections.ObjectModel.Collection<PatchAnswerDocument>
+  {
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public partial class PatchAnswerDocument
+  {
+    /// <summary>
+    /// The operation to be performed.
+    /// </summary>
+    [Newtonsoft.Json.JsonProperty("op", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public PatchAnswerDocumentOp Op { get; set; }
+
+    /// <summary>
+    /// A JSON-Pointer.
+    /// </summary>
+    [Newtonsoft.Json.JsonProperty("path", Required = Newtonsoft.Json.Required.Always)]
+    [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public PatchAnswerDocumentPath Path { get; set; }
+
+    /// <summary>
+    /// The value to be used within the operations.
+    /// </summary>
+    [Newtonsoft.Json.JsonProperty("value", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public object Value { get; set; }
 
     private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1268,7 +1641,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     [Newtonsoft.Json.JsonProperty("Name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string Name { get; set; }
 
-    [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    [Newtonsoft.Json.JsonProperty("Description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public string Description { get; set; }
 
     [Newtonsoft.Json.JsonProperty("StartDateUtc", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -1773,6 +2146,27 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       get { return _additionalProperties; }
       set { _additionalProperties = value; }
     }
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public enum PatchAnswerDocumentOp
+  {
+
+    [System.Runtime.Serialization.EnumMember(Value = @"replace")]
+    Replace = 0,
+
+  }
+
+  [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
+  public enum PatchAnswerDocumentPath
+  {
+
+    [System.Runtime.Serialization.EnumMember(Value = @"/Option")]
+    _Option = 0,
+
+    [System.Runtime.Serialization.EnumMember(Value = @"/IsCorrect")]
+    _IsCorrect = 1,
 
   }
 

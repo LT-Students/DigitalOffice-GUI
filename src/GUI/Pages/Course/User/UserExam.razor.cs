@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LT.DigitalOffice.GUI.Pages.Course.User
 {
-  public partial class UserExam
+  partial class UserExam
   {
     [Parameter]
     public Guid Id { get; set; }
