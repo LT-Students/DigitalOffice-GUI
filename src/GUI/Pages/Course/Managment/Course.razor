@@ -33,6 +33,19 @@
                     </p>
                 </div>
             }
+            <div class="manage-course_course_users_container">
+                <h4 class="manage-course_course_users_header">
+                    Members
+                </h4>
+                @foreach (var user in CourseData.Users)
+                {
+                    <div class="manage-course_course_user">
+                        <p>
+                            @user.FirstName @user.LastName
+                        </p>
+                    </div>
+                }
+            </div>
             <EditForm Model="@_request" OnValidSubmit="@SubmitValidExamAsync">
                 <DataAnnotationsValidator />
                 <div class="manage-course_create-exam_container">

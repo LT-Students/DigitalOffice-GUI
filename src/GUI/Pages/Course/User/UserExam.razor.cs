@@ -12,11 +12,9 @@ namespace LT.DigitalOffice.GUI.Pages.Course.User
     [Parameter]
     public Guid Id { get; set; }
 
-    private bool _showAnswers = false;
-    private bool _showAnswersButhonAvailability = false;
     private bool _submitButtonDisabled = true;
 
-    private ExamResponse _examData { get; set; }
+    private UserExamResponse _examData { get; set; }
 
     private Dictionary<Guid, Guid> _questionsAnswers { get; set; } = new();
 
@@ -24,12 +22,7 @@ namespace LT.DigitalOffice.GUI.Pages.Course.User
     {
       try
       {
-        _examData = (await _examService.GetExamAsync(Id)).Body;
-
-        if (Guid.TryParse(await Storage.GetItemAsync<string>(Consts.UserId), out Guid userId))
-        {
-          _showAnswersButhonAvailability = _examData?.Exam.CreatorInfo?.Id == userId;
-        }
+        _examData = (await _examService.GetUserExamAsync(Id)).Body;
       }
       catch (Exception ex)
       {
@@ -42,12 +35,7 @@ namespace LT.DigitalOffice.GUI.Pages.Course.User
     {
       _questionsAnswers[questionId] = answerId;
 
-      _submitButtonDisabled = _questionsAnswers.Count != _examData.Questions.Count;
-    }
-
-    public void ShowAnswersChanged()
-    {
-      _showAnswers = !_showAnswers;
+      _submitButtonDisabled = _questionsAnswers.Count != _examData.UserQuestions.Count;
     }
 
     private async void SubmitAsync()

@@ -20,43 +20,39 @@
         </div>
     }
     <EditForm style="width: 100%" Model="@_questionsAnswers" OnValidSubmit="@SubmitAsync">
-        @if (_showAnswersButhonAvailability)
-        {
-            <div class="create-user-exam_show-answers_container">
-                <input type="checkbox"
-                    id="create-user-exam_show-answers_checkbox"
-                    name="show-answers"
-                    @onchange=@(() => ShowAnswersChanged())>
-                <label for="show-answers">Show answers</label>
-            </div>
-        }
-        @if (_examData?.Questions is not null)
+        @if (_examData?.UserQuestions is not null)
         {
             <div class="create-user-exam_question_container">
-                @foreach (var question in _examData.Questions)
+                @foreach (var question in _examData.UserQuestions)
                 {
                     <div class="create-user-exam_question-item_container">
                         <p>@question.Subject</p>
                         <div class="create-user-exam_question-item_answer_container">
                         @foreach (var answer in question.Answers)
                         {
-                        <div class="create-user-exam_question-item_answer-item_container">
-                            <input type="radio"
-                                id="@answer.Id"
-                                name="@question.Id"
-                                value="@answer.Id"
-                                checked=@(_showAnswers && answer.IsCorrect.HasValue && answer.IsCorrect.Value)
-                                @onclick=@(() => SelectionChanged(question.Id, answer.Id))>
-                            <label for="@answer.Id">@answer.Answer</label>
-                        </div>
+                            <div class="create-user-exam_question-item_answer-item_container">
+                                <input type="radio"
+                                    id="@answer.Id"
+                                    name="@question.Id"
+                                    value="@answer.Id"
+                                    checked=@(question.UserAnswer?.AnswerId == answer.Id)
+                                    @onclick=@(() => SelectionChanged(question.Id, answer.Id))>
+                                <label for="@answer.Id"
+                                    style=@(answer.IsCorrect.HasValue && answer.IsCorrect.Value ? "color: yellowgreen": "")>@answer.Answer</label>
+                            </div>
                         }
                         </div>
                     </div>
                 }
             </div>
+            @if (!_examData.IsFinished)
+            {
+                <button class="btn btn-outline-dark"
+                    disabled=@_submitButtonDisabled
+                    type="submit">Submit
+                </button>
+            }
         }
-        <button class="btn btn-outline-dark"
-            disabled=@_submitButtonDisabled
-            type="submit">Submit</button>
+
     </EditForm>
 </div>

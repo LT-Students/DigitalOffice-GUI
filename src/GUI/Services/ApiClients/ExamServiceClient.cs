@@ -161,9 +161,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     /// <param name="token">The JWT token.</param>
     /// <returns>Successfully returned list of courses.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, string token)
+    public virtual System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, bool? includeusers, string token)
     {
-      return GetCourseAsync(courseId, token, System.Threading.CancellationToken.None);
+      return GetCourseAsync(courseId, includeusers, token, System.Threading.CancellationToken.None);
     }
 
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -171,7 +171,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     /// <param name="token">The JWT token.</param>
     /// <returns>Successfully returned list of courses.</returns>
     /// <exception cref="ApiException">A server side error occurred.</exception>
-    public virtual async System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, string token, System.Threading.CancellationToken cancellationToken)
+    public virtual async System.Threading.Tasks.Task<OperationResultResponseCourseResponse> GetCourseAsync(System.Guid courseId, bool? includeusers, string token, System.Threading.CancellationToken cancellationToken)
     {
       if (courseId == null)
         throw new System.ArgumentNullException("courseId");
@@ -179,6 +179,10 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
       var urlBuilder_ = new System.Text.StringBuilder();
       urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/course/get?");
       urlBuilder_.Append(System.Uri.EscapeDataString("courseId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(courseId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      if (includeusers != null)
+      {
+        urlBuilder_.Append(System.Uri.EscapeDataString("includeusers") + "=").Append(System.Uri.EscapeDataString(ConvertToString(includeusers, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+      }
       urlBuilder_.Length--;
 
       var client_ = _httpClient;
@@ -1658,6 +1662,9 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     [Newtonsoft.Json.JsonProperty("Exams", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public System.Collections.Generic.ICollection<ExamInfo> Exams { get; set; }
 
+    [Newtonsoft.Json.JsonProperty("Users", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    public System.Collections.Generic.ICollection<UserInfo> Users { get; set; }
+
     private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
     [Newtonsoft.Json.JsonExtensionData]
@@ -1901,7 +1908,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
     public System.Collections.Generic.ICollection<AnswerInfo> Answers { get; set; }
 
     [Newtonsoft.Json.JsonProperty("UserAnswer", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-    public System.Collections.Generic.ICollection<UserAnswerInfo> UserAnswer { get; set; }
+    public UserAnswerInfo UserAnswer { get; set; }
 
     private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -1925,7 +1932,8 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
 
     [Newtonsoft.Json.JsonProperty("CreatedAtUtc", Required = Newtonsoft.Json.Required.Always)]
     [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-    public System.Guid CreatedAtUtc { get; set; }
+    [Newtonsoft.Json.JsonConverter(typeof(DateFormatConverter))]
+    public System.DateTimeOffset CreatedAtUtc { get; set; }
 
     private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
 
@@ -2035,7 +2043,7 @@ namespace LT.DigitalOffice.GUI.Services.ApiClients.ExamService
   [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
   public partial class OperationResultResponseUserExamResponse
   {
-    [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+    [Newtonsoft.Json.JsonProperty("Body", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
     public UserExamResponse Body { get; set; }
 
     [Newtonsoft.Json.JsonProperty("Errors", Required = Newtonsoft.Json.Required.Always)]

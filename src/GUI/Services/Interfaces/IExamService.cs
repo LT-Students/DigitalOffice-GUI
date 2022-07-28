@@ -15,7 +15,7 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 
     Task<FindResultResponseCourseInfo> FindCourseAsync(bool usercourses = false);
 
-    Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId);
+    Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId, bool includeUsers = false);
 
     Task<FindResultResponseExamInfo> FindExamsAsync();
 

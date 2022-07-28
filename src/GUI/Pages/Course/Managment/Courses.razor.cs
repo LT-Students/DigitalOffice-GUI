@@ -36,7 +36,7 @@ namespace LT.DigitalOffice.GUI.Pages.Course.Managment
     {
       try
       {
-        CourseData = (await _examService.GetCourseAsync(courseId)).Body;
+        CourseData = (await _examService.GetCourseAsync(courseId, true)).Body;
       }
       catch (Exception ex)
       {

@@ -44,12 +44,12 @@ namespace LT.DigitalOffice.GUI.Services
         usercourses: usercourses);
     }
 
-    public async Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId)
+    public async Task<OperationResultResponseCourseResponse> GetCourseAsync(Guid courseId, bool includeUsers = false)
     {
       await _refreshToken.RefreshAsync();
       var token = await _storage.GetItemAsync<string>(Consts.AccessToken);
 
-      return await _client.GetCourseAsync(courseId, token);
+      return await _client.GetCourseAsync(courseId, includeUsers, token);
     }
 
     public async Task CreateExamAsync(CreateExamRequest request)
