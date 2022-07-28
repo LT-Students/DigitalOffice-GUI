@@ -1,5 +1,6 @@
 ﻿@attribute [Authorize]
 
+@using LT.DigitalOffice.GUI.Helpers
 @using LT.DigitalOffice.GUI.Services.Interfaces;
 @using LT.DigitalOffice.GUI.Properties;
 
@@ -14,9 +15,7 @@
         </button>
         <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#">@Resources.News</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">@Resources.Department</a></li>
-                <li class="nav-item">
+                <!--li class="nav-item">
                     <div class="dropdown show">
                         <a
                             class="btn btn-secondary dropdown-toggle"
@@ -33,28 +32,23 @@
                                 <a class="dropdown-item" href="backlog">@Resources.BacklogPage</a>
                             </div>
                     </div>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="messenger">@Resources.Messages</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin">@Resources.Admin</a></li>
+                </li-->
+                <li class="nav-item"><a class="nav-link" href=@Urls.UserCourse>Course</a></li>
+                <!--li class="nav-item"><a class="nav-link" href="messenger">@Resources.Messages</a></li-->
+                @if(_isAdmin)
+                {
+                    <li class="nav-item"><a class="nav-link" href="admin">@Resources.Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href=@Urls.ManageCourse>Manage Courses</a></li>
+                }
             </ul>
-            <form class="d-flex" style="margin-left:10px">
+            <!--form class="d-flex" style="margin-left:10px">
                 <input class="form-control me-2" type="search" placeholder="@Resources.Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">@Resources.Search</button>
-            </form>
+            </form-->
             <img src="" alt="" class="rounded-circle">
-            <a class="nav-link" id="user-name" href="#" data-toggle="modal" data-target="#exampleModalLong" @onclick="async () => await _userWindow.GetUserData()">@userName</a>
+            <a class="nav-link" id="user-name" href="#" data-toggle="modal" data-target="#exampleModalLong" @onclick="async () => await _userWindow.GetUserData()">@_userName</a>
         </div>
     </div>
 </nav>
 
 <UserWindow @ref="_userWindow"/>
-
-@code {
-    private string userName;
-    private UserWindow _userWindow;
-
-    protected async override Task OnInitializedAsync()
-    {
-        userName = await _userService.GetUserNameAsync();
-    }
-}

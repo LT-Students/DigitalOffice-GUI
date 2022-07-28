@@ -6,6 +6,8 @@ namespace LT.DigitalOffice.GUI.Services.Interfaces
 {
   public interface IUserService
   {
+    Task<bool> IsAdminAsync();
+
     Task<string> GetUserNameAsync();
 
     Task<OperationResultResponse> CreateUserAsync(CreateUserRequest request);

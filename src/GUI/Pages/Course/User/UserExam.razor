@@ -1,0 +1,58 @@
+﻿@page "/user/course/exam/{Id:guid}"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using Blazored.SessionStorage
+
+@inject IExamService _examService
+@inject NavigationManager UriHelper;
+@inject ISessionStorageService Storage
+
+<div class="create-user-exam-page_container">
+    @if (_examData is not null)
+    {
+        <div class="exam_exam-info_container">
+            @if (_examData is not null)
+            {
+                <h4>@_examData.Exam.Name</h4>
+                <p>@_examData.Exam.Description</p>
+            }
+        </div>
+    }
+    <EditForm style="width: 100%" Model="@_questionsAnswers" OnValidSubmit="@SubmitAsync">
+        @if (_examData?.UserQuestions is not null)
+        {
+            <div class="create-user-exam_question_container">
+                @foreach (var question in _examData.UserQuestions)
+                {
+                    <div class="create-user-exam_question-item_container">
+                        <p>@question.Subject</p>
+                        <div class="create-user-exam_question-item_answer_container">
+                        @foreach (var answer in question.Answers)
+                        {
+                            <div class="create-user-exam_question-item_answer-item_container">
+                                <input type="radio"
+                                    id="@answer.Id"
+                                    name="@question.Id"
+                                    value="@answer.Id"
+                                    checked=@(question.UserAnswer?.AnswerId == answer.Id)
+                                    @onclick=@(() => SelectionChanged(question.Id, answer.Id))>
+                                <label for="@answer.Id"
+                                    style=@(answer.IsCorrect.HasValue && answer.IsCorrect.Value ? "color: yellowgreen": "")>@answer.Answer</label>
+                            </div>
+                        }
+                        </div>
+                    </div>
+                }
+            </div>
+            @if (!_examData.IsFinished)
+            {
+                <button class="btn btn-outline-dark"
+                    disabled=@_submitButtonDisabled
+                    type="submit">Submit
+                </button>
+            }
+        }
+
+    </EditForm>
+</div>

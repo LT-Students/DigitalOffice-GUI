@@ -1,0 +1,45 @@
+﻿@page "/manage/course"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces
+
+@inject IExamService _examService
+@inject NavigationManager UriHelper;
+
+<div class="manage-course-page_container">
+    <div class="manage-course_navigation-container">
+        <div>
+            <div>here wiil be search</div>
+            <button type="button"
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#createModalCenter"
+                    @onclick='(() => { _modalTitle = "Create course"; })'>
+                Create course
+            </button>
+        </div>
+        <div class="manage-course_courses-container">
+            @foreach (var course in _courses)
+            {
+                <div class="manage-course_course"
+                    onclick="@(() => OnSetCourseAsync(course.Id))">
+                    <h4>@course.Name</h4>
+                    <p>here will be some info</p> 
+                </div>
+            }
+        </div>
+    </div>
+
+    <LT.DigitalOffice.GUI.Pages.Course.Managment.Course CourseData="CourseData" />
+    
+</div>
+
+<ModalWindow @ref="_modalWindow" >
+    <Title>@_modalTitle</Title>
+    <Body>
+        @if (_modalTitle == "Create course")
+        {
+            <LT.DigitalOffice.GUI.Pages.Course.Managment.CreateCourse />
+        }
+    </Body>
+</ModalWindow>

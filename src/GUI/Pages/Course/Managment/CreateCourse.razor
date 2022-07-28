@@ -1,0 +1,72 @@
+﻿@page "/manage/create/course"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Properties;
+
+@inject IExamService _examService
+@inject NavigationManager UriHelper
+
+<EditForm Model="@_request" OnValidSubmit="@HandleValidSubmitAsync">
+    <DataAnnotationsValidator />
+    <div class="create-course_container">
+        <div class="create-course_about_container">
+            <div class="item-group">
+                <label for="create-course_name">Name<font color="red">*</font></label>
+                <input @bind-value="_request.Name"
+                       type="text"
+                       id="create-course_name"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _descriptionInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _request.Name" />
+            </div>
+            <div class="item-group">
+                <label for="create-course_description">Description</label>
+                <input @bind-value="_request.Description"
+                       @ref="_descriptionInput"
+                       type="text"
+                       id="create-course_description"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _startDateInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _request.Description" />
+            </div>
+            <div class="item-group">
+                <label for="create-course_start-date">Start date</label>
+                <input @bind-value="_request.StartDateUtc"
+                       @ref="_startDateInput"
+                       type="date"
+                       id="create-course_start-date"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _endDateInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _request.StartDateUtc" />
+            </div>
+            <div class="item-group">
+                <label for="create-course_end-date">End date</label>
+                <input @bind-value="_request.EndDateUtc"
+                       @ref="_endDateInput"
+                       type="date"
+                       id="create-course_end-date"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _endDateInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _request.EndDateUtc" />
+            </div>
+        </div>
+        <div class="create-course_actions_container">
+            <button class="btn btn-primary"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#create-user_snack"
+                    >Create
+            </button>
+        </div>
+    </div>
+    <Snackbar DataTarget="create-user_snack" Message=@_message IsSuccessOperation=@_isSuccessOperation />
+</EditForm>

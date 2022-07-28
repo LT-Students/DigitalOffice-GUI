@@ -1,0 +1,98 @@
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces
+
+@inject IExamService _examService
+@inject NavigationManager UriHelper;
+
+<div class="manage-course_course_container">
+    @if (CourseData is not null)
+    {
+        <div class="manage-course_course-info_container">
+            <h4>@CourseData.Name</h4>
+            <p>@CourseData.Description</p>
+            <div class="manage-course_course_timing">
+                <h6>@(CourseData.StartDateUtc.HasValue ? $"Start course: {CourseData.StartDateUtc.Value.Date}" : "")</h6>
+                <h6>@(CourseData.EndDateUtc.HasValue ? $"End course: {CourseData.EndDateUtc.Value.Date}" : "")</h6>
+            </div>
+        </div>
+        <div class="manage-course_course-exams_container">
+            <h4>
+                Exams
+            </h4>
+            @foreach (var exam in CourseData.Exams)
+            {
+                <div class="manage-course_course_exam"
+                    onclick="@(() => OnSetExamAsync(exam.Id))">
+                    <h4 class="manage-course_course_exam_header">
+                        @exam.Name
+                    </h4>
+                    <h6 class="manage-course_course_exam_deadline">
+                        Deadline: @(exam.DeadLineUtc.HasValue ? exam.DeadLineUtc.Value.LocalDateTime : "")
+                    </h6>
+                    <p class="manage-course_course_exam_description">
+                        @exam.Description
+                    </p>
+                </div>
+            }
+            <div class="manage-course_course_users_container">
+                <h4 class="manage-course_course_users_header">
+                    Members
+                </h4>
+                @foreach (var user in CourseData.Users)
+                {
+                    <div class="manage-course_course_user">
+                        <p>
+                            @user.FirstName @user.LastName
+                        </p>
+                    </div>
+                }
+            </div>
+            <EditForm Model="@_request" OnValidSubmit="@SubmitValidExamAsync">
+                <DataAnnotationsValidator />
+                <div class="manage-course_create-exam_container">
+                    <div class="manage-course_create-exam_exam-info_container">
+                        <div class="item-group">
+                            <label for="create-exam_name">Name<font color="red">*</font></label>
+                            <input @bind-value="_request.Name"
+                                   type="text"
+                                   id="create-exam_name"
+                                   class="form-control"
+                                   @onkeyup="@((k) => {
+                                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                                   _descriptionInput.FocusAsync();})" />
+                            <ValidationMessage style="font-size: 0.7em;" For="() => _request.Name" />
+                        </div>
+                        <div class="item-group">
+                            <label for="create-exam_description">Description</label>
+                            <input @bind-value="_request.Description"
+                                   @ref="_descriptionInput"
+                                   type="text"
+                                   id="create-exam_description"
+                                   class="form-control"
+                                   @onkeyup="@((k) => {
+                                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                                   _deadlineInput.FocusAsync();})" />
+                            <ValidationMessage style="font-size: 0.7em;" For="() => _request.Description" />
+                        </div>
+                        <div class="item-group">
+                            <label for="create-exam_deadline-date">Deadline date</label>
+                            <input @bind-value="_request.DeadLineUtc"
+                                   @ref="_deadlineInput"
+                                   type="date"
+                                   id="create-exam_deadline-date"
+                                   class="form-control"/>
+                            <ValidationMessage style="font-size: 0.7em;" For="() => _request.DeadLineUtc" />
+                        </div>
+                    </div>
+                    <div class="create-exam_actions_container">
+                        <button class="btn btn-primary"
+                                type="submit"
+                                >Create
+                        </button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+
+    }
+    <!--LT.DigitalOffice.GUI.Pages.Messenger.Workspace.Workspace CourseData="_courseInfo" /-->
+</div>

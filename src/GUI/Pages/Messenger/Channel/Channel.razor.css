@@ -1,7 +1,7 @@
 ﻿.cannel_container {
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
+    justify-content: space-between;
 
     height: 100%;
     width: calc(100% - 300px);

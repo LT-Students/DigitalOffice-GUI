@@ -45,7 +45,7 @@ namespace LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
             Guid userId = await _Storage.GetItemAsync<Guid>(Consts.UserId);
             _userRole = project.Users.FirstOrDefault(x => x.Id == userId).Role;
 
-            IsUserAdmin = await _Storage.GetItemAsync<bool>(Consts.IsUserAdmin);
+            IsUserAdmin = await _Storage.GetItemAsync<bool>(Consts.IsAdmin);
 
             StateHasChanged();
         }

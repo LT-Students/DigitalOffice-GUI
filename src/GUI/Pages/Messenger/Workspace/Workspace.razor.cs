@@ -8,7 +8,7 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Workspace
   public partial class Workspace
   {
     [Parameter]
-    public OperationResultResponseWorkspaceInfo WorkspaceData { get; set; }
+    public OperationResultResponseExamInfo WorkspaceData { get; set; }
 
     private OperationResultResponseChannelInfo _channelInfo;
 

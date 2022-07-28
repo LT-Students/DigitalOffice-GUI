@@ -13,7 +13,6 @@ namespace LT.DigitalOffice.GUI.Pages.Messenger.Message
 
     private CreateMessageRequest _request = new();
 
-
     private async Task SendMessageAsync()
     {
       try

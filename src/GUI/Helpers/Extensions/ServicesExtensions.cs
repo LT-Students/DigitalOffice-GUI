@@ -8,16 +8,15 @@ namespace LT.DigitalOffice.GUI.Helpers.Extensions
   {
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-      if (services == null)
+      if (services is null)
       {
         return services;
       }
 
       services.AddScoped<IAuthService, AuthService>();
       services.AddScoped<IUserService, UserService>();
-      services.AddScoped<IFileService, FileService>();
       services.AddScoped<IProjectService, ProjectService>();
-      services.AddScoped<ICompanyService, CompanyService>();
+      services.AddScoped<IExamService, ExamService>();
       services.AddScoped<IMessageService, MessageService>();
       services.AddScoped<IChatHub, ChatHub>();
 

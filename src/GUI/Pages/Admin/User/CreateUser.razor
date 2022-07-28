@@ -2,7 +2,6 @@
 @using LT.DigitalOffice.GUI.Properties;
 
 @inject IUserService userService
-@inject ICompanyService companyService
 @inject IAuthService authService
 @inject NavigationManager UriHelper
 
@@ -63,10 +62,7 @@
                     <input @bind-value="_userData.Password"
                            @ref="_passwordInput"
                            id="create-user_password"
-                           class="form-control"
-                           @onkeyup="@((k) => {
-                                       if (k.Code == "Enter" || k.Code == "ArrowDown")
-                                           _rateSelect.FocusAsync();})" />
+                           class="form-control"/>
                     <button class="btn btn-primary"
                             type="button"
                             @onclick="@GeneratePasswordAsync">
@@ -82,41 +78,6 @@
                 <label for="create-user_is-admin">@Resources.IsAdmin</label>
             </div>
         </div>
-
-        <div class="create-user_service-container">
-            <div class="item-group">
-                <label for="create-user_rate">@Resources.Rate<font color="red">*</font></label>
-                <select @bind="_userData.Rate"
-                        @ref="_rateSelect"
-                        id="create-user_rate"
-                        class="form-select"
-                        @onkeyup="@((k) => {
-                                    if (k.Code == "ArrowDown")
-                                        _positionSelect.FocusAsync();})">
-                    @foreach (var rate in _rateValues)
-                    {
-                        <option value="@rate">@rate</option>
-                    }
-                </select>
-            </div>
-            <div class="item-group">
-                <label for="create-user_position">@Resources.Position<font color="red">*</font></label>
-                <select @bind="_userData.PositionId"
-                        @ref="_positionSelect"
-                        id="create-user_position"
-                        class="form-select">
-                    <option value="null" selected>@Resources.NotSelected...</option>
-                    @if (_positions != null)
-                    {
-                        foreach (var position in _positions)
-                        {
-                            <option value="@position.Id">@position.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-        </div>
-
         <div class="create-user_actions-container">
             <button class="btn btn-primary"
                     type="submit"
